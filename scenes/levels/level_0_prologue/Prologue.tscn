@@ -1,0 +1,473 @@
+[gd_scene format=3 uid="uid://di6jwi87xitob"]
+
+[ext_resource type="Script" uid="uid://1014yc6o6og0" path="res://scenes/levels/level_0_prologue/Prologue.cs" id="1_2wkgt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cbp8q"]
+size = Vector3(20, 0.2, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2wkgt"]
+size = Vector3(20, 0.2, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
+albedo_color = Color(0.6, 0.2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2wkgt"]
+material = SubResource("StandardMaterial3D_door")
+size = Vector3(4, 4, 0.3)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2wkgt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q6uyw"]
+size = Vector3(1.088501, 0.24636841, 0.62268066)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q8w86"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vcp8q"]
+albedo_color = Color(0.46086186, 0.26726577, 0.16067368, 1)
+
+[sub_resource type="Animation" id="Animation_0pfmq"]
+resource_name = "CinematicSequence"
+length = 20.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ScreenUI/BlackCover:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.32222223, 0.16666667, 0, 0, 1, 0, 0, 0, 0, 0, -0.5611112, 0.16666666, 0, 0, 0, -0.7333333, 0, 0, 0),
+"times": PackedFloat32Array(2.0666666, 4, 7.6666665, 11.033334, 15.466666)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:current")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 9.784369),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(41.6, -0.25, 0, 0.25, 0, 70.6, -1.2408749, -4.8333335, 0, 0),
+"times": PackedFloat32Array(0, 7.445249)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-0.115, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(3.015, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:position:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-0.205, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:rotation:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1.5707964, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:rotation:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:rotation:z")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../ZoomBook:current")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.11410344, 8.985645),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../ZoomBook:position:x")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.595, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(11.09656)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../ZoomBook:position:y")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(3.21, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(11.09656)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../ZoomBook:position:z")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2.225, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(11.09656)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../ZoomBook:rotation:x")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-0.29670596, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(11.09656)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../ZoomBook:rotation:y")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-2.2410028, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(11.09656)
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../ZoomBook:rotation:z")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(11.09656)
+}
+tracks/16/type = "bezier"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("../ZoomBook:fov")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(30.5, -0.25, 0, 0.25, 0, 9.5, -1.3977671, 3.5, 0, 0),
+"times": PackedFloat32Array(11.09656, 19.483162)
+}
+
+[sub_resource type="Animation" id="Animation_6f55l"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ScreenUI/BlackCover:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(70.6, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:current")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ZoomBook:current")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../ZoomBook:fov")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(9, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k1ucl"]
+_data = {
+&"CinematicSequence": SubResource("Animation_0pfmq"),
+&"RESET": SubResource("Animation_6f55l")
+}
+
+[node name="Prologue" type="Node3D" unique_id=309842320 node_paths=PackedStringArray("DirectorAnim", "MainCamera", "PlayerVisual", "DialogueText", "BlackCover")]
+script = ExtResource("1_2wkgt")
+DirectorAnim = NodePath("Director")
+MainCamera = NodePath("CloseUp")
+PlayerVisual = NodePath("CharacterBody3D/MeshInstance3D")
+DialogueText = NodePath("ScreenUI/Dialogue Text")
+BlackCover = NodePath("ScreenUI/BlackCover")
+NextScenePath = "uid://bhrdjha0g10ow"
+
+[node name="Map" type="Node3D" parent="." unique_id=1523037204]
+
+[node name="Floor" type="StaticBody3D" parent="Map" unique_id=599037073]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Floor" unique_id=45851091]
+mesh = SubResource("BoxMesh_cbp8q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Floor" unique_id=1824310240]
+shape = SubResource("BoxShape3D_2wkgt")
+
+[node name="Floor2" type="StaticBody3D" parent="Map" unique_id=526592059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9635596, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Floor2" unique_id=837394059]
+mesh = SubResource("BoxMesh_cbp8q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Floor2" unique_id=69631666]
+shape = SubResource("BoxShape3D_2wkgt")
+
+[node name="FloorRoom2" type="CSGBox3D" parent="Map" unique_id=1371398848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
+use_collision = true
+size = Vector3(20, 0.2, 20)
+
+[node name="Walls" type="Node3D" parent="Map" unique_id=418890873]
+
+[node name="WallNorth" type="CSGBox3D" parent="Map/Walls" unique_id=2005678331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
+use_collision = true
+size = Vector3(20, 5, 0.2)
+
+[node name="WallSouth" type="CSGBox3D" parent="Map/Walls" unique_id=1198744008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
+use_collision = true
+size = Vector3(20, 5, 0.2)
+
+[node name="WallEast" type="CSGBox3D" parent="Map/Walls" unique_id=718662601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5, 0)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
+[node name="WallWestNorth" type="CSGBox3D" parent="Map/Walls" unique_id=88664402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, -6)
+use_collision = true
+size = Vector3(0.2, 5, 8)
+
+[node name="WallWestSouth" type="CSGBox3D" parent="Map/Walls" unique_id=253681221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 6)
+use_collision = true
+size = Vector3(0.2, 5, 8)
+
+[node name="WallWestRoom2" type="CSGBox3D" parent="Map/Walls" unique_id=2009486548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2.5, 0)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
+[node name="WallNorthRoom2" type="CSGBox3D" parent="Map/Walls" unique_id=35352492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, -10)
+use_collision = true
+size = Vector3(20, 5, 0.2)
+
+[node name="WallSouthRoom2Left" type="CSGBox3D" parent="Map/Walls" unique_id=348440013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2.5, 10)
+use_collision = true
+size = Vector3(8, 5, 0.2)
+
+[node name="WallSouthRoom2Right" type="CSGBox3D" parent="Map/Walls" unique_id=305095533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 10)
+use_collision = true
+size = Vector3(8, 5, 0.2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map" unique_id=740651248]
+transform = Transform3D(-0.02348998, 0, -0.9997241, 0, 1.4957618, 0, 0.9997241, 0, -0.02348998, -9.960457, 2.012208, 0)
+mesh = SubResource("BoxMesh_2wkgt")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1130554622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3006825, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1254612407]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.78235006, 0)
+mesh = SubResource("CapsuleMesh_2wkgt")
+
+[node name="Lights" type="Node3D" parent="." unique_id=1800243041]
+
+[node name="Torch" type="Node3D" parent="Lights" unique_id=1835145884]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lights/Torch" unique_id=1235562145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.858452, 2.914606, -8.373868)
+light_color = Color(0.7254902, 0.49411765, 0, 1)
+light_energy = 1.2
+light_specular = 2.567
+shadow_enabled = true
+omni_range = 28.122713
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lights/Torch" unique_id=819955404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.42217, 2.914606, 7.9756107)
+light_color = Color(0.7254902, 0.49411765, 0, 1)
+light_energy = 1.2
+light_specular = 2.567
+shadow_enabled = true
+omni_range = 28.122713
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lights/Torch" unique_id=1165814469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.74152, 2.914606, -8.710974)
+light_color = Color(0.7254902, 0.49411765, 0, 1)
+light_energy = 1.2
+light_specular = 2.567
+shadow_enabled = true
+omni_range = 28.122713
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lights/Torch" unique_id=369882796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.527333, 2.914606, 8.049907)
+light_color = Color(0.7254902, 0.49411765, 0, 1)
+light_energy = 1.2
+light_specular = 2.567
+shadow_enabled = true
+omni_range = 28.122713
+
+[node name="Book light" type="OmniLight3D" parent="Lights" unique_id=1689680307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.589019, 0.40622973, 7.7025347)
+light_color = Color(0.3254902, 0.44705883, 1, 1)
+light_energy = 5.365
+omni_range = 0.8866485
+
+[node name="Grimoire" type="Area3D" parent="." unique_id=497229957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.554409, -0.34989274, 8.027561)
+
+[node name="BookShape" type="CollisionShape3D" parent="Grimoire" unique_id=137136226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0017986298, 0.56836545, -0.3100853)
+shape = SubResource("BoxShape3D_q6uyw")
+
+[node name="BookVisual" type="MeshInstance3D" parent="Grimoire" unique_id=1088959616]
+transform = Transform3D(1.1001837, 0, 0, 0, 0.21814394, 0, 0, 0, 0.64546275, 0, 0.5511192, -0.3197899)
+mesh = SubResource("BoxMesh_q8w86")
+surface_material_override/0 = SubResource("StandardMaterial3D_vcp8q")
+
+[node name="CloseUp" type="Camera3D" parent="." unique_id=1887182472]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.115, 3.015, -0.205)
+fov = 70.6
+
+[node name="ZoomBook" type="Camera3D" parent="." unique_id=43856085]
+transform = Transform3D(-0.6211478, 0.22912978, -0.7494498, 0, 0.9563048, 0.2923717, 0.78369343, 0.18160604, -0.5940066, 1.595, 3.21, 2.225)
+current = true
+fov = 9.0
+
+[node name="Director" type="AnimationPlayer" parent="." unique_id=55245256]
+root_node = NodePath("../CloseUp")
+libraries/ = SubResource("AnimationLibrary_k1ucl")
+autoplay = &"CinematicSequence"
+
+[node name="ScreenUI" type="CanvasLayer" parent="." unique_id=2147120724]
+
+[node name="BlackCover" type="ColorRect" parent="ScreenUI" unique_id=1854131704]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SepiaFilter" type="ColorRect" parent="ScreenUI" unique_id=833409279]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.68235296, 0.54509807, 0.28235295, 0.49019608)
+
+[node name="Dialogue Text" type="Label" parent="ScreenUI" unique_id=1582986274]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
