@@ -5,8 +5,8 @@ using System.Linq;
 
 public partial class InventorySystem : Node
 {
-	[Export] public int InventorySize { get; set; } = 6; // 6 slot (2x3)
-	[Export] public int HotbarSize { get; set; } = 6; // 6 slot hotbar
+	[Export] public int InventorySize { get; set; } = 16; // 16 slot total (4x4)
+	[Export] public int HotbarSize { get; set; } = 4; // 4 slot hotbar (1x4)
 
 	private List<InventoryItem> _items;
 	private int _selectedHotbarSlot = 0;
@@ -102,6 +102,29 @@ public partial class InventorySystem : Node
 		if (slotIndex < 0 || slotIndex >= InventorySize)
 			return null;
 		return _items[slotIndex];
+	}
+	
+	// Alias untuk GetItem (untuk compatibility)
+	public InventoryItem GetItemAt(int slotIndex)
+	{
+		return GetItem(slotIndex);
+	}
+	
+	// Swap items antara dua slot (untuk drag-drop)
+	public void SwapItems(int fromIndex, int toIndex)
+	{
+		if (fromIndex < 0 || fromIndex >= InventorySize || toIndex < 0 || toIndex >= InventorySize)
+		{
+			GD.Print($"SwapItems: Invalid indices {fromIndex}, {toIndex}");
+			return;
+		}
+		
+		var temp = _items[fromIndex];
+		_items[fromIndex] = _items[toIndex];
+		_items[toIndex] = temp;
+		
+		GD.Print($"Swapped items: slot {fromIndex} <-> slot {toIndex}");
+		EmitSignal(SignalName.InventoryChanged);
 	}
 
 	// Dapatkan semua items

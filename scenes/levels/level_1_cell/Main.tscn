@@ -1,13 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://bhrdjha0g10ow"]
+[gd_scene format=3 uid="uid://bhrdjha0g10ow"]
 
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_qg8n7"]
-[ext_resource type="Script" path="res://scripts/items/PickableItem.cs" id="2_item1"]
-[ext_resource type="Script" path="res://scripts/ui/InventoryUI.cs" id="3_invui"]
-[ext_resource type="Script" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
-[ext_resource type="Script" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
-[ext_resource type="Script" path="res://scripts/items/BookItem.cs" id="6_bookitem"]
-[ext_resource type="Script" path="res://scripts/ui/PuzzleUI.cs" id="7_puzzleui"]
-[ext_resource type="Script" path="res://scripts/puzzles/DoorPuzzle.cs" id="8_doorpuzzle"]
+[ext_resource type="Script" uid="uid://dqlr3mcto7ab4" path="res://scripts/items/PickableItem.cs" id="2_item1"]
+[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
+[ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
+[ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="6_bookitem"]
+[ext_resource type="PackedScene" uid="uid://cvw3f0558f36y" path="res://scenes/ui/PuzzleUI.tscn" id="7_puzzleui"]
+[ext_resource type="Script" uid="uid://bthdhyq4ff2n6" path="res://scripts/puzzles/DoorPuzzle.cs" id="8_doorpuzzle"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(20, 0.2, 20)
@@ -58,123 +58,123 @@ emission_enabled = true
 emission = Color(0.3, 0.6, 1, 1)
 emission_energy_multiplier = 2.0
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=2043194446]
 
-[node name="GameSetup" type="Node" parent="."]
+[node name="GameSetup" type="Node" parent="." unique_id=1537644261]
 script = ExtResource("4_setup")
 
-[node name="Player" parent="." instance=ExtResource("1_qg8n7")]
+[node name="Player" parent="." unique_id=1038942510 instance=ExtResource("1_qg8n7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=36110966]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1772975761]
 mesh = SubResource("BoxMesh_floor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=73760016]
 shape = SubResource("BoxShape3D_floor")
 
-[node name="FloorRoom2" type="CSGBox3D" parent="."]
+[node name="FloorRoom2" type="CSGBox3D" parent="." unique_id=1032368702]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
 use_collision = true
 size = Vector3(20, 0.2, 20)
 
-[node name="Walls" type="Node3D" parent="."]
+[node name="Walls" type="Node3D" parent="." unique_id=849941021]
 
-[node name="WallNorth" type="CSGBox3D" parent="Walls"]
+[node name="WallNorth" type="CSGBox3D" parent="Walls" unique_id=1164657401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
 use_collision = true
 size = Vector3(20, 5, 0.2)
 
-[node name="WallSouth" type="CSGBox3D" parent="Walls"]
+[node name="WallSouth" type="CSGBox3D" parent="Walls" unique_id=29249855]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
 use_collision = true
 size = Vector3(20, 5, 0.2)
 
-[node name="WallEast" type="CSGBox3D" parent="Walls"]
+[node name="WallEast" type="CSGBox3D" parent="Walls" unique_id=853179053]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5, 0)
 use_collision = true
 size = Vector3(0.2, 5, 20)
 
-[node name="WallWestNorth" type="CSGBox3D" parent="Walls"]
+[node name="WallWestNorth" type="CSGBox3D" parent="Walls" unique_id=964540073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, -6)
 use_collision = true
 size = Vector3(0.2, 5, 8)
 
-[node name="WallWestSouth" type="CSGBox3D" parent="Walls"]
+[node name="WallWestSouth" type="CSGBox3D" parent="Walls" unique_id=297403385]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 6)
 use_collision = true
 size = Vector3(0.2, 5, 8)
 
-[node name="WallWestRoom2" type="CSGBox3D" parent="Walls"]
+[node name="WallWestRoom2" type="CSGBox3D" parent="Walls" unique_id=862691668]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2.5, 0)
 use_collision = true
 size = Vector3(0.2, 5, 20)
 
-[node name="WallNorthRoom2" type="CSGBox3D" parent="Walls"]
+[node name="WallNorthRoom2" type="CSGBox3D" parent="Walls" unique_id=842423164]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, -10)
 use_collision = true
 size = Vector3(20, 5, 0.2)
 
-[node name="WallSouthRoom2Left" type="CSGBox3D" parent="Walls"]
+[node name="WallSouthRoom2Left" type="CSGBox3D" parent="Walls" unique_id=1687993071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2.5, 10)
 use_collision = true
 size = Vector3(8, 5, 0.2)
 
-[node name="WallSouthRoom2Right" type="CSGBox3D" parent="Walls"]
+[node name="WallSouthRoom2Right" type="CSGBox3D" parent="Walls" unique_id=1734043353]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 10)
 use_collision = true
 size = Vector3(8, 5, 0.2)
 
-[node name="Ceiling" type="CSGBox3D" parent="."]
+[node name="Ceiling" type="CSGBox3D" parent="." unique_id=780473622]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 visible = false
 use_collision = true
 size = Vector3(20, 0.2, 20)
 
-[node name="Items" type="Node3D" parent="."]
+[node name="Items" type="Node3D" parent="." unique_id=1048350633]
 
-[node name="PickableItem1" type="StaticBody3D" parent="Items"]
+[node name="PickableItem1" type="StaticBody3D" parent="Items" unique_id=989255993]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 2)
 script = ExtResource("2_item1")
 ItemId = "crystal"
 ItemName = "Crystal"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/PickableItem1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/PickableItem1" unique_id=1125553507]
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/PickableItem1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/PickableItem1" unique_id=281060273]
 shape = SubResource("SphereShape3D_item")
 
-[node name="PickableItem2" type="StaticBody3D" parent="Items"]
+[node name="PickableItem2" type="StaticBody3D" parent="Items" unique_id=1013538848]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -3)
 script = ExtResource("2_item1")
 ItemId = "coin"
 ItemName = "Coin"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/PickableItem2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/PickableItem2" unique_id=23347919]
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_coin")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/PickableItem2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/PickableItem2" unique_id=2078551366]
 shape = SubResource("SphereShape3D_item")
 
-[node name="PickableItem3" type="StaticBody3D" parent="Items"]
+[node name="PickableItem3" type="StaticBody3D" parent="Items" unique_id=524055665]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, -5)
 script = ExtResource("2_item1")
 ItemId = "potion"
 ItemName = "Potion"
 MaxStackSize = 16
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/PickableItem3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/PickableItem3" unique_id=1043865014]
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_potion")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/PickableItem3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/PickableItem3" unique_id=1309347228]
 shape = SubResource("SphereShape3D_item")
 
-[node name="BookItem1" type="StaticBody3D" parent="Items"]
+[node name="BookItem1" type="StaticBody3D" parent="Items" unique_id=1986423889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 6)
 script = ExtResource("6_bookitem")
 BookTitle = "The Lost Chronicles"
@@ -212,58 +212,51 @@ ItemId = "ancient_book"
 ItemName = "Ancient Book"
 MaxStackSize = 1
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/BookItem1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/BookItem1" unique_id=702592139]
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/BookItem1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/BookItem1" unique_id=678401826]
 shape = SubResource("SphereShape3D_item")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=815386541]
 transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2095177373]
 
-[node name="Obstacles" type="Node3D" parent="."]
+[node name="Obstacles" type="Node3D" parent="." unique_id=171492822]
 
-[node name="Box1" type="CSGBox3D" parent="Obstacles"]
+[node name="Box1" type="CSGBox3D" parent="Obstacles" unique_id=1018422847]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.5, 5)
 use_collision = true
 size = Vector3(2, 1, 2)
 
-[node name="Box2" type="CSGBox3D" parent="Obstacles"]
+[node name="Box2" type="CSGBox3D" parent="Obstacles" unique_id=1003260285]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.75, 4)
 use_collision = true
 size = Vector3(1.5, 1.5, 1.5)
 
-[node name="PuzzleDoor" type="StaticBody3D" parent="."]
+[node name="PuzzleDoor" type="StaticBody3D" parent="." unique_id=2106580162]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -10.1, 2, 0)
 script = ExtResource("8_doorpuzzle")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PuzzleDoor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PuzzleDoor" unique_id=1471703581]
 mesh = SubResource("BoxMesh_door")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PuzzleDoor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PuzzleDoor" unique_id=786038635]
 shape = SubResource("BoxShape3D_door")
 
-[node name="ControlPanel" type="CSGBox3D" parent="."]
+[node name="ControlPanel" type="CSGBox3D" parent="." unique_id=1258732371]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.65125, 2, -2.5)
 size = Vector3(0.3, 0.8, 0.5)
 material = SubResource("StandardMaterial3D_panel")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=211670853]
 
-[node name="InventoryUI" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_invui")
+[node name="InventoryUI" parent="UI" unique_id=3306095 instance=ExtResource("3_invui")]
 
-[node name="BookUI" type="Control" parent="CanvasLayer"]
+[node name="BookUI" type="Control" parent="UI" unique_id=1847499792]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -272,11 +265,4 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_bookui")
 
-[node name="PuzzleUI" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_puzzleui")
+[node name="PuzzleUI" parent="UI" unique_id=692572082 instance=ExtResource("7_puzzleui")]

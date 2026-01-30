@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://bh7y0kxlmqe5"]
+
+[ext_resource type="Script" uid="uid://cmixinguiscript" path="res://scripts/ui/MixingUI.cs" id="1_mixing"]
+
+[node name="MixingUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_mixing")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="MixingPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -320.0
+offset_right = 400.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 34
+text = "⚗️ TRI-COLOR SYNTHESIS"
+horizontal_alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 60.0
+offset_right = 360.0
+offset_bottom = 95.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 14
+text = "Synthesize the Teal Potion through tri-color synthesis."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CurrentMixtureLabel" type="Label" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 100.0
+offset_right = 360.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+theme_override_font_sizes/font_size = 16
+text = "Cauldron: Empty"
+horizontal_alignment = 1
+
+[node name="StorageLabel" type="Label" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 135.0
+offset_right = 360.0
+offset_bottom = 165.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6, 1, 0.6, 1)
+theme_override_font_sizes/font_size = 16
+text = "Storage: Empty"
+horizontal_alignment = 1
+
+[node name="MaterialInventoryLabel" type="Label" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 170.0
+offset_right = 360.0
+offset_bottom = 200.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 14
+text = "Materials: Green x0 | Red x0 | Blue x0"
+horizontal_alignment = 1
+
+[node name="MaterialContainer" type="VBoxContainer" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -60.0
+offset_right = 280.0
+offset_bottom = 100.0
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="MixingPanel/MaterialContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Primary Materials:"
+
+[node name="GreenButton" type="Button" parent="MixingPanel/MaterialContainer"]
+custom_minimum_size = Vector2(240, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "🌿 Green Moss"
+
+[node name="RedButton" type="Button" parent="MixingPanel/MaterialContainer"]
+custom_minimum_size = Vector2(240, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "🕷️ Red Powder"
+
+[node name="BlueButton" type="Button" parent="MixingPanel/MaterialContainer"]
+custom_minimum_size = Vector2(240, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "✨ Blue Extract"
+
+[node name="SecondaryContainer" type="VBoxContainer" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -60.0
+offset_right = -40.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="MixingPanel/SecondaryContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Secondary Potions:"
+
+[node name="YellowButton" type="Button" parent="MixingPanel/SecondaryContainer"]
+custom_minimum_size = Vector2(240, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "💛 Yellow Potion"
+disabled = true
+
+[node name="MagentaButton" type="Button" parent="MixingPanel/SecondaryContainer"]
+custom_minimum_size = Vector2(240, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "💗 Magenta Potion"
+disabled = true
+
+[node name="CyanButton" type="Button" parent="MixingPanel/SecondaryContainer"]
+custom_minimum_size = Vector2(240, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "💙 Cyan Potion"
+disabled = true
+
+[node name="MixButton" type="Button" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -140.0
+offset_right = 150.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "🔬 MIX IN CAULDRON"
+
+[node name="ResetButton" type="Button" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -90.0
+offset_right = 150.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "🗑️ Clear Cauldron"
+
+[node name="CloseButton" type="Button" parent="MixingPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -50.0
+offset_right = 80.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 14
+text = "Close"

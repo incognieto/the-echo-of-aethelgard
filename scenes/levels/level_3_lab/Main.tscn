@@ -1,0 +1,329 @@
+[gd_scene format=3 uid="uid://bnrxygybf12so"]
+
+[ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://b8pn1xqg35okm" path="res://scripts/items/MaterialItem.cs" id="2_material"]
+[ext_resource type="PackedScene" uid="uid://binventoryuiscn" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
+[ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
+[ext_resource type="Script" uid="uid://bh7yuw6ath05" path="res://scripts/puzzles/MixingPuzzle.cs" id="6_mixpuzzle"]
+[ext_resource type="PackedScene" uid="uid://bh7y0kxlmqe5" path="res://scenes/ui/MixingUI.tscn" id="7_mixui"]
+[ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="8_bookitem"]
+[ext_resource type="PackedScene" uid="uid://cpj1vkmfr8tn1" path="res://scenes/ui/QuantityPickerUI.tscn" id="9_qtyui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FinalMixingUI.tscn" id="10_finalmix"]
+[ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(25, 0.2, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lab"]
+albedo_color = Color(0.8, 0.85, 0.9, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(25, 0.2, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_table"]
+albedo_color = Color(0.4, 0.3, 0.25, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_table"]
+material = SubResource("StandardMaterial3D_table")
+size = Vector3(3, 1.2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_table"]
+size = Vector3(3, 1.2, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
+albedo_color = Color(0.4, 0.3, 0.2, 1)
+metallic = 0.6
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_rustydoor"]
+material = SubResource("StandardMaterial3D_door")
+size = Vector3(4, 4.5, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rustydoor"]
+size = Vector3(4, 4.5, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cauldron"]
+albedo_color = Color(0.15, 0.15, 0.15, 1)
+metallic = 0.8
+roughness = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cauldron"]
+material = SubResource("StandardMaterial3D_cauldron")
+top_radius = 1.2
+bottom_radius = 0.8
+height = 1.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cauldron"]
+height = 1.5
+radius = 1.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_item"]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_book"]
+albedo_color = Color(0.6, 0.4, 0.2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_item"]
+radius = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_green"]
+albedo_color = Color(0.2, 0.8, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_red"]
+albedo_color = Color(0.9, 0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blue"]
+albedo_color = Color(0.2, 0.5, 1, 1)
+
+[node name="Main" type="Node3D" unique_id=1136436961]
+
+[node name="GameSetup" type="Node" parent="." unique_id=1996700054]
+script = ExtResource("4_setup")
+
+[node name="Player" parent="." unique_id=1725543223 instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1702196355]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=232413335]
+mesh = SubResource("BoxMesh_floor")
+surface_material_override/0 = SubResource("StandardMaterial3D_lab")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1577500486]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="Walls" type="Node3D" parent="." unique_id=2134685429]
+
+[node name="WallNorth" type="CSGBox3D" parent="Walls" unique_id=477838150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
+use_collision = true
+size = Vector3(25, 5, 0.2)
+
+[node name="WallSouth" type="CSGBox3D" parent="Walls" unique_id=3530530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
+use_collision = true
+size = Vector3(25, 5, 0.2)
+
+[node name="WallEastTop" type="CSGBox3D" parent="Walls" unique_id=765077847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 2.5, -6)
+use_collision = true
+size = Vector3(0.2, 5, 8)
+
+[node name="WallEastBottom" type="CSGBox3D" parent="Walls" unique_id=1708198815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 2.5, 6)
+use_collision = true
+size = Vector3(0.2, 5, 8)
+
+[node name="WallWest" type="CSGBox3D" parent="Walls" unique_id=352560410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2.5, 0)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
+[node name="Ceiling" type="CSGBox3D" parent="." unique_id=1255258577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+visible = false
+use_collision = true
+size = Vector3(25, 0.2, 20)
+
+[node name="LabTable" type="StaticBody3D" parent="." unique_id=1216210040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -6)
+script = ExtResource("6_mixpuzzle")
+RustyDoorPath = NodePath("../RustyDoor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LabTable" unique_id=1330149462]
+mesh = SubResource("BoxMesh_table")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LabTable" unique_id=173668773]
+shape = SubResource("BoxShape3D_table")
+
+[node name="RustyDoor" type="StaticBody3D" parent="." unique_id=1730875883]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 12.6, 2.25, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RustyDoor" unique_id=645033734]
+mesh = SubResource("BoxMesh_rustydoor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RustyDoor" unique_id=1365679310]
+shape = SubResource("BoxShape3D_rustydoor")
+
+[node name="KualiBesar" type="StaticBody3D" parent="." unique_id=1850987654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.75, -6)
+script = ExtResource("11_finalpuzzle")
+RustyDoorPath = NodePath("../RustyDoor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="KualiBesar" unique_id=1851987655]
+mesh = SubResource("CylinderMesh_cauldron")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KualiBesar" unique_id=1852987656]
+shape = SubResource("CylinderShape3D_cauldron")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1105362623]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
+light_color = Color(1, 0.95, 0.85, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=22138678]
+
+[node name="LabEquipment" type="Node3D" parent="." unique_id=1146962165]
+
+[node name="Shelf1" type="CSGBox3D" parent="LabEquipment" unique_id=404282894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -8)
+use_collision = true
+size = Vector3(4, 2, 0.5)
+
+[node name="Shelf2" type="CSGBox3D" parent="LabEquipment" unique_id=1006268438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -4)
+use_collision = true
+size = Vector3(4, 2, 0.5)
+
+[node name="Counter" type="CSGBox3D" parent="LabEquipment" unique_id=1413545040]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -11, 0.5, 4)
+use_collision = true
+size = Vector3(8, 1, 2)
+
+[node name="Items" type="Node3D" parent="." unique_id=1649151714]
+
+[node name="RecipeBook" type="StaticBody3D" parent="Items" unique_id=1146817893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, 5)
+script = ExtResource("8_bookitem")
+BookTitle = "Tri-Color Synthesis Manual"
+BookContent = "[center][b]⚗️ TRI-COLOR SYNTHESIS ⚗️[/b][/center]
+[center][i]The Alchemist's Lab - Advanced Color Theory[/i][/center]
+
+---
+
+[b]OBJECTIVE:[/b]
+Create the [color=cyan]Teal Potion[/color] to dissolve the rusted steel door.
+
+[b]⚠️ CRITICAL WARNING ⚠️[/b]
+[color=red]DO NOT mix all three primary materials at once!
+This will create useless Black Mud![/color]
+
+---
+
+[b]MATERIALS SCATTERED IN LAB:[/b]
+
+🌿 [color=lime]Green Moss[/color] - Found near the shelf
+🕷️ [color=red]Red Powder[/color] - On the counter
+✨ [color=cyan]Blue Extract[/color] - Near equipment
+
+[i]Collect up to 3 of each material for the synthesis.[/i]
+
+---
+
+[b]THE TRI-COLOR SYNTHESIS PROCESS:[/b]
+
+[color=yellow][b]STEP 1: Create Secondary Potions[/b][/color]
+
+Recipe 1: [color=lime]Green Moss[/color] + [color=red]Red Powder[/color] = 💛 [color=yellow]Yellow Potion[/color]
+Recipe 2: [color=red]Red Powder[/color] + [color=cyan]Blue Extract[/color] = 💗 [color=magenta]Magenta Potion[/color]  
+Recipe 3: [color=cyan]Blue Extract[/color] + [color=lime]Green Moss[/color] = 💙 [color=cyan]Cyan Potion[/color]
+
+[i]These secondary potions will be stored automatically.[/i]
+
+---
+
+[color=cyan][b]STEP 2: Final Synthesis[/b][/color]
+
+Combine ALL three secondary potions:
+💛 [color=yellow]Yellow[/color] + 💗 [color=magenta]Magenta[/color] + 💙 [color=cyan]Cyan[/color] = [color=cyan][b]TEAL POTION[/b][/color] ✓
+
+---
+
+[b]WHY THIS ORDER MATTERS:[/b]
+
+[color=red]❌ WRONG:[/color] 🌿 Green + 🕷️ Red + ✨ Blue = 💀 Black Mud (USELESS!)
+
+[color=green]✓ CORRECT:[/color] Create 3 secondary potions first, then combine them!
+
+\"Teal perfection can only be achieved through the unity of three soul colors (Secondary), not from raw materials.\"
+
+---
+
+[b]PROCEDURE:[/b]
+
+1. Collect all three primary materials from the lab (you can pick multiple at once)
+2. Go to Magic Table and open synthesis UI
+3. Add 2 materials to cauldron and MIX to create secondary potion
+4. Repeat until you have all 3 secondary potions in storage
+5. Add all 3 secondary potions to cauldron
+6. MIX to create Teal Potion!
+
+[color=yellow]HINT:[/color] You need to create EACH secondary potion separately. This will consume your materials, so collect wisely!
+
+[right]- Master Alchemist[/right]"
+ItemId = "recipe_book"
+ItemName = "Recipe Book"
+MaxStackSize = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/RecipeBook" unique_id=1774574293]
+mesh = SubResource("SphereMesh_item")
+surface_material_override/0 = SubResource("StandardMaterial3D_book")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/RecipeBook" unique_id=650125762]
+shape = SubResource("SphereShape3D_item")
+
+[node name="GreenMoss" type="StaticBody3D" parent="Items" unique_id=1252871519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.5, -7)
+script = ExtResource("2_material")
+AvailableQuantity = 3
+ItemId = "green_moss"
+ItemName = "Green Moss"
+MaxStackSize = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/GreenMoss" unique_id=1450105786]
+mesh = SubResource("SphereMesh_item")
+surface_material_override/0 = SubResource("StandardMaterial3D_green")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/GreenMoss" unique_id=2049043449]
+shape = SubResource("SphereShape3D_item")
+
+[node name="RedPowder" type="StaticBody3D" parent="Items" unique_id=324060498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.5, 3)
+script = ExtResource("2_material")
+AvailableQuantity = 3
+ItemId = "red_powder"
+ItemName = "Red Powder"
+MaxStackSize = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/RedPowder" unique_id=1694307705]
+mesh = SubResource("SphereMesh_item")
+surface_material_override/0 = SubResource("StandardMaterial3D_red")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/RedPowder" unique_id=1541392130]
+shape = SubResource("SphereShape3D_item")
+
+[node name="BlueExtract" type="StaticBody3D" parent="Items" unique_id=1156292908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, -2)
+script = ExtResource("2_material")
+AvailableQuantity = 3
+ItemId = "blue_extract"
+ItemName = "Blue Extract"
+MaxStackSize = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/BlueExtract" unique_id=1995237917]
+mesh = SubResource("SphereMesh_item")
+surface_material_override/0 = SubResource("StandardMaterial3D_blue")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/BlueExtract" unique_id=280504403]
+shape = SubResource("SphereShape3D_item")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1931185845]
+
+[node name="InventoryUI" parent="UI" unique_id=1954206059 instance=ExtResource("3_invui")]
+
+[node name="BookUI" type="Control" parent="UI" unique_id=1069748114]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_bookui")
+
+[node name="MixingUI" parent="UI" unique_id=1072442021 instance=ExtResource("7_mixui")]
+
+[node name="QuantityPickerUI" parent="UI" unique_id=1128363676 instance=ExtResource("9_qtyui")]
+
+[node name="FinalMixingUI" parent="UI" unique_id=1138475789 instance=ExtResource("10_finalmix")]

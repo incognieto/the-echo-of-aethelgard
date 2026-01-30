@@ -11,7 +11,7 @@ public partial class Player : CharacterBody3D
 
 	private Node3D _head;
 	private Camera3D _camera;
-	private InventorySystem _inventory;
+	public InventorySystem _inventory; // Public agar bisa diakses dari MaterialItem
 	private InventoryUI _inventoryUI;
 	private BookUI _bookUI;
 	
@@ -49,19 +49,19 @@ public partial class Player : CharacterBody3D
 	private void ConnectInventoryUI()
 	{
 		// Try beberapa kemungkinan path
-		_inventoryUI = GetNodeOrNull<InventoryUI>("/root/Main/CanvasLayer/InventoryUI");
+		_inventoryUI = GetNodeOrNull<InventoryUI>("/root/Main/UI/InventoryUI");
 		
 		if (_inventoryUI == null)
 		{
 			// Try relative path
-			_inventoryUI = GetTree().Root.GetNodeOrNull<InventoryUI>("Main/CanvasLayer/InventoryUI");
+			_inventoryUI = GetTree().Root.GetNodeOrNull<InventoryUI>("Main/UI/InventoryUI");
 		}
 		
 		// Get BookUI reference
-		_bookUI = GetNodeOrNull<BookUI>("/root/Main/CanvasLayer/BookUI");
+		_bookUI = GetNodeOrNull<BookUI>("/root/Main/UI/BookUI");
 		if (_bookUI == null)
 		{
-			_bookUI = GetTree().Root.GetNodeOrNull<BookUI>("Main/CanvasLayer/BookUI");
+			_bookUI = GetTree().Root.GetNodeOrNull<BookUI>("Main/UI/BookUI");
 		}
 		
 		if (_inventoryUI != null && _inventory != null)
@@ -144,9 +144,16 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent @event)
 	{
+		// Check if inventory is open - disable camera rotation if true
+		bool inventoryOpen = HasMeta("inventory_open") && (bool)GetMeta("inventory_open");
+		
 		// Handle mouse movement untuk rotasi kamera (hanya di FPP mode)
 		if (@event is InputEventMouseMotion motionEvent)
 		{
+			// Skip camera rotation if inventory is open
+			if (inventoryOpen)
+				return;
+			
 			if (Input.MouseMode == Input.MouseModeEnum.Captured && 
 			    _currentCameraMode == CameraMode.FirstPerson)
 			{
@@ -279,8 +286,24 @@ public partial class Player : CharacterBody3D
 			// Isometric: Gunakan proximity detection
 			if (_nearestItem != null)
 			{
+				GD.Print($"Nearest item type: {_nearestItem.GetType().Name}");
+				
+				// Check if it's a MaterialItem (needs quantity picker)
+				if (_nearestItem.GetType().Name == "MaterialItem")
+				{
+					var materialItem = _nearestItem as MaterialItem;
+					if (materialItem != null)
+					{
+						GD.Print($"Trying to pickup material (quantity picker): {materialItem.ItemName}");
+						materialItem.PickupWithQuantity(this);
+						_nearestItem = null;
+						return;
+					}
+				}
+				
+				// Regular item - pickup 1
 				ItemData itemData = _nearestItem.GetItemData();
-				GD.Print($"Trying to pickup (proximity): {itemData.ItemName}");
+				GD.Print($"Trying to pickup regular item (proximity): {itemData.ItemName}");
 				
 				if (_inventory != null)
 				{
@@ -324,8 +347,23 @@ public partial class Player : CharacterBody3D
 			// Check jika objek adalah PickableItem
 			if (collider is PickableItem pickable)
 			{
+				GD.Print($"FPP Mode - Item type: {pickable.GetType().Name}");
+				
+				// Check if it's a MaterialItem (needs quantity picker)
+				if (pickable.GetType().Name == "MaterialItem")
+				{
+					var materialItem = pickable as MaterialItem;
+					if (materialItem != null)
+					{
+						GD.Print($"FPP: Trying to pickup material (quantity picker): {materialItem.ItemName}");
+						materialItem.PickupWithQuantity(this);
+						return;
+					}
+				}
+				
+				// Regular item - pickup 1
 				ItemData itemData = pickable.GetItemData();
-				GD.Print($"Trying to pickup: {itemData.ItemName}");
+				GD.Print($"FPP: Trying to pickup regular item: {itemData.ItemName}");
 				
 				if (_inventory != null)
 				{

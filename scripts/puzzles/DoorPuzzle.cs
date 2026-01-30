@@ -1,10 +1,35 @@
 using Godot;
 using System;
 
+// Symbol enum - must match PuzzleUI
+public enum PuzzleSymbol
+{
+	Bunga = 0,    // Flower
+	Mata = 1,     // Eye
+	Matahari = 2, // Sun
+	Petir = 3,    // Lightning
+	Bulan = 4,    // Moon
+	Bintang = 5   // Star
+}
+
 public partial class DoorPuzzle : StaticBody3D
 {
+	// Correct sequence as int array (0=Bunga, 1=Mata, 2=Matahari, 3=Petir, 4=Bulan, 5=Bintang)
 	[Export]
-	public int[] CorrectSequence { get; set; } = new int[] { 5, 6, 1, 3, 4, 2 };
+	public int[] CorrectSequenceValues { get; set; } = new int[] { 0, 1, 2, 3, 4, 5 };
+	
+	private PuzzleSymbol[] CorrectSequence
+	{
+		get
+		{
+			var symbols = new PuzzleSymbol[CorrectSequenceValues.Length];
+			for (int i = 0; i < CorrectSequenceValues.Length; i++)
+			{
+				symbols[i] = (PuzzleSymbol)CorrectSequenceValues[i];
+			}
+			return symbols;
+		}
+	}
 	
 	[Export]
 	public float InteractionRange { get; set; } = 3.0f;
@@ -36,7 +61,7 @@ public partial class DoorPuzzle : StaticBody3D
 		CallDeferred(nameof(FindPuzzleUI));
 		
 		GD.Print($"DoorPuzzle initialized at {GlobalPosition}");
-		GD.Print($"Correct sequence: {string.Join("-", CorrectSequence)}");
+		GD.Print($"Correct sequence: {string.Join(", ", CorrectSequence)}");
 	}
 
 	private void SetupControlPanel()
@@ -79,7 +104,7 @@ public partial class DoorPuzzle : StaticBody3D
 
 	private void FindPuzzleUI()
 	{
-		var canvasLayer = GetTree().Root.GetNode<CanvasLayer>("/root/Main/CanvasLayer");
+		var canvasLayer = GetTree().Root.GetNode<CanvasLayer>("/root/Main/UI");
 		if (canvasLayer != null)
 		{
 			_puzzleUI = canvasLayer.GetNodeOrNull<PuzzleUI>("PuzzleUI");
@@ -95,7 +120,7 @@ public partial class DoorPuzzle : StaticBody3D
 		}
 		else
 		{
-			GD.PrintErr("✗ DoorPuzzle: CanvasLayer not found!");
+			GD.PrintErr("✗ DoorPuzzle: UI CanvasLayer not found!");
 		}
 	}
 
@@ -184,6 +209,29 @@ public partial class DoorPuzzle : StaticBody3D
 		else
 		{
 			GD.Print("Puzzle closed without solving");
+		}
+		
+		// Restore crosshair visibility based on current camera mode
+		RestoreCrosshairVisibility();
+	}
+	
+	private void RestoreCrosshairVisibility()
+	{
+		// Find player and restore crosshair based on camera mode
+		var player = GetTree().Root.GetNode<Player>("/root/Main/Player");
+		if (player != null)
+		{
+			var canvasLayer = GetTree().Root.GetNode<CanvasLayer>("/root/Main/UI");
+			if (canvasLayer != null)
+			{
+				var inventoryUI = canvasLayer.GetNodeOrNull<InventoryUI>("InventoryUI");
+				if (inventoryUI != null)
+				{
+					// Check camera mode from player - need to make CurrentCameraMode public or use a different approach
+					// For now, just always show crosshair when puzzle closes, player will handle it based on mode
+					inventoryUI.SetCrosshairVisible(true);
+				}
+			}
 		}
 	}
 

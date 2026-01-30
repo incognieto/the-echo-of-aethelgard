@@ -21,11 +21,70 @@ In this first edition, your journey begins from the lowest point. With the help 
 | Dual Camera System | First-Person & Isometric 3D top-down view (toggle with C) |
 | Player Movement | WASD movement with camera-relative direction |
 | Item Interaction | Raycast pickup (FPP) & proximity detection (Isometric) |
-| Inventory System | 6 slots (2x3 grid + 1x6 hotbar) with auto-stacking |
+| Inventory System | 16 slots (4x4 grid + 1x4 hotbar) with drag-drop & auto-stacking |
 | Usable Items | Books with readable content, UI with BBCode support |
 | Door Puzzle | 6-digit password puzzle with control panel interaction |
+| Level 3 Puzzle | Tri-color synthesis: Materials → Secondary Potions → Teal Potion |
 | Physics System | Drop items with realistic throw physics |
 | UI Elements | Crosshair (FPP only), inventory panel, hotbar, item prompts |
+
+## Visual UI Editor (Level 3)
+InventoryUI sekarang menggunakan **scene terpisah (.tscn) dengan node-based UI** untuk kemudahan editing!
+
+### File Locations:
+- **Scene File**: `scenes/ui/InventoryUI.tscn` - UI layout dengan nodes
+- **Script File**: `scripts/ui/InventoryUI.cs` - Logic & dynamic behavior
+
+### Node Structure di InventoryUI.tscn:
+```
+InventoryUI (Control) - Root node dengan export variables
+└─ InventoryPanel (Panel) - Background panel
+   └─ VBoxContainer
+      ├─ TitleLabel (Label) - "Inventory (16 Slots)"
+      ├─ InventoryGrid (GridContainer) - Container untuk slots
+      ├─ SelectedItemLabel (Label) - Info item terpilih
+      └─ InstructionsLabel (Label) - Keyboard shortcuts
+```
+
+### Cara Edit Layout via Godot Editor:
+1. **Double-click** `scenes/ui/InventoryUI.tscn` di FileSystem Godot
+2. Pilih root node `InventoryUI`
+3. Di **Inspector** panel (kanan), ubah **Export Variables**:
+   - **Inventory Columns**: Jumlah kolom grid (Level 1: 3, Level 3: 4)
+   - **Inventory Rows**: Jumlah baris grid (Level 1: 2, Level 3: 4)
+   - **Hotbar Slots**: Jumlah slot hotbar (Level 1: 6, Level 3: 4)
+   - **Slot Size**: Ukuran slot dalam pixel (default: 80x80)
+   - **Slot Spacing**: Jarak antar slot (default: 5)
+   - **Inventory Panel Size**: Ukuran panel inventory
+   - **Hotbar Panel Size**: Ukuran panel hotbar
+   - **Hotbar Position**: Posisi hotbar (X, Y dari center-bottom)
+4. **Edit Node Properties** (Optional):
+   - Pilih node `InventoryPanel` → Ubah warna background
+   - Pilih node `TitleLabel` → Ubah font size, warna, alignment
+   - Pilih node `InventoryGrid` → Ubah spacing, columns
+5. **Ctrl+S** untuk save
+6. Run game untuk melihat perubahan
+
+### Per-Level Configuration:
+**PENTING**: Level 1 dan Level 3 sekarang gunakan **inventory yang sama** (16 slots, 4 hotbar)
+
+**Level 1** (`level_1_cell/Main.tscn`):
+- Node structure: `Main/UI/InventoryUI`
+- Inventory: 16 slots (4x4 grid)
+- Hotbar: 4 slots (1x4)
+
+**Level 3** (`level_3_lab/Main.tscn`):
+- Node structure: `Main/UI/InventoryUI`  
+- Inventory: 16 slots (4x4 grid)
+- Hotbar: 4 slots (1x4)
+
+### Tips Edit Visual:
+- **Geser hotbar horizontal**: Ubah `HotbarPosition.X` (-260 = kiri, -100 = kanan)
+- **Geser hotbar vertical**: Ubah `HotbarPosition.Y` (-150 = atas, -80 = bawah)
+- **Perbesar slot**: `SlotSize = (100, 100)`
+- **Grid lebih rapat**: `SlotSpacing = 2`
+- **Ubah warna panel**: Pilih `InventoryPanel` → Theme Overrides → Styles
+- **Ubah font title**: Pilih `TitleLabel` → Theme Overrides → Font Sizes
 
 ## Game Controls
 | Key/Input | Action | Mode |
@@ -38,6 +97,8 @@ In this first edition, your journey begins from the lowest point. With the help 
 | F | Use item (e.g., read book) | Both |
 | I / Tab | Toggle inventory panel | Both |
 | 1-6 | Select hotbar slot | Both |
+| 1-4 | Select hotbar slot (Level 3: 4 slots) | Level 3 |
+| Mouse Drag | Drag-drop items between inventory slots | Level 3 |
 | Space | Jump | First-Person |
 | C | Toggle camera mode (FPP ↔ Isometric) | Both |
 | ESC | Release/Capture mouse cursor | Both |

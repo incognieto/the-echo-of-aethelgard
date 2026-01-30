@@ -1,0 +1,231 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public partial class FinalMixingUI : Control
+{
+	[Signal]
+	public delegate void MixingCompletedEventHandler(bool success);
+
+	private Label _titleLabel;
+	private Label _feedbackLabel;
+	private Label _potionInventoryLabel;
+	private Button _yellowButton;
+	private Button _magentaButton;
+	private Button _cyanButton;
+	private Button _mixButton;
+	private Button _closeButton;
+	private InventoryUI _inventoryUI;
+	private InventorySystem _playerInventory;
+	
+	private List<string> _selectedPotions = new List<string>();
+
+	public override void _Ready()
+	{
+		Visible = false;
+		
+		var panel = GetNode<Panel>("FinalMixingPanel");
+		_titleLabel = panel.GetNode<Label>("TitleLabel");
+		_feedbackLabel = panel.GetNode<Label>("FeedbackLabel");
+		_potionInventoryLabel = panel.GetNode<Label>("PotionInventoryLabel");
+		
+		_yellowButton = panel.GetNode<Button>("YellowButton");
+		_magentaButton = panel.GetNode<Button>("MagentaButton");
+		_cyanButton = panel.GetNode<Button>("CyanButton");
+		_mixButton = panel.GetNode<Button>("MixButton");
+		_closeButton = panel.GetNode<Button>("CloseButton");
+		
+		_yellowButton.Pressed += () => TogglePotion("yellow_potion", "Yellow Potion");
+		_magentaButton.Pressed += () => TogglePotion("magenta_potion", "Magenta Potion");
+		_cyanButton.Pressed += () => TogglePotion("cyan_potion", "Cyan Potion");
+		_mixButton.Pressed += OnMixPressed;
+		_closeButton.Pressed += OnClosePressed;
+		
+		CallDeferred(nameof(FindInventoryUI));
+	}
+
+	private void FindInventoryUI()
+	{
+		var canvasLayer = GetParent() as CanvasLayer;
+		if (canvasLayer != null)
+		{
+			_inventoryUI = canvasLayer.GetNodeOrNull<InventoryUI>("InventoryUI");
+		}
+	}
+
+	public void ShowFinalMixingUI(InventorySystem playerInventory)
+	{
+		_playerInventory = playerInventory;
+		_selectedPotions.Clear();
+		
+		Visible = true;
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		
+		// Hide inventory UI and crosshair dengan state management
+		if (_inventoryUI != null)
+		{
+			_inventoryUI.HideForPanel();
+			_inventoryUI.SetCrosshairVisible(false);
+		}
+		
+		_feedbackLabel.Text = "Combine all 3 secondary potions to create Teal Potion!";
+		_feedbackLabel.Modulate = Colors.White;
+		
+		UpdateDisplay();
+		GD.Print("FinalMixingUI opened");
+	}
+
+	private void TogglePotion(string itemId, string potionName)
+	{
+		if (_selectedPotions.Contains(itemId))
+		{
+			_selectedPotions.Remove(itemId);
+			_feedbackLabel.Text = $"Removed {potionName} from cauldron.";
+		}
+		else
+		{
+			if (!_playerInventory.HasItem(itemId))
+			{
+				_feedbackLabel.Text = $"You don't have {potionName}!";
+				_feedbackLabel.Modulate = Colors.Red;
+				return;
+			}
+			
+			_selectedPotions.Add(itemId);
+			_feedbackLabel.Text = $"Added {potionName} to cauldron.";
+		}
+		
+		UpdateDisplay();
+	}
+
+	private void UpdateDisplay()
+	{
+		if (_playerInventory != null)
+		{
+			int yellowCount = GetPotionCount("yellow_potion");
+			int magentaCount = GetPotionCount("magenta_potion");
+			int cyanCount = GetPotionCount("cyan_potion");
+			
+			_potionInventoryLabel.Text = $"Your Potions: Yellow x{yellowCount} | Magenta x{magentaCount} | Cyan x{cyanCount}";
+			
+			_yellowButton.Disabled = yellowCount == 0;
+			_magentaButton.Disabled = magentaCount == 0;
+			_cyanButton.Disabled = cyanCount == 0;
+			
+			_yellowButton.Text = _selectedPotions.Contains("yellow_potion") ? "✓ Yellow Potion" : "💛 Yellow Potion";
+			_magentaButton.Text = _selectedPotions.Contains("magenta_potion") ? "✓ Magenta Potion" : "💗 Magenta Potion";
+			_cyanButton.Text = _selectedPotions.Contains("cyan_potion") ? "✓ Cyan Potion" : "💙 Cyan Potion";
+		}
+		
+		_feedbackLabel.Text = $"Selected: {_selectedPotions.Count}/3 potions";
+		_feedbackLabel.Modulate = Colors.White;
+	}
+
+	private int GetPotionCount(string itemId)
+	{
+		if (_playerInventory == null) return 0;
+		
+		int total = 0;
+		var items = _playerInventory.GetAllItems();
+		foreach (var item in items)
+		{
+			if (item != null && item.Data.ItemId == itemId)
+			{
+				total += item.Quantity;
+			}
+		}
+		return total;
+	}
+
+	private void OnMixPressed()
+	{
+		if (_selectedPotions.Count != 3)
+		{
+			_feedbackLabel.Text = "You need all 3 secondary potions!";
+			_feedbackLabel.Modulate = Colors.Orange;
+			return;
+		}
+		
+		if (!_selectedPotions.Contains("yellow_potion") || 
+		    !_selectedPotions.Contains("magenta_potion") || 
+		    !_selectedPotions.Contains("cyan_potion"))
+		{
+			_feedbackLabel.Text = "You need Yellow, Magenta, and Cyan potions!";
+			_feedbackLabel.Modulate = Colors.Red;
+			return;
+		}
+		
+		// Consume potions
+		ConsumePotions();
+		
+		// Create Teal Potion
+		var tealData = new ItemData("teal_potion", "Teal Potion", 1);
+		_playerInventory.AddItem(tealData, 1);
+		
+		_feedbackLabel.Text = "🎉 SUCCESS! You created the Teal Potion!";
+		_feedbackLabel.Modulate = Colors.Cyan;
+		
+		_mixButton.Disabled = true;
+		
+		GetTree().CreateTimer(2.5).Timeout += () => {
+			EmitSignal(SignalName.MixingCompleted, true);
+			CloseFinalMixingUI();
+		};
+	}
+
+	private void ConsumePotions()
+	{
+		foreach (var itemId in _selectedPotions)
+		{
+			int slotIndex = FindItemSlot(itemId);
+			if (slotIndex != -1)
+			{
+				_playerInventory.RemoveItem(slotIndex, 1);
+			}
+		}
+	}
+
+	private int FindItemSlot(string itemId)
+	{
+		var items = _playerInventory.GetAllItems();
+		for (int i = 0; i < items.Count; i++)
+		{
+			if (items[i] != null && items[i].Data.ItemId == itemId)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	private void OnClosePressed()
+	{
+		EmitSignal(SignalName.MixingCompleted, false);
+		CloseFinalMixingUI();
+	}
+
+	private void CloseFinalMixingUI()
+	{
+		Visible = false;
+		Input.MouseMode = Input.MouseModeEnum.Captured;
+		
+		// Restore inventory UI dan crosshair ke state sebelumnya
+		if (_inventoryUI != null)
+		{
+			_inventoryUI.RestoreAfterPanel();
+			_inventoryUI.SetCrosshairVisible(true);
+		}
+		
+		_mixButton.Disabled = false;
+		GD.Print("FinalMixingUI closed");
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (Visible && @event.IsActionPressed("ui_cancel"))
+		{
+			OnClosePressed();
+			GetViewport().SetInputAsHandled();
+		}
+	}
+}
