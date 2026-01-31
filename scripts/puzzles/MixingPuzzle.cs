@@ -52,8 +52,8 @@ public partial class MixingPuzzle : StaticBody3D
 		
 		// Create prompt label
 		_promptLabel = new Label3D();
-		_promptLabel.Text = "[E] Mix Chemicals";
-		_promptLabel.Modulate = new Color(0, 1, 1); // Cyan untuk lab theme
+		_promptLabel.Text = "[E] Small Cauldron";
+		_promptLabel.Modulate = new Color(0.5f, 0.8f, 1f); // Light blue untuk kuali kecil
 		_promptLabel.OutlineModulate = Colors.Black;
 		_promptLabel.OutlineSize = 12;
 		_promptLabel.FontSize = 32;

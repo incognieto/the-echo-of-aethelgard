@@ -2,14 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b8pn1xqg35okm" path="res://scripts/items/MaterialItem.cs" id="2_material"]
-[ext_resource type="PackedScene" uid="uid://binventoryuiscn" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://bh7yuw6ath05" path="res://scripts/puzzles/MixingPuzzle.cs" id="6_mixpuzzle"]
 [ext_resource type="PackedScene" uid="uid://bh7y0kxlmqe5" path="res://scenes/ui/MixingUI.tscn" id="7_mixui"]
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="8_bookitem"]
 [ext_resource type="PackedScene" uid="uid://cpj1vkmfr8tn1" path="res://scenes/ui/QuantityPickerUI.tscn" id="9_qtyui"]
-[ext_resource type="PackedScene" path="res://scenes/ui/FinalMixingUI.tscn" id="10_finalmix"]
+[ext_resource type="PackedScene" uid="uid://cl25celniqxra" path="res://scenes/ui/FinalMixingUI.tscn" id="10_finalmix"]
 [ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
@@ -21,15 +21,20 @@ albedo_color = Color(0.8, 0.85, 0.9, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 size = Vector3(25, 0.2, 20)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_table"]
-albedo_color = Color(0.4, 0.3, 0.25, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smallcauldron"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+metallic = 0.7
+roughness = 0.4
 
-[sub_resource type="BoxMesh" id="BoxMesh_table"]
-material = SubResource("StandardMaterial3D_table")
-size = Vector3(3, 1.2, 1.5)
+[sub_resource type="CylinderMesh" id="CylinderMesh_smallcauldron"]
+material = SubResource("StandardMaterial3D_smallcauldron")
+top_radius = 0.6
+bottom_radius = 0.4
+height = 0.8
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_table"]
-size = Vector3(3, 1.2, 1.5)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_smallcauldron"]
+height = 0.8
+radius = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
 albedo_color = Color(0.4, 0.3, 0.2, 1)
@@ -127,16 +132,16 @@ visible = false
 use_collision = true
 size = Vector3(25, 0.2, 20)
 
-[node name="LabTable" type="StaticBody3D" parent="." unique_id=1216210040]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -6)
+[node name="KualiKecil" type="StaticBody3D" parent="." unique_id=1216210040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -6)
 script = ExtResource("6_mixpuzzle")
 RustyDoorPath = NodePath("../RustyDoor")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LabTable" unique_id=1330149462]
-mesh = SubResource("BoxMesh_table")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="KualiKecil" unique_id=1330149462]
+mesh = SubResource("CylinderMesh_smallcauldron")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabTable" unique_id=173668773]
-shape = SubResource("BoxShape3D_table")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KualiKecil" unique_id=173668773]
+shape = SubResource("CylinderShape3D_smallcauldron")
 
 [node name="RustyDoor" type="StaticBody3D" parent="." unique_id=1730875883]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 12.6, 2.25, 0)
@@ -327,3 +332,4 @@ script = ExtResource("5_bookui")
 [node name="QuantityPickerUI" parent="UI" unique_id=1128363676 instance=ExtResource("9_qtyui")]
 
 [node name="FinalMixingUI" parent="UI" unique_id=1138475789 instance=ExtResource("10_finalmix")]
+visible = false

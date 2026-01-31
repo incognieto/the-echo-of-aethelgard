@@ -26,15 +26,11 @@ public partial class MixingUI : Control
 	private Label _currentMixtureLabel;
 	private Label _storageLabel;
 	private Label _materialInventoryLabel; // NEW: Show material quantities from inventory
-	private Button _greenButton;
-	private Button _redButton;
-	private Button _blueButton;
-	private Button _yellowButton;
-	private Button _magentaButton;
-	private Button _cyanButton;
-	private Button _mixButton;
-	private Button _resetButton;
-	private Button _closeButton;
+	private BaseButton _greenButton;
+	private BaseButton _redButton;
+	private BaseButton _blueButton;
+	private BaseButton _mixButton;
+	private BaseButton _resetButton;
 	private InventoryUI _inventoryUI;
 	
 	// Player inventory reference
@@ -42,7 +38,6 @@ public partial class MixingUI : Control
 	
 	// Mixing state
 	private List<MaterialType> _currentMixture = new List<MaterialType>();
-	private List<MaterialType> _storage = new List<MaterialType>(); // Secondary potions storage
 	private bool _isPuzzleSolved = false;
 
 	public override void _Ready()
@@ -57,32 +52,21 @@ public partial class MixingUI : Control
 		_storageLabel = panel.GetNode<Label>("StorageLabel");
 		_materialInventoryLabel = panel.GetNodeOrNull<Label>("MaterialInventoryLabel");
 		
-		// Material buttons
-		var materialContainer = panel.GetNode<VBoxContainer>("MaterialContainer");
-		_greenButton = materialContainer.GetNode<Button>("GreenButton");
-		_redButton = materialContainer.GetNode<Button>("RedButton");
-		_blueButton = materialContainer.GetNode<Button>("BlueButton");
-		
-		var secondaryContainer = panel.GetNode<VBoxContainer>("SecondaryContainer");
-		_yellowButton = secondaryContainer.GetNode<Button>("YellowButton");
-		_magentaButton = secondaryContainer.GetNode<Button>("MagentaButton");
-		_cyanButton = secondaryContainer.GetNode<Button>("CyanButton");
+		// Material buttons (primary materials only) - direct children of panel
+		_greenButton = panel.GetNode<BaseButton>("GreenButton");
+		_redButton = panel.GetNode<BaseButton>("RedButton");
+		_blueButton = panel.GetNode<BaseButton>("BlueButton");
 		
 		// Action buttons
-		_mixButton = panel.GetNode<Button>("MixButton");
-		_resetButton = panel.GetNode<Button>("ResetButton");
-		_closeButton = panel.GetNode<Button>("CloseButton");
+		_mixButton = panel.GetNode<BaseButton>("MixButton");
+		_resetButton = panel.GetNode<BaseButton>("ResetButton");
 		
 		// Connect signals
 		_greenButton.Pressed += () => AddMaterial(MaterialType.GreenMoss);
 		_redButton.Pressed += () => AddMaterial(MaterialType.RedPowder);
 		_blueButton.Pressed += () => AddMaterial(MaterialType.BlueExtract);
-		_yellowButton.Pressed += () => AddMaterial(MaterialType.YellowPotion);
-		_magentaButton.Pressed += () => AddMaterial(MaterialType.MagentaPotion);
-		_cyanButton.Pressed += () => AddMaterial(MaterialType.CyanPotion);
 		_mixButton.Pressed += OnMixPressed;
 		_resetButton.Pressed += OnResetPressed;
-		_closeButton.Pressed += OnClosePressed;
 		
 		// Find InventoryUI
 		CallDeferred(nameof(FindInventoryUI));
@@ -108,7 +92,6 @@ public partial class MixingUI : Control
 	{
 		_playerInventory = playerInventory;
 		_currentMixture.Clear();
-		_storage.Clear();
 		_isPuzzleSolved = false;
 		
 		Visible = true;
@@ -179,30 +162,8 @@ public partial class MixingUI : Control
 		}
 		_currentMixtureLabel.Text = mixtureText;
 		
-		// Update storage display
-		string storageText = "Storage: ";
-		if (_storage.Count > 0)
-		{
-			var counts = new Dictionary<MaterialType, int>();
-			foreach (var item in _storage)
-			{
-				if (!counts.ContainsKey(item))
-					counts[item] = 0;
-				counts[item]++;
-			}
-			
-			var parts = new List<string>();
-			foreach (var kvp in counts)
-			{
-				parts.Add($"{GetMaterialName(kvp.Key)} x{kvp.Value}");
-			}
-			storageText += string.Join(", ", parts);
-		}
-		else
-		{
-			storageText += "Empty";
-		}
-		_storageLabel.Text = storageText;
+		// Update storage label (not used for primary materials)
+		_storageLabel.Text = "Small Cauldron - Primary Materials Only";
 		
 		// Update material inventory display
 		if (_materialInventoryLabel != null && _playerInventory != null)
@@ -240,14 +201,6 @@ public partial class MixingUI : Control
 			_redButton.Disabled = !_playerInventory.HasItem("red_powder");
 			_blueButton.Disabled = !_playerInventory.HasItem("blue_extract");
 		}
-		
-		// Update secondary potion buttons based on inventory (not storage)
-		if (_playerInventory != null)
-		{
-			_yellowButton.Disabled = !_playerInventory.HasItem("yellow_potion");
-			_magentaButton.Disabled = !_playerInventory.HasItem("magenta_potion");
-			_cyanButton.Disabled = !_playerInventory.HasItem("cyan_potion");
-		}
 	}
 
 	private void OnMixPressed()
@@ -282,25 +235,36 @@ public partial class MixingUI : Control
 			_feedbackLabel.Modulate = Colors.Cyan;
 			_isPuzzleSolved = true;
 			
-			// Consume secondary potions from inventory
-			ConsumeSecondaryPotions();
-			
-			// Add Teal Potion to inventory
+			// Add Teal Potion to inventory first
+			bool added = false;
 			if (_playerInventory != null)
 			{
 				var tealData = new ItemData("teal_potion", "Teal Potion", 1);
-				_playerInventory.AddItem(tealData, 1);
+				added = _playerInventory.AddItem(tealData, 1);
 			}
 			
-			_currentMixture.Clear();
-			UpdateDisplay();
-			DisableButtons();
-			
-			// Auto close after delay
-			GetTree().CreateTimer(2.5).Timeout += () => {
-				EmitSignal(SignalName.MixingCompleted, true);
-				CloseMixingUI();
-			};
+			if (added)
+			{
+				// Only consume secondary potions if teal potion was added successfully
+				ConsumeSecondaryPotions();
+				
+				_currentMixture.Clear();
+				UpdateDisplay();
+				DisableButtons();
+				
+				// Auto close after delay
+				GetTree().CreateTimer(2.5).Timeout += () => {
+					EmitSignal(SignalName.MixingCompleted, true);
+					CloseMixingUI();
+				};
+			}
+			else
+			{
+				_feedbackLabel.Text = "Inventory full! Cannot store Teal Potion. Free some space and try again.";
+				_feedbackLabel.Modulate = Colors.Red;
+				_isPuzzleSolved = false; // Reset puzzle state since we couldn't add the potion
+				GD.PrintErr("Inventory full - cannot add Teal Potion");
+			}
 		}
 		else if (IsSecondaryPotion(result))
 		{
@@ -315,21 +279,25 @@ public partial class MixingUI : Control
 					GD.Print($"✓ Added {result} to player inventory");
 					_feedbackLabel.Text = $"✓ Created {GetMaterialName(result)}! Added to your inventory.";
 					_feedbackLabel.Modulate = Colors.LightGreen;
+					
+					// Consume materials from inventory only if potion was added successfully
+					ConsumeMaterials();
+					
+					_currentMixture.Clear();
+					UpdateDisplay();
+					UpdateButtonAvailability();
+					GD.Print($"Created secondary potion: {result}");
 				}
 				else
 				{
-					_feedbackLabel.Text = "Inventory full! Cannot store potion.";
+					_feedbackLabel.Text = "Inventory full! Cannot store potion. Free some space and try again.";
 					_feedbackLabel.Modulate = Colors.Red;
+					
+					// Don't consume materials if inventory is full
+					// Don't clear mixture so player can try again after making space
+					GD.PrintErr("Inventory full - materials not consumed");
 				}
 			}
-			
-			// Consume materials from inventory
-			ConsumeMaterials();
-			
-			_currentMixture.Clear();
-			UpdateDisplay();
-			UpdateButtonAvailability();
-			GD.Print($"Created secondary potion: {result}");
 		}
 		else
 		{
@@ -527,9 +495,6 @@ public partial class MixingUI : Control
 		_greenButton.Disabled = true;
 		_redButton.Disabled = true;
 		_blueButton.Disabled = true;
-		_yellowButton.Disabled = true;
-		_magentaButton.Disabled = true;
-		_cyanButton.Disabled = true;
 		_mixButton.Disabled = true;
 		_resetButton.Disabled = true;
 	}
@@ -541,11 +506,7 @@ public partial class MixingUI : Control
 		_resetButton.Disabled = false;
 	}
 
-	private void OnClosePressed()
-	{
-		EmitSignal(SignalName.MixingCompleted, false);
-		CloseMixingUI();
-	}
+
 
 	private void CloseMixingUI()
 	{
@@ -569,7 +530,8 @@ public partial class MixingUI : Control
 	{
 		if (Visible && @event.IsActionPressed("ui_cancel"))
 		{
-			OnClosePressed();
+			EmitSignal(SignalName.MixingCompleted, false);
+			CloseMixingUI();
 			GetViewport().SetInputAsHandled();
 		}
 	}

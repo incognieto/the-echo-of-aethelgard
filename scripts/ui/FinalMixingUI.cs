@@ -10,11 +10,11 @@ public partial class FinalMixingUI : Control
 	private Label _titleLabel;
 	private Label _feedbackLabel;
 	private Label _potionInventoryLabel;
-	private Button _yellowButton;
-	private Button _magentaButton;
-	private Button _cyanButton;
-	private Button _mixButton;
-	private Button _closeButton;
+	private BaseButton _yellowButton;
+	private BaseButton _magentaButton;
+	private BaseButton _cyanButton;
+	private BaseButton _mixButton;
+	private BaseButton _clearButton;
 	private InventoryUI _inventoryUI;
 	private InventorySystem _playerInventory;
 	
@@ -29,17 +29,17 @@ public partial class FinalMixingUI : Control
 		_feedbackLabel = panel.GetNode<Label>("FeedbackLabel");
 		_potionInventoryLabel = panel.GetNode<Label>("PotionInventoryLabel");
 		
-		_yellowButton = panel.GetNode<Button>("YellowButton");
-		_magentaButton = panel.GetNode<Button>("MagentaButton");
-		_cyanButton = panel.GetNode<Button>("CyanButton");
-		_mixButton = panel.GetNode<Button>("MixButton");
-		_closeButton = panel.GetNode<Button>("CloseButton");
+		_yellowButton = panel.GetNode<BaseButton>("YellowButton");
+		_magentaButton = panel.GetNode<BaseButton>("MagentaButton");
+		_cyanButton = panel.GetNode<BaseButton>("CyanButton");
+		_mixButton = panel.GetNode<BaseButton>("MixButton");
+		_clearButton = panel.GetNode<BaseButton>("ClearButton");
 		
 		_yellowButton.Pressed += () => TogglePotion("yellow_potion", "Yellow Potion");
 		_magentaButton.Pressed += () => TogglePotion("magenta_potion", "Magenta Potion");
 		_cyanButton.Pressed += () => TogglePotion("cyan_potion", "Cyan Potion");
 		_mixButton.Pressed += OnMixPressed;
-		_closeButton.Pressed += OnClosePressed;
+		_clearButton.Pressed += OnClearPressed;
 		
 		CallDeferred(nameof(FindInventoryUI));
 	}
@@ -111,10 +111,6 @@ public partial class FinalMixingUI : Control
 			_yellowButton.Disabled = yellowCount == 0;
 			_magentaButton.Disabled = magentaCount == 0;
 			_cyanButton.Disabled = cyanCount == 0;
-			
-			_yellowButton.Text = _selectedPotions.Contains("yellow_potion") ? "✓ Yellow Potion" : "💛 Yellow Potion";
-			_magentaButton.Text = _selectedPotions.Contains("magenta_potion") ? "✓ Magenta Potion" : "💗 Magenta Potion";
-			_cyanButton.Text = _selectedPotions.Contains("cyan_potion") ? "✓ Cyan Potion" : "💙 Cyan Potion";
 		}
 		
 		_feedbackLabel.Text = $"Selected: {_selectedPotions.Count}/3 potions";
@@ -198,10 +194,14 @@ public partial class FinalMixingUI : Control
 		return -1;
 	}
 
-	private void OnClosePressed()
+	private void OnClearPressed()
 	{
-		EmitSignal(SignalName.MixingCompleted, false);
-		CloseFinalMixingUI();
+		// Clear cauldron - items stay in inventory
+		_selectedPotions.Clear();
+		_feedbackLabel.Text = "Cauldron cleared. Start fresh!";
+		_feedbackLabel.Modulate = Colors.White;
+		UpdateDisplay();
+		GD.Print("Big cauldron cleared");
 	}
 
 	private void CloseFinalMixingUI()
@@ -224,7 +224,8 @@ public partial class FinalMixingUI : Control
 	{
 		if (Visible && @event.IsActionPressed("ui_cancel"))
 		{
-			OnClosePressed();
+			EmitSignal(SignalName.MixingCompleted, false);
+			CloseFinalMixingUI();
 			GetViewport().SetInputAsHandled();
 		}
 	}

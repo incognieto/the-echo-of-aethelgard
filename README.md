@@ -23,8 +23,9 @@ In this first edition, your journey begins from the lowest point. With the help 
 | Item Interaction | Raycast pickup (FPP) & proximity detection (Isometric) |
 | Inventory System | 16 slots (4x4 grid + 1x4 hotbar) with drag-drop & auto-stacking |
 | Usable Items | Books with readable content, UI with BBCode support |
-| Door Puzzle | 6-digit password puzzle with control panel interaction |
-| Level 3 Puzzle | Tri-color synthesis: Materials → Secondary Potions → Teal Potion |
+| Door Puzzle (Level 1) | 6-digit password puzzle with control panel interaction |
+| Mixing Puzzle (Level 3) | Tri-color synthesis: Materials → Secondary Potions → Teal Potion |
+| Library Puzzle (Level 4) | 3x3 grid puzzle - arrange 9 story books in narrative order |
 | Physics System | Drop items with realistic throw physics |
 | UI Elements | Crosshair (FPP only), inventory panel, hotbar, item prompts |
 
@@ -77,6 +78,12 @@ InventoryUI (Control) - Root node dengan export variables
 - Node structure: `Main/UI/InventoryUI`  
 - Inventory: 16 slots (4x4 grid)
 - Hotbar: 4 slots (1x4)
+
+**Level 4** (`level_4_library/Main.tscn`):
+- Node structure: `Main/UI/InventoryUI`  
+- Inventory: 16 slots (4x4 grid)
+- Hotbar: 4 slots (1x4)
+- Puzzle: 3x3 grid panel for story book arrangement
 
 ### Tips Edit Visual:
 - **Geser hotbar horizontal**: Ubah `HotbarPosition.X` (-260 = kiri, -100 = kanan)
