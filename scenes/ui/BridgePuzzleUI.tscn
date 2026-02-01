@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://c3v8k7j2m5xbt"]
+
+[ext_resource type="Script" uid="uid://rulg0sllgkaj" path="res://scripts/ui/BridgePuzzleUI.cs" id="1_h3n7p"]
+[ext_resource type="Texture2D" uid="uid://i1d4e2iniw6o" path="res://assets/puzzles/level_2_bridge/calculator.png" id="2_dat42"]
+
+[node name="BridgePuzzleUI" type="Control" unique_id=2106467301]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h3n7p")
+
+[node name="BackgroundImage" type="TextureRect" parent="." unique_id=2036401451]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 56.0
+offset_right = 837.0
+offset_bottom = 615.0
+texture = ExtResource("2_dat42")
+expand_mode = 1
+
+[node name="CalculatorPanel" type="Panel" parent="." unique_id=1113311266]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -300.0
+offset_right = 200.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonGrid" type="Node2D" parent="CalculatorPanel" unique_id=695335855]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-440, -60)
+
+[node name="Button1" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=1379486696]
+custom_minimum_size = Vector2(80, 60)
+layout_direction = 1
+offset_left = 468.0
+offset_top = 260.0
+offset_right = 548.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 24
+text = "1"
+
+[node name="Button2" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=901237489]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 558.0
+offset_top = 260.0
+offset_right = 638.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 24
+text = "2"
+
+[node name="Button3" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=2130569463]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 648.0
+offset_top = 260.0
+offset_right = 728.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 24
+text = "3"
+
+[node name="DelButton" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=498005276]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 738.0
+offset_top = 260.0
+offset_right = 818.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 20
+text = "Del"
+
+[node name="Button4" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=321271338]
+custom_minimum_size = Vector2(60, 30)
+offset_left = 468.0
+offset_top = 330.0
+offset_right = 548.0
+offset_bottom = 390.0
+theme_override_font_sizes/font_size = 24
+text = "4"
+
+[node name="Button5" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=974459494]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 558.0
+offset_top = 330.0
+offset_right = 638.0
+offset_bottom = 390.0
+theme_override_font_sizes/font_size = 24
+text = "5"
+
+[node name="Button6" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=1026699289]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 648.0
+offset_top = 330.0
+offset_right = 728.0
+offset_bottom = 390.0
+theme_override_font_sizes/font_size = 24
+text = "6"
+
+[node name="EnterButton" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=1374092219]
+custom_minimum_size = Vector2(80, 230)
+offset_left = 738.0
+offset_top = 330.0
+offset_right = 818.0
+offset_bottom = 460.0
+theme_override_font_sizes/font_size = 20
+text = "↵"
+
+[node name="Button7" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=175171155]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 469.0
+offset_top = 412.0
+offset_right = 549.0
+offset_bottom = 472.0
+theme_override_font_sizes/font_size = 24
+text = "7"
+
+[node name="Button8" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=701866700]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 559.0
+offset_top = 412.0
+offset_right = 639.0
+offset_bottom = 472.0
+theme_override_font_sizes/font_size = 24
+text = "8"
+
+[node name="Button9" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=874768107]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 646.0
+offset_top = 413.0
+offset_right = 726.0
+offset_bottom = 473.0
+theme_override_font_sizes/font_size = 24
+text = "9"
+
+[node name="Button0" type="Button" parent="CalculatorPanel/ButtonGrid" unique_id=109467751]
+custom_minimum_size = Vector2(80, 60)
+offset_left = 561.0
+offset_top = 490.0
+offset_right = 641.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 24
+text = "0"
+
+[node name="DisplayContainer" type="PanelContainer" parent="CalculatorPanel" unique_id=1976754770]
+layout_mode = 0
+offset_left = 313.0
+offset_top = 80.0
+offset_right = 353.0
+offset_bottom = 125.0
+
+[node name="DisplayVBox" type="VBoxContainer" parent="CalculatorPanel/DisplayContainer" unique_id=1704925186]
+layout_mode = 2
+
+[node name="DisplayLabel" type="Label" parent="CalculatorPanel/DisplayContainer/DisplayVBox" unique_id=795764750]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 2
+
+[node name="CloseButton" type="Button" parent="CalculatorPanel" unique_id=317797920]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 578.0
+offset_right = 379.0
+offset_bottom = 618.0
+text = "Cancel (ESC)"

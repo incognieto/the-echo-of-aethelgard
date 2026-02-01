@@ -155,7 +155,7 @@ public partial class Player : CharacterBody3D
 				return;
 			
 			if (Input.MouseMode == Input.MouseModeEnum.Captured && 
-			    _currentCameraMode == CameraMode.FirstPerson)
+				_currentCameraMode == CameraMode.FirstPerson)
 			{
 				// FPP: Rotasi horizontal (Y-axis) pada player body
 				RotateY(-motionEvent.Relative.X * MouseSensitivity);

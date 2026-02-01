@@ -1,0 +1,267 @@
+[gd_scene format=3 uid="uid://4xmvllydtgai"]
+
+[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="1_nfhxa"]
+[ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="2_s7lbl"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BridgePuzzleUI.tscn" id="3_di2p2"]
+[ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="3_ymv1o"]
+[ext_resource type="Script" uid="uid://baxkd0n6wuva5" path="res://scripts/puzzles/BridgePuzzle.cs" id="4_s7lbl"]
+[ext_resource type="Texture2D" uid="uid://c8apb5bbm8rfb" path="res://assets/puzzles/level_2_bridge/puzzle4.png" id="5_26hwv"]
+[ext_resource type="Texture2D" uid="uid://dvgukjrdr8632" path="res://assets/puzzles/level_2_bridge/puzzle1.png" id="5_ymv1o"]
+[ext_resource type="Texture2D" uid="uid://bq3bhin1tc2qa" path="res://assets/puzzles/level_2_bridge/puzzle2.png" id="6_umwk0"]
+[ext_resource type="Texture2D" uid="uid://bjgokyl347woe" path="res://assets/puzzles/level_2_bridge/puzzle3.png" id="7_26hwv"]
+[ext_resource type="Texture2D" uid="uid://c4nlggiffv2jd" path="res://assets/puzzles/level_2_bridge/puzzle5.png" id="9_7qf10"]
+[ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="10_transition"]
+[ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="12_ubowq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umwk0"]
+transparency = 1
+albedo_texture = ExtResource("5_ymv1o")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_26hwv"]
+material = SubResource("StandardMaterial3D_umwk0")
+size = Vector2(1.5, 2)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26hwv"]
+albedo_texture = ExtResource("6_umwk0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t8b2p"]
+material = SubResource("StandardMaterial3D_26hwv")
+size = Vector2(2, 1.5)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8b2p"]
+albedo_texture = ExtResource("7_26hwv")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7qf10"]
+material = SubResource("StandardMaterial3D_t8b2p")
+size = Vector2(2, 1.5)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qf10"]
+albedo_texture = ExtResource("5_26hwv")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_30ka6"]
+material = SubResource("StandardMaterial3D_7qf10")
+size = Vector2(2, 1.5)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_di2p2"]
+albedo_texture = ExtResource("9_7qf10")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_di2p2"]
+material = SubResource("StandardMaterial3D_di2p2")
+size = Vector2(4.5, 3.5)
+orientation = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_transition"]
+size = Vector3(3, 0.2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_transition"]
+size = Vector3(3, 0.5, 3)
+
+[node name="Main" type="Node3D" unique_id=1741748220]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1996217250]
+
+[node name="InventoryUI" parent="UI" unique_id=1936844999 instance=ExtResource("1_nfhxa")]
+
+[node name="BookUI" type="Control" parent="UI" unique_id=1249212671]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_s7lbl")
+
+[node name="BridgePuzzleUI" parent="UI" unique_id=1825712127 instance=ExtResource("3_di2p2")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=521927541]
+transform = Transform3D(-0.19857366, -0.8649451, 0.46091053, -0.0066185943, 0.47144833, 0.88186884, -0.98006356, 0.17206539, -0.099341944, 3.1859086, 9.823743, 0)
+
+[node name="Player" parent="." unique_id=509487869 instance=ExtResource("3_ymv1o")]
+transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, -20.083529, 2, -0.6962377)
+
+[node name="Floors" type="Node3D" parent="." unique_id=44486075]
+
+[node name="FloorRoom2" type="CSGBox3D" parent="Floors" unique_id=1594034778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
+use_collision = true
+size = Vector3(20, 0.2, 20)
+
+[node name="FloorRoom" type="CSGBox3D" parent="Floors" unique_id=493730174]
+use_collision = true
+size = Vector3(20, 0.2, 20)
+
+[node name="FloorRoom3" type="CSGBox3D" parent="Floors" unique_id=1957111991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 39.87931)
+use_collision = true
+size = Vector3(20, 0.2, 20)
+
+[node name="Walls" type="Node3D" parent="." unique_id=696727244]
+
+[node name="WallNorth" type="CSGBox3D" parent="Walls" unique_id=923015090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
+use_collision = true
+size = Vector3(20, 5, 0.2)
+
+[node name="WallSouth" type="CSGBox3D" parent="Walls" unique_id=1038481654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
+use_collision = true
+size = Vector3(20, 5, 0.2)
+
+[node name="WallEast" type="CSGBox3D" parent="Walls" unique_id=535448083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5, 0)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
+[node name="WallWestNorth" type="CSGBox3D" parent="Walls" unique_id=979769826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, -6)
+use_collision = true
+size = Vector3(0.2, 5, 8)
+
+[node name="WallWestSouth" type="CSGBox3D" parent="Walls" unique_id=1845490175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 6)
+use_collision = true
+size = Vector3(0.2, 5, 8)
+
+[node name="WallWestRoom2" type="CSGBox3D" parent="Walls" unique_id=1618436762]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2.5, 0)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
+[node name="WallNorthRoom2" type="CSGBox3D" parent="Walls" unique_id=90074779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, -10)
+use_collision = true
+size = Vector3(20, 5, 0.2)
+
+[node name="WallSouthRoom2Left" type="CSGBox3D" parent="Walls" unique_id=136794260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2.5, 10)
+use_collision = true
+size = Vector3(8, 5, 0.2)
+
+[node name="WallSouthRoom2Right" type="CSGBox3D" parent="Walls" unique_id=458274162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 10)
+use_collision = true
+size = Vector3(8, 5, 0.2)
+
+[node name="WallSouthRoom2Left2" type="CSGBox3D" parent="Walls" unique_id=1954363000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2.5, 29.787327)
+use_collision = true
+size = Vector3(8, 5, 0.2)
+
+[node name="WallSouthRoom2Right2" type="CSGBox3D" parent="Walls" unique_id=637733942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 29.787327)
+use_collision = true
+size = Vector3(8, 5, 0.2)
+
+[node name="WallWestRoom3" type="CSGBox3D" parent="Walls" unique_id=2025880301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2.5, 39.787327)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
+[node name="WallWestRoom4" type="CSGBox3D" parent="Walls" unique_id=2052787546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 39.787327)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
+[node name="WallNorthRoom3" type="CSGBox3D" parent="Walls" unique_id=1592365376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, 49.787327)
+use_collision = true
+size = Vector3(20, 5, 0.2)
+
+[node name="Bridge1" type="Node3D" parent="." unique_id=2117430868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.086082, 0, 12.446149)
+
+[node name="Floor" type="CSGBox3D" parent="Bridge1" unique_id=1728584438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2.4999075)
+use_collision = true
+size = Vector3(5, 0.2, 9.999817)
+
+[node name="Wall" type="CSGBox3D" parent="Bridge1" unique_id=131633194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0.6, 2.5)
+use_collision = true
+size = Vector3(0.2, 1.5, 10)
+
+[node name="Wall2" type="CSGBox3D" parent="Bridge1" unique_id=1471812449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.6, 2.5)
+use_collision = true
+size = Vector3(0.2, 1.5, 10)
+
+[node name="BridgeController" type="Node3D" parent="Bridge1" unique_id=1032608149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08608246, 1, 6.553851)
+script = ExtResource("4_s7lbl")
+Bridge1Path = NodePath("..")
+Bridge2Path = NodePath("../../Bridge2")
+Bridge2TargetOffset = Vector3(0, 0, -7.2)
+
+[node name="Stand" type="CSGBox3D" parent="Bridge1/BridgeController" unique_id=77995919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33571053, -0.3778997, 0.2770176)
+use_collision = true
+size = Vector3(0.116, 1, 0.317)
+
+[node name="Panel" type="CSGBox3D" parent="Bridge1/BridgeController" unique_id=1242317807]
+transform = Transform3D(1, 0, 0, 0, 0.9583226, 0.28568837, 0, -0.28568837, 0.9583226, -0.3583336, 0.10422516, 0.216465)
+use_collision = true
+size = Vector3(1, 0.1, 1)
+
+[node name="Bridge2" type="Node3D" parent="." unique_id=743685314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.086082, 0, 29.583319)
+
+[node name="Floor" type="CSGBox3D" parent="Bridge2" unique_id=479434039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2.4999075)
+use_collision = true
+size = Vector3(5, 0.2, 9.999817)
+
+[node name="Wall" type="CSGBox3D" parent="Bridge2" unique_id=393311621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0.6, 2.5)
+use_collision = true
+size = Vector3(0.2, 1.5, 10)
+
+[node name="Wall2" type="CSGBox3D" parent="Bridge2" unique_id=1128197776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.6, 2.5)
+use_collision = true
+size = Vector3(0.2, 1.5, 10)
+
+[node name="Puzzle" type="Node3D" parent="." unique_id=193915800]
+
+[node name="Puzzle1" type="MeshInstance3D" parent="Puzzle" unique_id=583825129]
+transform = Transform3D(1.3113417e-07, 0.99999994, 4.3711392e-08, 3.8213714e-15, 4.3711385e-08, -1.0000001, -1.0000001, 1.3113414e-07, 1.9106857e-15, -12.789035, 2.5106678, 9.896386)
+mesh = SubResource("PlaneMesh_26hwv")
+skeleton = NodePath("../..")
+
+[node name="Puzzle2" type="MeshInstance3D" parent="Puzzle" unique_id=1281241225]
+transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -15.50933, 2.5106678, 9.896386)
+mesh = SubResource("PlaneMesh_t8b2p")
+skeleton = NodePath("../..")
+
+[node name="Puzzle3" type="MeshInstance3D" parent="Puzzle" unique_id=833697597]
+transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -27.289352, 2.5106678, 9.896386)
+mesh = SubResource("PlaneMesh_7qf10")
+skeleton = NodePath("../..")
+
+[node name="Puzzle4" type="MeshInstance3D" parent="Puzzle" unique_id=1109915248]
+transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -24.444822, 2.5106678, 9.896386)
+mesh = SubResource("PlaneMesh_30ka6")
+skeleton = NodePath("../..")
+
+[node name="Puzzle5" type="MeshInstance3D" parent="Puzzle" unique_id=1956102092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.884842, 2.5719612, 0.15045738)
+mesh = SubResource("PlaneMesh_di2p2")
+
+[node name="LevelTransition" type="Area3D" parent="." unique_id=1847499793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.1, 47)
+script = ExtResource("10_transition")
+NextLevel = 3
+AreaColor = Color(0.2, 1, 0.2, 0.6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTransition" unique_id=1847499794]
+mesh = SubResource("BoxMesh_transition")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition" unique_id=1847499795]
+shape = SubResource("BoxShape3D_transition")
+
+[node name="AncientBooks" type="Node3D" parent="." unique_id=1039515135]
+script = ExtResource("12_ubowq")
+CurrentLevel = 2

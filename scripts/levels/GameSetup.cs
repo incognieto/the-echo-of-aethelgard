@@ -19,8 +19,8 @@ public partial class GameSetup : Node
 		// Start with fade-in effect
 		StartFadeIn();
 		
-		// Spawn ancient book di inventory untuk level 3 dan 4
-		if (CurrentLevel == 3 || CurrentLevel == 4)
+		// Spawn ancient book di inventory untuk level 2, 3, 4, dan 5
+		if (CurrentLevel == 2 || CurrentLevel == 3 || CurrentLevel == 4 || CurrentLevel == 5)
 		{
 			CallDeferred(nameof(SpawnAncientBook));
 		}

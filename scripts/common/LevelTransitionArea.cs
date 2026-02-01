@@ -80,9 +80,10 @@ public partial class LevelTransitionArea : Area3D
         string levelPath = NextLevel switch
         {
             1 => "res://scenes/levels/level_1_cell/Main.tscn",
-            2 => "res://scenes/levels/level_2_kitchen/Main.tscn",
+            2 => "res://scenes/levels/level_2_bridge/Main.tscn",
             3 => "res://scenes/levels/level_3_lab/Main.tscn",
             4 => "res://scenes/levels/level_4_library/Main.tscn",
+            5 => "res://scenes/levels/level_5_Sewer/Main.tscn",
             _ => "res://scenes/levels/level_1_cell/Main.tscn"
         };
         
