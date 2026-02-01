@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://d32ivbvirsakt"]
+
+[ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="1_vrd8p"]
+[ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_btphr"]
+[ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="3_7wgpb"]
+[ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_ad0wm"]
+[ext_resource type="Script" uid="uid://cw2hj8u1lbjxj" path="res://scripts/ui/PuzzleUI.cs" id="5_t1ldq"]
+[ext_resource type="Script" uid="uid://ck2ul0w25n6gw" path="res://scripts/items/WeightItem.cs" id="6_btphr"]
+[ext_resource type="Script" uid="uid://6kpxe7unguii" path="res://scripts/puzzles/SewerGatePuzzle.cs" id="7_7wgpb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdfxw"]
+albedo_color = Color(0.29597646, 0.27084768, 0.25471476, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tdfxw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_apwv6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_j0lb3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7wgpb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7wgpb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ad0wm"]
+
+[node name="Main" type="Node3D" unique_id=1411745492]
+
+[node name="GameSetup" type="Node" parent="." unique_id=641014099]
+script = ExtResource("1_vrd8p")
+
+[node name="Player" parent="." unique_id=667506092 instance=ExtResource("2_btphr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1912687294]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=520216363]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=694167344]
+
+[node name="InventoryUI" type="Control" parent="CanvasLayer" unique_id=1260366128]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_7wgpb")
+
+[node name="BookUI" type="Control" parent="CanvasLayer" unique_id=1515685859]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_ad0wm")
+
+[node name="PuzzleUI" type="Control" parent="CanvasLayer" unique_id=997656229]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_t1ldq")
+
+[node name="Sewer" type="Node3D" parent="." unique_id=1748212744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.33554, -0.3919649, -13.601902)
+
+[node name="Base" type="Node3D" parent="Sewer" unique_id=1320725976]
+
+[node name="Floor" type="CSGBox3D" parent="Sewer/Base" unique_id=705758397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.761486, 1.7514484, 13.970922)
+use_collision = true
+size = Vector3(30, 0.5, 8)
+material = SubResource("StandardMaterial3D_tdfxw")
+
+[node name="Floor2" type="CSGBox3D" parent="Sewer/Base" unique_id=1689830718]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -10.761486, 5.807008, 9.818068)
+use_collision = true
+size = Vector3(30, 0.5, 8)
+material = SubResource("StandardMaterial3D_tdfxw")
+
+[node name="Floor3" type="CSGBox3D" parent="Sewer/Base" unique_id=1658024752]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -10.761486, 5.807008, 18.028427)
+use_collision = true
+size = Vector3(30, 0.5, 8)
+material = SubResource("StandardMaterial3D_tdfxw")
+
+[node name="Floor4" type="CSGBox3D" parent="Sewer/Base" unique_id=1395042869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.761486, 9.520538, 14.032972)
+use_collision = true
+size = Vector3(30, 0.5, 8)
+material = SubResource("StandardMaterial3D_tdfxw")
+
+[node name="Wall2" type="CSGBox3D" parent="Sewer/Base" unique_id=802144056]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -25.563845, 5.5141954, 13.962635)
+size = Vector3(8, 0.5, 8)
+material = SubResource("StandardMaterial3D_tdfxw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Sewer" unique_id=1163947271]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -9.247118, 5.807008, 13.884675)
+light_color = Color(0.5261257, 0.4429386, 0.17088622, 1)
+light_energy = 5.404
+light_specular = 3.556
+shadow_enabled = true
+omni_range = 19.302
+
+[node name="ExitGate" type="StaticBody3D" parent="Sewer" unique_id=1095822255]
+transform = Transform3D(1, 0, 0, 0, 8, 0, 0, 0, 8, 4.794633, 5.5345044, 14.06741)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/ExitGate" unique_id=1595340705]
+shape = SubResource("BoxShape3D_tdfxw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/ExitGate" unique_id=331229343]
+mesh = SubResource("BoxMesh_apwv6")
+
+[node name="Label3D" type="Label3D" parent="Sewer/ExitGate" unique_id=2093335559]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.77132034, 0.16993487, 0)
+
+[node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
+
+[node name="Small Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1676649959]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, -6.333789, 3.163219, 11.288057)
+script = ExtResource("6_btphr")
+ItemId = "stone_10"
+ItemName = "Small Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Small Rock" unique_id=644432485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84069824, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Small Rock" unique_id=1828825301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84207463, 0)
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="Medium Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=348885335]
+transform = Transform3D(1.14, 0, 0, 0, 1.14, 0, 0, 0, 1.14, -6.333789, 3.6528404, 15.617718)
+script = ExtResource("6_btphr")
+WeightValue = 15.0
+ItemId = "stone_15"
+ItemName = "Medium Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Medium Rock" unique_id=2029920545]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84069824, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Medium Rock" unique_id=949168403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84207463, 0)
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="Heavy Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1793016969]
+transform = Transform3D(1.49, 0, 0, 0, 1.49, 0, 0, 0, 1.49, -2.5159245, 3.6528404, 16.279335)
+script = ExtResource("6_btphr")
+WeightValue = 20.0
+ItemId = "stone_20"
+ItemName = "Heavy Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Heavy Rock" unique_id=665142675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5687493, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Heavy Rock" unique_id=1615056775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5701257, 0)
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1218040056]
+transform = Transform3D(1.49, 0, 0, 0, 1.49, 0, 0, 0, 1.49, -2.5159245, 3.6528404, 12.100311)
+script = ExtResource("6_btphr")
+WeightValue = 30.0
+ItemId = "stone_30"
+ItemName = "Huge Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Huge Rock" unique_id=457186175]
+transform = Transform3D(1.3900002, 0, 0, 0, 1.3900002, 0, 0, 0, 1.3900002, 0, -0.37562108, -0.44315648)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Huge Rock" unique_id=774888146]
+transform = Transform3D(1.3900002, 0, 0, 0, 1.3900002, 0, 0, 0, 1.3900002, 0, -0.3769977, -0.44315648)
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="Gigantic Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=136407317]
+transform = Transform3D(1.49, 0, 0, 0, 1.49, 0, 0, 0, 1.49, 1.5430965, 3.7407653, 12.100311)
+script = ExtResource("6_btphr")
+WeightValue = 40.0
+ItemId = "stone_40"
+ItemName = "Gigantic  Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Gigantic Rock" unique_id=2096904945]
+transform = Transform3D(1.94, 0, 0, 0, 1.94, 0, 0, 0, 1.94, 0, -0.37562108, -0.44315648)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Gigantic Rock" unique_id=1711476922]
+transform = Transform3D(1.94, 0, 0, 0, 1.94, 0, 0, 0, 1.94, 0, -0.3769977, -0.44315648)
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="PulleySystem" type="Node3D" parent="Sewer" unique_id=322113394 node_paths=PackedStringArray("GateObject", "StatusLabel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.779447, 16.024921)
+script = ExtResource("7_7wgpb")
+GateObject = NodePath("../ExitGate")
+StatusLabel = NodePath("../ExitGate/Label3D")
+
+[node name="ScaleArea" type="Area3D" parent="Sewer/PulleySystem" unique_id=1996784607]
+transform = Transform3D(2.2514863, 0, 0, 0, 0.44138503, 0, 0, 0, 2.3054318, 1.7430496, -0.48807168, -0.32201815)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=1436840474]
+mesh = SubResource("BoxMesh_7wgpb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=213823445]
+shape = SubResource("BoxShape3D_ad0wm")
+
+[connection signal="body_entered" from="Sewer/PulleySystem/ScaleArea" to="Sewer/PulleySystem" method="OnScaleBodyEntered"]
+[connection signal="body_exited" from="Sewer/PulleySystem/ScaleArea" to="Sewer/PulleySystem" method="OnScaleBodyExited"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bynkfykxpprpw"]
+[gd_scene format=3 uid="uid://bynkfykxpprpw"]
 
-[ext_resource type="Script" path="res://scripts/common/Player.cs" id="1_8x7yh"]
-[ext_resource type="Script" path="res://scripts/systems/InventorySystem.cs" id="2_inv"]
+[ext_resource type="Script" uid="uid://b4vkhiyhk7jyj" path="res://scripts/common/Player.cs" id="1_8x7yh"]
+[ext_resource type="Script" uid="uid://ydclcoslvt8j" path="res://scripts/systems/InventorySystem.cs" id="2_inv"]
 [ext_resource type="PackedScene" uid="uid://c5wdkpnfewrjp" path="res://scenes/common/DroppedItem.tscn" id="3_drop"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
@@ -12,28 +12,23 @@ height = 1.8
 radius = 0.4
 height = 1.8
 
-[node name="Player" type="CharacterBody3D" groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=1743798918 groups=["player"]]
 script = ExtResource("1_8x7yh")
-Speed = 5.0
-JumpVelocity = 4.5
-MouseSensitivity = 0.002
-ThrowForce = 10.0
+ThrowForce = 0.0
 DroppedItemScene = ExtResource("3_drop")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1336501435]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1247383220]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CapsuleMesh_1")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=2032853887]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=660454892]
 
-[node name="InventorySystem" type="Node" parent="."]
+[node name="InventorySystem" type="Node" parent="." unique_id=1265946879]
 script = ExtResource("2_inv")
-InventorySize = 6
-HotbarSize = 6

@@ -6,7 +6,7 @@ public partial class Player : CharacterBody3D
 	[Export] public float Speed = 5.0f;
 	[Export] public float JumpVelocity = 4.5f;
 	[Export] public float MouseSensitivity = 0.002f;
-	[Export] public float ThrowForce = 10.0f;
+	[Export] public float ThrowForce = 2.0f;
 	[Export] public PackedScene DroppedItemScene;
 
 	private Node3D _head;
