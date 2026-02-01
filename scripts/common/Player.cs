@@ -103,7 +103,7 @@ public partial class Player : CharacterBody3D
 		}
 		else
 		{
-			GD.PrintErr("✗ Player: BookUI not found!");
+			GD.Print("ℹ Player: BookUI not found (not required for this level)");
 		}
 	}
 	

@@ -11,10 +11,10 @@ public partial class QuantityPickerUI : Control
 
 	private Label _titleLabel;
 	private Label _quantityLabel;
-	private Button _minusButton;
-	private Button _plusButton;
-	private Button _confirmButton;
-	private Button _cancelButton;
+	private BaseButton _minusButton;
+	private BaseButton _plusButton;
+	private BaseButton _confirmButton;
+	private BaseButton _cancelButton;
 	private InventoryUI _inventoryUI;
 	
 	private int _currentQuantity = 1;
@@ -37,10 +37,10 @@ public partial class QuantityPickerUI : Control
 		
 		_titleLabel = panel.GetNodeOrNull<Label>("TitleLabel");
 		_quantityLabel = panel.GetNodeOrNull<Label>("QuantityLabel");
-		_minusButton = panel.GetNodeOrNull<Button>("MinusButton");
-		_plusButton = panel.GetNodeOrNull<Button>("PlusButton");
-		_confirmButton = panel.GetNodeOrNull<Button>("ConfirmButton");
-		_cancelButton = panel.GetNodeOrNull<Button>("CancelButton");
+		_minusButton = panel.GetNodeOrNull<BaseButton>("MinusButton");
+		_plusButton = panel.GetNodeOrNull<BaseButton>("PlusButton");
+		_confirmButton = panel.GetNodeOrNull<BaseButton>("ConfirmButton");
+		_cancelButton = panel.GetNodeOrNull<BaseButton>("CancelButton");
 		
 		if (_titleLabel == null || _quantityLabel == null || _minusButton == null || 
 		    _plusButton == null || _confirmButton == null || _cancelButton == null)

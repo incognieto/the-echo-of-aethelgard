@@ -35,5 +35,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="InventorySystem" type="Node" parent="."]
 script = ExtResource("2_inv")
-InventorySize = 6
-HotbarSize = 6
+InventorySize = 16
+HotbarSize = 4

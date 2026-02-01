@@ -571,6 +571,13 @@ private StyleBox CreateHighlightStylebox()
 			panel.Visible = _isVisible;
 		}
 		
+		// Toggle background 4x4 visibility
+		var background4x4 = GetNodeOrNull<TextureRect>("Background4x4");
+		if (background4x4 != null)
+		{
+			background4x4.Visible = _isVisible;
+		}
+		
 		if (_isVisible)
 		{
 			// Inventory opened

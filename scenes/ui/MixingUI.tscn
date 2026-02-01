@@ -1,8 +1,21 @@
 [gd_scene format=3 uid="uid://bh7y0kxlmqe5"]
 
-[ext_resource type="Script" uid="uid://cmixinguiscript" path="res://scripts/ui/MixingUI.cs" id="1_mixing"]
+[ext_resource type="Script" uid="uid://bh7y0kxl0lpx" path="res://scripts/ui/MixingUI.cs" id="1_mixing"]
+[ext_resource type="Texture2D" uid="uid://cfyvmos0akoux" path="res://assets/sprites/ui/ui_kuali_kecil.png" id="2_bg_kuali_kecil"]
+[ext_resource type="Texture2D" uid="uid://05f5qmjfcdoe" path="res://assets/sprites/ui/green_moss.png" id="3_green"]
+[ext_resource type="Texture2D" uid="uid://d3n0le1q04vi2" path="res://assets/sprites/ui/green_moss_clicked.png" id="4_green_click"]
+[ext_resource type="Texture2D" uid="uid://ddhsbfbsvipl5" path="res://assets/sprites/ui/red_powder.png" id="5_red"]
+[ext_resource type="Texture2D" uid="uid://hjael1whsa8s" path="res://assets/sprites/ui/red_powder_clicked.png" id="6_red_click"]
+[ext_resource type="Texture2D" uid="uid://cryfnf7mjhxpb" path="res://assets/sprites/ui/blue_extract.png" id="7_blue"]
+[ext_resource type="Texture2D" uid="uid://lsfp3bthr4ie" path="res://assets/sprites/ui/blue_extract_clicked.png" id="8_blue_click"]
+[ext_resource type="Texture2D" uid="uid://c3jets6oi55v3" path="res://assets/sprites/ui/button_mix_kuali_kecil.png" id="9_mix"]
+[ext_resource type="Texture2D" uid="uid://iouqu8gd17sw" path="res://assets/sprites/ui/button_mix_kuali_kecil_clicked.png" id="10_mix_click"]
+[ext_resource type="Texture2D" uid="uid://dyyu0om82iwea" path="res://assets/sprites/ui/button_clear_kuali_kecil.png" id="11_clear"]
+[ext_resource type="Texture2D" uid="uid://dpt260aflxsb5" path="res://assets/sprites/ui/button_clear_kuali_kecil_clicked.png" id="12_clear_click"]
 
-[node name="MixingUI" type="Control"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_26vy0"]
+
+[node name="MixingUI" type="Control" unique_id=1906245930]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +25,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_mixing")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1922787190]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,21 +35,33 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.8)
 
-[node name="MixingPanel" type="Panel" parent="."]
+[node name="BackgroundKualiKecil" type="TextureRect" parent="." unique_id=556853556]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bg_kuali_kecil")
+stretch_mode = 6
+
+[node name="MixingPanel" type="Panel" parent="." unique_id=1252033302]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -320.0
-offset_right = 400.0
+offset_left = -500.0
+offset_top = -321.0
+offset_right = 486.0
 offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_26vy0")
 
-[node name="TitleLabel" type="Label" parent="MixingPanel"]
+[node name="TitleLabel" type="Label" parent="MixingPanel" unique_id=1268754265]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -48,10 +73,10 @@ offset_bottom = 55.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
-text = "⚗️ TRI-COLOR SYNTHESIS"
+text = "🪔 SMALL CAULDRON"
 horizontal_alignment = 1
 
-[node name="FeedbackLabel" type="Label" parent="MixingPanel"]
+[node name="FeedbackLabel" type="Label" parent="MixingPanel" unique_id=791462171]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -62,11 +87,11 @@ offset_right = 360.0
 offset_bottom = 95.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 14
-text = "Synthesize the Teal Potion through tri-color synthesis."
+text = "Mix primary materials to create secondary potions."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="CurrentMixtureLabel" type="Label" parent="MixingPanel"]
+[node name="CurrentMixtureLabel" type="Label" parent="MixingPanel" unique_id=530157018]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -81,7 +106,7 @@ theme_override_font_sizes/font_size = 16
 text = "Cauldron: Empty"
 horizontal_alignment = 1
 
-[node name="StorageLabel" type="Label" parent="MixingPanel"]
+[node name="StorageLabel" type="Label" parent="MixingPanel" unique_id=337511240]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -96,7 +121,7 @@ theme_override_font_sizes/font_size = 16
 text = "Storage: Empty"
 horizontal_alignment = 1
 
-[node name="MaterialInventoryLabel" type="Label" parent="MixingPanel"]
+[node name="MaterialInventoryLabel" type="Label" parent="MixingPanel" unique_id=1075063632]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -111,128 +136,92 @@ theme_override_font_sizes/font_size = 14
 text = "Materials: Green x0 | Red x0 | Blue x0"
 horizontal_alignment = 1
 
-[node name="MaterialContainer" type="VBoxContainer" parent="MixingPanel"]
+[node name="GreenButton" type="TextureButton" parent="MixingPanel" unique_id=43909554]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 40.0
-offset_top = -60.0
-offset_right = 280.0
-offset_bottom = 100.0
+offset_left = -508.0
+offset_top = -110.5
+offset_right = -281.0
+offset_bottom = 105.5
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+texture_normal = ExtResource("3_green")
+texture_pressed = ExtResource("4_green_click")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="MixingPanel/MaterialContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Primary Materials:"
-
-[node name="GreenButton" type="Button" parent="MixingPanel/MaterialContainer"]
-custom_minimum_size = Vector2(240, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "🌿 Green Moss"
-
-[node name="RedButton" type="Button" parent="MixingPanel/MaterialContainer"]
-custom_minimum_size = Vector2(240, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "🕷️ Red Powder"
-
-[node name="BlueButton" type="Button" parent="MixingPanel/MaterialContainer"]
-custom_minimum_size = Vector2(240, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "✨ Blue Extract"
-
-[node name="SecondaryContainer" type="VBoxContainer" parent="MixingPanel"]
+[node name="RedButton" type="TextureButton" parent="MixingPanel" unique_id=1597145087]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -280.0
-offset_top = -60.0
-offset_right = -40.0
-offset_bottom = 100.0
-grow_horizontal = 0
+offset_left = -403.0
+offset_top = -281.5
+offset_right = -225.0
+offset_bottom = -112.5
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+texture_normal = ExtResource("5_red")
+texture_pressed = ExtResource("6_red_click")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="MixingPanel/SecondaryContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Secondary Potions:"
+[node name="BlueButton" type="TextureButton" parent="MixingPanel" unique_id=1406079140]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -413.0
+offset_top = 90.5
+offset_right = -204.0
+offset_bottom = 298.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("7_blue")
+texture_pressed = ExtResource("8_blue_click")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="YellowButton" type="Button" parent="MixingPanel/SecondaryContainer"]
-custom_minimum_size = Vector2(240, 45)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-text = "💛 Yellow Potion"
-disabled = true
-
-[node name="MagentaButton" type="Button" parent="MixingPanel/SecondaryContainer"]
-custom_minimum_size = Vector2(240, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "💗 Magenta Potion"
-disabled = true
-
-[node name="CyanButton" type="Button" parent="MixingPanel/SecondaryContainer"]
-custom_minimum_size = Vector2(240, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "💙 Cyan Potion"
-disabled = true
-
-[node name="MixButton" type="Button" parent="MixingPanel"]
+[node name="MixButton" type="TextureButton" parent="MixingPanel" unique_id=740036857]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -140.0
-offset_right = 150.0
-offset_bottom = -100.0
+offset_left = 205.0
+offset_top = -233.0
+offset_right = 424.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
-text = "🔬 MIX IN CAULDRON"
+texture_normal = ExtResource("9_mix")
+texture_pressed = ExtResource("10_mix_click")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="ResetButton" type="Button" parent="MixingPanel"]
+[node name="ResetButton" type="TextureButton" parent="MixingPanel" unique_id=188093078]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -90.0
-offset_right = 150.0
-offset_bottom = -60.0
+offset_left = 320.0
+offset_top = -370.0
+offset_right = 484.0
+offset_bottom = -205.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 16
-text = "🗑️ Clear Cauldron"
-
-[node name="CloseButton" type="Button" parent="MixingPanel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -80.0
-offset_top = -50.0
-offset_right = 80.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 14
-text = "Close"
+texture_normal = ExtResource("11_clear")
+texture_pressed = ExtResource("12_clear_click")
+ignore_texture_size = true
+stretch_mode = 5
