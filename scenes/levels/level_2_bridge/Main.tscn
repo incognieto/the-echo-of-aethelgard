@@ -57,7 +57,6 @@ orientation = 0
 [node name="UI" type="CanvasLayer" parent="." unique_id=1996217250]
 
 [node name="InventoryUI" parent="UI" unique_id=1936844999 instance=ExtResource("1_nfhxa")]
-visible = false
 
 [node name="BookUI" type="Control" parent="UI" unique_id=1249212671]
 layout_mode = 3
@@ -69,7 +68,6 @@ grow_vertical = 2
 script = ExtResource("2_s7lbl")
 
 [node name="BridgePuzzleUI" parent="UI" unique_id=1825712127 instance=ExtResource("3_di2p2")]
-visible = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=521927541]
 transform = Transform3D(-0.19857366, -0.8649451, 0.46091053, -0.0066185943, 0.47144833, 0.88186884, -0.98006356, 0.17206539, -0.099341944, 3.1859086, 9.823743, 0)
