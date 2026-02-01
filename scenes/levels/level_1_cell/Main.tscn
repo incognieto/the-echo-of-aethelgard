@@ -208,9 +208,6 @@ Look to the stars for guidance true,
 The chosen one shall see it through.\"[/i]
 
 [right]- End of Volume I -[/right]"
-ItemId = "ancient_book"
-ItemName = "Ancient Book"
-MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Items/BookItem1" unique_id=702592139]
 mesh = SubResource("SphereMesh_item")
