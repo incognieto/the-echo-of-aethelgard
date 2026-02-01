@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="6_bookitem"]
 [ext_resource type="PackedScene" uid="uid://cvw3f0558f36y" path="res://scenes/ui/PuzzleUI.tscn" id="7_puzzleui"]
 [ext_resource type="Script" uid="uid://bthdhyq4ff2n6" path="res://scripts/puzzles/DoorPuzzle.cs" id="8_doorpuzzle"]
+[ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="9_transition"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(20, 0.2, 20)
@@ -57,6 +58,12 @@ albedo_color = Color(0.2, 0.3, 0.5, 1)
 emission_enabled = true
 emission = Color(0.3, 0.6, 1, 1)
 emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_transition"]
+size = Vector3(3, 0.2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_transition"]
+size = Vector3(3, 0.5, 3)
 
 [node name="Main" type="Node3D" unique_id=2043194446]
 
@@ -267,3 +274,15 @@ grow_vertical = 2
 script = ExtResource("5_bookui")
 
 [node name="PuzzleUI" parent="UI" unique_id=692572082 instance=ExtResource("7_puzzleui")]
+
+[node name="LevelTransition" type="Area3D" parent="." unique_id=1847499793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.1, 0)
+script = ExtResource("9_transition")
+NextLevel = 3
+AreaColor = Color(0.2, 1, 0.2, 0.6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTransition" unique_id=1847499794]
+mesh = SubResource("BoxMesh_transition")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition" unique_id=1847499795]
+shape = SubResource("BoxShape3D_transition")

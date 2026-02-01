@@ -59,6 +59,7 @@ public partial class FinalMixingUI : Control
 		_selectedPotions.Clear();
 		
 		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true; // Set global flag
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		
 		// Hide inventory UI and crosshair dengan state management
@@ -106,7 +107,7 @@ public partial class FinalMixingUI : Control
 			int magentaCount = GetPotionCount("magenta_potion");
 			int cyanCount = GetPotionCount("cyan_potion");
 			
-			_potionInventoryLabel.Text = $"Your Potions: Yellow x{yellowCount} | Magenta x{magentaCount} | Cyan x{cyanCount}";
+			_potionInventoryLabel.Text = $"Your Potions:\nYellow x{yellowCount}\nMagenta x{magentaCount}\nCyan x{cyanCount}";
 			
 			_yellowButton.Disabled = yellowCount == 0;
 			_magentaButton.Disabled = magentaCount == 0;
@@ -158,7 +159,7 @@ public partial class FinalMixingUI : Control
 		var tealData = new ItemData("teal_potion", "Teal Potion", 1);
 		_playerInventory.AddItem(tealData, 1);
 		
-		_feedbackLabel.Text = "🎉 SUCCESS! You created the Teal Potion!";
+		_feedbackLabel.Text = "Success! You created the Teal Potion!";
 		_feedbackLabel.Modulate = Colors.Cyan;
 		
 		_mixButton.Disabled = true;
@@ -207,6 +208,7 @@ public partial class FinalMixingUI : Control
 	private void CloseFinalMixingUI()
 	{
 		Visible = false;
+		InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		
 		// Restore inventory UI dan crosshair ke state sebelumnya

@@ -93,6 +93,7 @@ public partial class QuantityPickerUI : Control
 		UpdateQuantityDisplay();
 		
 		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true; // Set global flag
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		
 		GD.Print($"QuantityPickerUI visibility set to: {Visible}");
@@ -147,6 +148,7 @@ public partial class QuantityPickerUI : Control
 	private void ClosePicker()
 	{
 		Visible = false;
+		InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		
 		// Restore inventory UI dan crosshair ke state sebelumnya

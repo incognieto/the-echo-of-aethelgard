@@ -124,6 +124,7 @@ public partial class PuzzleUI : Control
 		_feedbackLabel.Text = "";
 		UpdateDisplay();
 		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true; // Set global flag
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		
 		// Hide crosshair dan hotbar
@@ -160,7 +161,7 @@ public partial class PuzzleUI : Control
 		
 		if (correct)
 		{
-			_feedbackLabel.Text = "✓ LOCK OPENED!";
+			_feedbackLabel.Text = "Lock Opened!";
 			_feedbackLabel.AddThemeColorOverride("font_color", new Color(0, 1, 0, 1));
 			GD.Print("Puzzle solved!");
 			
@@ -181,6 +182,7 @@ public partial class PuzzleUI : Control
 	private void Close()
 	{
 		Visible = false;
+		InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		
 		// Restore hotbar dan crosshair sesuai camera mode

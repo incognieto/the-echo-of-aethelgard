@@ -36,11 +36,17 @@ public partial class LibraryGridUI : Control
 	// Track buku yang sudah digunakan
 	private HashSet<BookSymbol> _usedBooks = new HashSet<BookSymbol>();
 	
+	// Custom font
+	private FontFile _customFont;
+	
 	// Narasi info (di README atau book terpisah)
 	private const string HintText = "Order: Castle → Knight → Princess → Dragon → Sword → Shield → Horse → Skulls → Phoenix";
 
 	public override void _Ready()
 	{
+		// Load custom font
+		_customFont = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
+		
 		Visible = false;
 		
 		// Get nodes from scene
@@ -86,12 +92,14 @@ public partial class LibraryGridUI : Control
 		
 		var selectionTitle = new Label();
 		selectionTitle.Text = "Your Books:";
+		if (_customFont != null) selectionTitle.AddThemeFontOverride("font", _customFont);
 		selectionTitle.AddThemeFontSizeOverride("font_size", 18);
 		selectionTitle.AddThemeColorOverride("font_color", new Color(0.9f, 0.8f, 0.6f));
 		_bookSelectionPanel.AddChild(selectionTitle);
 		
 		var instruction = new Label();
 		instruction.Text = "Click slot, then click book";
+		if (_customFont != null) instruction.AddThemeFontOverride("font", _customFont);
 		instruction.AddThemeFontSizeOverride("font_size", 12);
 		instruction.AddThemeColorOverride("font_color", new Color(0.7f, 0.7f, 0.7f));
 		_bookSelectionPanel.AddChild(instruction);
@@ -116,6 +124,7 @@ public partial class LibraryGridUI : Control
 	{
 		_player = player;
 		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true; // Set global flag
 		_feedbackLabel.Text = "Left-click slot → Left-click book to place | Right-click slot to remove";
 		_feedbackLabel.Modulate = Colors.White;
 		
@@ -160,6 +169,7 @@ public partial class LibraryGridUI : Control
 	public void CloseGrid()
 	{
 		Visible = false;
+		InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 		
 		// Hide mouse cursor
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -456,9 +466,12 @@ public partial class GridSlot : Panel
 	
 	public override void _Ready()
 	{
+		var font = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
+		
 		// Roman numeral label
 		_romanLabel = new Label();
 		_romanLabel.Text = ToRoman(_slotNumber);
+		if (font != null) _romanLabel.AddThemeFontOverride("font", font);
 		_romanLabel.AddThemeFontSizeOverride("font_size", 24);
 		_romanLabel.AddThemeColorOverride("font_color", new Color(0.8f, 0.7f, 0.5f));
 		_romanLabel.HorizontalAlignment = HorizontalAlignment.Center;
@@ -468,6 +481,7 @@ public partial class GridSlot : Panel
 		
 		// Book name label
 		_bookLabel = new Label();
+		if (font != null) _bookLabel.AddThemeFontOverride("font", font);
 		_bookLabel.AddThemeFontSizeOverride("font_size", 12);
 		_bookLabel.AddThemeColorOverride("font_color", Colors.White);
 		_bookLabel.HorizontalAlignment = HorizontalAlignment.Center;

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c53ovvbjoxon2" path="res://assets/sprites/ui/ui_4x4_inventory.png" id="2_inv4x4"]
 [ext_resource type="Texture2D" uid="uid://cp1y8c3k7p46x" path="res://assets/sprites/ui/ui_1x4_inventory.png" id="3_inv1x4"]
 [ext_resource type="Texture2D" uid="uid://71yvbgwiw0cs" path="res://assets/sprites/ui/slot_inventory.png" id="4_slot"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot"]
 texture = ExtResource("4_slot")
@@ -264,10 +265,11 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 20.0
 offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 text = "1"
 
-[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0"]
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0" unique_id=1960439550]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -280,8 +282,8 @@ offset_right = 40.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
-text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -300,10 +302,11 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 20.0
 offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 text = "2"
 
-[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1"]
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1" unique_id=1834309225]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -316,8 +319,8 @@ offset_right = 40.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
-text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -336,10 +339,11 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 20.0
 offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 text = "3"
 
-[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2"]
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2" unique_id=1965865801]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -352,8 +356,8 @@ offset_right = 40.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
-text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -372,10 +376,11 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 20.0
 offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 text = "4"
 
-[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3"]
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3" unique_id=332100749]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -388,8 +393,8 @@ offset_right = 40.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
-text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cw2hj8u1lbjxj" path="res://scripts/ui/PuzzleUI.cs" id="1_puzzle"]
 [ext_resource type="Texture2D" uid="uid://cw0332cyrbqno" path="res://assets/sprites/ui/UI_GembokLayout.png" id="2_bg"]
 [ext_resource type="Texture2D" uid="uid://cwpnmnfskhc1g" path="res://assets/sprites/ui/ButtonBunga.png" id="3_bunga"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="4_font"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mbnp7"]
 
 [node name="PuzzleUI" type="Control" unique_id=973671154]
 layout_mode = 3
@@ -45,6 +48,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mbnp7")
 
 [node name="BackgroundTexture" type="TextureRect" parent="PuzzlePanel/BackgroundPanel" unique_id=1237711629]
 layout_mode = 1
@@ -68,8 +72,9 @@ offset_right = 150.0
 offset_bottom = 26.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.9, 0.8, 0.5, 1)
+theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 32
-text = "🔒 SYMBOL LOCK"
+text = "Prison Lock"
 horizontal_alignment = 1
 
 [node name="InstructionLabel" type="Label" parent="PuzzlePanel" unique_id=1229820614]
@@ -83,6 +88,7 @@ offset_right = 200.0
 offset_bottom = 54.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 16
 text = "Click symbols to cycle through patterns"
 horizontal_alignment = 1
@@ -167,10 +173,11 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -150.0
-offset_top = 472.0
+offset_top = 176.0
 offset_right = 150.0
-offset_bottom = 502.0
+offset_bottom = 206.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 

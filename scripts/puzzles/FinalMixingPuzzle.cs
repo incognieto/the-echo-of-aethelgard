@@ -4,10 +4,8 @@ using System;
 // Kuali besar untuk menggabungkan 3 secondary potion menjadi Teal Potion
 public partial class FinalMixingPuzzle : StaticBody3D
 {
-	[Export] public NodePath RustyDoorPath;
 	[Export] public float InteractionDistance = 3.0f;
 	
-	private StaticBody3D _rustyDoor;
 	private FinalMixingUI _finalMixingUI;
 	private Player _player;
 	private bool _playerNearby = false;
@@ -15,12 +13,6 @@ public partial class FinalMixingPuzzle : StaticBody3D
 
 	public override void _Ready()
 	{
-		// Get door reference
-		if (RustyDoorPath != null && !RustyDoorPath.IsEmpty)
-		{
-			_rustyDoor = GetNode<StaticBody3D>(RustyDoorPath);
-		}
-		
 		// Setup interaction area
 		SetupInteractionArea();
 		
@@ -157,12 +149,7 @@ public partial class FinalMixingPuzzle : StaticBody3D
 	private void CompletePuzzle()
 	{
 		GD.Print("🎉 FINAL SYNTHESIS COMPLETE! Teal Potion created!");
-		
-		if (_rustyDoor != null)
-		{
-			_rustyDoor.QueueFree();
-			GD.Print("✓ Rusty door dissolved by Teal Potion!");
-		}
+		GD.Print("💡 Use Teal Potion on the door to proceed to next area!");
 	}
 
 	private void RestoreCrosshairVisibility()

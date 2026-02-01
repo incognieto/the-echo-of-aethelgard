@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://cpj1vkmfr8tn1" path="res://scenes/ui/QuantityPickerUI.tscn" id="9_qtyui"]
 [ext_resource type="PackedScene" uid="uid://cl25celniqxra" path="res://scenes/ui/FinalMixingUI.tscn" id="10_finalmix"]
 [ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
+[ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="12_transition"]
+[ext_resource type="Script" uid="uid://bvnsdjc7nbgdd" path="res://scripts/common/AutoDoor.cs" id="13_autodoor"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(25, 0.2, 20)
@@ -36,17 +38,17 @@ height = 0.8
 height = 0.8
 radius = 0.6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
-albedo_color = Color(0.4, 0.3, 0.2, 1)
-metallic = 0.6
-roughness = 0.9
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_autodoor"]
+albedo_color = Color(0.7, 0.7, 0.75, 1)
+metallic = 0.9
+roughness = 0.2
 
-[sub_resource type="BoxMesh" id="BoxMesh_rustydoor"]
-material = SubResource("StandardMaterial3D_door")
-size = Vector3(4, 4.5, 0.4)
+[sub_resource type="BoxMesh" id="BoxMesh_autodoor"]
+material = SubResource("StandardMaterial3D_autodoor")
+size = Vector3(3.5, 4, 0.3)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rustydoor"]
-size = Vector3(4, 4.5, 0.4)
+[sub_resource type="BoxShape3D" id="BoxShape3D_autodoor"]
+size = Vector3(3.5, 4, 0.3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cauldron"]
 albedo_color = Color(0.15, 0.15, 0.15, 1)
@@ -82,10 +84,13 @@ albedo_color = Color(0.9, 0.2, 0.2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blue"]
 albedo_color = Color(0.2, 0.5, 1, 1)
 
-[node name="Main" type="Node3D" unique_id=1136436961]
+[sub_resource type="BoxMesh" id="BoxMesh_transition"]
+size = Vector3(3, 0.2, 3)
 
-[node name="GameSetup" type="Node" parent="." unique_id=1996700054]
-script = ExtResource("4_setup")
+[sub_resource type="BoxShape3D" id="BoxShape3D_transition"]
+size = Vector3(3, 0.5, 3)
+
+[node name="Main" type="Node3D" unique_id=1136436961]
 
 [node name="Player" parent="." unique_id=1725543223 instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
@@ -111,20 +116,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
 use_collision = true
 size = Vector3(25, 5, 0.2)
 
-[node name="WallEastTop" type="CSGBox3D" parent="Walls" unique_id=765077847]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 2.5, -6)
+[node name="WallEast" type="CSGBox3D" parent="Walls" unique_id=765077847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 2.5, 0)
 use_collision = true
-size = Vector3(0.2, 5, 8)
-
-[node name="WallEastBottom" type="CSGBox3D" parent="Walls" unique_id=1708198815]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 2.5, 6)
-use_collision = true
-size = Vector3(0.2, 5, 8)
+size = Vector3(0.2, 5, 20)
 
 [node name="WallWest" type="CSGBox3D" parent="Walls" unique_id=352560410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2.5, 0)
 use_collision = true
 size = Vector3(0.2, 5, 20)
+
+[node name="DividingWallNorth" type="CSGBox3D" parent="Walls" unique_id=1923456789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, -5.9301147)
+use_collision = true
+size = Vector3(0.2, 5, 8.1397705)
+
+[node name="DividingWallSouth" type="CSGBox3D" parent="Walls" unique_id=1923456790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, 5.9123535)
+use_collision = true
+size = Vector3(0.2, 5, 8.175293)
+
+[node name="DividingWallTop" type="CSGBox3D" parent="Walls" unique_id=1923456791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4.539551, 0)
+use_collision = true
+size = Vector3(0.2, 0.92089844, 8)
 
 [node name="Ceiling" type="CSGBox3D" parent="." unique_id=1255258577]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
@@ -133,9 +148,8 @@ use_collision = true
 size = Vector3(25, 0.2, 20)
 
 [node name="KualiKecil" type="StaticBody3D" parent="." unique_id=1216210040]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6124191, 0.4, 0.17629051)
 script = ExtResource("6_mixpuzzle")
-RustyDoorPath = NodePath("../RustyDoor")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="KualiKecil" unique_id=1330149462]
 mesh = SubResource("CylinderMesh_smallcauldron")
@@ -143,19 +157,19 @@ mesh = SubResource("CylinderMesh_smallcauldron")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KualiKecil" unique_id=173668773]
 shape = SubResource("CylinderShape3D_smallcauldron")
 
-[node name="RustyDoor" type="StaticBody3D" parent="." unique_id=1730875883]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 12.6, 2.25, 0)
+[node name="AutoDoor" type="StaticBody3D" parent="." unique_id=1234567890]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 5, 2, 0)
+script = ExtResource("13_autodoor")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RustyDoor" unique_id=645033734]
-mesh = SubResource("BoxMesh_rustydoor")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AutoDoor" unique_id=1234567891]
+mesh = SubResource("BoxMesh_autodoor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RustyDoor" unique_id=1365679310]
-shape = SubResource("BoxShape3D_rustydoor")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AutoDoor" unique_id=1234567892]
+shape = SubResource("BoxShape3D_autodoor")
 
 [node name="KualiBesar" type="StaticBody3D" parent="." unique_id=1850987654]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.75, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -6)
 script = ExtResource("11_finalpuzzle")
-RustyDoorPath = NodePath("../RustyDoor")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="KualiBesar" unique_id=1851987655]
 mesh = SubResource("CylinderMesh_cauldron")
@@ -190,7 +204,7 @@ size = Vector3(8, 1, 2)
 [node name="Items" type="Node3D" parent="." unique_id=1649151714]
 
 [node name="RecipeBook" type="StaticBody3D" parent="Items" unique_id=1146817893]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5769486, 0.5, 5)
 script = ExtResource("8_bookitem")
 BookTitle = "Tri-Color Synthesis Manual"
 BookContent = "[center][b]⚗️ TRI-COLOR SYNTHESIS ⚗️[/b][/center]
@@ -270,7 +284,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_book")
 shape = SubResource("SphereShape3D_item")
 
 [node name="GreenMoss" type="StaticBody3D" parent="Items" unique_id=1252871519]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.5, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.843592, 0.37992334, -7)
 script = ExtResource("2_material")
 AvailableQuantity = 3
 ItemId = "green_moss"
@@ -285,7 +299,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_green")
 shape = SubResource("SphereShape3D_item")
 
 [node name="RedPowder" type="StaticBody3D" parent="Items" unique_id=324060498]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.5, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.675169, 1.3918908, 5.9542065)
 script = ExtResource("2_material")
 AvailableQuantity = 3
 ItemId = "red_powder"
@@ -293,6 +307,7 @@ ItemName = "Red Powder"
 MaxStackSize = 10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Items/RedPowder" unique_id=1694307705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10580659, 0)
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_red")
 
@@ -300,7 +315,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_red")
 shape = SubResource("SphereShape3D_item")
 
 [node name="BlueExtract" type="StaticBody3D" parent="Items" unique_id=1156292908]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.443716, 1.2814527, 1.4325559)
 script = ExtResource("2_material")
 AvailableQuantity = 3
 ItemId = "blue_extract"
@@ -332,4 +347,19 @@ script = ExtResource("5_bookui")
 [node name="QuantityPickerUI" parent="UI" unique_id=1128363676 instance=ExtResource("9_qtyui")]
 
 [node name="FinalMixingUI" parent="UI" unique_id=1138475789 instance=ExtResource("10_finalmix")]
-visible = false
+
+[node name="GameSetup" type="Node3D" parent="." unique_id=1327659989]
+script = ExtResource("4_setup")
+CurrentLevel = 3
+
+[node name="LevelTransition" type="Area3D" parent="." unique_id=1327659990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.1, -8)
+script = ExtResource("12_transition")
+NextLevel = 4
+AreaColor = Color(0.2, 0.5, 1, 0.6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTransition" unique_id=1327659991]
+mesh = SubResource("BoxMesh_transition")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition" unique_id=1327659992]
+shape = SubResource("BoxShape3D_transition")

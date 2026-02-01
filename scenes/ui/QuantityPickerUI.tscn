@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://butxg4vj4f281" path="res://assets/sprites/ui/ButtonConfirmClicked.png" id="8_btnconfirmclick"]
 [ext_resource type="Texture2D" uid="uid://namlfhsf0erg" path="res://assets/sprites/ui/ButtonCancel.png" id="9_btncancel"]
 [ext_resource type="Texture2D" uid="uid://c4k1tfl7t07pd" path="res://assets/sprites/ui/ButtonCancelClicked.png" id="10_btncancelclick"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="11_font"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3cspt"]
 
@@ -57,6 +58,7 @@ offset_top = -1.0
 offset_right = -2.0
 offset_bottom = 39.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("11_font")
 theme_override_font_sizes/font_size = 24
 text = "Pick up Item"
 horizontal_alignment = 1
@@ -75,7 +77,8 @@ offset_right = 40.0
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 60
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -123,16 +126,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -149.0
-offset_top = -88.0
-offset_right = -19.0
-offset_bottom = -38.0
+offset_left = -184.0
+offset_top = -83.0
+offset_right = -5.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("7_btnconfirm")
 texture_pressed = ExtResource("8_btnconfirmclick")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="CancelButton" type="TextureButton" parent="PickerPanel" unique_id=895369919]
 layout_mode = 1
@@ -141,13 +144,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 22.0
-offset_top = -90.0
-offset_right = 152.0
-offset_bottom = -40.0
+offset_left = 4.0
+offset_top = -91.0
+offset_right = 185.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("9_btncancel")
 texture_pressed = ExtResource("10_btncancelclick")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 6

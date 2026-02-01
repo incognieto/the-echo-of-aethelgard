@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dbmrtesrmg1pg" path="res://assets/sprites/ui/button_mix_kuali_besar_clicked.png" id="10_mix_click"]
 [ext_resource type="Texture2D" uid="uid://bod37sd2nxyvy" path="res://assets/sprites/ui/button_clear_kuali_besar.png" id="11_clear"]
 [ext_resource type="Texture2D" uid="uid://di4xtdrxx3qke" path="res://assets/sprites/ui/button_clear_kuali_besar_clicked.png" id="12_clear_click"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="13_font"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0a3e"]
 
@@ -40,6 +41,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -35.0
+offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -66,14 +69,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -250.0
-offset_top = 15.0
-offset_right = 250.0
-offset_bottom = 60.0
+offset_left = -287.0
+offset_top = 32.0
+offset_right = 287.0
+offset_bottom = 77.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_fonts/font = ExtResource("13_font")
 theme_override_font_sizes/font_size = 32
-text = "🔥 KUALI BESAR - FINAL SYNTHESIS"
+text = "Large Witch's Cauldron"
 horizontal_alignment = 1
 
 [node name="FeedbackLabel" type="Label" parent="FinalMixingPanel" unique_id=2118681685]
@@ -81,12 +85,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -280.0
-offset_top = 70.0
-offset_right = 280.0
-offset_bottom = 105.0
+offset_left = -292.0
+offset_top = 491.0
+offset_right = 268.0
+offset_bottom = 526.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 14
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 20
 text = "Combine all 3 secondary potions to create Teal Potion!"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -96,15 +101,18 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -280.0
-offset_top = 110.0
-offset_right = 280.0
-offset_bottom = 140.0
+offset_left = 261.0
+offset_top = 92.0
+offset_right = 372.0
+offset_bottom = 205.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 0.8, 1)
-theme_override_font_sizes/font_size = 14
-text = "Your Potions: Yellow x0 | Magenta x0 | Cyan x0"
-horizontal_alignment = 1
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 20
+text = "Your Potions: 
+Yellow x0
+Magenta x0
+Cyan x0"
 
 [node name="YellowButton" type="TextureButton" parent="FinalMixingPanel" unique_id=1000268728]
 layout_mode = 1
@@ -113,10 +121,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -479.0
-offset_top = 107.5
-offset_right = -320.0
-offset_bottom = 253.5
+offset_left = -325.0
+offset_top = 24.5
+offset_right = -209.0
+offset_bottom = 140.5
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_yellow")
@@ -131,16 +139,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -486.0
-offset_top = -80.5
-offset_right = -308.0
-offset_bottom = 60.5
+offset_left = -400.0
+offset_top = -118.5
+offset_right = -250.0
+offset_bottom = 31.5
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("5_magenta")
 texture_pressed = ExtResource("6_magenta_click")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="CyanButton" type="TextureButton" parent="FinalMixingPanel" unique_id=1732584306]
 layout_mode = 1
@@ -149,16 +157,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -491.0
-offset_top = -285.5
-offset_right = -312.0
-offset_bottom = -124.5
+offset_left = -326.0
+offset_top = -229.5
+offset_right = -210.0
+offset_bottom = -113.5
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("7_cyan")
 texture_pressed = ExtResource("8_cyan_click")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="MixButton" type="TextureButton" parent="FinalMixingPanel" unique_id=270492881]
 layout_mode = 1
@@ -167,16 +175,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 230.0
-offset_top = -239.0
-offset_right = 461.0
-offset_bottom = -15.0
+offset_left = 153.0
+offset_top = -292.0
+offset_right = 275.0
+offset_bottom = -170.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("9_mix")
 texture_pressed = ExtResource("10_mix_click")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="ClearButton" type="TextureButton" parent="FinalMixingPanel" unique_id=273976437]
 layout_mode = 1
@@ -185,13 +193,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 340.0
-offset_top = -396.0
-offset_right = 508.0
-offset_bottom = -208.0
+offset_left = 220.0
+offset_top = -380.0
+offset_right = 310.0
+offset_bottom = -290.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("11_clear")
 texture_pressed = ExtResource("12_clear_click")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 6

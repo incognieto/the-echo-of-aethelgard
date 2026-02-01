@@ -240,6 +240,17 @@ public partial class Player : CharacterBody3D
 			velocity += GetGravity() * (float)delta;
 		}
 
+		// Block movement when any panel is open
+		if (InventoryUI.IsAnyPanelOpen)
+		{
+			// Stop horizontal movement
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			Velocity = velocity;
+			MoveAndSlide();
+			return;
+		}
+
 		// Handle Jump
 		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
 		{
@@ -405,6 +416,14 @@ public partial class Player : CharacterBody3D
 
 		InventoryItem selectedItem = _inventory.GetSelectedHotbarItem();
 		if (selectedItem == null) return;
+		
+		// Check if this is a key item
+		if (selectedItem.Data.IsKeyItem)
+		{
+			GD.Print($"Cannot drop {selectedItem.Data.ItemName} - This is a key item!");
+			// TODO: Show UI warning message
+			return;
+		}
 
 		int quantityToDrop = dropAll ? selectedItem.Quantity : 1;
 		InventoryItem droppedItem = _inventory.DropSelectedItem(quantityToDrop);
@@ -552,11 +571,11 @@ public partial class Player : CharacterBody3D
 	}
 	
 	// Method untuk BookItem memanggil UI
-	public void ShowBook(string title, string content)
+	public void ShowBook(string title, string leftContent, string rightContent)
 	{
 		if (_bookUI != null)
 		{
-			_bookUI.ShowBook(title, content);
+			_bookUI.ShowBook(title, leftContent, rightContent);
 		}
 		else
 		{

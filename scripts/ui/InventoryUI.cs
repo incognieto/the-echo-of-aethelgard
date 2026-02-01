@@ -22,6 +22,9 @@ using System;
 /// </summary>
 public partial class InventoryUI : Control
 {
+	// Global state untuk tracking panel yang terbuka
+	public static bool IsAnyPanelOpen { get; set; } = false;
+	
 	// Export untuk konfigurasi GUI di Godot Editor
 	[Export] public int InventoryColumns = 4; // 4x4 grid
 	[Export] public int InventoryRows = 4;
@@ -40,12 +43,17 @@ public partial class InventoryUI : Control
 	private Label _selectedItemLabel;
 	private bool _isVisible = false;
 	private Control _crosshairContainer;
+	private FontFile _customFont; // Custom font for all labels
+	private Label _ancientBookNotification; // Notification for ancient book
 	
 	// State management untuk panel lain
 	private bool _wasVisibleBeforePanel = false;
 
 	public override void _Ready()
 	{
+		// Load custom font
+		_customFont = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
+		
 		// Setup UI Container
 		SetAnchorsPreset(LayoutPreset.FullRect);
 		
@@ -105,6 +113,7 @@ public partial class InventoryUI : Control
 			title = new Label();
 			title.Text = $"Inventory ({totalSlots} Slots)";
 			title.HorizontalAlignment = HorizontalAlignment.Center;
+			if (_customFont != null) title.AddThemeFontOverride("font", _customFont);
 			title.AddThemeFontSizeOverride("font_size", 24);
 			title.Position = new Vector2(10, 10);
 			title.Size = new Vector2(InventoryPanelSize.X - 20, 40);
@@ -121,6 +130,7 @@ public partial class InventoryUI : Control
 			_selectedItemLabel = new Label();
 			_selectedItemLabel.Text = "";
 			_selectedItemLabel.HorizontalAlignment = HorizontalAlignment.Center;
+			if (_customFont != null) _selectedItemLabel.AddThemeFontOverride("font", _customFont);
 			_selectedItemLabel.Position = new Vector2(10, 415);
 			_selectedItemLabel.Size = new Vector2(InventoryPanelSize.X - 20, 15);
 			panel.AddChild(_selectedItemLabel);
@@ -130,6 +140,7 @@ public partial class InventoryUI : Control
 			string hotbarKeys = HotbarSlots == 4 ? "1-4" : "1-6";
 			instructions.Text = $"E: Pickup | Q: Drop 1 | Ctrl+Q: Drop All | F: Use Item | Tab/I: Toggle Inventory | {hotbarKeys}: Select Hotbar";
 			instructions.HorizontalAlignment = HorizontalAlignment.Center;
+			if (_customFont != null) instructions.AddThemeFontOverride("font", _customFont);
 			instructions.AddThemeFontSizeOverride("font_size", 11);
 			instructions.Position = new Vector2(10, 430);
 			instructions.Size = new Vector2(InventoryPanelSize.X - 20, 10);
@@ -162,60 +173,76 @@ public partial class InventoryUI : Control
 		
 		// Add crosshair (always visible)
 		CreateCrosshair();
-	}
 	
-	private void CreateCrosshair()
-	{
-		// Crosshair container di tengah layar
-		_crosshairContainer = new Control();
-		_crosshairContainer.Name = "Crosshair";
-		_crosshairContainer.SetAnchorsPreset(LayoutPreset.Center);
-		_crosshairContainer.MouseFilter = MouseFilterEnum.Ignore;
-		GetParent().CallDeferred("add_child", _crosshairContainer);
-		
-		// Horizontal line
-		var hLine = new ColorRect();
-		hLine.Color = new Color(1, 1, 1, 0.8f);
-		hLine.Size = new Vector2(20, 2);
-		hLine.Position = new Vector2(-10, -1);
-		hLine.MouseFilter = MouseFilterEnum.Ignore;
-		_crosshairContainer.AddChild(hLine);
-		
-		// Vertical line
-		var vLine = new ColorRect();
-		vLine.Color = new Color(1, 1, 1, 0.8f);
-		vLine.Size = new Vector2(2, 20);
-		vLine.Position = new Vector2(-1, -10);
-		vLine.MouseFilter = MouseFilterEnum.Ignore;
-		_crosshairContainer.AddChild(vLine);
-		
-		// Center dot
-		var dot = new ColorRect();
-		dot.Color = new Color(1, 1, 1, 0.9f);
-		dot.Size = new Vector2(4, 4);
-		dot.Position = new Vector2(-2, -2);
-		dot.MouseFilter = MouseFilterEnum.Ignore;
-		_crosshairContainer.AddChild(dot);
-	}
-	
-	public void SetCrosshairVisible(bool visible)
-	{
-		if (_crosshairContainer != null)
-		{
-			_crosshairContainer.Visible = visible;
-		}
-	}
-	
-	public void SetHotbarVisible(bool visible)
-	{
-		if (_hotbarContainer != null)
-		{
-			_hotbarContainer.Visible = visible;
-		}
-	}
+	// Create ancient book notification (top-left)
+	CreateAncientBookNotification();
+}
 
-	private void CreateHotbar()
+private void CreateCrosshair()
+{
+	// Crosshair container di tengah layar
+	_crosshairContainer = new Control();
+	_crosshairContainer.Name = "Crosshair";
+	_crosshairContainer.SetAnchorsPreset(LayoutPreset.Center);
+	_crosshairContainer.MouseFilter = MouseFilterEnum.Ignore;
+	GetParent().CallDeferred("add_child", _crosshairContainer);
+	
+	// Horizontal line
+	var hLine = new ColorRect();
+	hLine.Color = new Color(1, 1, 1, 0.8f);
+	hLine.Size = new Vector2(20, 2);
+	hLine.Position = new Vector2(-10, -1);
+	hLine.MouseFilter = MouseFilterEnum.Ignore;
+	_crosshairContainer.AddChild(hLine);
+	
+	// Vertical line
+	var vLine = new ColorRect();
+	vLine.Color = new Color(1, 1, 1, 0.8f);
+	vLine.Size = new Vector2(2, 20);
+	vLine.Position = new Vector2(-1, -10);
+	vLine.MouseFilter = MouseFilterEnum.Ignore;
+	_crosshairContainer.AddChild(vLine);
+	
+	// Center dot
+	var dot = new ColorRect();
+	dot.Color = new Color(1, 1, 1, 0.9f);
+	dot.Size = new Vector2(4, 4);
+	dot.Position = new Vector2(-2, -2);
+	dot.MouseFilter = MouseFilterEnum.Ignore;
+	_crosshairContainer.AddChild(dot);
+}
+
+private void CreateAncientBookNotification()
+{
+	_ancientBookNotification = new Label();
+	_ancientBookNotification.Name = "AncientBookNotification";
+	_ancientBookNotification.Text = "Press the F key to activate the ancient book.";
+	_ancientBookNotification.Position = new Vector2(20, 20);
+	_ancientBookNotification.AddThemeColorOverride("font_color", new Color(1.0f, 0.9f, 0.3f, 1.0f)); // Yellow
+	if (_customFont != null) _ancientBookNotification.AddThemeFontOverride("font", _customFont);
+	_ancientBookNotification.AddThemeFontSizeOverride("font_size", 16);
+	_ancientBookNotification.Visible = false; // Hidden by default
+	AddChild(_ancientBookNotification);
+}
+
+public void SetCrosshairVisible(bool visible)
+{
+	if (_crosshairContainer != null)
 	{
+		_crosshairContainer.Visible = visible;
+	}
+}
+
+public void SetHotbarVisible(bool visible)
+{
+	if (_hotbarContainer != null)
+	{
+		_hotbarContainer.Visible = visible;
+	}
+}
+
+private void CreateHotbar()
+{
 		// Try to get hotbar nodes from scene first
 		_hotbarContainer = GetNodeOrNull<Panel>("HotbarPanel");
 		
@@ -292,6 +319,7 @@ public partial class InventoryUI : Control
 			label.HorizontalAlignment = HorizontalAlignment.Center;
 			label.VerticalAlignment = VerticalAlignment.Center;
 			label.SetAnchorsPreset(LayoutPreset.FullRect);
+			if (_customFont != null) label.AddThemeFontOverride("font", _customFont);
 			label.AddThemeFontSizeOverride("font_size", 12);
 			label.AutowrapMode = TextServer.AutowrapMode.Word;
 			label.MouseFilter = MouseFilterEnum.Ignore; // Allow panel to receive mouse events
@@ -303,6 +331,7 @@ public partial class InventoryUI : Control
 			label.HorizontalAlignment = HorizontalAlignment.Center;
 			label.VerticalAlignment = VerticalAlignment.Center;
 			label.SetAnchorsPreset(LayoutPreset.FullRect);
+			if (_customFont != null) label.AddThemeFontOverride("font", _customFont);
 			label.AddThemeFontSizeOverride("font_size", 12);
 			label.AutowrapMode = TextServer.AutowrapMode.Word;
 			label.MouseFilter = MouseFilterEnum.Ignore;
@@ -328,6 +357,7 @@ public partial class InventoryUI : Control
 			itemLabel.HorizontalAlignment = HorizontalAlignment.Center;
 			itemLabel.VerticalAlignment = VerticalAlignment.Center;
 			itemLabel.SetAnchorsPreset(LayoutPreset.Center);
+			if (_customFont != null) itemLabel.AddThemeFontOverride("font", _customFont);
 			itemLabel.AddThemeFontSizeOverride("font_size", 12);
 			itemLabel.AutowrapMode = TextServer.AutowrapMode.Word;
 			itemLabel.MouseFilter = MouseFilterEnum.Ignore;
@@ -338,6 +368,7 @@ public partial class InventoryUI : Control
 			itemLabel.HorizontalAlignment = HorizontalAlignment.Center;
 			itemLabel.VerticalAlignment = VerticalAlignment.Center;
 			itemLabel.SetAnchorsPreset(LayoutPreset.Center);
+			if (_customFont != null) itemLabel.AddThemeFontOverride("font", _customFont);
 			itemLabel.AddThemeFontSizeOverride("font_size", 12);
 			itemLabel.AutowrapMode = TextServer.AutowrapMode.Word;
 			itemLabel.MouseFilter = MouseFilterEnum.Ignore;
@@ -361,6 +392,7 @@ public partial class InventoryUI : Control
 		var numberLabel = new Label();
 		numberLabel.Text = (index + 1).ToString();
 		numberLabel.Position = new Vector2(5, 5);
+		if (_customFont != null) numberLabel.AddThemeFontOverride("font", _customFont);
 		numberLabel.AddThemeFontSizeOverride("font_size", 12);
 		numberLabel.MouseFilter = MouseFilterEnum.Ignore;
 		slot.AddChild(numberLabel);
@@ -372,6 +404,7 @@ public partial class InventoryUI : Control
 		itemLabel.HorizontalAlignment = HorizontalAlignment.Center;
 		itemLabel.VerticalAlignment = VerticalAlignment.Center;
 		itemLabel.SetAnchorsPreset(LayoutPreset.Center);
+		if (_customFont != null) itemLabel.AddThemeFontOverride("font", _customFont);
 		itemLabel.AddThemeFontSizeOverride("font_size", 12);
 		itemLabel.AutowrapMode = TextServer.AutowrapMode.Word;
 		itemLabel.MouseFilter = MouseFilterEnum.Ignore;
@@ -442,10 +475,22 @@ public partial class InventoryUI : Control
 		
 		// Update hotbar
 		UpdateHotbar();
-	}
+	
+	// Update ancient book notification
+	UpdateAncientBookNotification();
+}
 
-	private void UpdateHotbar()
-	{
+private void UpdateAncientBookNotification()
+{
+	if (_ancientBookNotification == null || _inventory == null) return;
+	
+	// Check if player has ancient book in inventory
+	bool hasAncientBook = _inventory.HasItem("ancient_book");
+	_ancientBookNotification.Visible = hasAncientBook;
+}
+
+private void UpdateHotbar()
+{
 	if (_inventory == null || _hotbarContainer == null)
 	{
 		GD.Print("UpdateHotbar: Waiting for hotbar to be ready...");
@@ -562,6 +607,13 @@ private StyleBox CreateHighlightStylebox()
 
 	public void Toggle()
 	{
+		// Jangan bisa toggle inventory jika panel lain sedang terbuka
+		if (IsAnyPanelOpen && !_isVisible)
+		{
+			GD.Print("Cannot open inventory - another panel is open");
+			return;
+		}
+		
 		_isVisible = !_isVisible;
 		
 		// Toggle InventoryPanel visibility (hotbar always visible)
@@ -581,6 +633,7 @@ private StyleBox CreateHighlightStylebox()
 		if (_isVisible)
 		{
 			// Inventory opened
+			IsAnyPanelOpen = true; // Set global flag
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 			SetCrosshairVisible(false);
 			
@@ -594,6 +647,7 @@ private StyleBox CreateHighlightStylebox()
 		else
 		{
 			// Inventory closed
+			IsAnyPanelOpen = false; // Clear global flag
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 			SetCrosshairVisible(true);
 			

@@ -16,6 +16,7 @@ public partial class ItemData : Resource
 	[Export] public int MaxStackSize { get; set; } = 64;
 	[Export] public Texture2D Icon { get; set; }
 	[Export] public bool IsUsable { get; set; } = false;
+	[Export] public bool IsKeyItem { get; set; } = false; // Key items cannot be dropped
 	
 	// Untuk identifikasi unik item type
 	public string ItemId { get; set; } = "";
@@ -27,12 +28,13 @@ public partial class ItemData : Resource
 	{
 	}
 
-	public ItemData(string id, string name, int maxStack = 64, bool usable = false)
+	public ItemData(string id, string name, int maxStack = 64, bool usable = false, bool keyItem = false)
 	{
 		ItemId = id;
 		ItemName = name;
 		MaxStackSize = maxStack;
 		IsUsable = usable;
+		IsKeyItem = keyItem;
 	}
 }
 

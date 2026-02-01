@@ -95,6 +95,7 @@ public partial class MixingUI : Control
 		_isPuzzleSolved = false;
 		
 		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true; // Set global flag
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		
 		// Hide inventory UI and crosshair dengan state management
@@ -172,7 +173,7 @@ public partial class MixingUI : Control
 			int redCount = GetMaterialCountInInventory("red_powder");
 			int blueCount = GetMaterialCountInInventory("blue_extract");
 			
-			_materialInventoryLabel.Text = $"Materials: Green x{greenCount} | Red x{redCount} | Blue x{blueCount}";
+			_materialInventoryLabel.Text = $"Materials:\nGreen x{greenCount}\nRed x{redCount}\nBlue x{blueCount}";
 		}
 	}
 	
@@ -511,6 +512,7 @@ public partial class MixingUI : Control
 	private void CloseMixingUI()
 	{
 		Visible = false;
+		InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		
 		// Restore inventory UI dan crosshair ke state sebelumnya

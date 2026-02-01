@@ -5,13 +5,19 @@ public partial class BookUI : Control
 {
 	private Panel _bookPanel;
 	private Label _titleLabel;
-	private RichTextLabel _contentLabel;
+	private RichTextLabel _leftPageLabel;
+	private RichTextLabel _rightPageLabel;
 	private Button _closeButton;
 	private string _bookTitle = "Book";
-	private string _bookContent = "Empty book";
+	private string _leftPageContent = "";
+	private string _rightPageContent = "";
+	private FontFile _customFont;
 
 	public override void _Ready()
 	{
+		// Load custom font
+		_customFont = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
+		
 		// Setup container
 		SetAnchorsPreset(LayoutPreset.FullRect);
 		Visible = false;
@@ -23,11 +29,11 @@ public partial class BookUI : Control
 		background.SetAnchorsPreset(LayoutPreset.FullRect);
 		AddChild(background);
 		
-		// Book panel (seperti kertas/buku)
+		// Book panel (seperti buku terbuka dengan 2 halaman)
 		_bookPanel = new Panel();
 		_bookPanel.SetAnchorsPreset(LayoutPreset.Center);
-		_bookPanel.CustomMinimumSize = new Vector2(600, 500);
-		_bookPanel.Position = new Vector2(-300, -250);
+		_bookPanel.CustomMinimumSize = new Vector2(900, 600);
+		_bookPanel.Position = new Vector2(-450, -300);
 		AddChild(_bookPanel);
 		
 		// Add stylebox untuk panel (warna kertas)
@@ -40,10 +46,10 @@ public partial class BookUI : Control
 		stylebox.BorderColor = new Color(0.4f, 0.3f, 0.2f, 1.0f); // Brown border
 		_bookPanel.AddThemeStyleboxOverride("panel", stylebox);
 		
-		var vbox = new VBoxContainer();
-		vbox.SetAnchorsPreset(LayoutPreset.FullRect);
-		vbox.AddThemeConstantOverride("separation", 15);
-		_bookPanel.AddChild(vbox);
+		var mainVbox = new VBoxContainer();
+		mainVbox.SetAnchorsPreset(LayoutPreset.FullRect);
+		mainVbox.AddThemeConstantOverride("separation", 15);
+		_bookPanel.AddChild(mainVbox);
 		
 		// Margin container untuk padding
 		var margin = new MarginContainer();
@@ -51,36 +57,79 @@ public partial class BookUI : Control
 		margin.AddThemeConstantOverride("margin_right", 30);
 		margin.AddThemeConstantOverride("margin_top", 20);
 		margin.AddThemeConstantOverride("margin_bottom", 20);
-		vbox.AddChild(margin);
+		mainVbox.AddChild(margin);
 		
-		var innerVbox = new VBoxContainer();
-		innerVbox.AddThemeConstantOverride("separation", 10);
-		margin.AddChild(innerVbox);
+		var contentVbox = new VBoxContainer();
+		contentVbox.AddThemeConstantOverride("separation", 10);
+		margin.AddChild(contentVbox);
 		
 		// Title
 		_titleLabel = new Label();
 		_titleLabel.Text = "Book Title";
 		_titleLabel.HorizontalAlignment = HorizontalAlignment.Center;
+		if (_customFont != null) _titleLabel.AddThemeFontOverride("font", _customFont);
 		_titleLabel.AddThemeFontSizeOverride("font_size", 28);
-		_titleLabel.AddThemeColorOverride("font_color", new Color(0.2f, 0.1f, 0.05f, 1.0f));
-		innerVbox.AddChild(_titleLabel);
+		contentVbox.AddChild(_titleLabel);
 		
 		// Separator line
 		var separator = new HSeparator();
-		innerVbox.AddChild(separator);
+		contentVbox.AddChild(separator);
 		
-		// Content (scrollable)
-		var scrollContainer = new ScrollContainer();
-		scrollContainer.CustomMinimumSize = new Vector2(0, 350);
-		innerVbox.AddChild(scrollContainer);
+		// Container for 2 pages (left and right)
+		var pagesContainer = new HBoxContainer();
+		pagesContainer.AddThemeConstantOverride("separation", 20);
+		pagesContainer.CustomMinimumSize = new Vector2(0, 450);
+		contentVbox.AddChild(pagesContainer);
 		
-		_contentLabel = new RichTextLabel();
-		_contentLabel.BbcodeEnabled = true;
-		_contentLabel.FitContent = true;
-		_contentLabel.ScrollActive = false;
-		_contentLabel.AddThemeFontSizeOverride("normal_font_size", 16);
-		_contentLabel.AddThemeColorOverride("default_color", new Color(0.1f, 0.05f, 0.0f, 1.0f));
-		scrollContainer.AddChild(_contentLabel);
+		// Left page
+		var leftPageContainer = new VBoxContainer();
+		leftPageContainer.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		pagesContainer.AddChild(leftPageContainer);
+		
+		var leftTitle = new Label();
+		leftTitle.Text = "Left Page";
+		leftTitle.HorizontalAlignment = HorizontalAlignment.Center;
+		if (_customFont != null) leftTitle.AddThemeFontOverride("font", _customFont);
+		leftTitle.AddThemeFontSizeOverride("font_size", 16);
+		leftPageContainer.AddChild(leftTitle);
+		
+		var leftScroll = new ScrollContainer();
+		leftScroll.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
+		leftPageContainer.AddChild(leftScroll);
+		
+		_leftPageLabel = new RichTextLabel();
+		_leftPageLabel.BbcodeEnabled = true;
+		_leftPageLabel.FitContent = true;
+		_leftPageLabel.ScrollActive = false;
+		_leftPageLabel.AddThemeFontSizeOverride("normal_font_size", 16);
+		leftScroll.AddChild(_leftPageLabel);
+		
+		// Vertical separator between pages
+		var pageSeparator = new VSeparator();
+		pagesContainer.AddChild(pageSeparator);
+		
+		// Right page
+		var rightPageContainer = new VBoxContainer();
+		rightPageContainer.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		pagesContainer.AddChild(rightPageContainer);
+		
+		var rightTitle = new Label();
+		rightTitle.Text = "Right Page";
+		rightTitle.HorizontalAlignment = HorizontalAlignment.Center;
+		if (_customFont != null) rightTitle.AddThemeFontOverride("font", _customFont);
+		rightTitle.AddThemeFontSizeOverride("font_size", 16);
+		rightPageContainer.AddChild(rightTitle);
+		
+		var rightScroll = new ScrollContainer();
+		rightScroll.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
+		rightPageContainer.AddChild(rightScroll);
+		
+		_rightPageLabel = new RichTextLabel();
+		_rightPageLabel.BbcodeEnabled = true;
+		_rightPageLabel.FitContent = true;
+		_rightPageLabel.ScrollActive = false;
+		_rightPageLabel.AddThemeFontSizeOverride("normal_font_size", 16);
+		rightScroll.AddChild(_rightPageLabel);
 		
 		// Close button
 		_closeButton = new Button();
@@ -91,7 +140,7 @@ public partial class BookUI : Control
 		var buttonContainer = new HBoxContainer();
 		buttonContainer.Alignment = BoxContainer.AlignmentMode.Center;
 		buttonContainer.AddChild(_closeButton);
-		innerVbox.AddChild(buttonContainer);
+		contentVbox.AddChild(buttonContainer);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -103,15 +152,18 @@ public partial class BookUI : Control
 		}
 	}
 
-	public void ShowBook(string title, string content)
+	public void ShowBook(string title, string leftContent, string rightContent)
 	{
 		_bookTitle = title;
-		_bookContent = content;
+		_leftPageContent = "(Empty page)";
+		_rightPageContent = "(Empty page)";
 		
 		_titleLabel.Text = title;
-		_contentLabel.Text = content;
+		_leftPageLabel.Text = _leftPageContent;
+		_rightPageLabel.Text = _rightPageContent;
 		
 		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true; // Block player movement
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		GD.Print($"Opening book: {title}");
 	}
@@ -124,6 +176,7 @@ public partial class BookUI : Control
 	public void Close()
 	{
 		Visible = false;
+		InventoryUI.IsAnyPanelOpen = false; // Restore player movement
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		GD.Print("Closing book");
 	}
