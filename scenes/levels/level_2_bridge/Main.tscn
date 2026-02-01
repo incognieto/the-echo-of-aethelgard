@@ -17,7 +17,7 @@ albedo_texture = ExtResource("5_ymv1o")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_26hwv"]
 material = SubResource("StandardMaterial3D_umwk0")
-size = Vector2(2, 1.5)
+size = Vector2(1.5, 2)
 orientation = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26hwv"]
@@ -219,7 +219,7 @@ size = Vector3(0.2, 1.5, 10)
 [node name="Puzzle" type="Node3D" parent="." unique_id=193915800]
 
 [node name="Puzzle1" type="MeshInstance3D" parent="Puzzle" unique_id=583825129]
-transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -12.789035, 2.5106678, 9.896386)
+transform = Transform3D(1.3113417e-07, 0.99999994, 4.3711392e-08, 3.8213714e-15, 4.3711385e-08, -1.0000001, -1.0000001, 1.3113414e-07, 1.9106857e-15, -12.789035, 2.5106678, 9.896386)
 mesh = SubResource("PlaneMesh_26hwv")
 skeleton = NodePath("../..")
 
