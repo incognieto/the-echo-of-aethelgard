@@ -21,11 +21,20 @@ public partial class WeightItem : PickableItem
         
         // Cek apakah ada MeshInstance3D child dengan scale tambahan
         var meshChild = GetNodeOrNull<MeshInstance3D>("MeshInstance3D");
-        if (meshChild != null && meshChild.Scale.X != 1.0f)
+        if (meshChild != null)
         {
-            // Kalikan dengan scale mesh untuk mendapat ukuran visual sebenarnya
-            originalScale *= meshChild.Scale.X;
-            GD.Print($"DEBUG WeightItem: {Name} has mesh scale: {meshChild.Scale.X}, total: {originalScale}");
+            // Debug: cek radius mesh asli
+            if (meshChild.Mesh is SphereMesh sphereMesh)
+            {
+                GD.Print($"DEBUG: {Name} original SphereMesh radius = {sphereMesh.Radius}");
+            }
+            
+            if (meshChild.Scale.X != 1.0f)
+            {
+                // Kalikan dengan scale mesh untuk mendapat ukuran visual sebenarnya
+                originalScale *= meshChild.Scale.X;
+                GD.Print($"DEBUG WeightItem: {Name} has mesh scale: {meshChild.Scale.X}, total: {originalScale}");
+            }
         }
         
         GD.Print($"DEBUG WeightItem: This = {Name}, Node.Scale = {Scale}, Final VisualScale = {originalScale}");
