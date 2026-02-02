@@ -184,6 +184,8 @@ shape = SubResource("SphereShape3D_item")
 [node name="BookItem1" type="StaticBody3D" parent="Items" unique_id=1986423889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 6)
 script = ExtResource("6_bookitem")
+ItemId = "ancient_book"
+ItemName = "Ancient Books"
 BookTitle = "The Lost Chronicles"
 BookContent = "[center][b]The Lost Chronicles[/b][/center]
 
