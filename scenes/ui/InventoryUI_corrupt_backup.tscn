@@ -1,0 +1,566 @@
+[gd_scene format=3 uid="uid://d4mweouara7f6"]
+
+[ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="1_invui"]
+[ext_resource type="Texture2D" uid="uid://c53ovvbjoxon2" path="res://assets/sprites/ui/ui_4x4_inventory.png" id="2_inv4x4"]
+[ext_resource type="Texture2D" uid="uid://cp1y8c3k7p46x" path="res://assets/sprites/ui/ui_1x4_inventory.png" id="3_inv1x4"]
+[ext_resource type="Texture2D" uid="uid://71yvbgwiw0cs" path="res://assets/sprites/ui/slot_inventory.png" id="4_slot"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot"]
+texture = ExtResource("4_slot")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1r87s"]
+
+[node name="InventoryUI" type="Control" unique_id=1936844999]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_invui")
+
+[node name="Background4x4" type="TextureRect" parent="." unique_id=495456359]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_inv4x4")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Background1x4" type="TextureRect" parent="." unique_id=426492034]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_inv1x4")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AncientBookNotification" type="Label" parent="." unique_id=2147483645]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 24
+text = "Press the F key to activate the ancient book."
+visible = false
+
+[node name="InventoryPanel" type="Panel" parent="." unique_id=1996971328]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -225.0
+offset_right = 225.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="InventoryPanel" unique_id=903453001]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 440.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 24
+text = "Inventory (16 Slots)"
+horizontal_alignment = 1
+
+[node name="InventorySlots" type="Control" parent="InventoryPanel" unique_id=754698384]
+anchors_preset = 0
+offset_left = -18.0
+offset_top = -4.0
+offset_right = 469.0
+offset_bottom = 463.0
+
+[node name="Slot0" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2124594779]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 10.0
+offset_right = 130.0
+offset_bottom = 116.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot0"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+
+[node name="Slot1" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=702537809]
+layout_mode = 0
+offset_left = 135.0
+offset_top = 10.0
+offset_right = 241.0
+offset_bottom = 116.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot1"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot2"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot3"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+
+[node name="Slot2" type="Panel" parent="InventoryPanel/InventoryS
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot4"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot5"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot6"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1lots" unique_id=1864535272]
+layout_mode = 0
+offset_left = 246.0
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot7"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot8"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot9"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+offset_top = 10.0
+offset_right = 352.0
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot10"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot11"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot12"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+offset_bottom = 116.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot13"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 101.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+
+[node name="Slot3" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1352511166]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 10.0
+offset_right = 463.0
+offset_bottom = 116.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot4" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2135377268]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 120.0
+offset_right = 129.0
+offset_bottom = 226.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot5" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1840642303]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 121.0
+offset_right = 240.0
+offset_bottom = 227.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot6" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=12116753]
+layout_mode = 0
+offset_left = 245.0
+offset_top = 121.0
+offset_right = 351.0
+offset_bottom = 227.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot7" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1163729675]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 121.0
+offset_right = 463.0
+offset_bottom = 227.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot8" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1350016541]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 231.0
+offset_right = 130.0
+offset_bottom = 337.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot9" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2084970837]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 231.0
+offset_right = 240.0
+offset_bottom = 337.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot10" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=431672900]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 232.0
+offset_right = 352.0
+offset_bottom = 338.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot11" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1315835627]
+layout_mode = 0
+offset_left = 356.0
+offset_top = 233.0
+offset_right = 462.0
+offset_bottom = 339.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot12" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=418631140]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 343.0
+offset_right = 130.0
+offset_bottom = 449.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot13" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1737917061]
+layout_mode = 0
+offset_left = 135.0
+offset_top = 343.0
+offset_right = 241.0
+offset_bottom = 449.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot14" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1849709406]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 343.0
+offset_right = 352.0
+offset_bottom = 449.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="Slot15" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1471395928]
+layout_mode = 0
+offset_left = 356.0
+offset_top = 343.0
+offset_right = 462.0
+offset_bottom = 449.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="SelectedItemLabel" type="Label" parent="InventoryPanel" unique_id=1147610626]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 415.0
+offset_right = 440.0
+offset_bottom = 430.0
+horizontal_alignment = 1
+
+[node name="InstructionsLabel" type="Label" parent="InventoryPanel" unique_id=728619743]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 430.0
+offset_right = 440.0
+offset_bottom = 440.0
+theme_override_font_sizes/font_size = 11
+text = "E: Pickup | Q: Drop 1 | Ctrl+Q: Drop All | F: Use Item | Tab/I: Toggle Inventory | 1-4: Select Hotbar"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HotbarPanel" type="Panel" parent="." unique_id=587478647]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -108.0
+offset_right = 148.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1r87s")
+
+[node name="HotbarSlots" type="Control" parent="HotbarPanel" unique_id=1542641514]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -13.0
+offset_top = -24.0
+offset_right = 78.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HotbarSlot0" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=1890186224]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 113.0
+offset_bottom = 114.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0" unique_id=1636216839]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+text = "1"
+
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0" unique_id=1960439550]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HotbarSlot1" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=215728629]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 8.0
+offset_right = 223.0
+offset_bottom = 114.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1" unique_id=1431149266]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+text = "2"
+
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1" unique_id=1834309225]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HotbarSlot2" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=869289169]
+layout_mode = 0
+offset_left = 227.0
+offset_top = 8.0
+offset_right = 333.0
+offset_bottom = 114.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2" unique_id=1706194097]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+text = "3"
+
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2" unique_id=1965865801]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HotbarSlot3" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=114333756]
+layout_mode = 0
+offset_left = 339.0
+offset_top = 8.0
+offset_right = 445.0
+offset_bottom = 114.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+
+[node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3" unique_id=1119335818]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+text = "4"
+
+[node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3" unique_id=332100749]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

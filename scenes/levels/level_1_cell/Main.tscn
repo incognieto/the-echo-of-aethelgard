@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_qg8n7"]
 [ext_resource type="Script" uid="uid://dqlr3mcto7ab4" path="res://scripts/items/PickableItem.cs" id="2_item1"]
-[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="6_bookitem"]

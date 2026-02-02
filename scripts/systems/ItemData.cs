@@ -21,6 +21,9 @@ public partial class ItemData : Resource
 	// Untuk identifikasi unik item type
 	public string ItemId { get; set; } = "";
 	
+	// Store original scale untuk dropped items (khususnya batu)
+	public Vector3 OriginalScale { get; set; } = Vector3.One;
+	
 	// Reference ke usable behavior (set saat runtime)
 	public IUsableItem UsableBehavior { get; set; }
 

@@ -8,7 +8,7 @@ public partial class PickableItem : StaticBody3D
 	[Export] public int MaxStackSize = 64;
 	[Export] public bool ShowPrompt = true;
 	
-	private Label3D _promptLabel;
+	protected Label3D _promptLabel; // Changed to protected agar bisa diakses child class
 	private bool _playerNearby = false;
 	protected ItemData _itemData; // Changed to protected agar bisa diakses child class
 
@@ -16,6 +16,9 @@ public partial class PickableItem : StaticBody3D
 	{
 		// Buat ItemData dari properties
 		_itemData = new ItemData(ItemId, ItemName, MaxStackSize);
+		
+		// Store original scale
+		_itemData.OriginalScale = Scale;
 		
 		// Setup area detection untuk show prompt
 		var area = new Area3D();

@@ -26,6 +26,7 @@ public partial class Player : CharacterBody3D
 	private Vector2 _lastMousePosition = Vector2.Zero;
 	private Area3D _pickupArea; // Area untuk detect items di isometric mode
 	private PickableItem _nearestItem = null; // Item terdekat di isometric mode
+	private DroppedItem _nearestDroppedItem = null; // Dropped item terdekat di isometric mode
 
 	public override void _Ready()
 	{
@@ -127,10 +128,18 @@ public partial class Player : CharacterBody3D
 	
 	private void OnPickupAreaEntered(Node3D body)
 	{
-		if (body is PickableItem pickable && _currentCameraMode == CameraMode.Isometric)
+		if (_currentCameraMode == CameraMode.Isometric)
 		{
-			_nearestItem = pickable;
-			GD.Print($"Item in range: {pickable.GetItemData().ItemName}");
+			if (body is PickableItem pickable)
+			{
+				_nearestItem = pickable;
+				GD.Print($"Item in range: {pickable.GetItemData().ItemName}");
+			}
+			else if (body is DroppedItem dropped)
+			{
+				_nearestDroppedItem = dropped;
+				GD.Print($"Dropped item in range: {dropped.GetItemData().ItemName}");
+			}
 		}
 	}
 	
@@ -139,6 +148,10 @@ public partial class Player : CharacterBody3D
 		if (body is PickableItem pickable && _nearestItem == pickable)
 		{
 			_nearestItem = null;
+		}
+		else if (body is DroppedItem dropped && _nearestDroppedItem == dropped)
+		{
+			_nearestDroppedItem = null;
 		}
 	}
 
@@ -294,10 +307,33 @@ public partial class Player : CharacterBody3D
 	{
 		if (_currentCameraMode == CameraMode.Isometric)
 		{
+			// Priority: DroppedItem heavy items first, then regular PickableItems
+			if (_nearestDroppedItem != null && _nearestDroppedItem.IsHeavyItem())
+			{
+				GD.Print($"🏋️ Isometric: Trying to pickup dropped heavy item: {_nearestDroppedItem.GetItemData().ItemName}");
+				_nearestDroppedItem.StartPickup(this);
+				return;
+			}
+			else if (_nearestDroppedItem != null)
+			{
+				GD.Print($"⚠️ Isometric: DroppedItem nearby but not heavy: {_nearestDroppedItem.GetItemData().ItemName}");
+			}
+			
 			// Isometric: Gunakan proximity detection
 			if (_nearestItem != null)
 			{
 				GD.Print($"Nearest item type: {_nearestItem.GetType().Name}");
+				
+				// Check if it's a WeightItem (needs hold-to-pickup)
+				if (_nearestItem is WeightItem weightItem)
+				{
+					GD.Print($"Trying to pickup heavy item: {weightItem.ItemName}");
+					if (!weightItem.IsBeingPickedUp())
+					{
+						weightItem.StartPickup(this);
+					}
+					return;
+				}
 				
 				// Check if it's a MaterialItem (needs quantity picker)
 				if (_nearestItem.GetType().Name == "MaterialItem")
@@ -346,7 +382,7 @@ public partial class Player : CharacterBody3D
 		var to = from - cameraTransform.Basis.Z * 3.0f; // 3 meter reach distance
 		
 		var query = PhysicsRayQueryParameters3D.Create(from, to);
-		query.CollideWithBodies = true; // Pastikan bisa hit StaticBody3D
+		query.CollideWithBodies = true; // Pastikan bisa hit StaticBody3D AND RigidBody3D
 		query.CollideWithAreas = true;
 		
 		var result = spaceState.IntersectRay(query);
@@ -354,11 +390,43 @@ public partial class Player : CharacterBody3D
 		if (result.Count > 0)
 		{
 			var collider = result["collider"].As<Node>();
+			GD.Print($"🎯 Raycast hit: {collider.Name} (Type: {collider.GetType().Name})");
+			
+			// Check if it's a DroppedItem (RigidBody3D)
+			if (collider is DroppedItem droppedItem)
+			{
+				GD.Print($"✅ FPP Mode - Found DroppedItem: {droppedItem.GetItemData().ItemName}, IsHeavy: {droppedItem.IsHeavyItem()}");
+				
+				// Check if it's a heavy item
+				if (droppedItem.IsHeavyItem())
+				{
+					GD.Print($"🏋️ FPP: Trying to pickup dropped heavy item: {droppedItem.GetItemData().ItemName}");
+					droppedItem.StartPickup(this);
+					return;
+				}
+				else
+				{
+					GD.Print("⚠️ DroppedItem is not heavy - should auto-pickup");
+				}
+				// Regular dropped items auto-pickup on proximity, no need to handle here
+				return;
+			}
 			
 			// Check jika objek adalah PickableItem
 			if (collider is PickableItem pickable)
 			{
 				GD.Print($"FPP Mode - Item type: {pickable.GetType().Name}");
+				
+				// Check if it's a WeightItem (needs hold-to-pickup)
+				if (pickable is WeightItem weightItem)
+				{
+					GD.Print($"FPP: Trying to pickup heavy item: {weightItem.ItemName}");
+					if (!weightItem.IsBeingPickedUp())
+					{
+						weightItem.StartPickup(this);
+					}
+					return;
+				}
 				
 				// Check if it's a MaterialItem (needs quantity picker)
 				if (pickable.GetType().Name == "MaterialItem")
@@ -439,14 +507,27 @@ public partial class Player : CharacterBody3D
 			dropPosition.Y = GlobalPosition.Y + 1.0f;
 			droppedInstance.GlobalPosition = dropPosition;
 			
-			// Set item data
-			droppedInstance.Initialize(droppedItem.Data, droppedItem.Quantity);
+			// Check if weight/stone item - ALWAYS use default scale (will be normalized in Initialize)
+			bool isWeightItem = droppedItem.Data.ItemId.Contains("stone") || 
+			                    droppedItem.Data.ItemId.Contains("rock") || 
+			                    droppedItem.Data.ItemId.Contains("weight");
+			
+			if (isWeightItem)
+			{
+				// Pass default scale for weight items - will be normalized to Vector3.One
+				droppedInstance.Initialize(droppedItem.Data, droppedItem.Quantity);
+				GD.Print($"Dropped WEIGHT item: {droppedItem.Data.ItemName} x{droppedItem.Quantity} - Will be normalized");
+			}
+			else
+			{
+				// Non-weight items: preserve original scale
+				droppedInstance.Initialize(droppedItem.Data, droppedItem.Quantity, droppedItem.Data.OriginalScale);
+				GD.Print($"Dropped regular item: {droppedItem.Data.ItemName} x{droppedItem.Quantity} - Scale: {droppedItem.Data.OriginalScale}");
+			}
 			
 			// Throw item
 			Vector3 throwDirection = -_camera.GlobalTransform.Basis.Z;
 			droppedInstance.Throw(throwDirection * ThrowForce);
-			
-			GD.Print($"Dropped: {droppedItem.Data.ItemName} x{droppedItem.Quantity}");
 		}
 	}
 	

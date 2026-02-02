@@ -22,7 +22,8 @@ public partial class LibraryGridUI : Control
 	private bool _inventoryWasOpen = false;
 	
 	// Book selection
-	private VBoxContainer _bookSelectionPanel;
+	private GridContainer _bookSelectionPanel;
+	private VBoxContainer _bookSelectionContainer;
 	private List<Button> _bookButtons = new List<Button>();
 	private int _selectedSlotIndex = -1; // Slot yang dipilih untuk diisi
 	
@@ -85,26 +86,33 @@ public partial class LibraryGridUI : Control
 	
 	private void SetupBookSelectionPanel()
 	{
-		// Create book selection panel di kanan grid
-		_bookSelectionPanel = new VBoxContainer();
-		_bookSelectionPanel.Position = new Vector2(420, 80);
-		_gridPanel.AddChild(_bookSelectionPanel);
+		// Create container untuk book selection area di kanan grid
+		_bookSelectionContainer = new VBoxContainer();
+		_bookSelectionContainer.Position = new Vector2(420, 80);
+		_gridPanel.AddChild(_bookSelectionContainer);
 		
 		var selectionTitle = new Label();
 		selectionTitle.Text = "Your Books:";
 		if (_customFont != null) selectionTitle.AddThemeFontOverride("font", _customFont);
 		selectionTitle.AddThemeFontSizeOverride("font_size", 18);
 		selectionTitle.AddThemeColorOverride("font_color", new Color(0.9f, 0.8f, 0.6f));
-		_bookSelectionPanel.AddChild(selectionTitle);
+		_bookSelectionContainer.AddChild(selectionTitle);
 		
 		var instruction = new Label();
 		instruction.Text = "Click slot, then click book";
 		if (_customFont != null) instruction.AddThemeFontOverride("font", _customFont);
 		instruction.AddThemeFontSizeOverride("font_size", 12);
 		instruction.AddThemeColorOverride("font_color", new Color(0.7f, 0.7f, 0.7f));
-		_bookSelectionPanel.AddChild(instruction);
+		_bookSelectionContainer.AddChild(instruction);
 		
-		_bookSelectionPanel.Visible = false;
+		// Create GridContainer 3x3 untuk book buttons
+		_bookSelectionPanel = new GridContainer();
+		_bookSelectionPanel.Columns = 3;
+		_bookSelectionPanel.AddThemeConstantOverride("h_separation", 5);
+		_bookSelectionPanel.AddThemeConstantOverride("v_separation", 5);
+		_bookSelectionContainer.AddChild(_bookSelectionPanel);
+		
+		_bookSelectionContainer.Visible = false;
 	}
 	
 	private void FindInventoryUI()
@@ -211,7 +219,7 @@ public partial class LibraryGridUI : Control
 			_gridSlots[i].ClearSlot();
 		}
 		
-		// Reset used books
+		// Reset used books (tapi jangan reset _ownedBooksOrder karena itu urutan pengambilan)
 		_usedBooks.Clear();
 		
 		// Update book list
@@ -232,46 +240,60 @@ public partial class LibraryGridUI : Control
 		
 		if (_player == null || _player._inventory == null)
 		{
-			_bookSelectionPanel.Visible = false;
+			_bookSelectionContainer.Visible = false;
 			return;
 		}
 		
-		// Get all story books from player inventory
+		// Get all available books from inventory
 		var inventory = _player._inventory;
-		var books = new List<(BookSymbol symbol, string name)>();
+		var availableBooks = new List<BookSymbol>();
 		
+		// Cek semua buku di inventory yang belum digunakan
 		for (int i = 0; i < 9; i++)
 		{
 			var symbol = (BookSymbol)i;
 			var itemId = $"book_{symbol.ToString().ToLower()}";
 			
-			// Only show books that haven't been used yet
+			// Hanya tampilkan jika ada di inventory dan belum digunakan
 			if (inventory.HasItem(itemId) && !_usedBooks.Contains(symbol))
 			{
-				books.Add((symbol, symbol.ToString()));
+				availableBooks.Add(symbol);
 			}
 		}
 		
-		if (books.Count == 0)
+		if (availableBooks.Count == 0)
 		{
-			_bookSelectionPanel.Visible = false;
+			_bookSelectionContainer.Visible = false;
 			_feedbackLabel.Text = "You don't have any story books yet! Explore the library to find them.";
 			_feedbackLabel.Modulate = new Color(1, 0.5f, 0);
 			return;
 		}
 		
-		_bookSelectionPanel.Visible = true;
+		_bookSelectionContainer.Visible = true;
 		
-		// Create button for each book
-		foreach (var book in books)
+		// SHUFFLE urutan buku agar tidak berurutan sesuai solusi!
+		// Ini membuat puzzle lebih menantang karena pemain tidak bisa mengandalkan urutan tombol
+		var random = new Random();
+		for (int i = availableBooks.Count - 1; i > 0; i--)
+		{
+			int j = random.Next(i + 1);
+			var temp = availableBooks[i];
+			availableBooks[i] = availableBooks[j];
+			availableBooks[j] = temp;
+		}
+		
+		GD.Print($"📚 Book buttons shuffled: {string.Join(", ", availableBooks)}");
+		
+		// Create button untuk setiap buku dalam urutan yang sudah diacak
+		foreach (var symbol in availableBooks)
 		{
 			var btn = new Button();
-			btn.Text = book.name;
-			btn.CustomMinimumSize = new Vector2(150, 30);
-			btn.AddThemeFontSizeOverride("font_size", 14);
+			btn.Text = symbol.ToString();
+			btn.CustomMinimumSize = new Vector2(100, 100); // Sama dengan ukuran grid slot
+			btn.AddThemeFontSizeOverride("font_size", 12);
 			
-			var symbol = book.symbol;
-			btn.Pressed += () => OnBookSelected(symbol);
+			var capturedSymbol = symbol;
+			btn.Pressed += () => OnBookSelected(capturedSymbol);
 			
 			_bookSelectionPanel.AddChild(btn);
 			_bookButtons.Add(btn);
