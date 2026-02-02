@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d4mweouara7f6"]
+[gd_scene format=3 uid="uid://dm0hcj3elmm01"]
 
 [ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="1_invui"]
 [ext_resource type="Texture2D" uid="uid://c53ovvbjoxon2" path="res://assets/sprites/ui/ui_4x4_inventory.png" id="2_inv4x4"]

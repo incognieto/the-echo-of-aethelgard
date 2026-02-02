@@ -43,6 +43,7 @@ public partial class DroppedItem : RigidBody3D
 		var shape = new SphereShape3D();
 		shape.Radius = 0.25f;
 		collisionShape.Shape = shape;
+		collisionShape.Name = "CollisionShape";
 		AddChild(collisionShape);
 		
 		// Create label untuk quantity
@@ -125,33 +126,39 @@ public partial class DroppedItem : RigidBody3D
 		_itemData = itemData;
 		_quantity = quantity;
 		
-		// Cek apakah ini item berat (batu) berdasarkan ItemId
-		_isHeavyItem = itemData.ItemId.Contains("stone") || itemData.ItemId.Contains("rock") || itemData.ItemId.Contains("weight");
-		
-		// Set scale - FORCE normalize untuk heavy items
-		if (_isHeavyItem)
-		{
-			_originalScale = Vector3.One; // Always normalize heavy items
-			Scale = Vector3.One;
-			GD.Print($"🟢 Heavy item - forcing normalized scale: {itemData.ItemName}");
-		}
-		else
-		{
-			// Non-heavy items: use provided scale or default
-			if (scale == default)
-			{
-				_originalScale = Vector3.One;
-			}
-			else
-			{
-				_originalScale = scale;
-				Scale = scale;
-			}
-		}
-		
 		if (_label != null)
 		{
 			_label.Text = quantity > 1 ? $"{itemData.ItemName} x{quantity}" : itemData.ItemName;
+		}
+		
+		// Apply visual scale jika ada (untuk item seperti batu dengan ukuran berbeda)
+		if (itemData.VisualScale != 1.0f)
+		{
+			float visualScale = itemData.VisualScale;
+			
+			// Scale mesh
+			if (_mesh != null)
+			{
+				_mesh.Scale = new Vector3(visualScale, visualScale, visualScale);
+			}
+			
+			// Scale collision shape
+			var collisionShape = GetNodeOrNull<CollisionShape3D>("CollisionShape");
+			if (collisionShape != null)
+			{
+				collisionShape.Scale = new Vector3(visualScale, visualScale, visualScale);
+			}
+			
+			// Adjust label position based on scale
+			if (_label != null)
+			{
+				_label.Position = new Vector3(0, 0.5f * visualScale, 0);
+			}
+			
+			// Adjust mass based on scale (larger = heavier)
+			Mass = 0.5f * visualScale;
+			
+			GD.Print($"DroppedItem scaled to {visualScale} for {itemData.ItemName}");
 		}
 		
 		// NO pickup cooldown untuk heavy items agar bisa langsung diambil lagi
@@ -374,7 +381,7 @@ public partial class DroppedItem : RigidBody3D
 	private Texture2D CreateCircleTexture(int radius, Color color)
 	{
 		int size = radius * 2;
-		var image = Image.Create(size, size, false, Image.Format.Rgba8);
+		var image = Image.CreateEmpty(size, size, false, Image.Format.Rgba8);
 		
 		for (int y = 0; y < size; y++)
 		{

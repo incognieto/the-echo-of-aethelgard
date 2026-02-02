@@ -16,33 +16,48 @@ public partial class WeightItem : PickableItem
 
     public override void _Ready()
     {
-        base._Ready();
+        // GET SCALE dari node ini sendiri
+        float originalScale = Scale.X; // WeightItem adalah StaticBody3D yang punya Scale
+        
+        // Cek apakah ada MeshInstance3D child dengan scale tambahan
+        var meshChild = GetNodeOrNull<MeshInstance3D>("MeshInstance3D");
+        if (meshChild != null && meshChild.Scale.X != 1.0f)
+        {
+            // Kalikan dengan scale mesh untuk mendapat ukuran visual sebenarnya
+            originalScale *= meshChild.Scale.X;
+            GD.Print($"DEBUG WeightItem: {Name} has mesh scale: {meshChild.Scale.X}, total: {originalScale}");
+        }
+        
+        GD.Print($"DEBUG WeightItem: This = {Name}, Node.Scale = {Scale}, Final VisualScale = {originalScale}");
+        
+        base._Ready(); // Baru panggil base yang create _itemData
+        
         // Update nama item biar pemain tahu beratnya saat di-hover
-        // Misal: "Rusty Iron (10kg)"
         ItemName = $"{ItemName} ({WeightValue}kg)";
         
         // Update ItemData internal
         if (_itemData != null)
         {
             _itemData.ItemName = ItemName;
-            
-            // IMPORTANT: Force OriginalScale to Vector3.One for weight items
-            // Ini memastikan semua batu ukurannya sama saat di-drop dari inventory
-            _itemData.OriginalScale = Vector3.One;
-            GD.Print($"🔧 WeightItem OriginalScale forced to Vector3.One: {ItemName}");
+            _itemData.VisualScale = originalScale; // Simpan scale asli
+            GD.Print($"✓ WeightItem {ItemName} initialized with VisualScale: {originalScale}");
         }
-        
+        else
+        {
+            GD.PrintErr($"✗ WeightItem {ItemName}: _itemData is NULL!");
+        }
+
         // Setup progress bar 3D
         SetupCircularProgress();
     }
-    
+
     private void SetupCircularProgress()
     {
         // Create CanvasLayer untuk screen-space UI
         _canvasLayer = new CanvasLayer();
         _canvasLayer.Layer = 100; // Di atas semua UI lain
         AddChild(_canvasLayer);
-        
+
         // Create container di center screen
         _circularProgressUI = new Control();
         _circularProgressUI.SetAnchorsPreset(Control.LayoutPreset.Center);
@@ -83,7 +98,7 @@ public partial class WeightItem : PickableItem
     private Texture2D CreateCircleTexture(int radius, Color color)
     {
         int size = radius * 2;
-        var image = Image.Create(size, size, false, Image.Format.Rgba8);
+        var image = Image.CreateEmpty(size, size, false, Image.Format.Rgba8);
         
         for (int y = 0; y < size; y++)
         {

@@ -26,6 +26,9 @@ public partial class ItemData : Resource
 	
 	// Reference ke usable behavior (set saat runtime)
 	public IUsableItem UsableBehavior { get; set; }
+	
+	// Visual scale untuk dropped item (khusus untuk item dengan ukuran berbeda seperti batu)
+	public float VisualScale { get; set; } = 1.0f;
 
 	public ItemData()
 	{
