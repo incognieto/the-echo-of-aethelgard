@@ -99,9 +99,14 @@ public partial class BookUI : Control
 		
 		_leftPageLabel = new RichTextLabel();
 		_leftPageLabel.BbcodeEnabled = true;
-		_leftPageLabel.FitContent = true;
+		_leftPageLabel.FitContent = false;
 		_leftPageLabel.ScrollActive = false;
-		_leftPageLabel.AddThemeFontSizeOverride("normal_font_size", 16);
+		_leftPageLabel.CustomMinimumSize = new Vector2(400, 400);
+		_leftPageLabel.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		_leftPageLabel.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
+		_leftPageLabel.AddThemeFontSizeOverride("normal_font_size", 48);
+		_leftPageLabel.AddThemeColorOverride("default_color", new Color(0, 0, 0, 1));
+		if (_customFont != null) _leftPageLabel.AddThemeFontOverride("normal_font", _customFont);
 		leftScroll.AddChild(_leftPageLabel);
 		
 		// Vertical separator between pages
@@ -126,9 +131,14 @@ public partial class BookUI : Control
 		
 		_rightPageLabel = new RichTextLabel();
 		_rightPageLabel.BbcodeEnabled = true;
-		_rightPageLabel.FitContent = true;
+		_rightPageLabel.FitContent = false;
 		_rightPageLabel.ScrollActive = false;
-		_rightPageLabel.AddThemeFontSizeOverride("normal_font_size", 16);
+		_rightPageLabel.CustomMinimumSize = new Vector2(400, 400);
+		_rightPageLabel.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		_rightPageLabel.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
+		_rightPageLabel.AddThemeFontSizeOverride("normal_font_size", 48);
+		_rightPageLabel.AddThemeColorOverride("default_color", new Color(0, 0, 0, 1));
+		if (_customFont != null) _rightPageLabel.AddThemeFontOverride("normal_font", _customFont);
 		rightScroll.AddChild(_rightPageLabel);
 		
 		// Close button
@@ -155,17 +165,19 @@ public partial class BookUI : Control
 	public void ShowBook(string title, string leftContent, string rightContent)
 	{
 		_bookTitle = title;
-		_leftPageContent = "(Empty page)";
-		_rightPageContent = "(Empty page)";
+		_leftPageContent = string.IsNullOrEmpty(leftContent) ? "(Empty page)" : leftContent;
+		_rightPageContent = string.IsNullOrEmpty(rightContent) ? "(Empty page)" : rightContent;
 		
 		_titleLabel.Text = title;
-		_leftPageLabel.Text = _leftPageContent;
-		_rightPageLabel.Text = _rightPageContent;
+		
+		// Center align and display content with BBCode
+		_leftPageLabel.Text = $"[center]{_leftPageContent}[/center]";
+		_rightPageLabel.Text = $"[center]{_rightPageContent}[/center]";
 		
 		Visible = true;
 		InventoryUI.IsAnyPanelOpen = true; // Block player movement
 		Input.MouseMode = Input.MouseModeEnum.Visible;
-		GD.Print($"Opening book: {title}");
+		GD.Print($"Opening book: {title} | Left: {_leftPageContent} | Right: {_rightPageContent}");
 	}
 
 	private void OnClosePressed()

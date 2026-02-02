@@ -135,13 +135,48 @@ public partial class GameSetup : Node
 		// Create ancient book item data
 		var ancientBookData = new ItemData("ancient_book", "Ancient Book", 1, true, true); // usable = true, keyItem = true
 		ancientBookData.Description = "An ancient mystical book - Contains secrets of alchemy";
-		ancientBookData.UsableBehavior = new BookUsable("Ancient Book");
+		
+		// Set konten berbeda per level
+		string leftContent = "";
+		string rightContent = "";
+		
+		switch (CurrentLevel)
+		{
+			case 1:
+				leftContent = "A";
+				rightContent = "B";
+				break;
+			case 2:
+				leftContent = "C";
+				rightContent = "D";
+				break;
+			case 3:
+				leftContent = "E";
+				rightContent = "F";
+				break;
+			case 4:
+				leftContent = "G";
+				rightContent = "H";
+				break;
+			case 5:
+				leftContent = "I";
+				rightContent = "J";
+				break;
+			default:
+				leftContent = "(Empty page)";
+				rightContent = "(Empty page)";
+				break;
+		}
+		
+		// Set book behavior dengan konten per level
+		ancientBookData.UsableBehavior = new BookUsable("Ancient Book", leftContent, rightContent);
 		
 		// Add to inventory
 		bool added = inventorySystem.AddItem(ancientBookData, 1);
 		if (added)
 		{
 			GD.Print($"✓ GameSetup: Ancient Book successfully added to inventory for Level {CurrentLevel}");
+			GD.Print($"   Left page: \"{leftContent}\", Right page: \"{rightContent}\"");
 		}
 		else
 		{

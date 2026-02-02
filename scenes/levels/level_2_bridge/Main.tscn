@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="1_nfhxa"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="2_s7lbl"]
-[ext_resource type="PackedScene" path="res://scenes/ui/BridgePuzzleUI.tscn" id="3_di2p2"]
+[ext_resource type="PackedScene" uid="uid://c3v8k7j2m5xbt" path="res://scenes/ui/BridgePuzzleUI.tscn" id="3_di2p2"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="3_ymv1o"]
 [ext_resource type="Script" uid="uid://baxkd0n6wuva5" path="res://scripts/puzzles/BridgePuzzle.cs" id="4_s7lbl"]
 [ext_resource type="Texture2D" uid="uid://c8apb5bbm8rfb" path="res://assets/puzzles/level_2_bridge/puzzle4.png" id="5_26hwv"]
