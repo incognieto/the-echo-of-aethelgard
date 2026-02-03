@@ -81,7 +81,30 @@ public partial class LibraryGridUI : Control
 		// Find InventoryUI
 		CallDeferred(nameof(FindInventoryUI));
 		
+		// Setup cursor hover effects
+		SetupButtonHoverEffects();
+		
 		GD.Print("LibraryGridUI ready!");
+	}
+	
+	private void SetupButtonHoverEffects()
+	{
+		var buttons = new[] { _confirmButton, _clearButton, _closeButton };
+		foreach (var button in buttons)
+		{
+			if (button != null)
+			{
+				button.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+				button.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+			}
+		}
+		
+		// Grid slots will have their hover effects setup when they are clicked
+		foreach (var slot in _gridSlots)
+		{
+			slot.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+			slot.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+		}
 	}
 	
 	private void SetupBookSelectionPanel()

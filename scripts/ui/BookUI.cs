@@ -147,6 +147,10 @@ public partial class BookUI : Control
 		_closeButton.CustomMinimumSize = new Vector2(150, 40);
 		_closeButton.Pressed += OnClosePressed;
 		
+		// Setup cursor hover effect
+		_closeButton.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+		_closeButton.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+		
 		var buttonContainer = new HBoxContainer();
 		buttonContainer.Alignment = BoxContainer.AlignmentMode.Center;
 		buttonContainer.AddChild(_closeButton);

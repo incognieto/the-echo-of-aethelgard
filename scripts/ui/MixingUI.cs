@@ -71,7 +71,23 @@ public partial class MixingUI : Control
 		// Find InventoryUI
 		CallDeferred(nameof(FindInventoryUI));
 		
+		// Setup cursor hover effects
+		SetupButtonHoverEffects();
+		
 		UpdateDisplay();
+	}
+	
+	private void SetupButtonHoverEffects()
+	{
+		var buttons = new[] { _greenButton, _redButton, _blueButton, _mixButton, _resetButton };
+		foreach (var button in buttons)
+		{
+			if (button != null)
+			{
+				button.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+				button.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+			}
+		}
 	}
 	
 	private void FindInventoryUI()

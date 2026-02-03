@@ -64,7 +64,23 @@ public partial class BridgePuzzleUI : Control
 		_enterButton.Pressed += OnEnterPressed;
 		_closeButton.Pressed += OnClosePressed;
 		
+		// Setup cursor hover effects
+		SetupButtonHoverEffects();
+		
 		GD.Print("✓ BridgePuzzleUI ready - loaded from scene!");
+	}
+	
+	private void SetupButtonHoverEffects()
+	{
+		var buttons = new[] { _button0, _button1, _button2, _button3, _button4, _button5, _button6, _button7, _button8, _button9, _delButton, _enterButton, _closeButton };
+		foreach (var button in buttons)
+		{
+			if (button != null)
+			{
+				button.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+				button.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+			}
+		}
 	}
 	
 	private void OnNumberPressed(string digit)
