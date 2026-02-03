@@ -1,12 +1,21 @@
 [gd_scene format=3 uid="uid://di6jwi87xitob"]
 
 [ext_resource type="Script" uid="uid://1014yc6o6og0" path="res://scenes/levels/level_0_prologue/Prologue.cs" id="1_2wkgt"]
+[ext_resource type="PackedScene" uid="uid://dyt6p7bn4ibhk" path="res://assets/items/book.tscn" id="2_gux3y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6uyw"]
+diffuse_mode = 3
+specular_mode = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_cbp8q"]
 size = Vector3(20, 0.2, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2wkgt"]
 size = Vector3(20, 0.2, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gux3y"]
+diffuse_mode = 3
+specular_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
 albedo_color = Color(0.6, 0.2, 0.2, 1)
@@ -15,15 +24,15 @@ albedo_color = Color(0.6, 0.2, 0.2, 1)
 material = SubResource("StandardMaterial3D_door")
 size = Vector3(4, 4, 0.3)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8w86"]
+diffuse_mode = 3
+specular_mode = 1
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2wkgt"]
+material = SubResource("StandardMaterial3D_q8w86")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q6uyw"]
 size = Vector3(1.088501, 0.24636841, 0.62268066)
-
-[sub_resource type="BoxMesh" id="BoxMesh_q8w86"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vcp8q"]
-albedo_color = Color(0.46086186, 0.26726577, 0.16067368, 1)
 
 [sub_resource type="Animation" id="Animation_0pfmq"]
 resource_name = "CinematicSequence"
@@ -284,6 +293,13 @@ _data = {
 &"RESET": SubResource("Animation_6f55l")
 }
 
+[sub_resource type="Environment" id="Environment_q6uyw"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_energy = 2.63
+tonemap_exposure = 4.0
+ssao_enabled = true
+
 [node name="Prologue" type="Node3D" unique_id=309842320 node_paths=PackedStringArray("DirectorAnim", "MainCamera", "PlayerVisual", "DialogueText", "BlackCover")]
 script = ExtResource("1_2wkgt")
 DirectorAnim = NodePath("Director")
@@ -298,6 +314,7 @@ NextScenePath = "uid://bhrdjha0g10ow"
 [node name="Floor" type="StaticBody3D" parent="Map" unique_id=599037073]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Floor" unique_id=45851091]
+material_override = SubResource("StandardMaterial3D_q6uyw")
 mesh = SubResource("BoxMesh_cbp8q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Floor" unique_id=1824310240]
@@ -305,12 +322,6 @@ shape = SubResource("BoxShape3D_2wkgt")
 
 [node name="Floor2" type="StaticBody3D" parent="Map" unique_id=526592059]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9635596, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Floor2" unique_id=837394059]
-mesh = SubResource("BoxMesh_cbp8q")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Floor2" unique_id=69631666]
-shape = SubResource("BoxShape3D_2wkgt")
 
 [node name="FloorRoom2" type="CSGBox3D" parent="Map" unique_id=1371398848]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
@@ -323,24 +334,29 @@ size = Vector3(20, 0.2, 20)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
 use_collision = true
 size = Vector3(20, 5, 0.2)
+material = SubResource("StandardMaterial3D_gux3y")
 
 [node name="WallSouth" type="CSGBox3D" parent="Map/Walls" unique_id=1198744008]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
+material_override = SubResource("StandardMaterial3D_q6uyw")
 use_collision = true
 size = Vector3(20, 5, 0.2)
 
 [node name="WallEast" type="CSGBox3D" parent="Map/Walls" unique_id=718662601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5, 0)
+material_override = SubResource("StandardMaterial3D_q6uyw")
 use_collision = true
 size = Vector3(0.2, 5, 20)
 
 [node name="WallWestNorth" type="CSGBox3D" parent="Map/Walls" unique_id=88664402]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, -6)
+material_override = SubResource("StandardMaterial3D_q6uyw")
 use_collision = true
 size = Vector3(0.2, 5, 8)
 
 [node name="WallWestSouth" type="CSGBox3D" parent="Map/Walls" unique_id=253681221]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 6)
+material_override = SubResource("StandardMaterial3D_q6uyw")
 use_collision = true
 size = Vector3(0.2, 5, 8)
 
@@ -366,6 +382,7 @@ size = Vector3(8, 5, 0.2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map" unique_id=740651248]
 transform = Transform3D(-0.02348998, 0, -0.9997241, 0, 1.4957618, 0, 0.9997241, 0, -0.02348998, -9.960457, 2.012208, 0)
+material_override = SubResource("StandardMaterial3D_q6uyw")
 mesh = SubResource("BoxMesh_2wkgt")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1130554622]
@@ -380,42 +397,69 @@ mesh = SubResource("CapsuleMesh_2wkgt")
 [node name="Torch" type="Node3D" parent="Lights" unique_id=1835145884]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Lights/Torch" unique_id=1235562145]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.858452, 2.914606, -8.373868)
-light_color = Color(0.7254902, 0.49411765, 0, 1)
-light_energy = 1.2
-light_specular = 2.567
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.855814, 2.9146051, -8.408547)
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
 shadow_enabled = true
-omni_range = 28.122713
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Lights/Torch" unique_id=819955404]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.42217, 2.914606, 7.9756107)
-light_color = Color(0.7254902, 0.49411765, 0, 1)
-light_energy = 1.2
-light_specular = 2.567
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
 shadow_enabled = true
-omni_range = 28.122713
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Lights/Torch" unique_id=1165814469]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.74152, 2.914606, -8.710974)
-light_color = Color(0.7254902, 0.49411765, 0, 1)
-light_energy = 1.2
-light_specular = 2.567
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
 shadow_enabled = true
-omni_range = 28.122713
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Lights/Torch" unique_id=369882796]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.527333, 2.914606, 8.049907)
-light_color = Color(0.7254902, 0.49411765, 0, 1)
-light_energy = 1.2
-light_specular = 2.567
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
 shadow_enabled = true
-omni_range = 28.122713
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
 
 [node name="Book light" type="OmniLight3D" parent="Lights" unique_id=1689680307]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.589019, 0.40622973, 7.7025347)
-light_color = Color(0.3254902, 0.44705883, 1, 1)
-light_energy = 5.365
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.589019, 0.11156219, 7.7025347)
+light_color = Color(0.8697373, 0, 0.051115535, 1)
+light_energy = 1.405
 omni_range = 0.8866485
+
+[node name="Book light2" type="OmniLight3D" parent="Lights" unique_id=1907992420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.603653, 0.38358963, 7.7025347)
+light_color = Color(0.6783761, 0, 0.02966866, 1)
+light_energy = 0.296
+light_indirect_energy = 3.218
+light_volumetric_fog_energy = 0.96
+light_size = 0.095
+shadow_enabled = true
+shadow_normal_bias = 1.1
+omni_range = 0.193
 
 [node name="Grimoire" type="Area3D" parent="." unique_id=497229957]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.554409, -0.34989274, 8.027561)
@@ -423,11 +467,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.554409, -0.34989274, 8.0275
 [node name="BookShape" type="CollisionShape3D" parent="Grimoire" unique_id=137136226]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0017986298, 0.56836545, -0.3100853)
 shape = SubResource("BoxShape3D_q6uyw")
-
-[node name="BookVisual" type="MeshInstance3D" parent="Grimoire" unique_id=1088959616]
-transform = Transform3D(1.1001837, 0, 0, 0, 0.21814394, 0, 0, 0, 0.64546275, 0, 0.5511192, -0.3197899)
-mesh = SubResource("BoxMesh_q8w86")
-surface_material_override/0 = SubResource("StandardMaterial3D_vcp8q")
 
 [node name="CloseUp" type="Camera3D" parent="." unique_id=1887182472]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.115, 3.015, -0.205)
@@ -471,3 +510,9 @@ anchor_bottom = 1.0
 offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="Book" parent="." unique_id=2023247611 instance=ExtResource("2_gux3y")]
+transform = Transform3D(-2.6226834e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.6226834e-08, 8.605252, 0.21838248, 7.706414)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=404851612]
+environment = SubResource("Environment_q6uyw")
