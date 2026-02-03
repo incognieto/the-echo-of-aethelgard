@@ -1,13 +1,29 @@
 [gd_scene format=3 uid="uid://dg6onkauo7422"]
 
-[ext_resource type="Texture2D" uid="uid://bp3gq1ujyrvxo" path="res://assets/sprites/mainmenuassets/Background Main Menu.png" id="1_2ysvc"]
+[ext_resource type="Texture2D" uid="uid://b72duq0ptn2j6" path="res://assets/sprites/mainmenuassets/Background Main Menu.png" id="1_2ysvc"]
 [ext_resource type="Script" uid="uid://bmy48inqd4fhy" path="res://scripts/ui/MainMenu/Background.cs" id="2_xpiny"]
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="3_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="4_e2per"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
 [ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
+[ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="7_7vr37"]
+[ext_resource type="Texture2D" uid="uid://dkhwf1jmi177v" path="res://assets/sprites/mainmenuassets/Btn/PlayBtn.png" id="7_e2per"]
+[ext_resource type="Texture2D" uid="uid://by7riw20biptd" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnClicked.png" id="8_nqjyj"]
+[ext_resource type="Texture2D" uid="uid://b034dbjee8j0a" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnHover.png" id="9_7vr37"]
+[ext_resource type="Script" uid="uid://u4ifoxgo1jrq" path="res://scripts/ui/SceneChangeButton.cs" id="11_3da5a"]
+[ext_resource type="Texture2D" uid="uid://e4lxss8wjdbf" path="res://assets/sprites/mainmenuassets/Btn/OptionsBtn.png" id="11_ayd4e"]
+[ext_resource type="Texture2D" uid="uid://biw6umqd5gsd6" path="res://assets/sprites/mainmenuassets/Btn/OptionsBtnClicked.png" id="12_3da5a"]
+[ext_resource type="Texture2D" uid="uid://1cg2ywvwr0e0" path="res://assets/sprites/mainmenuassets/Btn/OptionsBtnHover.png" id="13_8rx73"]
+[ext_resource type="Texture2D" uid="uid://dasgl8ysgd0ye" path="res://assets/sprites/mainmenuassets/Btn/CreditsBtn.png" id="14_ns3en"]
+[ext_resource type="Texture2D" uid="uid://ygymd3clhfef" path="res://assets/sprites/mainmenuassets/Btn/CreditsBtnClicked.png" id="15_ybqsv"]
+[ext_resource type="Texture2D" uid="uid://bv0qcobpknjkf" path="res://assets/sprites/mainmenuassets/Btn/CreditsBtnHover.png" id="16_1fge5"]
+[ext_resource type="Texture2D" uid="uid://yct48i0rmk6" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenu.png" id="17_utjo4"]
+[ext_resource type="Texture2D" uid="uid://bke064jg1pjn5" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuClicked.png" id="18_dq25m"]
+[ext_resource type="Texture2D" uid="uid://b2d1hlgyagd6v" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuHover.png" id="19_jfpbv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhu4a"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_whkpc"]
 
 [node name="MainMenu" type="Control" unique_id=392517393]
 layout_mode = 3
@@ -21,14 +37,14 @@ grow_vertical = 2
 position = Vector2(640, 360)
 
 [node name="Background" type="Sprite2D" parent="Node2D" unique_id=76998444]
-position = Vector2(-3, 6.000002)
+position = Vector2(2.9087067e-05, 3.0000153)
 scale = Vector2(0.37470347, 0.37470365)
 texture = ExtResource("1_2ysvc")
-offset = Vector2(-47.272827, -489.13696)
+offset = Vector2(-65.954346, -315.66656)
 script = ExtResource("2_xpiny")
 
 [node name="TorchMenu" parent="Node2D/Background" unique_id=1130348849 instance=ExtResource("6_bhu4a")]
-position = Vector2(757.93274, -445.6856)
+position = Vector2(771.2766, -306.90924)
 scale = Vector2(2.6687772, 2.668776)
 
 [node name="BoxBlur1" type="Sprite2D" parent="Node2D" unique_id=289898888]
@@ -39,18 +55,28 @@ offset = Vector2(-1317.6427, 549.6272)
 script = ExtResource("4_xpiny")
 
 [node name="BoxBlur2" type="Sprite2D" parent="Node2D" unique_id=848787951]
-position = Vector2(-5, 2.0000305)
+position = Vector2(-13, 2)
 scale = Vector2(0.34500888, 0.3450089)
 texture = ExtResource("4_e2per")
 offset = Vector2(1846.3292, 1075.3345)
 script = ExtResource("4_xpiny")
 
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=266439748]
+visible = false
+light_mask = 0
+z_index = 4096
+position = Vector2(62.999992, 17.999998)
+scale = Vector2(0.3210376, 0.3200299)
+texture = ExtResource("7_7vr37")
+
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1524960737]
 color = Color(0.14117648, 0.14117648, 0.21176471, 1)
-energy = 5.53
+energy = 5.59
 blend_mode = 1
+range_z_max = 1020
 
 [node name="Panel" type="Panel" parent="." unique_id=709322491]
+light_mask = 0
 clip_contents = true
 layout_mode = 0
 offset_left = -2.0
@@ -60,47 +86,60 @@ offset_bottom = 721.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_bhu4a")
 
 [node name="BtnPlay" type="TextureButton" parent="Panel" unique_id=1217169884]
+z_index = 1022
+material = SubResource("CanvasItemMaterial_whkpc")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.849
 anchor_top = 0.519
 anchor_right = 0.849
 anchor_bottom = 0.519
-offset_left = -1074.5327
-offset_top = -53.75598
+offset_left = -977.5327
+offset_top = -80.75598
 offset_right = -776.5327
-offset_bottom = 40.24405
+offset_bottom = 16.244019
 grow_horizontal = 2
+texture_normal = ExtResource("7_e2per")
+texture_pressed = ExtResource("8_nqjyj")
+texture_hover = ExtResource("9_7vr37")
+ignore_texture_size = true
+stretch_mode = 4
+script = ExtResource("11_3da5a")
+TargetScenePath = "uid://di6jwi87xitob"
+
+[node name="BtnSettings" type="TextureButton" parent="Panel" unique_id=1327337526]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.849
+anchor_top = 0.519
+anchor_right = 0.849
+anchor_bottom = 0.519
+offset_left = -1012.5327
+offset_top = 34.24402
+offset_right = -768.42664
+offset_bottom = 111.24402
+grow_horizontal = 2
+texture_normal = ExtResource("11_ayd4e")
+texture_pressed = ExtResource("12_3da5a")
+texture_hover = ExtResource("13_8rx73")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="BtnGuide" type="TextureButton" parent="Panel" unique_id=1327337526]
+[node name="BtnCredits" type="TextureButton" parent="Panel" unique_id=1336468718]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.849
 anchor_top = 0.519
 anchor_right = 0.849
 anchor_bottom = 0.519
-offset_left = -1074.5327
-offset_top = 46.24405
-offset_right = -776.5327
-offset_bottom = 140.24414
+offset_left = -1006.5327
+offset_top = 126.24402
+offset_right = -771.937
+offset_bottom = 200.24402
 grow_horizontal = 2
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="BtnAbout" type="TextureButton" parent="Panel" unique_id=1336468718]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.849
-anchor_top = 0.519
-anchor_right = 0.849
-anchor_bottom = 0.519
-offset_left = -1073.5327
-offset_top = 155.24414
-offset_right = -775.5327
-offset_bottom = 249.24414
-grow_horizontal = 2
+texture_normal = ExtResource("14_ns3en")
+texture_pressed = ExtResource("15_ybqsv")
+texture_hover = ExtResource("16_1fge5")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -111,10 +150,15 @@ anchor_left = 0.847
 anchor_top = 0.829
 anchor_right = 0.847
 anchor_bottom = 0.829
-offset_left = -1071.2908
-offset_top = -9.475891
-offset_right = -773.2908
-offset_bottom = 84.52411
+offset_left = -910.959
+offset_top = -2.195984
+offset_right = -769.959
+offset_bottom = 54.804016
 grow_horizontal = 2
+texture_normal = ExtResource("17_utjo4")
+texture_pressed = ExtResource("18_dq25m")
+texture_hover = ExtResource("19_jfpbv")
 ignore_texture_size = true
 stretch_mode = 4
+script = ExtResource("11_3da5a")
+QuitGame = true
