@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dg6onkauo7422"]
+
+[ext_resource type="Texture2D" uid="uid://bp3gq1ujyrvxo" path="res://assets/sprites/mainmenuassets/Background Main Menu.png" id="1_2ysvc"]
+[ext_resource type="Script" uid="uid://bmy48inqd4fhy" path="res://scripts/ui/MainMenu/Background.cs" id="2_xpiny"]
+[ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="3_bhu4a"]
+[ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="4_e2per"]
+[ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
+[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
+
+[node name="MainMenu" type="Control" unique_id=392517393]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node2D" type="Node2D" parent="." unique_id=308050392]
+position = Vector2(640, 360)
+
+[node name="Background" type="Sprite2D" parent="Node2D" unique_id=76998444]
+position = Vector2(-3, 6.000002)
+scale = Vector2(0.37470347, 0.37470365)
+texture = ExtResource("1_2ysvc")
+offset = Vector2(-47.272827, -489.13696)
+script = ExtResource("2_xpiny")
+
+[node name="BoxBlur1" type="Sprite2D" parent="Node2D" unique_id=289898888]
+position = Vector2(3.999939, 3.0517578e-05)
+scale = Vector2(0.48215842, 0.4821585)
+texture = ExtResource("3_bhu4a")
+offset = Vector2(-1317.6427, 549.6272)
+script = ExtResource("4_xpiny")
+
+[node name="BoxBlur2" type="Sprite2D" parent="Node2D" unique_id=848787951]
+position = Vector2(-5, 2.0000305)
+scale = Vector2(0.34500888, 0.3450089)
+texture = ExtResource("4_e2per")
+offset = Vector2(1846.3292, 1075.3345)
+script = ExtResource("4_xpiny")
+
+[node name="TorchMenu" parent="Node2D" unique_id=1130348849 instance=ExtResource("6_bhu4a")]
+position = Vector2(281, -161)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1524960737]
+color = Color(0.14117648, 0.14117648, 0.21176471, 1)
+energy = 5.53
+blend_mode = 1
