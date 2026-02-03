@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
 [ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhu4a"]
+
 [node name="MainMenu" type="Control" unique_id=392517393]
 layout_mode = 3
 anchors_preset = 15
@@ -25,8 +27,12 @@ texture = ExtResource("1_2ysvc")
 offset = Vector2(-47.272827, -489.13696)
 script = ExtResource("2_xpiny")
 
+[node name="TorchMenu" parent="Node2D/Background" unique_id=1130348849 instance=ExtResource("6_bhu4a")]
+position = Vector2(757.93274, -445.6856)
+scale = Vector2(2.6687772, 2.668776)
+
 [node name="BoxBlur1" type="Sprite2D" parent="Node2D" unique_id=289898888]
-position = Vector2(3.999939, 3.0517578e-05)
+position = Vector2(76.99999, 28)
 scale = Vector2(0.48215842, 0.4821585)
 texture = ExtResource("3_bhu4a")
 offset = Vector2(-1317.6427, 549.6272)
@@ -39,10 +45,76 @@ texture = ExtResource("4_e2per")
 offset = Vector2(1846.3292, 1075.3345)
 script = ExtResource("4_xpiny")
 
-[node name="TorchMenu" parent="Node2D" unique_id=1130348849 instance=ExtResource("6_bhu4a")]
-position = Vector2(281, -161)
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1524960737]
 color = Color(0.14117648, 0.14117648, 0.21176471, 1)
 energy = 5.53
 blend_mode = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=709322491]
+clip_contents = true
+layout_mode = 0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 1284.8466
+offset_bottom = 721.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_bhu4a")
+
+[node name="BtnPlay" type="TextureButton" parent="Panel" unique_id=1217169884]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.849
+anchor_top = 0.519
+anchor_right = 0.849
+anchor_bottom = 0.519
+offset_left = -1074.5327
+offset_top = -53.75598
+offset_right = -776.5327
+offset_bottom = 40.24405
+grow_horizontal = 2
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="BtnGuide" type="TextureButton" parent="Panel" unique_id=1327337526]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.849
+anchor_top = 0.519
+anchor_right = 0.849
+anchor_bottom = 0.519
+offset_left = -1074.5327
+offset_top = 46.24405
+offset_right = -776.5327
+offset_bottom = 140.24414
+grow_horizontal = 2
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="BtnAbout" type="TextureButton" parent="Panel" unique_id=1336468718]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.849
+anchor_top = 0.519
+anchor_right = 0.849
+anchor_bottom = 0.519
+offset_left = -1073.5327
+offset_top = 155.24414
+offset_right = -775.5327
+offset_bottom = 249.24414
+grow_horizontal = 2
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="BtnExit" type="TextureButton" parent="Panel" unique_id=1742382094]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.847
+anchor_top = 0.829
+anchor_right = 0.847
+anchor_bottom = 0.829
+offset_left = -1071.2908
+offset_top = -9.475891
+offset_right = -773.2908
+offset_bottom = 84.52411
+grow_horizontal = 2
+ignore_texture_size = true
+stretch_mode = 4
