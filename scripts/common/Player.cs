@@ -3,7 +3,7 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-	[Export] public float Speed = 5.0f;
+	[Export] public float Speed = 7.0f;
 	[Export] public float JumpVelocity = 4.5f;
 	[Export] public float MouseSensitivity = 0.002f;
 	[Export] public float ThrowForce = 10.0f;
@@ -18,7 +18,7 @@ public partial class Player : CharacterBody3D
 	// Camera mode variables
 	private enum CameraMode { FirstPerson, Isometric }
 	private CameraMode _currentCameraMode = CameraMode.FirstPerson;
-	private Vector3 _isometricOffset = new Vector3(8, 10, 8); // Offset untuk isometric view
+	private Vector3 _isometricOffset = new Vector3(0, 100, 0); // Offset untuk isometric view
 	private float _isometricAngle = -45f; // Sudut kamera isometric (derajat)
 	private float _isometricRotation = 45f; // Rotasi horizontal kamera (derajat)
 	private bool _isRotatingCamera = false; // Flag untuk drag rotation
@@ -43,8 +43,19 @@ public partial class Player : CharacterBody3D
 		// Setup pickup area untuk isometric mode
 		SetupPickupArea();
 		
-		// Lock mouse cursor untuk FPS-style control
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+		//_camera.Projection = Camera3D.ProjectionType.Orthogonal;
+		
+		Rotation = Vector3.Zero;
+	_head.Rotation = Vector3.Zero;
+		
+		_camera.Projection = Camera3D.ProjectionType.Perspective;
+		_camera.Fov = 60.0f; 
+
+		_currentCameraMode = CameraMode.Isometric;
+		
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		
+		
 	}
 	
 	private void ConnectInventoryUI()
@@ -184,7 +195,7 @@ public partial class Player : CharacterBody3D
 			else if (_currentCameraMode == CameraMode.Isometric)
 			{
 				// Isometric: Rotate camera dengan mouse movement langsung (no click needed)
-				_isometricRotation -= motionEvent.Relative.X * _isometricRotationSensitivity;
+				//_isometricRotation -= motionEvent.Relative.X * _isometricRotationSensitivity;
 			}
 		}
 		
@@ -265,29 +276,29 @@ public partial class Player : CharacterBody3D
 		}
 
 		// Handle Jump
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
+		//if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		//{
+			//velocity.Y = JumpVelocity;
+		//}
 
 		// Get input direction (WASD)
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
 		
-		Vector3 direction;
-		if (_currentCameraMode == CameraMode.FirstPerson)
-		{
-			// FPP: Transform input direction berdasarkan rotasi player
-			direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		}
-		else
-		{
-			// Isometric: Transform input berdasarkan arah kamera
-			float rad = Mathf.DegToRad(_isometricRotation);
-			Vector3 forward = new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
-			Vector3 right = new Vector3(Mathf.Cos(rad), 0, -Mathf.Sin(rad));
-			direction = (forward * inputDir.Y + right * inputDir.X).Normalized();
-		}
-		
+				// Ganti dengan ini:
+		// Ambil arah depan dan kanan dari kamera
+		Vector3 cameraForward = -_camera.GlobalTransform.Basis.Z;
+		Vector3 cameraRight = _camera.GlobalTransform.Basis.X;
+
+		// Nolkan sumbu Y agar player tidak jalan menembus lantai atau melayang
+		cameraForward.Y = 0;
+		cameraRight.Y = 0;
+		cameraForward = cameraForward.Normalized();
+		cameraRight = cameraRight.Normalized();
+
+		// Kalkulasi arah berdasarkan input WASD relatif terhadap kamera
+		// inputDir.Y adalah forward/backward (W/S), inputDir.X adalah right/left (D/A)
+		Vector3 direction = (cameraForward * -inputDir.Y + cameraRight * inputDir.X).Normalized();
+
 		if (direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
@@ -516,8 +527,8 @@ public partial class Player : CharacterBody3D
 			
 			// Check if weight/stone item - ALWAYS use default scale (will be normalized in Initialize)
 			bool isWeightItem = droppedItem.Data.ItemId.Contains("stone") || 
-			                    droppedItem.Data.ItemId.Contains("rock") || 
-			                    droppedItem.Data.ItemId.Contains("weight");
+								droppedItem.Data.ItemId.Contains("rock") || 
+								droppedItem.Data.ItemId.Contains("weight");
 			
 			if (isWeightItem)
 			{
@@ -599,12 +610,8 @@ public partial class Player : CharacterBody3D
 	{
 		// Calculate offset berdasarkan rotation
 		float rad = Mathf.DegToRad(_isometricRotation);
-		float distance = 10f;
-		_isometricOffset = new Vector3(
-			Mathf.Sin(rad) * distance,
-			10,
-			Mathf.Cos(rad) * distance
-		);
+		float distance = 0f; // 0 agar tepat di tengah (Top-Down)
+		_isometricOffset = new Vector3(0, 100, 0); // Langsung set ke (0, 100, 0)
 		
 		// Position camera untuk isometric view
 		_camera.Position = _isometricOffset;
@@ -613,7 +620,7 @@ public partial class Player : CharacterBody3D
 		_camera.LookAt(Vector3.Zero, Vector3.Up);
 		
 		// Keep mouse captured untuk rotasi tidak terbatas
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 	
 	public override void _Process(double delta)
@@ -621,17 +628,13 @@ public partial class Player : CharacterBody3D
 		// Update camera position jika dalam mode isometric
 		if (_currentCameraMode == CameraMode.Isometric)
 		{
-			// Recalculate offset berdasarkan rotation
-			float rad = Mathf.DegToRad(_isometricRotation);
-			float distance = 10f;
-			_isometricOffset = new Vector3(
-				Mathf.Sin(rad) * distance,
-				10,
-				Mathf.Cos(rad) * distance
-			);
+			// Offset khas Zelda: Agak ke belakang (Z positif) dan di atas (Y positif)
+			// Semakin besar Z, semakin miring sudut pandangnya
+			_isometricOffset = new Vector3(0, 12, 5); 
 			
-			// Camera mengikuti player dengan offset
 			_camera.GlobalPosition = GlobalPosition + _isometricOffset;
+			
+			// Kamera melihat ke arah player
 			_camera.LookAt(GlobalPosition, Vector3.Up);
 		}
 	}

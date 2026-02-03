@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_qg8n7"]
 [ext_resource type="Script" uid="uid://dqlr3mcto7ab4" path="res://scripts/items/PickableItem.cs" id="2_item1"]
-[ext_resource type="PackedScene" uid="uid://dmgqcoj4skh3h" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="6_bookitem"]
@@ -42,6 +42,14 @@ emission_energy_multiplier = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_book"]
 albedo_color = Color(0.6, 0.4, 0.2, 1)
+
+[sub_resource type="Environment" id="Environment_nfynn"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.072842635, 0.072842635, 0.072842635, 1)
+ambient_light_energy = 3.0
+tonemap_exposure = 4.0
+ssao_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
 albedo_color = Color(0.6, 0.2, 0.2, 1)
@@ -225,11 +233,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_book")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Items/BookItem1" unique_id=678401826]
 shape = SubResource("SphereShape3D_item")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=815386541]
-transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
-shadow_enabled = true
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2095177373]
+environment = SubResource("Environment_nfynn")
 
 [node name="Obstacles" type="Node3D" parent="." unique_id=171492822]
 
@@ -255,7 +260,7 @@ mesh = SubResource("BoxMesh_door")
 shape = SubResource("BoxShape3D_door")
 
 [node name="ControlPanel" type="CSGBox3D" parent="." unique_id=1258732371]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.65125, 2, -2.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -9.65125, 2, -2.5)
 size = Vector3(0.3, 0.8, 0.5)
 material = SubResource("StandardMaterial3D_panel")
 
@@ -284,3 +289,53 @@ mesh = SubResource("BoxMesh_transition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition" unique_id=1847499795]
 shape = SubResource("BoxShape3D_transition")
+
+[node name="Torch" type="Node3D" parent="." unique_id=1437212801]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Torch" unique_id=1119736415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.855814, 2.9146051, -8.408547)
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
+shadow_enabled = true
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Torch" unique_id=1084810483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.42217, 2.914606, 7.9756107)
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
+shadow_enabled = true
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Torch" unique_id=1132559652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.74152, 2.914606, -8.710974)
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
+shadow_enabled = true
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Torch" unique_id=1116087854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.527333, 2.914606, 8.049907)
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+light_energy = 0.784
+shadow_enabled = true
+shadow_bias = 0.3
+shadow_normal_bias = 2.0
+shadow_blur = 0.0
+omni_range = 17.856
+omni_attenuation = 1.557
+omni_shadow_mode = 0
