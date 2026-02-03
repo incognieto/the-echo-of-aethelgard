@@ -48,6 +48,13 @@ public partial class InventoryUI : Control
 	
 	// State management untuk panel lain
 	private bool _wasVisibleBeforePanel = false;
+	
+	// Drag and drop state
+	private bool _isDragging = false;
+	private int _draggedSlotIndex = -1;
+	private Panel _draggedFromSlot = null;
+	private Control _dragPreview = null;
+	private Vector2 _dragStartPosition = Vector2.Zero;
 
 	public override void _Ready()
 	{
@@ -310,6 +317,9 @@ private void CreateHotbar()
 		slot.SetMeta("SlotIndex", index);
 		slot.SetMeta("IsHotbar", isHotbar);
 		
+		// Setup drag-drop events
+		SetupSlotDragDrop(slot);
+		
 		// Get or create ItemLabel
 		Label label = slot.GetNodeOrNull<Label>("ItemLabel");
 		if (label == null)
@@ -347,6 +357,9 @@ private void CreateHotbar()
 		// Store index in metadata
 		slot.SetMeta("SlotIndex", index);
 		slot.SetMeta("IsHotbar", true);
+		
+		// Setup drag-drop events
+		SetupSlotDragDrop(slot);
 		
 		// Get or create ItemLabel
 		Label itemLabel = slot.GetNodeOrNull<Label>("ItemLabel");
@@ -387,6 +400,9 @@ private void CreateHotbar()
 		// Store index in metadata
 		slot.SetMeta("SlotIndex", index);
 		slot.SetMeta("IsHotbar", true);
+		
+		// Setup drag-drop events
+		SetupSlotDragDrop(slot);
 		
 		// Slot number
 		var numberLabel = new Label();
@@ -445,7 +461,7 @@ private void CreateHotbar()
 			return;
 		}
 		
-		GD.Print($"UpdateDisplay: Updating UI with {items.Count} total slots");
+		GD.Print($"UpdateDisplay: Refreshing UI with {items.Count} total slots");
 		
 		// Update main inventory (dynamic slots)
 		int totalSlots = InventoryColumns * InventoryRows;
@@ -465,10 +481,12 @@ private void CreateHotbar()
 					if (items[i].Quantity > 1)
 						text += $"\nx{items[i].Quantity}";
 					label.Text = text;
+					GD.Print($"  Slot {i}: {items[i].Data.ItemName} x{items[i].Quantity}");
 				}
 				else
 				{
 					label.Text = "";
+					GD.Print($"  Slot {i}: [Empty]");
 				}
 			}
 		}
@@ -694,6 +712,214 @@ private StyleBox CreateHighlightStylebox()
 		{
 			Toggle();
 			GetViewport().SetInputAsHandled();
+		}
+		
+		// Handle drag cancellation (right click or ESC while dragging)
+		if (_isDragging)
+		{
+			if (@event is InputEventMouseButton mouseButton)
+			{
+				if (mouseButton.ButtonIndex == MouseButton.Right && mouseButton.Pressed)
+				{
+					// Cancel drag on right click
+					GD.Print("Drag cancelled by right click");
+					CleanupDragState();
+					GetViewport().SetInputAsHandled();
+				}
+			}
+			else if (@event.IsActionPressed("ui_cancel"))
+			{
+				// Cancel drag on ESC
+				GD.Print("Drag cancelled by ESC");
+				CleanupDragState();
+				GetViewport().SetInputAsHandled();
+			}
+		}
+	}
+	
+	public override void _Process(double delta)
+	{
+		// Update drag preview position to follow mouse
+		if (_isDragging && _dragPreview != null)
+		{
+			_dragPreview.GlobalPosition = GetGlobalMousePosition() - _dragPreview.Size / 2;
+		}
+		
+		// Detect mouse release to handle drop
+		if (_isDragging && Input.IsMouseButtonPressed(MouseButton.Left) == false)
+		{
+			// Mouse button released - find which slot we're over and drop there
+			Panel targetSlot = FindSlotUnderMouse();
+			
+			if (targetSlot != null)
+			{
+				// Valid drop target found
+				int targetSlotIndex = (int)targetSlot.GetMeta("SlotIndex");
+				
+				// Perform the swap
+				if (_draggedSlotIndex != targetSlotIndex)
+				{
+					_inventory.SwapItems(_draggedSlotIndex, targetSlotIndex);
+					GD.Print($"✓ Swapped slot {_draggedSlotIndex} with slot {targetSlotIndex}");
+				}
+				else
+				{
+					GD.Print("Same slot - no swap needed");
+				}
+			}
+			else
+			{
+				GD.Print("Drag cancelled - released outside valid slot area");
+			}
+			
+			// Always cleanup drag state after release
+			CleanupDragState();
+		}
+	}
+	
+	private Panel FindSlotUnderMouse()
+	{
+		var mousePos = GetGlobalMousePosition();
+		
+		// Check all inventory slots
+		if (_inventorySlotsContainer != null)
+		{
+			int totalSlots = InventoryColumns * InventoryRows;
+			for (int i = 0; i < totalSlots; i++)
+			{
+				var slot = _inventorySlotsContainer.GetNodeOrNull<Panel>($"Slot{i}");
+				if (slot != null && slot.GetGlobalRect().HasPoint(mousePos))
+				{
+					return slot;
+				}
+			}
+		}
+		
+		// Check hotbar slots
+		if (_hotbarContainer != null)
+		{
+			var hotbarSlotsContainer = _hotbarContainer.GetNodeOrNull<Control>("HotbarSlots");
+			if (hotbarSlotsContainer != null)
+			{
+				for (int i = 0; i < HotbarSlots; i++)
+				{
+					var slot = hotbarSlotsContainer.GetNodeOrNull<Panel>($"HotbarSlot{i}");
+					if (slot != null && slot.GetGlobalRect().HasPoint(mousePos))
+					{
+						return slot;
+					}
+				}
+			}
+			else if (_hotbarGrid != null)
+			{
+				// Fallback: script-generated hotbar
+				for (int i = 0; i < HotbarSlots && i < _hotbarGrid.GetChildCount(); i++)
+				{
+					var slot = _hotbarGrid.GetChild(i) as Panel;
+					if (slot != null && slot.GetGlobalRect().HasPoint(mousePos))
+					{
+						return slot;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	// Setup drag-drop event for a slot
+	private void SetupSlotDragDrop(Panel slot)
+	{
+		slot.GuiInput += (InputEvent @event) => OnSlotGuiInput(slot, @event);
+	}
+	
+	private void OnSlotGuiInput(Panel slot, InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseButton)
+		{
+			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed)
+			{
+				// Start dragging on left click press
+				OnSlotDragStart(slot);
+			}
+			// Note: Drop is handled in _Process() when mouse button is released
+		}
+	}
+	
+	private void OnSlotDragStart(Panel slot)
+	{
+		if (_inventory == null) return;
+		
+		int slotIndex = (int)slot.GetMeta("SlotIndex");
+		var item = _inventory.GetItem(slotIndex);
+		
+		// Only drag if slot has an item
+		if (item == null)
+		{
+			GD.Print($"Cannot drag slot {slotIndex} - empty");
+			return;
+		}
+		
+		_isDragging = true;
+		_draggedSlotIndex = slotIndex;
+		_draggedFromSlot = slot;
+		_dragStartPosition = slot.GlobalPosition;
+		
+		// Create visual preview
+		CreateDragPreview(item);
+		
+		GD.Print($"✓ Started dragging from slot {slotIndex}: {item.Data.ItemName} x{item.Quantity}");
+	}
+	
+	private void CreateDragPreview(InventoryItem item)
+	{
+		// Create a floating preview panel
+		_dragPreview = new Panel();
+		_dragPreview.CustomMinimumSize = SlotSize;
+		_dragPreview.Size = SlotSize;
+		_dragPreview.MouseFilter = MouseFilterEnum.Ignore;
+		
+		// Add semi-transparent background
+		var stylebox = new StyleBoxFlat();
+		stylebox.BgColor = new Color(0.3f, 0.3f, 0.3f, 0.8f);
+		stylebox.BorderColor = new Color(1, 1, 0, 1);
+		stylebox.BorderWidthLeft = 2;
+		stylebox.BorderWidthRight = 2;
+		stylebox.BorderWidthTop = 2;
+		stylebox.BorderWidthBottom = 2;
+		_dragPreview.AddThemeStyleboxOverride("panel", stylebox);
+		
+		// Add item label
+		var label = new Label();
+		label.Text = item.Data.ItemName;
+		if (item.Quantity > 1)
+			label.Text += $"\nx{item.Quantity}";
+		label.HorizontalAlignment = HorizontalAlignment.Center;
+		label.VerticalAlignment = VerticalAlignment.Center;
+		label.SetAnchorsPreset(LayoutPreset.FullRect);
+		if (_customFont != null) label.AddThemeFontOverride("font", _customFont);
+		label.AddThemeFontSizeOverride("font_size", 12);
+		label.AutowrapMode = TextServer.AutowrapMode.Word;
+		_dragPreview.AddChild(label);
+		
+		// Add to scene (top layer)
+		AddChild(_dragPreview);
+		_dragPreview.GlobalPosition = GetGlobalMousePosition() - _dragPreview.Size / 2;
+	}
+	
+
+	private void CleanupDragState()
+	{
+		_isDragging = false;
+		_draggedSlotIndex = -1;
+		_draggedFromSlot = null;
+		_dragStartPosition = Vector2.Zero;
+		
+		// Remove drag preview
+		if (_dragPreview != null)
+		{
+			_dragPreview.QueueFree();
+			_dragPreview = null;
 		}
 	}
 }
