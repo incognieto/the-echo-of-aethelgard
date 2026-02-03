@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dd4ryutt80u1r"
+path="res://.godot/imported/column-wood.obj-2b112f83c006564d6243904f1af49124.mesh"
+
+[deps]
+
+files=["res://.godot/imported/column-wood.obj-2b112f83c006564d6243904f1af49124.mesh"]
+
+source_file="res://assets/kenney_retro-medieval-kit/Models/OBJ format/column-wood.obj"
+dest_files=["res://.godot/imported/column-wood.obj-2b112f83c006564d6243904f1af49124.mesh", "res://.godot/imported/column-wood.obj-2b112f83c006564d6243904f1af49124.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
