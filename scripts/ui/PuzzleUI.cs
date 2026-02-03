@@ -19,6 +19,7 @@ public partial class PuzzleUI : Control
 	}
 	
 	private Label _feedbackLabel;
+	private Label _escInstructionLabel;
 	private Button _closeButton;
 	private InventoryUI _inventoryUI;
 	
@@ -47,39 +48,56 @@ public partial class PuzzleUI : Control
 		_feedbackLabel = GetNode<Label>("PuzzlePanel/FeedbackLabel");
 		_closeButton = GetNode<Button>("PuzzlePanel/CloseButton");
 		
-		// Get symbol buttons
-		var symbolContainer = GetNode<Control>("PuzzlePanel/SymbolContainer");
-		for (int i = 1; i <= 6; i++)
-		{
-			var btn = symbolContainer.GetNode<TextureButton>($"Symbol{i}");
-			int index = i - 1;
-			btn.Pressed += () => OnSymbolButtonPressed(index);
-			_symbolButtons.Add(btn);
-		}
-		
-		// Connect close button
-		_closeButton.Pressed += OnClosePressed;
-		
-		// Find InventoryUI
-		CallDeferred(nameof(FindInventoryUI));
-		
-		UpdateDisplay();
-	}
+	// Get panel for positioning
+	var panel = GetNode<Control>("PuzzlePanel");
 	
-	private void FindInventoryUI()
+	// Position Close button di pojok kanan atas
+	_closeButton.Text = "Back";
+	_closeButton.CustomMinimumSize = new Vector2(100, 35);
+	_closeButton.Position = new Vector2(panel.Size.X - 110, 10); // Top-right corner
+	
+	// Create ESC instruction label di pojok kiri atas
+	_escInstructionLabel = new Label();
+	_escInstructionLabel.Text = "(Esc) to return";
+	_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
+	_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f));
+	_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
+	_escInstructionLabel.Position = new Vector2(10, 10); // Top-left corner
+	panel.AddChild(_escInstructionLabel);
+	
+	// Get symbol buttons
+	var symbolContainer = GetNode<Control>("PuzzlePanel/SymbolContainer");
+	for (int i = 1; i <= 6; i++)
 	{
-		var canvasLayer = GetParent() as CanvasLayer;
-		if (canvasLayer != null)
-		{
-			_inventoryUI = canvasLayer.GetNodeOrNull<InventoryUI>("InventoryUI");
-			if (_inventoryUI == null)
-			{
-				GD.PrintErr("PuzzleUI: InventoryUI not found!");
-			}
-		}
+		var btn = symbolContainer.GetNode<TextureButton>($"Symbol{i}");
+		int index = i - 1;
+		btn.Pressed += () => OnSymbolButtonPressed(index);
+		_symbolButtons.Add(btn);
 	}
 	
-	private void LoadSymbolTextures()
+	// Connect close button
+	_closeButton.Pressed += OnClosePressed;
+	
+	// Find InventoryUI
+	CallDeferred(nameof(FindInventoryUI));
+	
+	UpdateDisplay();
+}
+
+private void FindInventoryUI()
+{
+	var canvasLayer = GetParent() as CanvasLayer;
+	if (canvasLayer != null)
+	{
+		_inventoryUI = canvasLayer.GetNodeOrNull<InventoryUI>("InventoryUI");
+		if (_inventoryUI == null)
+		{
+			GD.PrintErr("PuzzleUI: InventoryUI not found!");
+		}
+	}
+}
+
+private void LoadSymbolTextures()
 	{
 		_symbolTextures[Symbol.Bunga] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonBunga.png");
 		_symbolTextures[Symbol.Mata] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonMata.png");
@@ -99,10 +117,13 @@ public partial class PuzzleUI : Control
 
 	public override void _Input(InputEvent @event)
 	{
-		if (Visible && @event.IsActionPressed("ui_cancel"))
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
 		{
-			Close();
-			GetViewport().SetInputAsHandled();
+			if (Visible)
+			{
+				Close();
+				GetViewport().SetInputAsHandled();
+			}
 		}
 	}
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw0332cyrbqno"
-path.s3tc="res://.godot/imported/UI_GembokLayout.png-9060c2150552a983d64d79153ceb96c4.s3tc.ctex"
+uid="uid://cmh6yh2g2w3g6"
+path.s3tc="res://.godot/imported/poster_ingredients_1080x1350.png-4a98f120f40e1f06628e59f85c4120c7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprites/ui/UI_GembokLayout.png"
-dest_files=["res://.godot/imported/UI_GembokLayout.png-9060c2150552a983d64d79153ceb96c4.s3tc.ctex"]
+source_file="res://assets/sprites/lab/poster_ingredients_1080x1350.png"
+dest_files=["res://.godot/imported/poster_ingredients_1080x1350.png-4a98f120f40e1f06628e59f85c4120c7.s3tc.ctex"]
 
 [params]
 

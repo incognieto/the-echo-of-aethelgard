@@ -11,6 +11,7 @@ public partial class BridgePuzzleUI : Control
 	// UI Components - Diambil dari scene, bukan dibuat via kode
 	private Panel _calculatorPanel;
 	private Label _displayLabel;
+	private Label _escInstructionLabel;
 	private string _currentInput = "";
 	
 	// Buttons - Diambil dari scene
@@ -64,6 +65,15 @@ public partial class BridgePuzzleUI : Control
 		_enterButton.Pressed += OnEnterPressed;
 		_closeButton.Pressed += OnClosePressed;
 		
+		// Create ESC instruction label
+		_escInstructionLabel = new Label();
+		_escInstructionLabel.Text = "(Esc) to return";
+		_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
+		_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f));
+		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
+		_escInstructionLabel.Position = new Vector2(10, 10);
+		_calculatorPanel.AddChild(_escInstructionLabel);
+		
 		GD.Print("✓ BridgePuzzleUI ready - loaded from scene!");
 	}
 	
@@ -105,6 +115,7 @@ public partial class BridgePuzzleUI : Control
 			GD.Print($"✓ CORRECT! Answer: {_currentInput}");
 			EmitSignal(SignalName.PuzzleCompleted, true);
 			Hide();
+			InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		}
 		else
@@ -119,6 +130,7 @@ public partial class BridgePuzzleUI : Control
 			{
 				EmitSignal(SignalName.PuzzleCompleted, false);
 				Hide();
+				InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 				Input.MouseMode = Input.MouseModeEnum.Captured;
 				_displayLabel.AddThemeColorOverride("font_color", Colors.Black);
 			};
@@ -128,6 +140,7 @@ public partial class BridgePuzzleUI : Control
 	private void OnClosePressed()
 	{
 		Hide();
+		InventoryUI.IsAnyPanelOpen = false; // Clear global flag
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		_currentInput = "";
 		UpdateDisplay();
@@ -144,6 +157,7 @@ public partial class BridgePuzzleUI : Control
 		_currentInput = "";
 		UpdateDisplay();
 		_displayLabel.AddThemeColorOverride("font_color", Colors.Black);
+		InventoryUI.IsAnyPanelOpen = true; // Set global flag
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		GD.Print("Calculator UI shown");
 	}
@@ -155,31 +169,34 @@ public partial class BridgePuzzleUI : Control
 
 	public override void _Input(InputEvent @event)
 	{
-		if (!Visible) return;
-		
-		// ESC to close
-		if (@event.IsActionPressed("ui_cancel"))
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
 		{
-			OnClosePressed();
-			GetViewport().SetInputAsHandled();
+			if (Visible)
+			{
+				OnClosePressed();
+				GetViewport().SetInputAsHandled();
+				return;
+			}
 		}
 		
+		if (!Visible) return;
+		
 		// Keyboard number input
-		if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
+		if (@event is InputEventKey keyEvent2 && keyEvent2.Pressed && !keyEvent2.Echo)
 		{
-			if (keyEvent.Keycode >= Key.Key0 && keyEvent.Keycode <= Key.Key9)
+			if (keyEvent2.Keycode >= Key.Key0 && keyEvent2.Keycode <= Key.Key9)
 			{
-				OnNumberPressed(((int)(keyEvent.Keycode - Key.Key0)).ToString());
+				OnNumberPressed(((int)(keyEvent2.Keycode - Key.Key0)).ToString());
 			}
-			else if (keyEvent.Keycode >= Key.Kp0 && keyEvent.Keycode <= Key.Kp9)
+			else if (keyEvent2.Keycode >= Key.Kp0 && keyEvent2.Keycode <= Key.Kp9)
 			{
-				OnNumberPressed(((int)(keyEvent.Keycode - Key.Kp0)).ToString());
+				OnNumberPressed(((int)(keyEvent2.Keycode - Key.Kp0)).ToString());
 			}
-			else if (keyEvent.Keycode == Key.Backspace)
+			else if (keyEvent2.Keycode == Key.Backspace)
 			{
 				OnDelPressed();
 			}
-			else if (keyEvent.Keycode == Key.Enter || keyEvent.Keycode == Key.KpEnter)
+			else if (keyEvent2.Keycode == Key.Enter || keyEvent2.Keycode == Key.KpEnter)
 			{
 				OnEnterPressed();
 			}

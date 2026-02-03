@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b8pn1xqg35okm" path="res://scripts/items/MaterialItem.cs" id="2_material"]
-[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://bh7yuw6ath05" path="res://scripts/puzzles/MixingPuzzle.cs" id="6_mixpuzzle"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="12_transition"]
 [ext_resource type="Script" uid="uid://bvnsdjc7nbgdd" path="res://scripts/common/AutoDoor.cs" id="13_autodoor"]
+[ext_resource type="Texture2D" uid="uid://cmh6yh2g2w3g6" path="res://assets/sprites/lab/poster_ingredients_1080x1350.png" id="15_poster"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(25, 0.2, 20)
@@ -65,18 +66,26 @@ height = 1.5
 height = 1.5
 radius = 1.2
 
+[sub_resource type="QuadMesh" id="QuadMesh_poster"]
+size = Vector2(1.6, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_poster"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("15_poster")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_poster"]
+size = Vector3(1.6, 2, 0.2)
+
 [sub_resource type="SphereMesh" id="SphereMesh_item"]
 radius = 0.3
 height = 0.6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_book"]
-albedo_color = Color(0.6, 0.4, 0.2, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_green"]
+albedo_color = Color(0.2, 0.8, 0.2, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_item"]
 radius = 0.3
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_green"]
-albedo_color = Color(0.2, 0.8, 0.2, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_red"]
 albedo_color = Color(0.9, 0.2, 0.2, 1)
@@ -204,7 +213,7 @@ size = Vector3(8, 1, 2)
 [node name="Items" type="Node3D" parent="." unique_id=1649151714]
 
 [node name="RecipeBook" type="StaticBody3D" parent="Items" unique_id=1146817893]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5769486, 0.5, 5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11, 2.5, -0.58407104)
 script = ExtResource("8_bookitem")
 BookTitle = "Tri-Color Synthesis Manual"
 BookContent = "[center][b]⚗️ TRI-COLOR SYNTHESIS ⚗️[/b][/center]
@@ -272,16 +281,27 @@ Combine ALL three secondary potions:
 [color=yellow]HINT:[/color] You need to create EACH secondary potion separately. This will consume your materials, so collect wisely!
 
 [right]- Master Alchemist[/right]"
-ItemId = "recipe_book"
-ItemName = "Recipe Book"
+PosterImagePath = "res://assets/sprites/lab/poster_ingredients_1080x1350.png"
+ItemId = "recipe_poster"
+ItemName = "Recipe Poster"
 MaxStackSize = 1
 
+[node name="PosterContent" type="Sprite3D" parent="Items/RecipeBook" unique_id=1306877694]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.37, 0, 1.625)
+visible = false
+pixel_size = 0.001
+shaded = true
+double_sided = false
+texture = ExtResource("15_poster")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Items/RecipeBook" unique_id=1774574293]
-mesh = SubResource("SphereMesh_item")
-surface_material_override/0 = SubResource("StandardMaterial3D_book")
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.3966265, 0, 1.6248168)
+mesh = SubResource("QuadMesh_poster")
+surface_material_override/0 = SubResource("StandardMaterial3D_poster")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Items/RecipeBook" unique_id=650125762]
-shape = SubResource("SphereShape3D_item")
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.397, 0, 1.625)
+shape = SubResource("BoxShape3D_poster")
 
 [node name="GreenMoss" type="StaticBody3D" parent="Items" unique_id=1252871519]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.843592, 0.37992334, -7)
@@ -315,7 +335,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_red")
 shape = SubResource("SphereShape3D_item")
 
 [node name="BlueExtract" type="StaticBody3D" parent="Items" unique_id=1156292908]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.443716, 1.2814527, 1.4325559)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7511075, 0.40267062, 6.4531965)
 script = ExtResource("2_material")
 AvailableQuantity = 3
 ItemId = "blue_extract"

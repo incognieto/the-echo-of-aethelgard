@@ -10,15 +10,24 @@ public partial class FinalMixingUI : Control
 	private Label _titleLabel;
 	private Label _feedbackLabel;
 	private Label _potionInventoryLabel;
+	private Label _escInstructionLabel; // ESC to return instruction
 	private BaseButton _yellowButton;
 	private BaseButton _magentaButton;
 	private BaseButton _cyanButton;
 	private BaseButton _mixButton;
 	private BaseButton _clearButton;
+	private Button _backButton;
 	private InventoryUI _inventoryUI;
 	private InventorySystem _playerInventory;
 	
 	private List<string> _selectedPotions = new List<string>();
+	
+	// Button visual state tracking
+	private bool _yellowButtonClicked = false;
+	private bool _magentaButtonClicked = false;
+	private bool _cyanButtonClicked = false;
+	private Color _buttonNormalColor = new Color(1, 1, 1, 1); // White
+	private Color _buttonClickedColor = new Color(0.5f, 1, 0.5f, 1); // Light green tint
 
 	public override void _Ready()
 	{
@@ -41,9 +50,54 @@ public partial class FinalMixingUI : Control
 		_mixButton.Pressed += OnMixPressed;
 		_clearButton.Pressed += OnClearPressed;
 		
+		// Create ESC instruction label
+		CreateEscInstructionLabel(panel);
+		
+		// Create Back button
+		CreateBackButton(panel);
+		
 		CallDeferred(nameof(FindInventoryUI));
 	}
 
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
+		{
+			if (Visible)
+			{
+				CloseFinalMixingUI();
+				GetViewport().SetInputAsHandled();
+			}
+		}
+	}
+
+	private void CreateEscInstructionLabel(Panel panel)
+	{
+		// ===== LAYOUT CONFIGURATION =====
+		// ESC instruction label positioning and styling
+		// Adjust these values to change the appearance and position of the ESC instruction
+		_escInstructionLabel = new Label();
+		_escInstructionLabel.Text = "(Esc) to return";
+		_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
+		_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f)); // White with slight transparency
+		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
+		_escInstructionLabel.Position = new Vector2(10, 10); // Top-left corner of panel
+		// ===== END CONFIGURATION =====
+		
+		panel.AddChild(_escInstructionLabel);
+	}
+	
+	private void CreateBackButton(Panel panel)
+	{
+		_backButton = new Button();
+		_backButton.Text = "Back";
+		_backButton.CustomMinimumSize = new Vector2(100, 35);
+		_backButton.Position = new Vector2(panel.Size.X - 110, 10); // Top-right corner
+		_backButton.Pressed += CloseFinalMixingUI;
+		
+		panel.AddChild(_backButton);
+	}
+	
 	private void FindInventoryUI()
 	{
 		var canvasLayer = GetParent() as CanvasLayer;
@@ -72,16 +126,57 @@ public partial class FinalMixingUI : Control
 		_feedbackLabel.Text = "Combine all 3 secondary potions to create Teal Potion!";
 		_feedbackLabel.Modulate = Colors.White;
 		
+		ResetButtonVisuals(); // Reset button state when opening UI
 		UpdateDisplay();
 		GD.Print("FinalMixingUI opened");
+	}
+	
+	private void ResetButtonVisuals()
+	{
+		_yellowButtonClicked = false;
+		_magentaButtonClicked = false;
+		_cyanButtonClicked = false;
+		
+		_yellowButton.Modulate = _buttonNormalColor;
+		_magentaButton.Modulate = _buttonNormalColor;
+		_cyanButton.Modulate = _buttonNormalColor;
 	}
 
 	private void TogglePotion(string itemId, string potionName)
 	{
+		// Determine which button was clicked
+		BaseButton clickedButton = null;
+		bool wasClicked = false;
+		
+		if (itemId == "yellow_potion")
+		{
+			clickedButton = _yellowButton;
+			wasClicked = _yellowButtonClicked;
+		}
+		else if (itemId == "magenta_potion")
+		{
+			clickedButton = _magentaButton;
+			wasClicked = _magentaButtonClicked;
+		}
+		else if (itemId == "cyan_potion")
+		{
+			clickedButton = _cyanButton;
+			wasClicked = _cyanButtonClicked;
+		}
+		
 		if (_selectedPotions.Contains(itemId))
 		{
 			_selectedPotions.Remove(itemId);
 			_feedbackLabel.Text = $"Removed {potionName} from cauldron.";
+			
+			// Reset button visual state
+			if (clickedButton != null)
+			{
+				clickedButton.Modulate = _buttonNormalColor;
+				if (itemId == "yellow_potion") _yellowButtonClicked = false;
+				else if (itemId == "magenta_potion") _magentaButtonClicked = false;
+				else if (itemId == "cyan_potion") _cyanButtonClicked = false;
+			}
 		}
 		else
 		{
@@ -94,6 +189,15 @@ public partial class FinalMixingUI : Control
 			
 			_selectedPotions.Add(itemId);
 			_feedbackLabel.Text = $"Added {potionName} to cauldron.";
+			
+			// Set button clicked visual state
+			if (clickedButton != null)
+			{
+				clickedButton.Modulate = _buttonClickedColor;
+				if (itemId == "yellow_potion") _yellowButtonClicked = true;
+				else if (itemId == "magenta_potion") _magentaButtonClicked = true;
+				else if (itemId == "cyan_potion") _cyanButtonClicked = true;
+			}
 		}
 		
 		UpdateDisplay();
@@ -162,6 +266,7 @@ public partial class FinalMixingUI : Control
 		_feedbackLabel.Text = "Success! You created the Teal Potion!";
 		_feedbackLabel.Modulate = Colors.Cyan;
 		
+		ResetButtonVisuals(); // Reset button visual state after success
 		_mixButton.Disabled = true;
 		
 		GetTree().CreateTimer(2.5).Timeout += () => {
@@ -199,6 +304,7 @@ public partial class FinalMixingUI : Control
 	{
 		// Clear cauldron - items stay in inventory
 		_selectedPotions.Clear();
+		ResetButtonVisuals(); // Reset button visual state
 		_feedbackLabel.Text = "Cauldron cleared. Start fresh!";
 		_feedbackLabel.Modulate = Colors.White;
 		UpdateDisplay();
@@ -220,15 +326,5 @@ public partial class FinalMixingUI : Control
 		
 		_mixButton.Disabled = false;
 		GD.Print("FinalMixingUI closed");
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (Visible && @event.IsActionPressed("ui_cancel"))
-		{
-			EmitSignal(SignalName.MixingCompleted, false);
-			CloseFinalMixingUI();
-			GetViewport().SetInputAsHandled();
-		}
 	}
 }

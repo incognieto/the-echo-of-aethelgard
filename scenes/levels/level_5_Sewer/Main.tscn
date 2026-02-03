@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="1_ogqkq"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
-[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://dmgqcoj4skh3h" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
 [ext_resource type="Script" uid="uid://bbfcukikgxpgo" path="res://scripts/items/WeightItem.cs" id="6_jlque"]
 [ext_resource type="Script" uid="uid://se448mm5xj2s" path="res://scripts/puzzles/SewerGatePuzzle.cs" id="7_uvas7"]

@@ -26,11 +26,13 @@ public partial class MixingUI : Control
 	private Label _currentMixtureLabel;
 	private Label _storageLabel;
 	private Label _materialInventoryLabel; // NEW: Show material quantities from inventory
+	private Label _escInstructionLabel; // ESC to return instruction
 	private BaseButton _greenButton;
 	private BaseButton _redButton;
 	private BaseButton _blueButton;
 	private BaseButton _mixButton;
 	private BaseButton _resetButton;
+	private Button _backButton;
 	private InventoryUI _inventoryUI;
 	
 	// Player inventory reference
@@ -39,6 +41,13 @@ public partial class MixingUI : Control
 	// Mixing state
 	private List<MaterialType> _currentMixture = new List<MaterialType>();
 	private bool _isPuzzleSolved = false;
+	
+	// Button visual state tracking
+	private bool _greenButtonClicked = false;
+	private bool _redButtonClicked = false;
+	private bool _blueButtonClicked = false;
+	private Color _buttonNormalColor = new Color(1, 1, 1, 1); // White
+	private Color _buttonClickedColor = new Color(0.5f, 1, 0.5f, 1); // Light green tint
 
 	public override void _Ready()
 	{
@@ -68,10 +77,55 @@ public partial class MixingUI : Control
 		_mixButton.Pressed += OnMixPressed;
 		_resetButton.Pressed += OnResetPressed;
 		
+		// Create ESC instruction label
+		CreateEscInstructionLabel(panel);
+		
+		// Create Back button
+		CreateBackButton(panel);
+		
 		// Find InventoryUI
 		CallDeferred(nameof(FindInventoryUI));
 		
 		UpdateDisplay();
+	}
+	
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
+		{
+			if (Visible)
+			{
+				CloseMixingUI();
+				GetViewport().SetInputAsHandled();
+			}
+		}
+	}
+	
+	private void CreateEscInstructionLabel(Panel panel)
+	{
+		// ===== LAYOUT CONFIGURATION =====
+		// ESC instruction label positioning and styling
+		// Adjust these values to change the appearance and position of the ESC instruction
+		_escInstructionLabel = new Label();
+		_escInstructionLabel.Text = "(Esc) to return";
+		_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
+		_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f)); // White with slight transparency
+		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
+		_escInstructionLabel.Position = new Vector2(10, 10); // Top-left corner of panel
+		// ===== END CONFIGURATION =====
+		
+		panel.AddChild(_escInstructionLabel);
+	}
+	
+	private void CreateBackButton(Panel panel)
+	{
+		_backButton = new Button();
+		_backButton.Text = "Back";
+		_backButton.CustomMinimumSize = new Vector2(100, 35);
+		_backButton.Position = new Vector2(panel.Size.X - 110, 10); // Top-right corner
+		_backButton.Pressed += CloseMixingUI;
+		
+		panel.AddChild(_backButton);
 	}
 	
 	private void FindInventoryUI()
@@ -108,10 +162,20 @@ public partial class MixingUI : Control
 		_feedbackLabel.Text = "Synthesize the Teal Potion through tri-color synthesis.";
 		_feedbackLabel.Modulate = Colors.White;
 		
+		ResetButtonVisuals(); // Reset button state when opening UI
 		UpdateDisplay();
 		UpdateButtonAvailability();
+	}
+	
+	private void ResetButtonVisuals()
+	{
+		_greenButtonClicked = false;
+		_redButtonClicked = false;
+		_blueButtonClicked = false;
 		
-		GD.Print("MixingUI opened - Tri-Color Synthesis");
+		_greenButton.Modulate = _buttonNormalColor;
+		_redButton.Modulate = _buttonNormalColor;
+		_blueButton.Modulate = _buttonNormalColor;
 	}
 
 	private void AddMaterial(MaterialType material)
@@ -126,6 +190,23 @@ public partial class MixingUI : Control
 				_feedbackLabel.Text = $"You don't have {GetMaterialName(material)} in your inventory!";
 				_feedbackLabel.Modulate = Colors.Red;
 				return;
+			}
+			
+			// Set button clicked visual state
+			if (material == MaterialType.GreenMoss)
+			{
+				_greenButtonClicked = true;
+				_greenButton.Modulate = _buttonClickedColor;
+			}
+			else if (material == MaterialType.RedPowder)
+			{
+				_redButtonClicked = true;
+				_redButton.Modulate = _buttonClickedColor;
+			}
+			else if (material == MaterialType.BlueExtract)
+			{
+				_blueButtonClicked = true;
+				_blueButton.Modulate = _buttonClickedColor;
 			}
 		}
 		else if (IsSecondaryPotion(material))
@@ -225,6 +306,7 @@ public partial class MixingUI : Control
 			ConsumeMaterials();
 			
 			_currentMixture.Clear();
+			ResetButtonVisuals(); // Reset button visual state
 			UpdateDisplay();
 			UpdateButtonAvailability();
 			GD.Print("Mixture failed - Black Mud created");
@@ -250,6 +332,7 @@ public partial class MixingUI : Control
 				ConsumeSecondaryPotions();
 				
 				_currentMixture.Clear();
+				ResetButtonVisuals(); // Reset button visual state
 				UpdateDisplay();
 				DisableButtons();
 				
@@ -285,6 +368,7 @@ public partial class MixingUI : Control
 					ConsumeMaterials();
 					
 					_currentMixture.Clear();
+					ResetButtonVisuals(); // Reset button visual state
 					UpdateDisplay();
 					UpdateButtonAvailability();
 					GD.Print($"Created secondary potion: {result}");
@@ -484,6 +568,7 @@ public partial class MixingUI : Control
 	{
 		// Just clear cauldron - items stay in inventory
 		_currentMixture.Clear();
+		ResetButtonVisuals(); // Reset button visual state
 		_feedbackLabel.Text = "Cauldron cleared. Start fresh!";
 		_feedbackLabel.Modulate = Colors.White;
 		UpdateDisplay();
@@ -526,15 +611,5 @@ public partial class MixingUI : Control
 		EnableButtons();
 		
 		GD.Print("MixingUI closed");
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (Visible && @event.IsActionPressed("ui_cancel"))
-		{
-			EmitSignal(SignalName.MixingCompleted, false);
-			CloseMixingUI();
-			GetViewport().SetInputAsHandled();
-		}
 	}
 }

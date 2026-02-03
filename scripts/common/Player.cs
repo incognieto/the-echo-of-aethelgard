@@ -157,14 +157,14 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent @event)
 	{
-		// Check if inventory is open - disable camera rotation if true
-		bool inventoryOpen = HasMeta("inventory_open") && (bool)GetMeta("inventory_open");
+		// Check if any UI panel is open - disable camera rotation if true
+		bool anyPanelOpen = InventoryUI.IsAnyPanelOpen;
 		
 		// Handle mouse movement untuk rotasi kamera (hanya di FPP mode)
 		if (@event is InputEventMouseMotion motionEvent)
 		{
-			// Skip camera rotation if inventory is open
-			if (inventoryOpen)
+			// Skip camera rotation if any panel is open
+			if (anyPanelOpen)
 				return;
 			
 			if (Input.MouseMode == Input.MouseModeEnum.Captured && 
@@ -417,6 +417,13 @@ public partial class Player : CharacterBody3D
 			{
 				GD.Print($"FPP Mode - Item type: {pickable.GetType().Name}");
 				
+				// Check if it's a poster (BookItem with poster mode) - posters are not pickable
+				if (pickable is BookItem bookItem && bookItem.ItemId == "recipe_poster")
+				{
+					GD.Print("📋 This is a poster - use E to read, cannot be picked up");
+					return;
+				}
+				
 				// Check if it's a WeightItem (needs hold-to-pickup)
 				if (pickable is WeightItem weightItem)
 				{
@@ -537,14 +544,18 @@ public partial class Player : CharacterBody3D
 		{
 			_inventoryUI.Toggle();
 			
-			// Toggle mouse mode
+			// Toggle mouse mode - only capture if NO panels are open
 			if (_inventoryUI.IsInventoryVisible())
 			{
 				Input.MouseMode = Input.MouseModeEnum.Visible;
 			}
 			else
 			{
-				Input.MouseMode = Input.MouseModeEnum.Captured;
+				// Only capture mouse if no other panels are open
+				if (!InventoryUI.IsAnyPanelOpen)
+				{
+					Input.MouseMode = Input.MouseModeEnum.Captured;
+				}
 			}
 		}
 	}
@@ -627,6 +638,13 @@ public partial class Player : CharacterBody3D
 	
 	private void UseSelectedItem()
 	{
+		// Prevent using items when any panel is open (puzzle UI, mixing UI, etc.)
+		if (InventoryUI.IsAnyPanelOpen)
+		{
+			GD.Print("Cannot use items while a panel is open");
+			return;
+		}
+		
 		InventoryItem selectedItem = _inventory.GetSelectedHotbarItem();
 		if (selectedItem == null)
 		{
@@ -657,6 +675,18 @@ public partial class Player : CharacterBody3D
 		if (_bookUI != null)
 		{
 			_bookUI.ShowBook(title, leftContent, rightContent);
+		}
+		else
+		{
+			GD.PrintErr("BookUI is not available!");
+		}
+	}
+	
+	public void ShowPoster(string title, string imagePath)
+	{
+		if (_bookUI != null)
+		{
+			_bookUI.ShowPoster(title, imagePath);
 		}
 		else
 		{

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dmgqcoj4skh3h"]
+[gd_scene format=3 uid="uid://d4mweouara7f6"]
 
 [ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="1_invui"]
 [ext_resource type="Texture2D" uid="uid://c53ovvbjoxon2" path="res://assets/sprites/ui/ui_4x4_inventory.png" id="2_inv4x4"]
@@ -43,18 +43,6 @@ texture = ExtResource("3_inv1x4")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="AncientBookNotification" type="Label" parent="." unique_id=2147483645]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 420.0
-offset_bottom = 50.0
-theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
-theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 24
-text = "Press the F key to activate the ancient book."
-visible = false
-
 [node name="InventoryPanel" type="Panel" parent="." unique_id=1996971328]
 layout_mode = 1
 anchors_preset = 8
@@ -95,17 +83,6 @@ offset_right = 130.0
 offset_bottom = 116.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot0"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-
 [node name="Slot1" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=702537809]
 layout_mode = 0
 offset_left = 135.0
@@ -114,156 +91,13 @@ offset_right = 241.0
 offset_bottom = 116.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot1"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot2"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot3"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-
-[node name="Slot2" type="Panel" parent="InventoryPanel/InventoryS
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot4"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot5"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot6"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1lots" unique_id=1864535272]
+[node name="Slot2" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1864535272]
 layout_mode = 0
 offset_left = 246.0
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot7"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot8"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot9"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
 offset_top = 10.0
 offset_right = 352.0
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot10"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot11"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot12"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
 offset_bottom = 116.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
-
-[node name="ItemLabel" type="Label" parent="InventoryPanel/InventorySlots/Slot13"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 85.0
-offset_right = 101.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = ""
-horizontal_alignment = 1
 
 [node name="Slot3" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1352511166]
 layout_mode = 0

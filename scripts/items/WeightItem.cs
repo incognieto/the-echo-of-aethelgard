@@ -83,7 +83,7 @@ public partial class WeightItem : PickableItem
     private Texture2D CreateCircleTexture(int radius, Color color)
     {
         int size = radius * 2;
-        var image = Image.Create(size, size, false, Image.Format.Rgba8);
+        var image = Image.CreateEmpty(size, size, false, Image.Format.Rgba8);
         
         for (int y = 0; y < size; y++)
         {

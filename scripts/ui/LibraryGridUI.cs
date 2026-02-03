@@ -12,8 +12,9 @@ public partial class LibraryGridUI : Control
 	private Panel _gridPanel;
 	private Label _titleLabel;
 	private Label _feedbackLabel;
-	private Button _confirmButton;
-	private Button _clearButton;
+	private Label _escInstructionLabel;
+	private TextureButton _confirmButton;
+	private TextureButton _clearButton;
 	private Button _closeButton;
 	private InventoryUI _inventoryUI;
 	private Player _player;
@@ -22,9 +23,9 @@ public partial class LibraryGridUI : Control
 	private bool _inventoryWasOpen = false;
 	
 	// Book selection
-	private GridContainer _bookSelectionPanel;
+	private Control _bookSelectionPanel;
 	private VBoxContainer _bookSelectionContainer;
-	private List<Button> _bookButtons = new List<Button>();
+	private List<TextureButton> _bookButtons = new List<TextureButton>();
 	private int _selectedSlotIndex = -1; // Slot yang dipilih untuk diisi
 	
 	// Grid slots (9 slots untuk 3x3)
@@ -40,6 +41,16 @@ public partial class LibraryGridUI : Control
 	// Custom font
 	private FontFile _customFont;
 	
+	// Textures for UI elements
+	private Dictionary<BookSymbol, Texture2D> _bookTextures;
+	private Texture2D _slotTexture;
+	private Texture2D _clearButtonTexture;
+	private Texture2D _clearButtonClickedTexture;
+	private Texture2D _confirmButtonTexture;
+	private Texture2D _confirmButtonClickedTexture;
+	private Texture2D _backgroundTexture;
+	private TextureRect _backgroundSprite;
+	
 	// Narasi info (di README atau book terpisah)
 	private const string HintText = "Order: Castle → Knight → Princess → Dragon → Sword → Shield → Horse → Skulls → Phoenix";
 
@@ -48,25 +59,37 @@ public partial class LibraryGridUI : Control
 		// Load custom font
 		_customFont = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
 		
+		// Load textures
+		LoadTextures();
+		
 		Visible = false;
 		
 		// Get nodes from scene
 		_gridPanel = GetNode<Panel>("GridPanel");
 		_titleLabel = GetNode<Label>("GridPanel/TitleLabel");
 		_feedbackLabel = GetNode<Label>("GridPanel/FeedbackLabel");
-		_confirmButton = GetNode<Button>("GridPanel/ConfirmButton");
-		_clearButton = GetNode<Button>("GridPanel/ClearButton");
+		_confirmButton = GetNode<TextureButton>("GridPanel/ConfirmButton");
+		_clearButton = GetNode<TextureButton>("GridPanel/ClearButton");
 		_closeButton = GetNode<Button>("GridPanel/CloseButton");
 		
-		// Setup grid slots
-		var gridContainer = GetNode<GridContainer>("GridPanel/GridContainer");
+		// Get book selection nodes from scene
+		_bookSelectionContainer = GetNode<VBoxContainer>("GridPanel/BookSelectionContainer");
+		_bookSelectionPanel = GetNode<Control>("GridPanel/BookSelectionContainer/BookGrid");
+		
+		// Setup grid slots - get manual nodes instead of creating in GridContainer
+		var gridContainer = GetNode<Control>("GridPanel/GridContainer");
 		for (int i = 0; i < 9; i++)
 		{
-			var slot = new GridSlot(i + 1); // Roman numerals 1-9
+			// Get the slot node from scene (Slot1, Slot2, ... Slot9)
+			var slotNode = gridContainer.GetNode<Control>($"Slot{i + 1}");
+			
+			var slot = new GridSlot(i + 1, _slotTexture, _bookTextures);
 			slot.BookPlaced += OnBookPlaced;
 			slot.BookRemoved += OnBookRemoved;
 			slot.SlotClicked += OnSlotClicked;
-			gridContainer.AddChild(slot);
+			
+			// Add GridSlot as child of the empty Control node
+			slotNode.AddChild(slot);
 			_gridSlots.Add(slot);
 		}
 		
@@ -75,8 +98,14 @@ public partial class LibraryGridUI : Control
 		_clearButton.Pressed += OnClearPressed;
 		_closeButton.Pressed += OnClosePressed;
 		
-		// Setup book selection panel
-		SetupBookSelectionPanel();
+		// Create ESC instruction label
+		_escInstructionLabel = new Label();
+		_escInstructionLabel.Text = "(Esc) to return";
+		_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
+		_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f));
+		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
+		_escInstructionLabel.Position = new Vector2(10, 10);
+		_gridPanel.AddChild(_escInstructionLabel);
 		
 		// Find InventoryUI
 		CallDeferred(nameof(FindInventoryUI));
@@ -84,36 +113,44 @@ public partial class LibraryGridUI : Control
 		GD.Print("LibraryGridUI ready!");
 	}
 	
-	private void SetupBookSelectionPanel()
+	public override void _Input(InputEvent @event)
 	{
-		// Create container untuk book selection area di kanan grid
-		_bookSelectionContainer = new VBoxContainer();
-		_bookSelectionContainer.Position = new Vector2(420, 80);
-		_gridPanel.AddChild(_bookSelectionContainer);
-		
-		var selectionTitle = new Label();
-		selectionTitle.Text = "Your Books:";
-		if (_customFont != null) selectionTitle.AddThemeFontOverride("font", _customFont);
-		selectionTitle.AddThemeFontSizeOverride("font_size", 18);
-		selectionTitle.AddThemeColorOverride("font_color", new Color(0.9f, 0.8f, 0.6f));
-		_bookSelectionContainer.AddChild(selectionTitle);
-		
-		var instruction = new Label();
-		instruction.Text = "Click slot, then click book";
-		if (_customFont != null) instruction.AddThemeFontOverride("font", _customFont);
-		instruction.AddThemeFontSizeOverride("font_size", 12);
-		instruction.AddThemeColorOverride("font_color", new Color(0.7f, 0.7f, 0.7f));
-		_bookSelectionContainer.AddChild(instruction);
-		
-		// Create GridContainer 3x3 untuk book buttons
-		_bookSelectionPanel = new GridContainer();
-		_bookSelectionPanel.Columns = 3;
-		_bookSelectionPanel.AddThemeConstantOverride("h_separation", 5);
-		_bookSelectionPanel.AddThemeConstantOverride("v_separation", 5);
-		_bookSelectionContainer.AddChild(_bookSelectionPanel);
-		
-		_bookSelectionContainer.Visible = false;
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
+		{
+			if (Visible)
+			{
+				OnClosePressed();
+				GetViewport().SetInputAsHandled();
+			}
+		}
 	}
+	
+	private void LoadTextures()
+	{
+		// Load book textures
+		_bookTextures = new Dictionary<BookSymbol, Texture2D>();
+		_bookTextures[BookSymbol.Castle] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_castle.png");
+		_bookTextures[BookSymbol.Knight] = GD.Load<Texture2D>("res://assets/sprites/library/book_of knight.png");
+		_bookTextures[BookSymbol.Princess] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_princess.png");
+		_bookTextures[BookSymbol.Dragon] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_dragon.png");
+		_bookTextures[BookSymbol.Sword] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_sword.png");
+		_bookTextures[BookSymbol.Shield] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_shield.png");
+		_bookTextures[BookSymbol.Horse] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_horse.png");
+		_bookTextures[BookSymbol.Skulls] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_skull.png");
+		_bookTextures[BookSymbol.Phoenix] = GD.Load<Texture2D>("res://assets/sprites/library/book_of_phoenix.png");
+		
+		// Load slot texture
+		_slotTexture = GD.Load<Texture2D>("res://assets/sprites/library/slot_1x1_ui_stone_table.png");
+		
+		// Load button textures
+		_clearButtonTexture = GD.Load<Texture2D>("res://assets/sprites/library/button_clear.png");
+		_clearButtonClickedTexture = GD.Load<Texture2D>("res://assets/sprites/library/button_clear_clicked.png");
+		_confirmButtonTexture = GD.Load<Texture2D>("res://assets/sprites/library/button_confirm.png");
+		_confirmButtonClickedTexture = GD.Load<Texture2D>("res://assets/sprites/library/button_confirm_clicked.png");
+		
+		GD.Print("LibraryGridUI: All textures loaded!");
+	}
+	
 	
 	private void FindInventoryUI()
 	{
@@ -231,11 +268,20 @@ public partial class LibraryGridUI : Control
 	
 	private void UpdateBookSelection()
 	{
-		// Clear existing buttons
+		// Disconnect all previous button connections before clearing list
 		foreach (var btn in _bookButtons)
 		{
-			btn.QueueFree();
+			if (btn != null && !btn.IsQueuedForDeletion())
+			{
+				try
+				{
+					btn.Pressed -= OnBookButtonPressed;
+				}
+				catch { /* Ignore if already disconnected */ }
+			}
 		}
+		
+		// Clear existing button references (don't queue free scene nodes)
 		_bookButtons.Clear();
 		
 		if (_player == null || _player._inventory == null)
@@ -284,19 +330,54 @@ public partial class LibraryGridUI : Control
 		
 		GD.Print($"📚 Book buttons shuffled: {string.Join(", ", availableBooks)}");
 		
-		// Create button untuk setiap buku dalam urutan yang sudah diacak
-		foreach (var symbol in availableBooks)
+		// Assign textures to book button nodes (BookButton1 to BookButton9)
+		for (int i = 0; i < availableBooks.Count && i < 9; i++)
 		{
-			var btn = new Button();
-			btn.Text = symbol.ToString();
-			btn.CustomMinimumSize = new Vector2(100, 100); // Sama dengan ukuran grid slot
-			btn.AddThemeFontSizeOverride("font_size", 12);
+			var symbol = availableBooks[i];
+			var btnNode = _bookSelectionPanel.GetNodeOrNull<TextureButton>($"BookButton{i + 1}");
 			
-			var capturedSymbol = symbol;
-			btn.Pressed += () => OnBookSelected(capturedSymbol);
-			
-			_bookSelectionPanel.AddChild(btn);
-			_bookButtons.Add(btn);
+			if (btnNode != null)
+			{
+				btnNode.Visible = true;
+				btnNode.IgnoreTextureSize = true;
+				btnNode.StretchMode = TextureButton.StretchModeEnum.Scale;
+				
+				// Set book texture
+				if (_bookTextures != null && _bookTextures.ContainsKey(symbol))
+				{
+					var texture = _bookTextures[symbol];
+					btnNode.TextureNormal = texture;
+					btnNode.TextureHover = texture;
+					btnNode.TexturePressed = texture;
+				}
+				
+				// Store symbol in metadata
+				btnNode.SetMeta("book_symbol", (int)symbol);
+				btnNode.Pressed += OnBookButtonPressed;
+				
+				_bookButtons.Add(btnNode);
+			}
+		}
+		
+		// Hide unused button nodes
+		for (int i = availableBooks.Count; i < 9; i++)
+		{
+			var btnNode = _bookSelectionPanel.GetNodeOrNull<TextureButton>($"BookButton{i + 1}");
+			if (btnNode != null)
+			{
+				btnNode.Visible = false;
+			}
+		}
+	}
+	
+	private void OnBookButtonPressed()
+	{
+		// Get the button that was pressed
+		var btn = (TextureButton)GetViewport().GuiGetFocusOwner();
+		if (btn != null && btn.HasMeta("book_symbol"))
+		{
+			var symbol = (BookSymbol)(int)btn.GetMeta("book_symbol");
+			OnBookSelected(symbol);
 		}
 	}
 	
@@ -309,11 +390,22 @@ public partial class LibraryGridUI : Control
 			return;
 		}
 		
+		// Check if slot is already filled
+		if (_placedBooks[_selectedSlotIndex].HasValue)
+		{
+			_feedbackLabel.Text = "That slot is already filled! Right-click to remove the book first, or select another slot.";
+			_feedbackLabel.Modulate = new Color(1, 0.5f, 0);
+			return;
+		}
+		
 		// Place book in selected slot
 		_gridSlots[_selectedSlotIndex].PlaceBook(symbol);
 		
 		// Mark book as used
 		_usedBooks.Add(symbol);
+		
+		// Update placed books tracking
+		_placedBooks[_selectedSlotIndex] = symbol;
 		
 		_selectedSlotIndex = -1;
 		
@@ -464,69 +556,52 @@ public partial class GridSlot : Panel
 	private int _slotNumber; // 1-9 untuk Roman numerals
 	private BookSymbol? _currentBook;
 	private Label _romanLabel;
-	private Label _bookLabel;
+	private TextureRect _slotBackground;
 	private TextureRect _bookIcon;
 	private Dictionary<BookSymbol, Texture2D> _bookTextures;
+	private Texture2D _slotTexture;
 	private bool _isSelected = false;
-	private StyleBoxFlat _styleBox;
+	private Panel _highlight;
 	
-	public GridSlot(int slotNumber)
+	public GridSlot(int slotNumber, Texture2D slotTexture, Dictionary<BookSymbol, Texture2D> bookTextures)
 	{
 		_slotNumber = slotNumber;
-		CustomMinimumSize = new Vector2(100, 100);
+		_slotTexture = slotTexture;
+		_bookTextures = bookTextures;
 		
-		// Panel styling
-		_styleBox = new StyleBoxFlat();
-		_styleBox.BgColor = new Color(0.2f, 0.2f, 0.25f);
-		_styleBox.BorderColor = new Color(0.6f, 0.5f, 0.3f);
-		_styleBox.BorderWidthLeft = 2;
-		_styleBox.BorderWidthRight = 2;
-		_styleBox.BorderWidthTop = 2;
-		_styleBox.BorderWidthBottom = 2;
-		AddThemeStyleboxOverride("panel", _styleBox);
+		// Match the size set in scene (60x60)
+		SetAnchorsPreset(Control.LayoutPreset.FullRect);
+		
+		// No panel styling - use texture instead
+		MouseFilter = MouseFilterEnum.Pass;
 	}
 	
 	public override void _Ready()
 	{
 		var font = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
 		
-		// Roman numeral label
-		_romanLabel = new Label();
-		_romanLabel.Text = ToRoman(_slotNumber);
-		if (font != null) _romanLabel.AddThemeFontOverride("font", font);
-		_romanLabel.AddThemeFontSizeOverride("font_size", 24);
-		_romanLabel.AddThemeColorOverride("font_color", new Color(0.8f, 0.7f, 0.5f));
-		_romanLabel.HorizontalAlignment = HorizontalAlignment.Center;
-		_romanLabel.AnchorRight = 1.0f;
-		_romanLabel.AnchorBottom = 0.3f;
-		AddChild(_romanLabel);
-		
-		// Book name label
-		_bookLabel = new Label();
-		if (font != null) _bookLabel.AddThemeFontOverride("font", font);
-		_bookLabel.AddThemeFontSizeOverride("font_size", 12);
-		_bookLabel.AddThemeColorOverride("font_color", Colors.White);
-		_bookLabel.HorizontalAlignment = HorizontalAlignment.Center;
-		_bookLabel.VerticalAlignment = VerticalAlignment.Center;
-		_bookLabel.AnchorTop = 0.4f;
-		_bookLabel.AnchorRight = 1.0f;
-		_bookLabel.AnchorBottom = 1.0f;
-		_bookLabel.AutowrapMode = TextServer.AutowrapMode.WordSmart;
-		_bookLabel.Visible = false;
-		AddChild(_bookLabel);
+		// Highlight panel (for selection)
+		_highlight = new Panel();
+		var highlightStyle = new StyleBoxFlat();
+		highlightStyle.BgColor = new Color(1, 0.8f, 0.3f, 0.3f);
+		highlightStyle.BorderColor = new Color(1, 0.8f, 0.3f);
+		highlightStyle.BorderWidthLeft = 3;
+		highlightStyle.BorderWidthRight = 3;
+		highlightStyle.BorderWidthTop = 3;
+		highlightStyle.BorderWidthBottom = 3;
+		_highlight.AddThemeStyleboxOverride("panel", highlightStyle);
+		_highlight.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+		_highlight.MouseFilter = MouseFilterEnum.Ignore;
+		_highlight.Visible = false;
+		AddChild(_highlight);
 		
 		// Book icon area
 		_bookIcon = new TextureRect();
-		_bookIcon.ExpandMode = TextureRect.ExpandModeEnum.FitWidth;
+		_bookIcon.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
 		_bookIcon.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
-		_bookIcon.AnchorTop = 0.3f;
-		_bookIcon.AnchorRight = 1.0f;
-		_bookIcon.AnchorBottom = 1.0f;
+		_bookIcon.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+		_bookIcon.MouseFilter = MouseFilterEnum.Ignore;
 		AddChild(_bookIcon);
-		
-		// Load book textures (placeholder - seharusnya load dari assets)
-		_bookTextures = new Dictionary<BookSymbol, Texture2D>();
-		// TODO: Load actual book cover textures
 	}
 	
 	public override void _GuiInput(InputEvent @event)
@@ -552,22 +627,9 @@ public partial class GridSlot : Panel
 	{
 		_isSelected = selected;
 		
-		if (_isSelected)
+		if (_highlight != null)
 		{
-			_styleBox.BgColor = new Color(0.3f, 0.3f, 0.45f); // Highlight color
-			_styleBox.BorderColor = new Color(1f, 0.8f, 0.3f); // Gold border
-		}
-		else
-		{
-			if (_currentBook.HasValue)
-			{
-				_styleBox.BgColor = new Color(0.3f, 0.4f, 0.3f); // Filled color
-			}
-			else
-			{
-				_styleBox.BgColor = new Color(0.2f, 0.2f, 0.25f); // Empty color
-			}
-			_styleBox.BorderColor = new Color(0.6f, 0.5f, 0.3f); // Normal border
+			_highlight.Visible = _isSelected;
 		}
 	}
 	
@@ -575,14 +637,10 @@ public partial class GridSlot : Panel
 	{
 		_currentBook = symbol;
 		
-		// Update icon (placeholder)
-		// _bookIcon.Texture = _bookTextures.GetValueOrDefault(symbol);
-		
-		// Visual feedback
-		var styleBox = GetThemeStylebox("panel") as StyleBoxFlat;
-		if (styleBox != null)
+		// Update icon with book texture
+		if (_bookTextures != null && _bookTextures.ContainsKey(symbol))
 		{
-			styleBox.BgColor = new Color(0.3f, 0.4f, 0.3f); // Greenish when filled
+			_bookIcon.Texture = _bookTextures[symbol];
 		}
 		
 		EmitSignal(SignalName.BookPlaced, _slotNumber - 1, (int)symbol);
@@ -591,11 +649,10 @@ public partial class GridSlot : Panel
 	public void ClearSlot()
 	{
 		_currentBook = null;
-		_bookIcon.Texture = null;
-		_bookLabel.Visible = false;
-		
-		// Reset visual
-		_styleBox.BgColor = new Color(0.2f, 0.2f, 0.25f);
+		if (_bookIcon != null)
+		{
+			_bookIcon.Texture = null;
+		}
 		
 		EmitSignal(SignalName.BookRemoved, _slotNumber - 1);
 	}

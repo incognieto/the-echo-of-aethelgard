@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_qg8n7"]
 [ext_resource type="Script" uid="uid://dqlr3mcto7ab4" path="res://scripts/items/PickableItem.cs" id="2_item1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://dmgqcoj4skh3h" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="6_bookitem"]
@@ -184,8 +184,6 @@ shape = SubResource("SphereShape3D_item")
 [node name="BookItem1" type="StaticBody3D" parent="Items" unique_id=1986423889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 6)
 script = ExtResource("6_bookitem")
-ItemId = "ancient_book"
-ItemName = "Ancient Books"
 BookTitle = "The Lost Chronicles"
 BookContent = "[center][b]The Lost Chronicles[/b][/center]
 
@@ -217,6 +215,8 @@ Look to the stars for guidance true,
 The chosen one shall see it through.\"[/i]
 
 [right]- End of Volume I -[/right]"
+ItemId = "ancient_book"
+ItemName = "Ancient Books"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Items/BookItem1" unique_id=702592139]
 mesh = SubResource("SphereMesh_item")

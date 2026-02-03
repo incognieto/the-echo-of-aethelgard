@@ -12,9 +12,29 @@ public partial class BookUI : Control
 	private string _leftPageContent = "";
 	private string _rightPageContent = "";
 	private FontFile _customFont;
+	private InventoryUI _inventoryUI;
+	
+	// Poster mode
+	private bool _isPosterMode = false;
+	private TextureRect _posterImage;
+	private Label _posterEscLabel;
+	private Container _leftPageContainer;
+	private Container _rightPageContainer;
+	private VSeparator _pageSeparator;
 
 	public override void _Ready()
 	{
+		// Get InventoryUI reference for crosshair control (try to find in scene tree)
+		var root = GetTree().Root;
+		if (root.HasNode("Main/UI/InventoryUI"))
+		{
+			_inventoryUI = root.GetNode<InventoryUI>("Main/UI/InventoryUI");
+		}
+		else
+		{
+			GD.PrintErr("InventoryUI not found - crosshair control will be disabled");
+		}
+		
 		// Load custom font
 		_customFont = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
 		
@@ -82,20 +102,20 @@ public partial class BookUI : Control
 		contentVbox.AddChild(pagesContainer);
 		
 		// Left page
-		var leftPageContainer = new VBoxContainer();
-		leftPageContainer.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-		pagesContainer.AddChild(leftPageContainer);
+		_leftPageContainer = new VBoxContainer();
+		_leftPageContainer.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		pagesContainer.AddChild(_leftPageContainer);
 		
 		var leftTitle = new Label();
 		leftTitle.Text = "Left Page";
 		leftTitle.HorizontalAlignment = HorizontalAlignment.Center;
 		if (_customFont != null) leftTitle.AddThemeFontOverride("font", _customFont);
 		leftTitle.AddThemeFontSizeOverride("font_size", 16);
-		leftPageContainer.AddChild(leftTitle);
+		_leftPageContainer.AddChild(leftTitle);
 		
 		var leftScroll = new ScrollContainer();
 		leftScroll.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
-		leftPageContainer.AddChild(leftScroll);
+		_leftPageContainer.AddChild(leftScroll);
 		
 		_leftPageLabel = new RichTextLabel();
 		_leftPageLabel.BbcodeEnabled = true;
@@ -110,24 +130,24 @@ public partial class BookUI : Control
 		leftScroll.AddChild(_leftPageLabel);
 		
 		// Vertical separator between pages
-		var pageSeparator = new VSeparator();
-		pagesContainer.AddChild(pageSeparator);
+		_pageSeparator = new VSeparator();
+		pagesContainer.AddChild(_pageSeparator);
 		
 		// Right page
-		var rightPageContainer = new VBoxContainer();
-		rightPageContainer.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-		pagesContainer.AddChild(rightPageContainer);
+		_rightPageContainer = new VBoxContainer();
+		_rightPageContainer.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		pagesContainer.AddChild(_rightPageContainer);
 		
 		var rightTitle = new Label();
 		rightTitle.Text = "Right Page";
 		rightTitle.HorizontalAlignment = HorizontalAlignment.Center;
 		if (_customFont != null) rightTitle.AddThemeFontOverride("font", _customFont);
 		rightTitle.AddThemeFontSizeOverride("font_size", 16);
-		rightPageContainer.AddChild(rightTitle);
+		_rightPageContainer.AddChild(rightTitle);
 		
 		var rightScroll = new ScrollContainer();
 		rightScroll.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
-		rightPageContainer.AddChild(rightScroll);
+		_rightPageContainer.AddChild(rightScroll);
 		
 		_rightPageLabel = new RichTextLabel();
 		_rightPageLabel.BbcodeEnabled = true;
@@ -151,6 +171,31 @@ public partial class BookUI : Control
 		buttonContainer.Alignment = BoxContainer.AlignmentMode.Center;
 		buttonContainer.AddChild(_closeButton);
 		contentVbox.AddChild(buttonContainer);
+		
+		// TextureRect for poster image (centered, not fullscreen)
+		_posterImage = new TextureRect();
+		_posterImage.SetAnchorsPreset(LayoutPreset.Center);
+		_posterImage.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+		_posterImage.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
+		_posterImage.Size = new Vector2(480, 600); // Fixed size untuk 1280x720 screen (ratio 4:5)
+		_posterImage.Position = new Vector2(-240, -300); // Center offset
+		_posterImage.Visible = false;
+		_posterImage.MouseFilter = MouseFilterEnum.Stop; // Block clicks
+		AddChild(_posterImage);
+		
+		// ESC hint label for poster
+		var posterEscLabel = new Label();
+		posterEscLabel.Text = "Press ESC to close";
+		posterEscLabel.SetAnchorsPreset(LayoutPreset.BottomWide);
+		posterEscLabel.Position = new Vector2(0, -50);
+		posterEscLabel.HorizontalAlignment = HorizontalAlignment.Center;
+		posterEscLabel.AddThemeFontSizeOverride("font_size", 24);
+		posterEscLabel.AddThemeColorOverride("font_color", new Color(1, 1, 1, 1));
+		posterEscLabel.Visible = false;
+		AddChild(posterEscLabel);
+		
+		// Store reference for showing/hiding with poster
+		_posterEscLabel = posterEscLabel;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -164,11 +209,22 @@ public partial class BookUI : Control
 
 	public void ShowBook(string title, string leftContent, string rightContent)
 	{
+		_isPosterMode = false;
 		_bookTitle = title;
 		_leftPageContent = string.IsNullOrEmpty(leftContent) ? "(Empty page)" : leftContent;
 		_rightPageContent = string.IsNullOrEmpty(rightContent) ? "(Empty page)" : rightContent;
 		
 		_titleLabel.Text = title;
+		
+		// Show all book elements, hide poster image
+		_bookPanel.Visible = true;
+		_titleLabel.Visible = true;
+		_leftPageContainer.Visible = true;
+		_leftPageLabel.Visible = true;
+		_posterImage.Visible = false;
+		_posterEscLabel.Visible = false;
+		_rightPageContainer.Visible = true;
+		_pageSeparator.Visible = true;
 		
 		// Center align and display content with BBCode
 		_leftPageLabel.Text = $"[center]{_leftPageContent}[/center]";
@@ -177,7 +233,42 @@ public partial class BookUI : Control
 		Visible = true;
 		InventoryUI.IsAnyPanelOpen = true; // Block player movement
 		Input.MouseMode = Input.MouseModeEnum.Visible;
+		if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(false);
 		GD.Print($"Opening book: {title} | Left: {_leftPageContent} | Right: {_rightPageContent}");
+	}
+	
+	public void ShowPoster(string title, string imagePath)
+	{
+		_isPosterMode = true;
+		_bookTitle = title;
+		
+		// Hide ALL UI elements - only show poster image
+		_bookPanel.Visible = false;
+		_titleLabel.Visible = false;
+		_leftPageLabel.Visible = false;
+		_posterImage.Visible = true;
+		_posterEscLabel.Visible = true;
+		_rightPageContainer.Visible = false;
+		_pageSeparator.Visible = false;
+		_leftPageContainer.Visible = false;
+		
+		// Load and display image
+		var texture = GD.Load<Texture2D>(imagePath);
+		if (texture != null)
+		{
+			_posterImage.Texture = texture;
+			GD.Print($"Loaded poster image: {imagePath}");
+		}
+		else
+		{
+			GD.PrintErr($"Failed to load poster image: {imagePath}");
+		}
+		
+		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true; // Block player movement
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(false);
+		GD.Print($"Opening poster: {title} | Image: {imagePath}");
 	}
 
 	private void OnClosePressed()
@@ -190,6 +281,7 @@ public partial class BookUI : Control
 		Visible = false;
 		InventoryUI.IsAnyPanelOpen = false; // Restore player movement
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(true);
 		GD.Print("Closing book");
 	}
 }
