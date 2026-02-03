@@ -171,8 +171,10 @@ public partial class FinalMixingUI : Control
 		// Consume potions
 		ConsumePotions();
 		
-		// Create Teal Potion
-		var tealData = new ItemData("teal_potion", "Teal Potion", 1);
+		// Create Teal Potion sebagai usable item
+		var tealData = new ItemData("teal_potion", "Teal Potion", 16, true, false); // Stack 16, usable, not key item
+		tealData.Description = "Mystical teal potion - Can dissolve magical barriers";
+		tealData.UsableBehavior = new TealPotionUsable(); // Set usable behavior
 		_playerInventory.AddItem(tealData, 1);
 		
 		_feedbackLabel.Text = "Success! You created the Teal Potion!";
