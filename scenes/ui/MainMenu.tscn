@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://yct48i0rmk6" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenu.png" id="17_utjo4"]
 [ext_resource type="Texture2D" uid="uid://bke064jg1pjn5" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuClicked.png" id="18_dq25m"]
 [ext_resource type="Texture2D" uid="uid://b2d1hlgyagd6v" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuHover.png" id="19_jfpbv"]
+[ext_resource type="Script" uid="uid://dajue2twr482c" path="res://scripts/ui/MainMenu/PrisonBars.cs" id="20_prisonbars"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhu4a"]
 
@@ -61,13 +62,14 @@ texture = ExtResource("4_e2per")
 offset = Vector2(1846.3292, 1075.3345)
 script = ExtResource("4_xpiny")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=266439748]
-visible = false
+[node name="PrisonBars" type="Sprite2D" parent="Node2D" unique_id=266439748]
 light_mask = 0
 z_index = 4096
-position = Vector2(62.999992, 17.999998)
+position = Vector2(-8.000008, -816)
 scale = Vector2(0.3210376, 0.3200299)
 texture = ExtResource("7_7vr37")
+script = ExtResource("20_prisonbars")
+DropDistance = 750.0
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1524960737]
 color = Color(0.14117648, 0.14117648, 0.21176471, 1)
@@ -106,6 +108,7 @@ ignore_texture_size = true
 stretch_mode = 4
 script = ExtResource("11_3da5a")
 TargetScenePath = "uid://di6jwi87xitob"
+PreChangeNodePath = NodePath("../../Node2D/PrisonBars")
 
 [node name="BtnSettings" type="TextureButton" parent="Panel" unique_id=1327337526]
 layout_mode = 1
