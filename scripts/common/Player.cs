@@ -312,6 +312,8 @@ public partial class Player : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		
+		RenderingServer.GlobalShaderParameterSet("player_pos", GlobalPosition);
 	}
 	
 	private void TryPickupItem()

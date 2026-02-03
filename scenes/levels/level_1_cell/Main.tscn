@@ -8,13 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cvw3f0558f36y" path="res://scenes/ui/PuzzleUI.tscn" id="7_puzzleui"]
 [ext_resource type="Script" uid="uid://bthdhyq4ff2n6" path="res://scripts/puzzles/DoorPuzzle.cs" id="8_doorpuzzle"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="9_transition"]
-[ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset.tres" id="10_xuw2q"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_floor"]
-size = Vector3(20, 0.2, 20)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
-size = Vector3(20, 0.2, 20)
+[ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="10_28jj2"]
+[ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="10_xuw2q"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_item"]
 radius = 0.3
@@ -63,75 +58,6 @@ script = ExtResource("4_setup")
 
 [node name="Player" parent="." unique_id=1038942510 instance=ExtResource("1_qg8n7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61408186, -0.123496056, 0)
-
-[node name="Floor" type="StaticBody3D" parent="." unique_id=36110966]
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1772975761]
-mesh = SubResource("BoxMesh_floor")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=73760016]
-shape = SubResource("BoxShape3D_floor")
-
-[node name="FloorRoom2" type="CSGBox3D" parent="." unique_id=1032368702]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
-visible = false
-use_collision = true
-size = Vector3(20, 0.2, 20)
-
-[node name="Walls" type="Node3D" parent="." unique_id=849941021]
-visible = false
-
-[node name="WallNorth" type="CSGBox3D" parent="Walls" unique_id=1164657401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
-use_collision = true
-size = Vector3(20, 5, 0.2)
-
-[node name="WallSouth" type="CSGBox3D" parent="Walls" unique_id=29249855]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
-use_collision = true
-size = Vector3(20, 5, 0.2)
-
-[node name="WallEast" type="CSGBox3D" parent="Walls" unique_id=853179053]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5, 0)
-use_collision = true
-size = Vector3(0.2, 5, 20)
-
-[node name="WallWestNorth" type="CSGBox3D" parent="Walls" unique_id=964540073]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, -6)
-use_collision = true
-size = Vector3(0.2, 5, 8)
-
-[node name="WallWestSouth" type="CSGBox3D" parent="Walls" unique_id=297403385]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 6)
-use_collision = true
-size = Vector3(0.2, 5, 8)
-
-[node name="WallWestRoom2" type="CSGBox3D" parent="Walls" unique_id=862691668]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2.5, 0)
-use_collision = true
-size = Vector3(0.2, 5, 20)
-
-[node name="WallNorthRoom2" type="CSGBox3D" parent="Walls" unique_id=842423164]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, -10)
-use_collision = true
-size = Vector3(20, 5, 0.2)
-
-[node name="WallSouthRoom2Left" type="CSGBox3D" parent="Walls" unique_id=1687993071]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2.5, 10)
-use_collision = true
-size = Vector3(8, 5, 0.2)
-
-[node name="WallSouthRoom2Right" type="CSGBox3D" parent="Walls" unique_id=1734043353]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 10)
-use_collision = true
-size = Vector3(8, 5, 0.2)
-
-[node name="Ceiling" type="CSGBox3D" parent="." unique_id=780473622]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-visible = false
-use_collision = true
-size = Vector3(20, 0.2, 20)
 
 [node name="Items" type="Node3D" parent="." unique_id=1048350633]
 
@@ -312,23 +238,39 @@ omni_range = 17.856
 omni_attenuation = 1.557
 omni_shadow_mode = 0
 
-[node name="Floor2" type="GridMap" parent="." unique_id=2009263426]
+[node name="Map" type="Node3D" parent="." unique_id=1331018373]
+
+[node name="Floor" type="GridMap" parent="Map" unique_id=2009263426]
 mesh_library = ExtResource("10_xuw2q")
 cell_size = Vector3(2, 0.2, 2)
 data = {
 "cells": PackedInt32Array(65534, 65533, 1, 65534, 65534, 1, 65534, 65535, 1, 65534, 0, 1, 65534, 1, 1, 65535, 65533, 1, 65535, 65534, 1, 65535, 65535, 1, 65535, 0, 1, 65535, 1, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 1, 65533, 1, 1, 65534, 1, 1, 65535, 1, 1, 0, 1, 1, 1, 1, 2, 65533, 1, 2, 65534, 1048577, 2, 65535, 1048577, 2, 0, 1048577, 2, 1, 1, 65534, 65528, 1, 65534, 65529, 1, 65534, 65530, 1, 65534, 65531, 1, 65534, 65532, 1, 65535, 65528, 1, 65535, 65529, 1, 65535, 65530, 1, 65535, 65531, 1, 65535, 65532, 1, 0, 65528, 1, 0, 65529, 1, 0, 65530, 1, 0, 65531, 1, 0, 65532, 1, 1, 65528, 1, 1, 65529, 1, 1, 65530, 1, 1, 65531, 1, 1, 65532, 1, 2, 65528, 1, 2, 65529, 1, 2, 65530, 1, 2, 65531, 1, 2, 65532, 1, 65534, 65524, 1, 65534, 65525, 1, 65534, 65526, 1, 65534, 65527, 1, 65535, 65524, 1, 65535, 65525, 1, 65535, 65526, 1, 65535, 65527, 1, 0, 65524, 1, 0, 65525, 1, 0, 65526, 1, 0, 65527, 1, 1, 65524, 1, 1, 65525, 1, 1, 65526, 1, 1, 65527, 1, 2, 65524, 1, 2, 65525, 1, 2, 65526, 1, 2, 65527, 1)
 }
 
-[node name="Wall2" type="GridMap" parent="." unique_id=1251331501]
+[node name="StraightWall" type="GridMap" parent="Map" unique_id=1251331501]
+mesh_library = ExtResource("10_28jj2")
+cell_size = Vector3(2, 0.2, 2)
+data = {
+"cells": PackedInt32Array(65533, 65534, 1048576, 65533, 65535, 1048576, 65533, 0, 1048576, 3, 65525, 1441792, 3, 65526, 1441792, 3, 65527, 1441792, 3, 65528, 1441792, 3, 65529, 1441792, 3, 65530, 1441792, 65533, 65525, 1048576, 65533, 65526, 1048578, 65533, 65527, 1048576, 65533, 65528, 1048576, 65533, 65529, 1048576, 65533, 65530, 1048576, 3, 65531, 1441792, 65533, 65531, 1048576, 65535, 65523, 0, 0, 65523, 0, 1, 65523, 0, 3, 0, 1441792, 3, 65535, 1441792, 3, 65534, 1441792, 3, 65532, 1441792, 3, 65533, 1441792, 65533, 65532, 1048576, 65533, 65533, 1048576, 3, 1, 1441792, 65533, 1, 1048576)
+}
+
+[node name="StraightWallTransparent" type="GridMap" parent="Map" unique_id=449926965]
 mesh_library = ExtResource("10_xuw2q")
 cell_size = Vector3(2, 0.2, 2)
 data = {
-"cells": PackedInt32Array(65535, 2, 655360, 0, 2, 655360, 1, 2, 655360, 3, 65534, 1441792, 3, 65535, 1441792, 3, 0, 1441792, 65535, 65532, 0, 0, 65532, 2, 1, 65532, 0, 65533, 65534, 1048576, 65533, 65535, 1048576, 65533, 0, 1048576, 3, 65525, 1441792, 3, 65526, 1441792, 3, 65527, 1441792, 3, 65528, 1441792, 3, 65529, 1441792, 3, 65530, 1441792, 65533, 65525, 1048576, 65533, 65526, 1048578, 65533, 65527, 1048576, 65533, 65528, 1048576, 65533, 65529, 1048576, 65533, 65530, 1048576, 3, 65531, 1441792, 65533, 65531, 1048576, 65535, 65523, 0, 0, 65523, 0, 1, 65523, 0)
+"cells": PackedInt32Array(65535, 2, 655360, 0, 2, 655360, 1, 2, 655360, 65535, 65532, 0, 0, 65532, 2, 1, 65532, 0)
 }
 
-[node name="Wall" type="GridMap" parent="." unique_id=863108169]
+[node name="WallCorner" type="GridMap" parent="Map" unique_id=863108169]
+mesh_library = ExtResource("10_28jj2")
+cell_size = Vector3(1, 0.2, 1)
+data = {
+"cells": PackedInt32Array(6, 65511, 3, 65531, 65511, 1048579)
+}
+
+[node name="WallCornerTransparent" type="GridMap" parent="Map" unique_id=493259454]
 mesh_library = ExtResource("10_xuw2q")
 cell_size = Vector3(1, 0.2, 1)
 data = {
-"cells": PackedInt32Array(6, 65529, 1441796, 6, 4, 1441795, 65531, 4, 655363, 65531, 65529, 1048580, 6, 65511, 3, 65531, 65511, 1048579)
+"cells": PackedInt32Array(6, 65529, 1441796, 6, 4, 1441795, 65531, 4, 655363, 65531, 65529, 1048580)
 }
