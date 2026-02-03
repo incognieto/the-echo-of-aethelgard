@@ -19,6 +19,10 @@ run/main_scene="uid://4xmvllydtgai"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+CursorManager="*res://scripts/systems/CursorManager.cs"
+
 [display]
 
 window/size/viewport_width=1280
