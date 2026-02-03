@@ -7,9 +7,12 @@ public partial class AutoDoor : StaticBody3D
 	[Export] public float InteractionDistance = 3.0f;
 	[Export] public float DestroyDuration = 2.0f;
 	[Export] public int ParticleCount = 200;
+	[Export] public float NotificationDuration = 2.0f;
 	
 	private Player _player;
 	private bool _playerNearby = false;
+	private Label3D _notificationLabel;
+	private float _notificationTimer = 0.0f;
 	private bool _isDestroyed = false;
 	private bool _isDestroying = false;
 	private float _destroyProgress = 0.0f;
@@ -54,7 +57,7 @@ public partial class AutoDoor : StaticBody3D
 		
 		// Create prompt label
 		_promptLabel = new Label3D();
-		_promptLabel.Text = "[E] Use Teal Potion on Door";
+		_promptLabel.Text = "[F] Use Teal Potion to destroy this door";
 		_promptLabel.Position = new Vector3(0, 2.5f, 0);
 		_promptLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		_promptLabel.FontSize = 24;
@@ -62,6 +65,17 @@ public partial class AutoDoor : StaticBody3D
 		_promptLabel.OutlineSize = 10;
 		_promptLabel.OutlineModulate = Colors.Black;
 		AddChild(_promptLabel);
+		
+		// Create notification label (for warnings)
+		_notificationLabel = new Label3D();
+		_notificationLabel.Text = "";
+		_notificationLabel.Position = new Vector3(0, 3.5f, 0);
+		_notificationLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
+		_notificationLabel.FontSize = 20;
+		_notificationLabel.Modulate = new Color(1, 0.5f, 0, 0); // Orange
+		_notificationLabel.OutlineSize = 10;
+		_notificationLabel.OutlineModulate = Colors.Black;
+		AddChild(_notificationLabel);
 	}
 	
 	private void OnBodyEntered(Node3D body)
@@ -89,11 +103,20 @@ public partial class AutoDoor : StaticBody3D
 		// Update prompt visibility
 		if (_promptLabel != null && !_isDestroyed)
 		{
-			bool canInteract = _playerNearby && HasTealPotion();
-			var targetAlpha = canInteract ? 1.0f : 0.0f;
+			var targetAlpha = _playerNearby ? 1.0f : 0.0f;
 			var currentAlpha = _promptLabel.Modulate.A;
 			var newAlpha = Mathf.Lerp(currentAlpha, targetAlpha, (float)delta * 5.0f);
 			_promptLabel.Modulate = new Color(0, 1, 1, newAlpha);
+		}
+		
+		// Update notification timer
+		if (_notificationTimer > 0.0f)
+		{
+			_notificationTimer -= (float)delta;
+			if (_notificationTimer <= 0.0f && _notificationLabel != null)
+			{
+				_notificationLabel.Modulate = new Color(1, 0.5f, 0, 0);
+			}
 		}
 		
 		// Handle destruction animation
@@ -154,24 +177,47 @@ public partial class AutoDoor : StaticBody3D
 	
 	public override void _Input(InputEvent @event)
 	{
-		if (_playerNearby && !_isDestroyed && !_isDestroying && @event.IsActionPressed("interact"))
+		if (_playerNearby && !_isDestroyed && !_isDestroying && @event.IsActionPressed("use_item"))
 		{
-			if (HasTealPotion())
+			if (IsHoldingTealPotion())
 			{
 				UseTealPotion();
+				GetViewport().SetInputAsHandled();
+			}
+			else
+			{
+				ShowNotification("Use Teal Potion to destroy this door!");
 				GetViewport().SetInputAsHandled();
 			}
 		}
 	}
 	
-	private bool HasTealPotion()
+	private bool IsHoldingTealPotion()
 	{
 		if (_player == null || _player._inventory == null)
 		{
 			return false;
 		}
 		
-		return _player._inventory.HasItem("teal_potion");
+		// Check if selected hotbar item is Teal Potion
+		var selectedItem = _player._inventory.GetSelectedHotbarItem();
+		if (selectedItem != null && selectedItem.Data.ItemId == "teal_potion")
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private void ShowNotification(string message)
+	{
+		if (_notificationLabel != null)
+		{
+			_notificationLabel.Text = message;
+			_notificationLabel.Modulate = new Color(1, 0.5f, 0, 1); // Orange, fully visible
+			_notificationTimer = NotificationDuration;
+			GD.Print($"⚠️ AutoDoor: {message}");
+		}
 	}
 	
 	private void UseTealPotion()
@@ -183,17 +229,10 @@ public partial class AutoDoor : StaticBody3D
 		
 		GD.Print("💧 Using Teal Potion on door...");
 		
-		// Remove teal potion from inventory
-		var items = _player._inventory.GetAllItems();
-		for (int i = 0; i < items.Count; i++)
-		{
-			if (items[i] != null && items[i].Data.ItemId == "teal_potion")
-			{
-				_player._inventory.RemoveItem(i, 1);
-				GD.Print("✓ Teal Potion consumed!");
-				break;
-			}
-		}
+		// Remove teal potion from selected hotbar slot
+		int selectedSlot = _player._inventory.GetSelectedHotbarSlot();
+		_player._inventory.RemoveItem(selectedSlot, 1);
+		GD.Print("✓ Teal Potion consumed from hotbar!");
 		
 		// Start destruction
 		StartDestruction();

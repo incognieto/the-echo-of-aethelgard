@@ -16,6 +16,10 @@ public partial class GameSetup : Node
 	{
 		GD.Print($"GameSetup: Game initialized - Level {CurrentLevel}");
 		
+		// Initialize cursor manager
+		var cursorManager = new CursorManager();
+		AddChild(cursorManager);
+		
 		// Start with fade-in effect
 		StartFadeIn();
 		

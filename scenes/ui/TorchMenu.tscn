@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://csj4nijrtmpyy"]
+
+[ext_resource type="Texture2D" uid="uid://mbivj04einrd" path="res://assets/sprites/mainmenuassets/Vector 29.png" id="1_5ptpj"]
+[ext_resource type="Script" uid="uid://dwj3eawtndyhq" path="res://scripts/ui/MainMenu/TorchLight.cs" id="2_hnb5k"]
+
+[sub_resource type="Gradient" id="Gradient_hnb5k"]
+offsets = PackedFloat32Array(0.24759616, 0.62259614)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rrmq2"]
+gradient = SubResource("Gradient_hnb5k")
+fill = 1
+fill_from = Vector2(0.5052083, 0.5017361)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1130348849]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1149342720]
+position = Vector2(7.4968166, 17.71975)
+scale = Vector2(0.31847134, 0.31847125)
+texture = ExtResource("1_5ptpj")
+offset = Vector2(11, 26)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=52834853]
+visible = false
+position = Vector2(5.9999995, 13.999999)
+scale = Vector2(0.318, 0.318)
+polygon = PackedVector2Array(50.5, -261.4, 48.199997, -261.5, -0.40000153, -261.5, -26.599998, -254.5, -31.5, -254.5, -56.5, -222.2, -56.5, -220.6, -62.1, -216.5, -64.4, -216.5, -65.5, -191.5, -65.5, -160.7, -62.5, -157.7, -62.5, -146.6, -41.4, -126.600006, -40.5, -114.399994, -40.5, -107, -47.5, -105, -47.5, -60.300003, -44.5, -47.5, -44.5, -42, -38.7, -31.5, -34.5, 38.600006, -34.5, 40.399994, -43.5, 46.399994, -43.5, 76.79999, -40.5, 87.5, -40.5, 91.29999, -35.3, 96.5, -34.5, 96.5, -34.5, 102.5, -33.4, 102.5, -28.5, 243.59998, -28.5, 272.7, -23.5, 295.90002, -23.5, 298.59998, -9.099998, 307.5, 2.199997, 307.5, 8.199997, 302.5, 9.900002, 302.5, 12.900002, 293.5, 14.300003, 293.5, 34.5, 110.600006, 34.5, 102.899994, 36.5, 97.899994, 36.5, 96.5, 42.1, 92.5, 44.199997, 92.5, 46.199997, 81.5, 47.699997, 81.5, 44.5, 50.299988, 44.5, 42.399994, 41.5, 40.399994, 49.5, -17.399994, 49.5, -26.200012, 51.5, -32.199997, 51.5, -33.699997, 61.300003, -42.5, 63.5, -42.5, 63.5, -83, 59.699997, -90.5, 58.5, -105.600006, 58.5, -113.5, 62.5, -127.2, 62.5, -128.8, 78.399994, -147.5, 80.3, -147.5, 83.3, -174.5, 84.5, -174.5, 84.5, -191, 81.5, -197, 81.5, -210.8, 75.5, -231.5, 75.5, -234.3, 50.5, -259.3)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1220260392]
+position = Vector2(9, -47)
+scale = Vector2(36.26172, 26.578127)
+color = Color(0.9461829, 0.83341664, 0.67442054, 1)
+energy = 1.5
+range_z_max = 1022
+range_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_rrmq2")
+offset = Vector2(-0.20338246, -2.3139324)
+script = ExtResource("2_hnb5k")
+MinEnergy = 1.2
+MaxEnergy = 1.6

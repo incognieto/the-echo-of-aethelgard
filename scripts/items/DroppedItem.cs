@@ -30,19 +30,14 @@ public partial class DroppedItem : RigidBody3D
 
 	public override void _Ready()
 	{
-		// Create mesh for visual
+		// Create mesh for visual - akan diupdate ukurannya di Initialize()
 		_mesh = new MeshInstance3D();
-		var sphereMesh = new SphereMesh();
-		sphereMesh.Radius = 0.25f;
-		sphereMesh.Height = 0.5f;
-		_mesh.Mesh = sphereMesh;
+		_mesh.Name = "DroppedMesh";
 		AddChild(_mesh);
 		
-		// Create collision shape
+		// Create collision shape - akan diupdate ukurannya di Initialize()
 		var collisionShape = new CollisionShape3D();
-		var shape = new SphereShape3D();
-		shape.Radius = 0.25f;
-		collisionShape.Shape = shape;
+		collisionShape.Name = "CollisionShape";
 		AddChild(collisionShape);
 		
 		// Create label untuk quantity
@@ -125,33 +120,40 @@ public partial class DroppedItem : RigidBody3D
 		_itemData = itemData;
 		_quantity = quantity;
 		
-		// Cek apakah ini item berat (batu) berdasarkan ItemId
-		_isHeavyItem = itemData.ItemId.Contains("stone") || itemData.ItemId.Contains("rock") || itemData.ItemId.Contains("weight");
+		// Tentukan ukuran sphere berdasarkan VisualScale
+		float finalRadius = 0.25f; // Default radius untuk item biasa
 		
-		// Set scale - FORCE normalize untuk heavy items
-		if (_isHeavyItem)
+		// Cek apakah ini WeightItem (batu) berdasarkan ItemId
+		if (itemData.ItemId.StartsWith("stone_"))
 		{
-			_originalScale = Vector3.One; // Always normalize heavy items
-			Scale = Vector3.One;
-			GD.Print($"🟢 Heavy item - forcing normalized scale: {itemData.ItemName}");
+			// Untuk WeightItem (batu), gunakan rumus: radius = 0.5 × VisualScale
+			// Karena di scene asli, SphereMesh radius = 0.5, lalu di-scale oleh mesh child
+			finalRadius = 0.5f * itemData.VisualScale;
+			_isHeavyItem = true;
+			Mass = 0.5f * itemData.VisualScale;
+			
+			GD.Print($"DroppedItem: {itemData.ItemName}, VisualScale: {itemData.VisualScale}, Radius: {finalRadius}");
 		}
-		else
+		
+		// Create sphere mesh dengan radius yang sesuai
+		var sphereMesh = new SphereMesh();
+		sphereMesh.Radius = finalRadius;
+		sphereMesh.Height = finalRadius * 2;
+		_mesh.Mesh = sphereMesh;
+		
+		// Create collision shape dengan radius yang sesuai
+		var collisionShape = GetNodeOrNull<CollisionShape3D>("CollisionShape");
+		if (collisionShape != null)
 		{
-			// Non-heavy items: use provided scale or default
-			if (scale == default)
-			{
-				_originalScale = Vector3.One;
-			}
-			else
-			{
-				_originalScale = scale;
-				Scale = scale;
-			}
+			var shape = new SphereShape3D();
+			shape.Radius = finalRadius;
+			collisionShape.Shape = shape;
 		}
 		
 		if (_label != null)
 		{
 			_label.Text = quantity > 1 ? $"{itemData.ItemName} x{quantity}" : itemData.ItemName;
+			_label.Position = new Vector3(0, finalRadius * 2, 0); // Label di atas sphere
 		}
 		
 		// NO pickup cooldown untuk heavy items agar bisa langsung diambil lagi

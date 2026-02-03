@@ -64,7 +64,23 @@ public partial class QuantityPickerUI : Control
 		// Find InventoryUI
 		CallDeferred(nameof(FindInventoryUI));
 		
+		// Setup cursor hover effects
+		SetupButtonHoverEffects();
+		
 		GD.Print("✓ QuantityPickerUI ready!");
+	}
+	
+	private void SetupButtonHoverEffects()
+	{
+		var buttons = new[] { _minusButton, _plusButton, _confirmButton, _cancelButton };
+		foreach (var button in buttons)
+		{
+			if (button != null)
+			{
+				button.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+				button.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+			}
+		}
 	}
 	
 	private void FindInventoryUI()

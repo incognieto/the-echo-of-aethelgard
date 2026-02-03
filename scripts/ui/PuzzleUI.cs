@@ -81,7 +81,27 @@ public partial class PuzzleUI : Control
 	// Find InventoryUI
 	CallDeferred(nameof(FindInventoryUI));
 	
+	// Setup cursor hover effects
+	SetupButtonHoverEffects();
+	
 	UpdateDisplay();
+}
+
+private void SetupButtonHoverEffects()
+{
+	foreach (var button in _symbolButtons)
+	{
+		if (button != null)
+		{
+			button.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+			button.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+		}
+	}
+	if (_closeButton != null)
+	{
+		_closeButton.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+		_closeButton.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+	}
 }
 
 private void FindInventoryUI()

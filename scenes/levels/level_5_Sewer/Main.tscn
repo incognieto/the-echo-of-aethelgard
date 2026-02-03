@@ -107,7 +107,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.7
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
 [node name="Small Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1676649959]
-transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, -6.333789, 3.163219, 11.288057)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.333789, 3.3805945, 11.288057)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
 ItemName = "Small Rock"
@@ -121,63 +121,63 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84207463, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Medium Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=348885335]
-transform = Transform3D(1.14, 0, 0, 0, 1.14, 0, 0, 0, 1.14, -6.333789, 3.6528404, 15.617718)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.333789, 3.531709, 15.617718)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
 ItemId = "stone_15"
 ItemName = "Medium Rock"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Medium Rock" unique_id=2029920545]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84069824, 0)
+transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, -0.84069824, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Medium Rock" unique_id=949168403]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84207463, 0)
+transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, -0.84207463, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Heavy Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1793016969]
-transform = Transform3D(1.49, 0, 0, 0, 1.49, 0, 0, 0, 1.49, -2.5159245, 3.6528404, 16.279335)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5159245, 3.6528404, 16.279335)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
 ItemId = "stone_20"
 ItemName = "Heavy Rock"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Heavy Rock" unique_id=665142675]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5687493, 0)
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0.14514256, -0.79420686, -0.6556554)
 mesh = SubResource("SphereMesh_j0lb3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Heavy Rock" unique_id=1615056775]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5701257, 0)
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0.14514256, -0.7955835, -0.6556554)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1218040056]
-transform = Transform3D(1.49, 0, 0, 0, 1.49, 0, 0, 0, 1.49, -2.5159245, 3.6528404, 12.100311)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7554007, 3.2209747, 11.967998)
 script = ExtResource("6_jlque")
 WeightValue = 30.0
 ItemId = "stone_30"
 ItemName = "Huge Rock"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Huge Rock" unique_id=457186175]
-transform = Transform3D(1.3900002, 0, 0, 0, 1.3900002, 0, 0, 0, 1.3900002, 0, -0.37562108, -0.44315648)
+transform = Transform3D(2.005, 0, 0, 0, 2.005, 0, 0, 0, 2.005, 0, -0.37562108, -0.44315648)
 mesh = SubResource("SphereMesh_j0lb3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Huge Rock" unique_id=774888146]
-transform = Transform3D(1.3900002, 0, 0, 0, 1.3900002, 0, 0, 0, 1.3900002, 0, -0.3769977, -0.44315648)
+transform = Transform3D(2.005, 0, 0, 0, 2.005, 0, 0, 0, 2.005, 0, -0.3769977, -0.44315648)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Gigantic Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=136407317]
-transform = Transform3D(1.49, 0, 0, 0, 1.49, 0, 0, 0, 1.49, 1.5430965, 3.7407653, 12.100311)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5430965, 3.7407653, 12.100311)
 script = ExtResource("6_jlque")
 WeightValue = 40.0
 ItemId = "stone_40"
 ItemName = "Gigantic  Rock"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Gigantic Rock" unique_id=2096904945]
-transform = Transform3D(1.94, 0, 0, 0, 1.94, 0, 0, 0, 1.94, 0, -0.37562108, -0.44315648)
+transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, -0.37562108, -0.44315648)
 mesh = SubResource("SphereMesh_j0lb3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Gigantic Rock" unique_id=1711476922]
-transform = Transform3D(1.94, 0, 0, 0, 1.94, 0, 0, 0, 1.94, 0, -0.3769977, -0.44315648)
+transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, -0.3769977, -0.44315648)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="PulleySystem" type="Node3D" parent="Sewer" unique_id=322113394 node_paths=PackedStringArray("GateObject", "StatusLabel")]
