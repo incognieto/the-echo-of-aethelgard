@@ -3,271 +3,123 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
+	[ExportGroup("Movement")]
 	[Export] public float Speed = 7.0f;
 	[Export] public float JumpVelocity = 4.5f;
+	[Export] public float RotationSpeed = 10.0f; // Kecepatan putar karakter
+	
+	[ExportGroup("Interaction")]
 	[Export] public float MouseSensitivity = 0.002f;
 	[Export] public float ThrowForce = 10.0f;
 	[Export] public PackedScene DroppedItemScene;
 
+	// Node References
 	private Node3D _head;
 	private Camera3D _camera;
-	public InventorySystem _inventory; // Public agar bisa diakses dari MaterialItem
+	private Node3D _visualNode;
+	public InventorySystem _inventory; 
 	private InventoryUI _inventoryUI;
 	private BookUI _bookUI;
 	
+	// Rotation Logic
+	private float _lastTargetAngle = 0f;
+
 	// Camera mode variables
 	private enum CameraMode { FirstPerson, Isometric }
 	private CameraMode _currentCameraMode = CameraMode.FirstPerson;
-	private Vector3 _isometricOffset = new Vector3(0, 100, 0); // Offset untuk isometric view
-	private float _isometricAngle = -45f; // Sudut kamera isometric (derajat)
-	private float _isometricRotation = 45f; // Rotasi horizontal kamera (derajat)
-	private bool _isRotatingCamera = false; // Flag untuk drag rotation
-	private float _isometricRotationSensitivity = 0.15f; // Sensitivity untuk rotasi kamera isometric (bisa di-adjust)
-	private Vector2 _lastMousePosition = Vector2.Zero;
-	private Area3D _pickupArea; // Area untuk detect items di isometric mode
-	private PickableItem _nearestItem = null; // Item terdekat di isometric mode
-	private DroppedItem _nearestDroppedItem = null; // Dropped item terdekat di isometric mode
+	private Vector3 _isometricOffset = new Vector3(0, 10, 5); 
+	private float _isometricRotation = 45f; 
+	private Area3D _pickupArea; 
+	private PickableItem _nearestItem = null; 
+	private DroppedItem _nearestDroppedItem = null; 
 
 	public override void _Ready()
 	{
-		// Dapatkan referensi ke node Head dan Camera
 		_head = GetNode<Node3D>("Head");
 		_camera = _head.GetNode<Camera3D>("Camera3D");
+		_visualNode = GetNode<Node3D>("Player"); 
 		
-		// Dapatkan referensi ke Inventory System
 		_inventory = GetNode<InventorySystem>("InventorySystem");
 		
-		// Connect inventory UI - gunakan CallDeferred untuk memastikan semua node ready
 		CallDeferred(nameof(ConnectInventoryUI));
-		
-		// Setup pickup area untuk isometric mode
 		SetupPickupArea();
 		
-		//_camera.Projection = Camera3D.ProjectionType.Orthogonal;
-		
 		Rotation = Vector3.Zero;
-	_head.Rotation = Vector3.Zero;
-		
+		_head.Rotation = Vector3.Zero;
 		_camera.Projection = Camera3D.ProjectionType.Perspective;
-		_camera.Fov = 60.0f; 
+		_camera.Fov = 50.0f; 
 
 		_currentCameraMode = CameraMode.Isometric;
-		
 		Input.MouseMode = Input.MouseModeEnum.Visible;
-		
-		
 	}
 	
 	private void ConnectInventoryUI()
 	{
-		// Try beberapa kemungkinan path
-		_inventoryUI = GetNodeOrNull<InventoryUI>("/root/Main/UI/InventoryUI");
+		_inventoryUI = GetNodeOrNull<InventoryUI>("/root/Main/UI/InventoryUI") ?? GetTree().Root.GetNodeOrNull<InventoryUI>("Main/UI/InventoryUI");
+		_bookUI = GetNodeOrNull<BookUI>("/root/Main/UI/BookUI") ?? GetTree().Root.GetNodeOrNull<BookUI>("Main/UI/BookUI");
 		
-		if (_inventoryUI == null)
-		{
-			// Try relative path
-			_inventoryUI = GetTree().Root.GetNodeOrNull<InventoryUI>("Main/UI/InventoryUI");
-		}
-		
-		// Get BookUI reference
-		_bookUI = GetNodeOrNull<BookUI>("/root/Main/UI/BookUI");
-		if (_bookUI == null)
-		{
-			_bookUI = GetTree().Root.GetNodeOrNull<BookUI>("Main/UI/BookUI");
-		}
-		
-		if (_inventoryUI != null && _inventory != null)
-		{
-			_inventoryUI.SetInventory(_inventory);
-			GD.Print("✓ Player: InventoryUI connected successfully!");
-		}
-		else
-		{
-			GD.PrintErr($"✗ Player: Failed to connect UI - UI exists: {_inventoryUI != null}, Inventory exists: {_inventory != null}");
-			
-			// Debug: Print available nodes
-			if (_inventoryUI == null)
-			{
-				GD.Print("Attempting to find InventoryUI in tree...");
-				var main = GetTree().Root.GetNodeOrNull("Main");
-				if (main != null)
-				{
-					GD.Print($"Main node found, children: {main.GetChildCount()}");
-					foreach (Node child in main.GetChildren())
-					{
-						GD.Print($"  - {child.Name} ({child.GetType().Name})");
-						if (child is CanvasLayer canvas)
-						{
-							GD.Print($"    CanvasLayer children: {canvas.GetChildCount()}");
-							foreach (Node subchild in canvas.GetChildren())
-							{
-								GD.Print($"      - {subchild.Name} ({subchild.GetType().Name})");
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		if (_bookUI != null)
-		{
-			GD.Print("✓ Player: BookUI connected successfully!");
-		}
-		else
-		{
-			GD.Print("ℹ Player: BookUI not found (not required for this level)");
-		}
+		if (_inventoryUI != null && _inventory != null) _inventoryUI.SetInventory(_inventory);
+		if (_inventoryUI != null) GD.Print("✓ Player: InventoryUI connected successfully!");
+		if (_bookUI != null) GD.Print("✓ Player: BookUI connected successfully!");
 	}
 	
 	private void SetupPickupArea()
 	{
-		// Create Area3D untuk proximity detection di isometric mode
 		_pickupArea = new Area3D();
 		AddChild(_pickupArea);
-		
 		var shape = new CollisionShape3D();
-		var sphereShape = new SphereShape3D();
-		sphereShape.Radius = 2.0f; // 2 meter radius
-		shape.Shape = sphereShape;
+		shape.Shape = new SphereShape3D { Radius = 2.0f };
 		_pickupArea.AddChild(shape);
 		
-		_pickupArea.BodyEntered += OnPickupAreaEntered;
-		_pickupArea.BodyExited += OnPickupAreaExited;
-		
-		GD.Print("✓ Pickup area created for isometric mode");
-	}
-	
-	private void OnPickupAreaEntered(Node3D body)
-	{
-		if (_currentCameraMode == CameraMode.Isometric)
-		{
-			if (body is PickableItem pickable)
-			{
-				_nearestItem = pickable;
-				GD.Print($"Item in range: {pickable.GetItemData().ItemName}");
+		_pickupArea.BodyEntered += (body) => {
+			if (_currentCameraMode == CameraMode.Isometric) {
+				if (body is PickableItem p) _nearestItem = p;
+				else if (body is DroppedItem d) _nearestDroppedItem = d;
 			}
-			else if (body is DroppedItem dropped)
-			{
-				_nearestDroppedItem = dropped;
-				GD.Print($"Dropped item in range: {dropped.GetItemData().ItemName}");
-			}
-		}
-	}
-	
-	private void OnPickupAreaExited(Node3D body)
-	{
-		if (body is PickableItem pickable && _nearestItem == pickable)
-		{
-			_nearestItem = null;
-		}
-		else if (body is DroppedItem dropped && _nearestDroppedItem == dropped)
-		{
-			_nearestDroppedItem = null;
-		}
+		};
+		_pickupArea.BodyExited += (body) => {
+			if (body == _nearestItem) _nearestItem = null;
+			if (body == _nearestDroppedItem) _nearestDroppedItem = null;
+		};
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		// Check if any UI panel is open - disable camera rotation if true
 		bool anyPanelOpen = InventoryUI.IsAnyPanelOpen;
 		
-		// Handle mouse movement untuk rotasi kamera (hanya di FPP mode)
-		if (@event is InputEventMouseMotion motionEvent)
+		if (@event is InputEventMouseMotion motionEvent && !anyPanelOpen)
 		{
-			// Skip camera rotation if any panel is open
-			if (anyPanelOpen)
-				return;
-			
-			if (Input.MouseMode == Input.MouseModeEnum.Captured && 
-				_currentCameraMode == CameraMode.FirstPerson)
+			if (Input.MouseMode == Input.MouseModeEnum.Captured && _currentCameraMode == CameraMode.FirstPerson)
 			{
-				// FPP: Rotasi horizontal (Y-axis) pada player body
 				RotateY(-motionEvent.Relative.X * MouseSensitivity);
-				
-				// Rotasi vertical (X-axis) pada head
 				_head.RotateX(-motionEvent.Relative.Y * MouseSensitivity);
-				
-				// Batasi rotasi vertical agar tidak terlalu ke atas/bawah
-				Vector3 headRotation = _head.Rotation;
-				headRotation.X = Mathf.Clamp(headRotation.X, -Mathf.Pi / 2, Mathf.Pi / 2);
-				_head.Rotation = headRotation;
-			}
-			else if (_currentCameraMode == CameraMode.Isometric)
-			{
-				// Isometric: Rotate camera dengan mouse movement langsung (no click needed)
-				//_isometricRotation -= motionEvent.Relative.X * _isometricRotationSensitivity;
+				Vector3 headRot = _head.Rotation;
+				headRot.X = Mathf.Clamp(headRot.X, -Mathf.Pi / 2, Mathf.Pi / 2);
+				_head.Rotation = headRot;
 			}
 		}
 		
-		// Toggle mouse mode dengan ESC
 		if (@event.IsActionPressed("ui_cancel"))
-		{
-			if (Input.MouseMode == Input.MouseModeEnum.Captured)
-				Input.MouseMode = Input.MouseModeEnum.Visible;
-			else
-				Input.MouseMode = Input.MouseModeEnum.Captured;
-		}
+			Input.MouseMode = (Input.MouseMode == Input.MouseModeEnum.Captured) ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
 		
-		// Interaksi dengan objek menggunakan E
-		if (@event.IsActionPressed("interact"))
-		{
-			TryPickupItem();
-		}
+		if (@event.IsActionPressed("interact")) TryPickupItem();
+		if (@event.IsActionPressed("drop_item")) DropItem(false);
+		if (@event.IsActionPressed("drop_stack")) DropItem(true);
+		if (@event.IsActionPressed("toggle_inventory")) ToggleInventory();
+		if (@event.IsActionPressed("use_item")) UseSelectedItem();
+		if (@event.IsActionPressed("toggle_camera")) ToggleCameraMode();
 		
-		// Drop item dengan Q
-		if (@event.IsActionPressed("drop_item"))
-		{
-			DropItem(false); // Drop 1 item
-		}
-		
-		// Drop seluruh stack dengan Ctrl+Q
-		if (@event.IsActionPressed("drop_stack"))
-		{
-			DropItem(true); // Drop semua
-		}
-		
-		// Toggle inventory dengan Tab atau I
-		if (@event.IsActionPressed("toggle_inventory"))
-		{
-			ToggleInventory();
-		}
-		
-		// Hotbar selection (1-6)
 		for (int i = 1; i <= 6; i++)
-		{
-			if (@event.IsActionPressed($"hotbar_{i}"))
-			{
-				_inventory.SelectHotbarSlot(i - 1);
-			}
-		}
-		
-		// Use item dengan F
-		if (@event.IsActionPressed("use_item"))
-		{
-			UseSelectedItem();
-		}
-		
-		// Toggle camera mode dengan C
-		if (@event.IsActionPressed("toggle_camera"))
-		{
-			ToggleCameraMode();
-		}
+			if (@event.IsActionPressed($"hotbar_{i}")) _inventory.SelectHotbarSlot(i - 1);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
+		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
 
-		// Add gravity
-		if (!IsOnFloor())
-		{
-			velocity += GetGravity() * (float)delta;
-		}
-
-		// Block movement when any panel is open
 		if (InventoryUI.IsAnyPanelOpen)
 		{
-			// Stop horizontal movement
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
 			Velocity = velocity;
@@ -275,277 +127,94 @@ public partial class Player : CharacterBody3D
 			return;
 		}
 
-		// Handle Jump
-		//if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		//{
-			//velocity.Y = JumpVelocity;
-		//}
-
-		// Get input direction (WASD)
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
 		
-				// Ganti dengan ini:
-		// Ambil arah depan dan kanan dari kamera
 		Vector3 cameraForward = -_camera.GlobalTransform.Basis.Z;
 		Vector3 cameraRight = _camera.GlobalTransform.Basis.X;
-
-		// Nolkan sumbu Y agar player tidak jalan menembus lantai atau melayang
-		cameraForward.Y = 0;
-		cameraRight.Y = 0;
+		cameraForward.Y = 0; cameraRight.Y = 0;
 		cameraForward = cameraForward.Normalized();
 		cameraRight = cameraRight.Normalized();
 
-		// Kalkulasi arah berdasarkan input WASD relatif terhadap kamera
-		// inputDir.Y adalah forward/backward (W/S), inputDir.X adalah right/left (D/A)
 		Vector3 direction = (cameraForward * -inputDir.Y + cameraRight * inputDir.X).Normalized();
 
 		if (direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
+
+			// FIX: Selama ada input, target angle LANGSUNG mengikuti direction (tidak kaku/maksa)
+			_lastTargetAngle = Mathf.Atan2(-direction.X, -direction.Z);
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			// Pas dilepas, _lastTargetAngle TIDAK berubah, jadi rotasi bakal nyelesain ke posisi terakhir
+		}
+
+		// Rotasi Visual: Selalu berjalan (Interpolasi)
+		if (_visualNode != null)
+		{
+			float currentAngle = _visualNode.Rotation.Y;
+			// LerpAngle memastikan transisi halus pas ganti input maupun pas berhenti
+			float newAngle = (float)Mathf.LerpAngle(currentAngle, _lastTargetAngle, delta * RotationSpeed);
+			_visualNode.Rotation = new Vector3(0, newAngle, 0);
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
+		RenderingServer.GlobalShaderParameterSet("player_pos", GlobalPosition);
 	}
 	
 	private void TryPickupItem()
 	{
 		if (_currentCameraMode == CameraMode.Isometric)
 		{
-			// Priority: DroppedItem heavy items first, then regular PickableItems
-			if (_nearestDroppedItem != null && _nearestDroppedItem.IsHeavyItem())
-			{
-				GD.Print($"🏋️ Isometric: Trying to pickup dropped heavy item: {_nearestDroppedItem.GetItemData().ItemName}");
-				_nearestDroppedItem.StartPickup(this);
-				return;
-			}
-			else if (_nearestDroppedItem != null)
-			{
-				GD.Print($"⚠️ Isometric: DroppedItem nearby but not heavy: {_nearestDroppedItem.GetItemData().ItemName}");
-			}
-			
-			// Isometric: Gunakan proximity detection
+			if (_nearestDroppedItem != null && _nearestDroppedItem.IsHeavyItem()) { _nearestDroppedItem.StartPickup(this); return; }
 			if (_nearestItem != null)
 			{
-				GD.Print($"Nearest item type: {_nearestItem.GetType().Name}");
-				
-				// Check if it's a WeightItem (needs hold-to-pickup)
-				if (_nearestItem is WeightItem weightItem)
-				{
-					GD.Print($"Trying to pickup heavy item: {weightItem.ItemName}");
-					if (!weightItem.IsBeingPickedUp())
-					{
-						weightItem.StartPickup(this);
-					}
-					return;
-				}
-				
-				// Check if it's a MaterialItem (needs quantity picker)
-				if (_nearestItem.GetType().Name == "MaterialItem")
-				{
-					var materialItem = _nearestItem as MaterialItem;
-					if (materialItem != null)
-					{
-						GD.Print($"Trying to pickup material (quantity picker): {materialItem.ItemName}");
-						materialItem.PickupWithQuantity(this);
-						_nearestItem = null;
-						return;
-					}
-				}
-				
-				// Regular item - pickup 1
-				ItemData itemData = _nearestItem.GetItemData();
-				GD.Print($"Trying to pickup regular item (proximity): {itemData.ItemName}");
-				
-				if (_inventory != null)
-				{
-					bool added = _inventory.AddItem(itemData, 1);
-					if (added)
-					{
-						_nearestItem.Pickup();
-						_nearestItem = null;
-						GD.Print($"✓ Successfully picked up: {itemData.ItemName}");
-						_inventory.PrintInventory();
-					}
-					else
-					{
-						GD.Print("✗ Inventory penuh!");
-					}
-				}
-			}
-			else
-			{
-				GD.Print("No item nearby in isometric mode");
-			}
-			return;
-		}
-		
-		// FPP: Raycast dari kamera ke depan
-		var spaceState = GetWorld3D().DirectSpaceState;
-		var cameraTransform = _camera.GlobalTransform;
-		var from = cameraTransform.Origin;
-		var to = from - cameraTransform.Basis.Z * 3.0f; // 3 meter reach distance
-		
-		var query = PhysicsRayQueryParameters3D.Create(from, to);
-		query.CollideWithBodies = true; // Pastikan bisa hit StaticBody3D AND RigidBody3D
-		query.CollideWithAreas = true;
-		
-		var result = spaceState.IntersectRay(query);
-		
-		if (result.Count > 0)
-		{
-			var collider = result["collider"].As<Node>();
-			GD.Print($"🎯 Raycast hit: {collider.Name} (Type: {collider.GetType().Name})");
-			
-			// Check if it's a DroppedItem (RigidBody3D)
-			if (collider is DroppedItem droppedItem)
-			{
-				GD.Print($"✅ FPP Mode - Found DroppedItem: {droppedItem.GetItemData().ItemName}, IsHeavy: {droppedItem.IsHeavyItem()}");
-				
-				// Check if it's a heavy item
-				if (droppedItem.IsHeavyItem())
-				{
-					GD.Print($"🏋️ FPP: Trying to pickup dropped heavy item: {droppedItem.GetItemData().ItemName}");
-					droppedItem.StartPickup(this);
-					return;
-				}
-				else
-				{
-					GD.Print("⚠️ DroppedItem is not heavy - should auto-pickup");
-				}
-				// Regular dropped items auto-pickup on proximity, no need to handle here
-				return;
-			}
-			
-			// Check jika objek adalah PickableItem
-			if (collider is PickableItem pickable)
-			{
-				GD.Print($"FPP Mode - Item type: {pickable.GetType().Name}");
-				
-				// Check if it's a poster (BookItem with poster mode) - posters are not pickable
-				if (pickable is BookItem bookItem && bookItem.ItemId == "recipe_poster")
-				{
-					GD.Print("📋 This is a poster - use E to read, cannot be picked up");
-					return;
-				}
-				
-				// Check if it's a WeightItem (needs hold-to-pickup)
-				if (pickable is WeightItem weightItem)
-				{
-					GD.Print($"FPP: Trying to pickup heavy item: {weightItem.ItemName}");
-					if (!weightItem.IsBeingPickedUp())
-					{
-						weightItem.StartPickup(this);
-					}
-					return;
-				}
-				
-				// Check if it's a MaterialItem (needs quantity picker)
-				if (pickable.GetType().Name == "MaterialItem")
-				{
-					var materialItem = pickable as MaterialItem;
-					if (materialItem != null)
-					{
-						GD.Print($"FPP: Trying to pickup material (quantity picker): {materialItem.ItemName}");
-						materialItem.PickupWithQuantity(this);
-						return;
-					}
-				}
-				
-				// Regular item - pickup 1
-				ItemData itemData = pickable.GetItemData();
-				GD.Print($"FPP: Trying to pickup regular item: {itemData.ItemName}");
-				
-				if (_inventory != null)
-				{
-					bool added = _inventory.AddItem(itemData, 1);
-					if (added)
-					{
-						pickable.Pickup();
-						GD.Print($"✓ Successfully picked up: {itemData.ItemName}");
-						_inventory.PrintInventory(); // Debug print inventory
-					}
-					else
-					{
-						GD.Print("✗ Inventory penuh!");
-					}
-				}
-				else
-				{
-					GD.PrintErr("✗ Inventory system is NULL!");
-				}
-			}
-			else
-			{
-				GD.Print($"Hit object: {collider.Name}, but it's not a PickableItem");
+				if (_nearestItem is WeightItem weightItem) { if (!weightItem.IsBeingPickedUp()) weightItem.StartPickup(this); return; }
+				if (_nearestItem.GetType().Name == "MaterialItem") { ((MaterialItem)_nearestItem).PickupWithQuantity(this); _nearestItem = null; return; }
+				if (_inventory.AddItem(_nearestItem.GetItemData(), 1)) { _nearestItem.Pickup(); _nearestItem = null; }
 			}
 		}
-		else
+		else // FPP Raycast
 		{
-			GD.Print("No object in range");
+			var space = GetWorld3D().DirectSpaceState;
+			var from = _camera.GlobalTransform.Origin;
+			var to = from - _camera.GlobalTransform.Basis.Z * 3.0f;
+			var res = space.IntersectRay(PhysicsRayQueryParameters3D.Create(from, to));
+			if (res.Count > 0)
+			{
+				var col = res["collider"].As<Node>();
+				if (col is DroppedItem d && d.IsHeavyItem()) { d.StartPickup(this); return; }
+				if (col is PickableItem p)
+				{
+					if (p is BookItem b && b.ItemId == "recipe_poster") return;
+					if (p is WeightItem w) { if (!w.IsBeingPickedUp()) w.StartPickup(this); return; }
+					if (p.GetType().Name == "MaterialItem") { ((MaterialItem)p).PickupWithQuantity(this); return; }
+					if (_inventory.AddItem(p.GetItemData(), 1)) p.Pickup();
+				}
+			}
 		}
 	}
 	
 	private void DropItem(bool dropAll = false)
 	{
-		if (DroppedItemScene == null)
+		if (DroppedItemScene == null) return;
+		InventoryItem sel = _inventory.GetSelectedHotbarItem();
+		if (sel == null || sel.Data.IsKeyItem) return;
+		int qty = dropAll ? sel.Quantity : 1;
+		InventoryItem dropped = _inventory.DropSelectedItem(qty);
+		if (dropped != null)
 		{
-			GD.PrintErr("DroppedItemScene belum di-set!");
-			return;
-		}
-
-		InventoryItem selectedItem = _inventory.GetSelectedHotbarItem();
-		if (selectedItem == null) return;
-		
-		// Check if this is a key item
-		if (selectedItem.Data.IsKeyItem)
-		{
-			GD.Print($"Cannot drop {selectedItem.Data.ItemName} - This is a key item!");
-			// TODO: Show UI warning message
-			return;
-		}
-
-		int quantityToDrop = dropAll ? selectedItem.Quantity : 1;
-		InventoryItem droppedItem = _inventory.DropSelectedItem(quantityToDrop);
-		
-		if (droppedItem != null)
-		{
-			// Spawn dropped item di dunia
-			var droppedInstance = DroppedItemScene.Instantiate<DroppedItem>();
-			GetTree().Root.AddChild(droppedInstance);
-			
-			// Posisi di depan player
-			Vector3 dropPosition = GlobalPosition + _camera.GlobalTransform.Basis.Z * -1.5f;
-			dropPosition.Y = GlobalPosition.Y + 1.0f;
-			droppedInstance.GlobalPosition = dropPosition;
-			
-			// Check if weight/stone item - ALWAYS use default scale (will be normalized in Initialize)
-			bool isWeightItem = droppedItem.Data.ItemId.Contains("stone") || 
-								droppedItem.Data.ItemId.Contains("rock") || 
-								droppedItem.Data.ItemId.Contains("weight");
-			
-			if (isWeightItem)
-			{
-				// Pass default scale for weight items - will be normalized to Vector3.One
-				droppedInstance.Initialize(droppedItem.Data, droppedItem.Quantity);
-				GD.Print($"Dropped WEIGHT item: {droppedItem.Data.ItemName} x{droppedItem.Quantity} - Will be normalized");
-			}
-			else
-			{
-				// Non-weight items: preserve original scale
-				droppedInstance.Initialize(droppedItem.Data, droppedItem.Quantity, droppedItem.Data.OriginalScale);
-				GD.Print($"Dropped regular item: {droppedItem.Data.ItemName} x{droppedItem.Quantity} - Scale: {droppedItem.Data.OriginalScale}");
-			}
-			
-			// Throw item
-			Vector3 throwDirection = -_camera.GlobalTransform.Basis.Z;
-			droppedInstance.Throw(throwDirection * ThrowForce);
+			var inst = DroppedItemScene.Instantiate<DroppedItem>();
+			GetTree().Root.AddChild(inst);
+			inst.GlobalPosition = GlobalPosition + _camera.GlobalTransform.Basis.Z * -1.5f + Vector3.Up;
+			bool isWeight = dropped.Data.ItemId.Contains("stone") || dropped.Data.ItemId.Contains("weight");
+			if (isWeight) inst.Initialize(dropped.Data, dropped.Quantity);
+			else inst.Initialize(dropped.Data, dropped.Quantity, dropped.Data.OriginalScale);
+			inst.Throw(-_camera.GlobalTransform.Basis.Z * ThrowForce);
 		}
 	}
 	
@@ -554,122 +223,36 @@ public partial class Player : CharacterBody3D
 		if (_inventoryUI != null)
 		{
 			_inventoryUI.Toggle();
-			
-			// Toggle mouse mode - only capture if NO panels are open
-			if (_inventoryUI.IsInventoryVisible())
-			{
-				Input.MouseMode = Input.MouseModeEnum.Visible;
-			}
-			else
-			{
-				// Only capture mouse if no other panels are open
-				if (!InventoryUI.IsAnyPanelOpen)
-				{
-					Input.MouseMode = Input.MouseModeEnum.Captured;
-				}
-			}
+			Input.MouseMode = _inventoryUI.IsInventoryVisible() ? Input.MouseModeEnum.Visible : (InventoryUI.IsAnyPanelOpen ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured);
 		}
 	}
 	
-	public InventorySystem GetInventory()
-	{
-		return _inventory;
-	}
+	public InventorySystem GetInventory() => _inventory;
 	
 	private void ToggleCameraMode()
 	{
-		if (_currentCameraMode == CameraMode.FirstPerson)
-		{
-			// Switch to Isometric
-			_currentCameraMode = CameraMode.Isometric;
-			SetIsometricCamera();
-			if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(false);
-			GD.Print("Camera Mode: Isometric (Right-click drag to rotate)");
-		}
-		else
-		{
-			// Switch to First Person
-			_currentCameraMode = CameraMode.FirstPerson;
-			SetFirstPersonCamera();
-			if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(true);
-			GD.Print("Camera Mode: First Person");
-		}
+		if (_currentCameraMode == CameraMode.FirstPerson) { _currentCameraMode = CameraMode.Isometric; SetIsometricCamera(); }
+		else { _currentCameraMode = CameraMode.FirstPerson; SetFirstPersonCamera(); }
+		//if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(_currentCameraMode == CameraMode.FirstPerson);
 	}
 	
-	private void SetFirstPersonCamera()
-	{
-		// Reset camera to head position (FPP)
-		_camera.Position = Vector3.Zero;
-		_camera.Rotation = Vector3.Zero;
-		
-		// Enable mouse capture for FPP
-		Input.MouseMode = Input.MouseModeEnum.Captured;
-	}
-	
-	private void SetIsometricCamera()
-	{
-		// Calculate offset berdasarkan rotation
-		float rad = Mathf.DegToRad(_isometricRotation);
-		float distance = 0f; // 0 agar tepat di tengah (Top-Down)
-		_isometricOffset = new Vector3(0, 100, 0); // Langsung set ke (0, 100, 0)
-		
-		// Position camera untuk isometric view
-		_camera.Position = _isometricOffset;
-		
-		// Rotate camera to look down at angle
-		_camera.LookAt(Vector3.Zero, Vector3.Up);
-		
-		// Keep mouse captured untuk rotasi tidak terbatas
-		Input.MouseMode = Input.MouseModeEnum.Visible;
-	}
+	private void SetFirstPersonCamera() { _camera.Position = Vector3.Zero; _camera.Rotation = Vector3.Zero; Input.MouseMode = Input.MouseModeEnum.Captured; }
+	private void SetIsometricCamera() { Input.MouseMode = Input.MouseModeEnum.Visible; }
 	
 	public override void _Process(double delta)
 	{
-		// Update camera position jika dalam mode isometric
 		if (_currentCameraMode == CameraMode.Isometric)
 		{
-			// Offset khas Zelda: Agak ke belakang (Z positif) dan di atas (Y positif)
-			// Semakin besar Z, semakin miring sudut pandangnya
-			_isometricOffset = new Vector3(0, 12, 5); 
-			
 			_camera.GlobalPosition = GlobalPosition + _isometricOffset;
-			
-			// Kamera melihat ke arah player
 			_camera.LookAt(GlobalPosition, Vector3.Up);
 		}
 	}
 	
 	private void UseSelectedItem()
 	{
-		// Prevent using items when any panel is open (puzzle UI, mixing UI, etc.)
-		if (InventoryUI.IsAnyPanelOpen)
-		{
-			GD.Print("Cannot use items while a panel is open");
-			return;
-		}
-		
-		InventoryItem selectedItem = _inventory.GetSelectedHotbarItem();
-		if (selectedItem == null)
-		{
-			GD.Print("No item selected");
-			return;
-		}
-		
-		if (!selectedItem.Data.IsUsable)
-		{
-			GD.Print($"{selectedItem.Data.ItemName} cannot be used");
-			return;
-		}
-		
-		if (selectedItem.Data.UsableBehavior != null)
-		{
-			GD.Print($"Using: {selectedItem.Data.ItemName}");
-			selectedItem.Data.UsableBehavior.Use(this);
-		}
-		else
-		{
-			GD.PrintErr($"{selectedItem.Data.ItemName} is usable but has no behavior!");
-		}
+		if (InventoryUI.IsAnyPanelOpen) return;
+		InventoryItem sel = _inventory.GetSelectedHotbarItem();
+		if (sel != null && sel.Data.IsUsable) sel.Data.UsableBehavior?.Use(this);
 	}
 	
 	// Method untuk BookItem memanggil UI

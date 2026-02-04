@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://ddouv7x2807fu"]
+
+[ext_resource type="PackedScene" uid="uid://b04wbt8677id4" path="res://assets/characters/Player.glb" id="1_3c0ok"]
+[ext_resource type="Texture2D" uid="uid://bg5adyll14fwf" path="res://assets/characters/Player_Model.png" id="2_sqwyp"]
+[ext_resource type="Texture2D" uid="uid://db24k84aduvmj" path="res://assets/characters/Player_Model_1.png" id="3_5rkq3"]
+[ext_resource type="Texture2D" uid="uid://cp2tenayowwtq" path="res://assets/characters/Player_Model_2.png" id="4_gpudx"]
+[ext_resource type="Texture2D" uid="uid://b7b12jnxy3xt8" path="res://assets/characters/Player_Model_3.png" id="5_o7p4c"]
+[ext_resource type="Texture2D" uid="uid://cub7qitmapg4a" path="res://assets/characters/Player_Model_4.png" id="6_1we82"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2c6rj"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_sqwyp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryiip"]
+transparency = 1
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_5rkq3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ufose"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_gpudx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8jsyl"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("5_o7p4c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk33c"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("6_1we82")
+
+[node name="Player" unique_id=439557311 instance=ExtResource("1_3c0ok")]
+
+[node name="Model_Body" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1565100012) index="0" unique_id=1875924409]
+surface_material_override/0 = SubResource("StandardMaterial3D_2c6rj")
+
+[node name="Model_Chain" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1565100012) index="1" unique_id=1187515023]
+surface_material_override/0 = SubResource("StandardMaterial3D_ryiip")
+
+[node name="Model_Cloth" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1565100012) index="2" unique_id=1757402333]
+surface_material_override/0 = SubResource("StandardMaterial3D_ufose")
+
+[node name="Model_Hair" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1565100012) index="3" unique_id=67065269]
+surface_material_override/0 = SubResource("StandardMaterial3D_8jsyl")
+
+[node name="Model_Hood" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1565100012) index="4" unique_id=91830635]
+surface_material_override/0 = SubResource("StandardMaterial3D_kk33c")
