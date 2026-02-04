@@ -155,7 +155,9 @@ _surfaces = [{
 blend_shape_mode = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67lf6"]
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 diffuse_mode = 3
 specular_mode = 1

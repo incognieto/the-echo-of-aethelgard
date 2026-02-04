@@ -9,14 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://ddouv7x2807fu" path="res://assets/characters/player.tscn" id="10_0bgmf"]
 [ext_resource type="PackedScene" uid="uid://cvw3f0558f36y" path="res://scenes/ui/PuzzleUI.tscn" id="10_lcffg"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="12_uorno"]
-[ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="13_rhp76"]
-
-[sub_resource type="Environment" id="Environment_q6uyw"]
-background_mode = 1
-ambient_light_source = 2
-ambient_light_energy = 2.63
-tonemap_exposure = 4.0
-ssao_enabled = true
 
 [sub_resource type="Animation" id="Animation_q6uyw"]
 resource_name = "CinematicSequence"
@@ -524,9 +516,6 @@ offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=404851612]
-environment = SubResource("Environment_q6uyw")
-
 [node name="Director" type="AnimationPlayer" parent="." unique_id=1075959890]
 libraries/ = SubResource("AnimationLibrary_vcp8q")
 
@@ -759,7 +748,7 @@ omni_range = 14.558232
 transform = Transform3D(0.36163303, 0, -0.17094316, 0, 0.4, 0, 0.17094316, 0, 0.36163303, -2.4567034, 0.40317273, 2.2735946)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Items/Book" unique_id=1581301296]
-transform = Transform3D(2.2602065, -1.0683947, -4.6701018e-08, 0, -1.0927848e-07, 2.5, -1.0683947, -2.2602065, -9.879677e-08, 0.022122383, 0.96413696, -0.02346468)
+transform = Transform3D(2.2602065, -1.0683947, -4.6701018e-08, 0, -1.0927848e-07, 2.5, -1.0683947, -2.2602065, -9.879677e-08, 0.022122383, 0.17632568, -0.02346468)
 light_color = Color(0.827451, 0.18039216, 0.18431373, 1)
 spot_angle = 82.43
 
@@ -929,7 +918,7 @@ data = {
 }
 
 [node name="StraightWallTransparent" type="GridMap" parent="Map" unique_id=749092767]
-mesh_library = ExtResource("13_rhp76")
+mesh_library = ExtResource("12_uorno")
 cell_size = Vector3(2, 0.2, 2)
 data = {
 "cells": PackedInt32Array(65535, 2, 655360, 0, 2, 655360, 1, 2, 655360, 65535, 65532, 0, 0, 65532, 2, 1, 65532, 0)
@@ -943,14 +932,14 @@ data = {
 }
 
 [node name="WallCornerTransparent" type="GridMap" parent="Map" unique_id=1099983496]
-mesh_library = ExtResource("13_rhp76")
+mesh_library = ExtResource("12_uorno")
 cell_size = Vector3(1, 0.2, 1)
 data = {
 "cells": PackedInt32Array(6, 65529, 1441796, 6, 4, 1441795, 65531, 4, 655363, 65531, 65529, 1048580)
 }
 
 [node name="Player2" parent="." unique_id=439557311 instance=ExtResource("10_0bgmf")]
-transform = Transform3D(0.7, 0, 0, 0, -0.021987572, -0.6996546, 0, 0.6996546, -0.021987572, 0.778, 1.334, -1.324)
+transform = Transform3D(0.7, 0, 0, 0, -0.021987572, -0.6996546, 0, 0.6996546, -0.021987572, 0.778, 0.7, -1.324)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player2" unique_id=413315678]
 transform = Transform3D(0.9928571, 0, 0, 0, 0.99285656, -0.0007620044, 0, 0.0007620044, 0.99285656, 0.082119465, 0.07589686, -0.0005414486)
