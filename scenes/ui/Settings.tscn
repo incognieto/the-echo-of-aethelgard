@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://ds51cru6up8cs"]
+
+[ext_resource type="Script" uid="uid://0dytbisbla5u" path="res://scripts/ui/Settings.cs" id="1_settings"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4p7k"]
+
+[node name="Settings" type="Control" unique_id=646716672]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_settings")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1024338433]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=135983242]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1911257320]
+layout_mode = 2
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_s4p7k")
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="VBoxContainer" unique_id=45485351]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="SettingsPlaceholder" type="Label" parent="VBoxContainer" unique_id=385751903]
+layout_mode = 2
+text = "Settings will be added soon..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=2088212992]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer" unique_id=1226444369]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+text = "Back"

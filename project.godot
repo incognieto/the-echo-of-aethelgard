@@ -22,6 +22,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 CursorManager="*res://scripts/systems/CursorManager.cs"
+PanelManager="*res://scripts/ui/PanelManager.cs"
+PauseMenu="*res://scenes/ui/PauseMenu.tscn"
 
 [display]
 

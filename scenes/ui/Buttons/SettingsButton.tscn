@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckw9lzn9yw3bx"]
+
+[ext_resource type="Script" uid="uid://dq4l7h5p4c5g9" path="res://scripts/ui/Buttons/SettingsButton.cs"]
+
+[node name="SettingsButton" type="Button"]
+custom_minimum_size = Vector2(300, 60)
+text = "Settings"
+script = ExtResource("uid://dq4l7h5p4c5g9")

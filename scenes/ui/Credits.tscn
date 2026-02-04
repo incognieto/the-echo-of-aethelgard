@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://cnferq4rywq1j"]
+
+[ext_resource type="Script" uid="uid://hm1nel06fah6" path="res://scripts/ui/Credits.cs" id="1_credits"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6nm4x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8yk2p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3jk8p"]
+
+[node name="Credits" type="Control" unique_id=441978430]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_credits")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2127583428]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=568438420]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2078079400]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Spacer1" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1368532719]
+custom_minimum_size = Vector2(0, 720)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1887399581]
+layout_mode = 2
+text = "CREDITS"
+label_settings = SubResource("LabelSettings_6nm4x")
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1211926638]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="DevelopedBy" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2018568463]
+layout_mode = 2
+text = "Developed By"
+label_settings = SubResource("LabelSettings_8yk2p")
+horizontal_alignment = 1
+
+[node name="DeveloperName" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1034135561]
+layout_mode = 2
+text = "Your Name"
+label_settings = SubResource("LabelSettings_3jk8p")
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=729843985]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Art" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2042645224]
+layout_mode = 2
+text = "Art"
+label_settings = SubResource("LabelSettings_8yk2p")
+horizontal_alignment = 1
+
+[node name="ArtistsContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1458332624]
+layout_mode = 2
+alignment = 1
+
+[node name="Artist1" type="Label" parent="ScrollContainer/VBoxContainer/ArtistsContainer" unique_id=147144756]
+layout_mode = 2
+text = "Artist Name 1"
+label_settings = SubResource("LabelSettings_3jk8p")
+horizontal_alignment = 1
+
+[node name="Artist2" type="Label" parent="ScrollContainer/VBoxContainer/ArtistsContainer" unique_id=1822343864]
+layout_mode = 2
+text = "Artist Name 2"
+label_settings = SubResource("LabelSettings_3jk8p")
+horizontal_alignment = 1
+
+[node name="Spacer4" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1494820502]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Music" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1772820397]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_8yk2p")
+horizontal_alignment = 1
+
+[node name="ComposerName" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=630891725]
+layout_mode = 2
+text = "Composer Name"
+label_settings = SubResource("LabelSettings_3jk8p")
+horizontal_alignment = 1
+
+[node name="Spacer5" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=2047712941]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Thanks" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2096937588]
+layout_mode = 2
+text = "Special Thanks"
+label_settings = SubResource("LabelSettings_8yk2p")
+horizontal_alignment = 1
+
+[node name="ThanksText" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1559626574]
+layout_mode = 2
+text = "Thank you for playing!"
+label_settings = SubResource("LabelSettings_3jk8p")
+horizontal_alignment = 1
+
+[node name="Spacer6" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=780510299]
+custom_minimum_size = Vector2(0, 720)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="." unique_id=1504114878]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 70.0
+grow_vertical = 0
+text = "Back"

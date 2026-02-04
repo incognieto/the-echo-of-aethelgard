@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://btazhvlwvykz2"]
+
+[ext_resource type="Script" uid="uid://d8j3pqkv9mrk5" path="res://scripts/ui/Buttons/LevelSelectButton.cs"]
+
+[node name="LevelSelectButton" type="Button"]
+custom_minimum_size = Vector2(300, 60)
+text = "Level Select"
+script = ExtResource("uid://d8j3pqkv9mrk5")

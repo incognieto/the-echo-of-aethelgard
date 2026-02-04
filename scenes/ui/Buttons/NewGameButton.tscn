@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlw3w3p7j2jkk"]
+
+[ext_resource type="Script" uid="uid://c2mlqr0o1jrq" path="res://scripts/ui/Buttons/NewGameButton.cs"]
+
+[node name="NewGameButton" type="Button"]
+custom_minimum_size = Vector2(300, 60)
+text = "New Game"
+script = ExtResource("uid://c2mlqr0o1jrq")

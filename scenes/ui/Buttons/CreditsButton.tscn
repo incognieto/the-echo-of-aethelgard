@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7wmftj4s3wcd"]
+
+[ext_resource type="Script" uid="uid://c5o3kfj8g1h6k" path="res://scripts/ui/Buttons/CreditsButton.cs"]
+
+[node name="CreditsButton" type="Button"]
+custom_minimum_size = Vector2(300, 60)
+text = "Credits"
+script = ExtResource("uid://c5o3kfj8g1h6k")

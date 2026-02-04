@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://dg6onkauo7422"]
+[gd_scene format=3 uid="uid://bvbairvcrgfcw"]
 
 [ext_resource type="Texture2D" uid="uid://b72duq0ptn2j6" path="res://assets/sprites/mainmenuassets/Background Main Menu.png" id="1_2ysvc"]
 [ext_resource type="Script" uid="uid://bmy48inqd4fhy" path="res://scripts/ui/MainMenu/Background.cs" id="2_xpiny"]
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="3_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="4_e2per"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
-[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="7_7vr37"]
 [ext_resource type="Texture2D" uid="uid://dkhwf1jmi177v" path="res://assets/sprites/mainmenuassets/Btn/PlayBtn.png" id="7_e2per"]
 [ext_resource type="Texture2D" uid="uid://by7riw20biptd" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnClicked.png" id="8_nqjyj"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bke064jg1pjn5" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuClicked.png" id="18_dq25m"]
 [ext_resource type="Texture2D" uid="uid://b2d1hlgyagd6v" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuHover.png" id="19_jfpbv"]
 [ext_resource type="Script" uid="uid://dajue2twr482c" path="res://scripts/ui/MainMenu/PrisonBars.cs" id="20_prisonbars"]
+[ext_resource type="Script" uid="uid://b4luk6qrwf02y" path="res://scripts/ui/MainMenuController.cs" id="21_mainmenucontroller"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhu4a"]
 
@@ -33,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("21_mainmenucontroller")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=308050392]
 position = Vector2(640, 360)
@@ -96,10 +98,10 @@ anchor_left = 0.849
 anchor_top = 0.519
 anchor_right = 0.849
 anchor_bottom = 0.519
-offset_left = -977.5327
-offset_top = -80.75598
-offset_right = -776.5327
-offset_bottom = 16.244019
+offset_left = -963.5327
+offset_top = -209.75598
+offset_right = -762.5327
+offset_bottom = -112.75598
 grow_horizontal = 2
 texture_normal = ExtResource("7_e2per")
 texture_pressed = ExtResource("8_nqjyj")
@@ -110,6 +112,24 @@ script = ExtResource("11_3da5a")
 TargetScenePath = "uid://di6jwi87xitob"
 PreChangeNodePath = NodePath("../../Node2D/PrisonBars")
 
+[node name="BtnLevelSelect" type="TextureButton" parent="Panel" unique_id=1400000000]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.849
+anchor_top = 0.519
+anchor_right = 0.849
+anchor_bottom = 0.519
+offset_left = -996.5327
+offset_top = -75.75598
+offset_right = -752.42664
+offset_bottom = 1.2440186
+grow_horizontal = 2
+texture_normal = ExtResource("11_ayd4e")
+texture_pressed = ExtResource("12_3da5a")
+texture_hover = ExtResource("13_8rx73")
+ignore_texture_size = true
+stretch_mode = 4
+
 [node name="BtnSettings" type="TextureButton" parent="Panel" unique_id=1327337526]
 layout_mode = 1
 anchors_preset = -1
@@ -117,10 +137,10 @@ anchor_left = 0.849
 anchor_top = 0.519
 anchor_right = 0.849
 anchor_bottom = 0.519
-offset_left = -1012.5327
-offset_top = 34.24402
-offset_right = -768.42664
-offset_bottom = 111.24402
+offset_left = -994.5327
+offset_top = 15.244019
+offset_right = -750.42664
+offset_bottom = 92.24402
 grow_horizontal = 2
 texture_normal = ExtResource("11_ayd4e")
 texture_pressed = ExtResource("12_3da5a")
@@ -135,10 +155,10 @@ anchor_left = 0.849
 anchor_top = 0.519
 anchor_right = 0.849
 anchor_bottom = 0.519
-offset_left = -1006.5327
-offset_top = 126.24402
-offset_right = -771.937
-offset_bottom = 200.24402
+offset_left = -992.5327
+offset_top = 110.24402
+offset_right = -757.937
+offset_bottom = 184.24402
 grow_horizontal = 2
 texture_normal = ExtResource("14_ns3en")
 texture_pressed = ExtResource("15_ybqsv")
@@ -153,10 +173,10 @@ anchor_left = 0.847
 anchor_top = 0.829
 anchor_right = 0.847
 anchor_bottom = 0.829
-offset_left = -910.959
-offset_top = -2.195984
-offset_right = -769.959
-offset_bottom = 54.804016
+offset_left = -936.959
+offset_top = -25.195984
+offset_right = -795.959
+offset_bottom = 31.804016
 grow_horizontal = 2
 texture_normal = ExtResource("17_utjo4")
 texture_pressed = ExtResource("18_dq25m")

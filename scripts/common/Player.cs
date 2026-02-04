@@ -99,8 +99,10 @@ public partial class Player : CharacterBody3D
 			}
 		}
 		
-		if (@event.IsActionPressed("ui_cancel"))
-			Input.MouseMode = (Input.MouseMode == Input.MouseModeEnum.Captured) ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+		// Jangan block ui_cancel, biarkan PauseMenu yang handle
+		
+		// Block semua input jika game paused
+		if (GetTree().Paused) return;
 		
 		if (@event.IsActionPressed("interact")) TryPickupItem();
 		if (@event.IsActionPressed("drop_item")) DropItem(false);
@@ -118,7 +120,8 @@ public partial class Player : CharacterBody3D
 		Vector3 velocity = Velocity;
 		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
 
-		if (InventoryUI.IsAnyPanelOpen)
+		// Jika game paused atau ada panel terbuka, stop movement
+		if (GetTree().Paused || InventoryUI.IsAnyPanelOpen)
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
