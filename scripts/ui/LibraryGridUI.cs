@@ -15,7 +15,7 @@ public partial class LibraryGridUI : Control
 	private Label _escInstructionLabel;
 	private TextureButton _confirmButton;
 	private TextureButton _clearButton;
-	private Button _closeButton;
+	private TextureButton _closeButton;
 	private InventoryUI _inventoryUI;
 	private Player _player;
 	
@@ -70,7 +70,7 @@ public partial class LibraryGridUI : Control
 		_feedbackLabel = GetNode<Label>("GridPanel/FeedbackLabel");
 		_confirmButton = GetNode<TextureButton>("GridPanel/ConfirmButton");
 		_clearButton = GetNode<TextureButton>("GridPanel/ClearButton");
-		_closeButton = GetNode<Button>("GridPanel/CloseButton");
+		_closeButton = GetNode<TextureButton>("GridPanel/CloseButton");
 		
 		// Get book selection nodes from scene
 		_bookSelectionContainer = GetNode<VBoxContainer>("GridPanel/BookSelectionContainer");

@@ -2,12 +2,21 @@
 
 [ext_resource type="Script" uid="uid://dxl6wgmlmo3yo" path="res://scripts/ui/LibraryGridUI.cs" id="1_library_grid"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://dbdqra1s3kflw" path="res://assets/sprites/library/Bookshelf.png" id="2_kag7v"]
 [ext_resource type="Texture2D" uid="uid://clu4aldxefd5d" path="res://assets/sprites/library/button_confirm.png" id="3_confirm"]
 [ext_resource type="Texture2D" uid="uid://dr74qxr0jmdbm" path="res://assets/sprites/library/button_confirm_clicked.png" id="4_confirm_click"]
 [ext_resource type="Texture2D" uid="uid://h8sir4q5pb7n" path="res://assets/sprites/library/button_clear.png" id="5_clear"]
 [ext_resource type="Texture2D" uid="uid://ce15v74giitpu" path="res://assets/sprites/library/button_clear_clicked.png" id="6_clear_click"]
+[ext_resource type="Texture2D" uid="uid://cu47pqcnrsto4" path="res://assets/sprites/library/button_confirm_hover.png" id="7_3pm5y"]
 [ext_resource type="Texture2D" uid="uid://cn74pjqh5gmik" path="res://assets/sprites/library/ui_stone_table.png" id="7_background"]
+[ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="8_5ekr6"]
+[ext_resource type="Texture2D" uid="uid://dubp6jp2cgvwd" path="res://assets/sprites/library/button_confirm_disabled.png" id="8_htqb6"]
 [ext_resource type="Texture2D" uid="uid://b0o36ysifni7y" path="res://assets/sprites/library/slot_1x1_ui_stone_table.png" id="8_slot"]
+[ext_resource type="Texture2D" uid="uid://cl5a8njkq3qh8" path="res://assets/sprites/library/button_close_clicked.png" id="9_5yc1q"]
+[ext_resource type="Texture2D" uid="uid://b1wg4unyo5ld8" path="res://assets/sprites/library/button_close_hover.png" id="10_k54k3"]
+[ext_resource type="Texture2D" uid="uid://brx6e3yb7bfho" path="res://assets/sprites/library/button_clear_hover.png" id="11_7ly1s"]
+[ext_resource type="Texture2D" uid="uid://btky6sduk56s7" path="res://assets/sprites/library/button_close_disabled.png" id="11_s4j1d"]
+[ext_resource type="Texture2D" uid="uid://0jwxb7ejodme" path="res://assets/sprites/library/button_clear_disabled.png" id="12_ovgyj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vummu"]
 
@@ -30,11 +39,20 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
 
+[node name="Bookshelf" type="Sprite2D" parent="Background" unique_id=1342427135]
+position = Vector2(967.00006, 303)
+scale = Vector2(0.2409954, 0.2597485)
+texture = ExtResource("2_kag7v")
+
 [node name="BackgroundSprite" type="TextureRect" parent="." unique_id=111222333]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -25.0
+offset_right = -68.0
+offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -61,8 +79,10 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_vummu")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = -27.0
-offset_bottom = 23.0
+offset_left = 3.0
+offset_top = -43.0
+offset_right = 3.0
+offset_bottom = 7.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.8, 0.7, 0.5, 1)
 theme_override_fonts/font = ExtResource("2_font")
@@ -73,10 +93,10 @@ vertical_alignment = 1
 
 [node name="Instruction" type="Label" parent="GridPanel" unique_id=521478929]
 layout_mode = 0
-offset_left = 356.0
-offset_top = 24.0
-offset_right = 546.0
-offset_bottom = 50.0
+offset_left = 349.0
+offset_top = 10.0
+offset_right = 539.0
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 20
@@ -86,10 +106,10 @@ horizontal_alignment = 1
 [node name="GridContainer" type="Control" parent="GridPanel" unique_id=1101075173]
 layout_mode = 1
 anchors_preset = 0
-offset_left = 6.0
-offset_top = 60.0
-offset_right = 323.0
-offset_bottom = 453.0
+offset_left = -62.0
+offset_top = 35.0
+offset_right = 255.0
+offset_bottom = 428.0
 
 [node name="Slot1" type="Control" parent="GridPanel/GridContainer" unique_id=1001]
 anchors_preset = 0
@@ -284,14 +304,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -320.0
-offset_right = 202.0
-offset_bottom = -281.0
+offset_left = -165.0
+offset_top = -370.0
+offset_right = 157.0
+offset_bottom = -331.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("3_confirm")
 texture_pressed = ExtResource("4_confirm_click")
+texture_hover = ExtResource("7_3pm5y")
+texture_disabled = ExtResource("8_htqb6")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -302,30 +324,37 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -105.0
-offset_top = -280.0
-offset_right = 187.0
-offset_bottom = -241.0
+offset_left = -150.0
+offset_top = -330.0
+offset_right = 142.0
+offset_bottom = -291.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("5_clear")
 texture_pressed = ExtResource("6_clear_click")
+texture_hover = ExtResource("11_7ly1s")
+texture_disabled = ExtResource("12_ovgyj")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="CloseButton" type="Button" parent="GridPanel" unique_id=667493027]
+[node name="CloseButton" type="TextureButton" parent="GridPanel" unique_id=1226884363]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -80.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 45.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
-theme_override_font_sizes/font_size = 16
-text = "Close"
+anchors_preset = -1
+anchor_left = 0.544
+anchor_top = 0.693
+anchor_right = 0.544
+anchor_bottom = 0.693
+offset_left = -103.60004
+offset_top = -74.08002
+offset_right = 14.143616
+offset_bottom = -26.080017
+pivot_offset = Vector2(57, 25)
+texture_normal = ExtResource("8_5ekr6")
+texture_pressed = ExtResource("9_5yc1q")
+texture_hover = ExtResource("10_k54k3")
+texture_disabled = ExtResource("11_s4j1d")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="BookSelectionContainer" type="VBoxContainer" parent="GridPanel" unique_id=987654321]
 layout_mode = 1
@@ -335,6 +364,7 @@ offset_right = 941.0
 offset_bottom = 490.0
 
 [node name="SelectionTitle" type="Label" parent="GridPanel/BookSelectionContainer" unique_id=123456789]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.8, 0.6, 1)
 theme_override_fonts/font = ExtResource("2_font")
