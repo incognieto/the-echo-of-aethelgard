@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="3_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="4_e2per"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
-[ext_resource type="PackedScene" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
+[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="7_7vr37"]
 [ext_resource type="Texture2D" uid="uid://dkhwf1jmi177v" path="res://assets/sprites/mainmenuassets/Btn/PlayBtn.png" id="7_e2per"]
 [ext_resource type="Texture2D" uid="uid://by7riw20biptd" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnClicked.png" id="8_nqjyj"]
@@ -15,8 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://biw6umqd5gsd6" path="res://assets/sprites/mainmenuassets/Btn/OptionsBtnClicked.png" id="12_3da5a"]
 [ext_resource type="Texture2D" uid="uid://1cg2ywvwr0e0" path="res://assets/sprites/mainmenuassets/Btn/OptionsBtnHover.png" id="13_8rx73"]
 [ext_resource type="Texture2D" uid="uid://dasgl8ysgd0ye" path="res://assets/sprites/mainmenuassets/Btn/CreditsBtn.png" id="14_ns3en"]
+[ext_resource type="Texture2D" uid="uid://x1oqogxypy3o" path="res://assets/sprites/mainmenuassets/Btn/LevelsBtn.png" id="14_utjo4"]
+[ext_resource type="Texture2D" uid="uid://c2t1s583oqlat" path="res://assets/sprites/mainmenuassets/Btn/LevelsBtnClicked.png" id="15_dq25m"]
 [ext_resource type="Texture2D" uid="uid://ygymd3clhfef" path="res://assets/sprites/mainmenuassets/Btn/CreditsBtnClicked.png" id="15_ybqsv"]
 [ext_resource type="Texture2D" uid="uid://bv0qcobpknjkf" path="res://assets/sprites/mainmenuassets/Btn/CreditsBtnHover.png" id="16_1fge5"]
+[ext_resource type="Texture2D" uid="uid://cbnqkgom7aylx" path="res://assets/sprites/mainmenuassets/Btn/LevelsBtnHover.png" id="16_jfpbv"]
 [ext_resource type="Texture2D" uid="uid://yct48i0rmk6" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenu.png" id="17_utjo4"]
 [ext_resource type="Texture2D" uid="uid://bke064jg1pjn5" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuClicked.png" id="18_dq25m"]
 [ext_resource type="Texture2D" uid="uid://b2d1hlgyagd6v" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuHover.png" id="19_jfpbv"]
@@ -124,9 +127,9 @@ offset_top = -75.75598
 offset_right = -752.42664
 offset_bottom = 1.2440186
 grow_horizontal = 2
-texture_normal = ExtResource("11_ayd4e")
-texture_pressed = ExtResource("12_3da5a")
-texture_hover = ExtResource("13_8rx73")
+texture_normal = ExtResource("14_utjo4")
+texture_pressed = ExtResource("15_dq25m")
+texture_hover = ExtResource("16_jfpbv")
 ignore_texture_size = true
 stretch_mode = 4
 
