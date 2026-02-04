@@ -264,8 +264,8 @@ public partial class FinalMixingUI : Control
 		}
 		
 		if (!_selectedPotions.Contains("yellow_potion") || 
-		    !_selectedPotions.Contains("magenta_potion") || 
-		    !_selectedPotions.Contains("cyan_potion"))
+			!_selectedPotions.Contains("magenta_potion") || 
+			!_selectedPotions.Contains("cyan_potion"))
 		{
 			_feedbackLabel.Text = "You need Yellow, Magenta, and Cyan potions!";
 			_feedbackLabel.Modulate = Colors.Red;

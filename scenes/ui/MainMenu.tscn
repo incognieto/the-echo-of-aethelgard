@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bke064jg1pjn5" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuClicked.png" id="18_dq25m"]
 [ext_resource type="Texture2D" uid="uid://b2d1hlgyagd6v" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuHover.png" id="19_jfpbv"]
 [ext_resource type="Script" uid="uid://dajue2twr482c" path="res://scripts/ui/MainMenu/PrisonBars.cs" id="20_prisonbars"]
-[ext_resource type="Script" uid="uid://b4luk6qrwf02y" path="res://scripts/ui/MainMenuController.cs" id="21_mainmenucontroller"]
+[ext_resource type="PackedScene" uid="uid://b6sjec6q4iycs" path="res://scenes/ui/LibraryGridUI.tscn" id="22_utjo4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhu4a"]
 
@@ -37,7 +37,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("21_mainmenucontroller")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=308050392]
 position = Vector2(640, 360)
@@ -132,6 +131,8 @@ texture_pressed = ExtResource("15_dq25m")
 texture_hover = ExtResource("16_jfpbv")
 ignore_texture_size = true
 stretch_mode = 4
+script = ExtResource("11_3da5a")
+TargetScenePath = "uid://0d365t6esd51"
 
 [node name="BtnSettings" type="TextureButton" parent="Panel" unique_id=1327337526]
 layout_mode = 1
@@ -150,6 +151,8 @@ texture_pressed = ExtResource("12_3da5a")
 texture_hover = ExtResource("13_8rx73")
 ignore_texture_size = true
 stretch_mode = 4
+script = ExtResource("11_3da5a")
+TargetScenePath = "uid://ds51cru6up8cs"
 
 [node name="BtnCredits" type="TextureButton" parent="Panel" unique_id=1336468718]
 layout_mode = 1
@@ -168,6 +171,11 @@ texture_pressed = ExtResource("15_ybqsv")
 texture_hover = ExtResource("16_1fge5")
 ignore_texture_size = true
 stretch_mode = 4
+script = ExtResource("11_3da5a")
+PopupScene = ExtResource("22_utjo4")
+PopupAction = 1
+PopupHideBehavior = 1
+PopupInstanceName = "test"
 
 [node name="BtnExit" type="TextureButton" parent="Panel" unique_id=1742382094]
 layout_mode = 1

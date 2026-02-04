@@ -57,6 +57,24 @@ public partial class InventoryUI : Control
 	private Control _dragPreview = null;
 	private Vector2 _dragStartPosition = Vector2.Zero;
 
+	private const string HotbarPanelNodeName = "HotbarPanel";
+	private const string HotbarSlotsNodeName = "HotbarSlots";
+
+	private static T FindFirstNodeByName<T>(Node root, string name) where T : Node
+	{
+		if (root == null) return null;
+		if (root is T typed && root.Name == name) return typed;
+		foreach (var child in root.GetChildren())
+		{
+			if (child is Node childNode)
+			{
+				var found = FindFirstNodeByName<T>(childNode, name);
+				if (found != null) return found;
+			}
+		}
+		return null;
+	}
+
 	public override void _Ready()
 	{
 		// Load custom font
@@ -247,8 +265,8 @@ private void CreateAncientBookNotification()
 	if (goudyFont != null)
 	{
 		_ancientBookNotification.AddThemeFontOverride("font", goudyFont);
-	}
-	else
+		}
+		else
 	{
 		// Fallback to custom font if GoudyMediaeval not found
 		if (_customFont != null) _ancientBookNotification.AddThemeFontOverride("font", _customFont);
@@ -293,15 +311,23 @@ public void SetHotbarVisible(bool visible)
 
 private void CreateHotbar()
 {
-		// Try to get hotbar nodes from scene first
-		_hotbarContainer = GetNodeOrNull<Panel>("HotbarPanel");
+		// Try to get hotbar nodes from scene first.
+		// Important: if the HotbarPanel is reparented (not a direct child of InventoryUI anymore),
+		// GetNodeOrNull("HotbarPanel") will fail and we would silently fall back to script-generated UI.
+		// That makes it look like theme overrides "don't work", because you're looking at a different UI.
+		_hotbarContainer = GetNodeOrNull<Panel>(HotbarPanelNodeName);
+		if (_hotbarContainer == null)
+		{
+			// Robust search: look anywhere under this InventoryUI.
+			_hotbarContainer = FindFirstNodeByName<Panel>(this, HotbarPanelNodeName);
+		}
 		
 		if (_hotbarContainer != null)
 		{
 			// Scene-based hotbar - nodes already exist
 			GD.Print("InventoryUI: Using scene-based hotbar from .tscn");
 			
-			var hotbarSlotsContainer = _hotbarContainer.GetNodeOrNull<Control>("HotbarSlots");
+			var hotbarSlotsContainer = _hotbarContainer.GetNodeOrNull<Control>(HotbarSlotsNodeName);
 			if (hotbarSlotsContainer != null)
 			{
 				// Setup individual hotbar slot panels
@@ -311,9 +337,16 @@ private void CreateHotbar()
 					if (slot != null)
 					{
 						SetupHotbarSlot(slot, i);
+						NormalizeHotbarSlotLabels(slot, i);
 					}
 				}
+				// Ensure the hotbar is visible by default
+				_hotbarContainer.Visible = true;
 				return;
+			}
+			else
+			{
+				GD.PrintErr($"InventoryUI: Found '{HotbarPanelNodeName}' but missing '{HotbarSlotsNodeName}'. Falling back to script hotbar.");
 			}
 		}
 		
@@ -340,6 +373,33 @@ private void CreateHotbar()
 		{
 			var slot = CreateHotbarSlot(i);
 			_hotbarGrid.AddChild(slot);
+		}
+	}
+
+	private void NormalizeHotbarSlotLabels(Panel slot, int index)
+	{
+		// Scene-based hotbar already defines SlotNumber + ItemLabel with precise rotation,
+		// offsets, and theme overrides. We should not override its font/theme from code,
+		// otherwise it will look different in-game vs editor.
+		//
+		// Only ensure ItemLabel exists (for older scenes) and ensure SlotNumber text matches.
+		var slotNumber = slot.GetNodeOrNull<Label>("SlotNumber");
+		if (slotNumber != null)
+		{
+			slotNumber.Text = (index + 1).ToString();
+		}
+
+		var itemLabel = slot.GetNodeOrNull<Label>("ItemLabel");
+		if (itemLabel == null)
+		{
+			itemLabel = new Label();
+			itemLabel.Name = "ItemLabel";
+			itemLabel.HorizontalAlignment = HorizontalAlignment.Center;
+			itemLabel.VerticalAlignment = VerticalAlignment.Center;
+			itemLabel.SetAnchorsPreset(LayoutPreset.Center);
+			itemLabel.AutowrapMode = TextServer.AutowrapMode.Word;
+			itemLabel.MouseFilter = MouseFilterEnum.Ignore;
+			slot.AddChild(itemLabel);
 		}
 	}
 
@@ -409,7 +469,8 @@ private void CreateHotbar()
 		// Setup drag-drop events
 		SetupSlotDragDrop(slot);
 		
-		// Get or create ItemLabel
+		// Scene-based hotbar already has ItemLabel and SlotNumber themed/rotated.
+		// Don't override its theme/font here; just ensure it exists, and clear text.
 		Label itemLabel = slot.GetNodeOrNull<Label>("ItemLabel");
 		if (itemLabel == null)
 		{
@@ -418,28 +479,10 @@ private void CreateHotbar()
 			itemLabel.HorizontalAlignment = HorizontalAlignment.Center;
 			itemLabel.VerticalAlignment = VerticalAlignment.Center;
 			itemLabel.SetAnchorsPreset(LayoutPreset.Center);
-			if (_customFont != null) itemLabel.AddThemeFontOverride("font", _customFont);
-			
-			// ===== HOTBAR ITEM NAME FONT SIZE =====
-			// Adjust this to make item names bigger/smaller in hotbar
-			itemLabel.AddThemeFontSizeOverride("font_size", 16); // Changed from 12 to 16
-			// =======================================
-			
 			itemLabel.AutowrapMode = TextServer.AutowrapMode.Word;
 			itemLabel.MouseFilter = MouseFilterEnum.Ignore;
 			slot.AddChild(itemLabel);
 		}
-		else
-		{
-			itemLabel.HorizontalAlignment = HorizontalAlignment.Center;
-			itemLabel.VerticalAlignment = VerticalAlignment.Center;
-			itemLabel.SetAnchorsPreset(LayoutPreset.Center);
-			if (_customFont != null) itemLabel.AddThemeFontOverride("font", _customFont);
-			itemLabel.AddThemeFontSizeOverride("font_size", 16); // Changed from 12 to 16
-			itemLabel.AutowrapMode = TextServer.AutowrapMode.Word;
-			itemLabel.MouseFilter = MouseFilterEnum.Ignore;
-		}
-		
 		itemLabel.Text = "";
 	}
 
@@ -605,11 +648,13 @@ private void UpdateHotbar()
 			// Highlight selected slot
 			if (i == _inventory.GetSelectedHotbarSlot())
 			{
-				slot.AddThemeStyleboxOverride("panel", CreateHighlightStylebox());
+								// Don't override the slot's base StyleBoxTexture (from the scene).
+								// Instead, add a semi-transparent highlight without destroying the base.
+								ApplyHotbarHighlight(slot, true);
 			}
 			else
 			{
-				slot.RemoveThemeStyleboxOverride("panel");
+								ApplyHotbarHighlight(slot, false);
 			}
 		}
 	}
@@ -638,15 +683,43 @@ private void UpdateHotbar()
 			// Highlight selected slot
 			if (i == _inventory.GetSelectedHotbarSlot())
 			{
-				slot.AddThemeStyleboxOverride("panel", CreateHighlightStylebox());
+						ApplyHotbarHighlight(slot, true);
 			}
 			else
 			{
-				slot.RemoveThemeStyleboxOverride("panel");
+						ApplyHotbarHighlight(slot, false);
 			}
 	}
 	}
 }
+
+	private void ApplyHotbarHighlight(Panel slot, bool highlighted)
+	{
+		// If the slot already has a StyleBoxTexture override in the scene, removing/overriding
+		// "panel" will wipe it. So we highlight by adding a child ColorRect overlay.
+		const string highlightNodeName = "SelectionHighlight";
+		var existing = slot.GetNodeOrNull<ColorRect>(highlightNodeName);
+		if (!highlighted)
+		{
+			existing?.QueueFree();
+			return;
+		}
+
+		if (existing != null) return;
+
+		var overlay = new ColorRect();
+		overlay.Name = highlightNodeName;
+		overlay.Color = new Color(1f, 1f, 0f, 0.25f);
+		overlay.MouseFilter = MouseFilterEnum.Ignore;
+		overlay.SetAnchorsPreset(LayoutPreset.FullRect);
+		overlay.OffsetLeft = 0;
+		overlay.OffsetTop = 0;
+		overlay.OffsetRight = 0;
+		overlay.OffsetBottom = 0;
+		slot.AddChild(overlay);
+		// Keep overlay behind labels.
+		slot.MoveChild(overlay, 0);
+	}
 
 private StyleBox CreateHighlightStylebox()
 {

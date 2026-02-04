@@ -3,6 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://b62c6whlfdwvr" path="res://assets/sprites/ancient_books/ancient_book_template.png" id="1_ancient_template"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="2_ancient_font"]
 [ext_resource type="FontFile" uid="uid://cxxjt4bfjc1wk" path="res://assets/fonts/GoudyMediaeval-Regular.ttf" id="3_43knl"]
+[ext_resource type="Texture2D" uid="uid://dbu7fbi73rjqi" path="res://assets/sprites/ui/AncientBookUI/button_long_close.png" id="4_wv6t1"]
+[ext_resource type="Texture2D" uid="uid://da4ykw75ommyy" path="res://assets/sprites/ui/AncientBookUI/button_long_closeClicked.png" id="5_baatm"]
+[ext_resource type="Texture2D" uid="uid://ckirepuneliri" path="res://assets/sprites/ui/AncientBookUI/button_long_closeHover.png" id="6_qgjxs"]
+[ext_resource type="Texture2D" uid="uid://dh0w5lc8me36n" path="res://assets/sprites/ui/AncientBookUI/button_long_closeDisabled.png" id="7_jbwxe"]
 
 [node name="AncientBookUI" type="Control" unique_id=689393793]
 layout_mode = 3
@@ -90,10 +94,10 @@ anchor_left = 0.52
 anchor_top = 0.12
 anchor_right = 0.93
 anchor_bottom = 0.88
-offset_left = -10.339966
-offset_top = -24.359997
-offset_right = -34.809998
-offset_bottom = -44.639984
+offset_left = -4.3399963
+offset_top = -23.359997
+offset_right = -50.809998
+offset_bottom = -47.639984
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0.15, 0.1, 0.05, 1)
@@ -104,20 +108,22 @@ text = "This is the narasi content that will appear on the right page of the anc
 fit_content = true
 scroll_active = false
 
-[node name="AncientBookCloseButton" type="Button" parent="." unique_id=1775276942]
+[node name="AncientBookCloseButton" type="TextureButton" parent="." unique_id=937131677]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -80.0
-offset_right = 100.0
-offset_bottom = -40.0
+offset_left = -100.769226
+offset_top = -78.0
+offset_right = 100.97443
+offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.8, 0.7, 0.5, 1)
-theme_override_fonts/font = ExtResource("2_ancient_font")
-theme_override_font_sizes/font_size = 20
-text = "Close (Esc)"
+texture_normal = ExtResource("4_wv6t1")
+texture_pressed = ExtResource("5_baatm")
+texture_hover = ExtResource("6_qgjxs")
+texture_disabled = ExtResource("7_jbwxe")
+ignore_texture_size = true
+stretch_mode = 5

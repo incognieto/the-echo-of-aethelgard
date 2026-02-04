@@ -1,16 +1,26 @@
 [gd_scene format=3 uid="uid://d4mweouara7f6"]
 
 [ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="1_invui"]
-[ext_resource type="Texture2D" uid="uid://c53ovvbjoxon2" path="res://assets/sprites/ui/ui_4x4_inventory.png" id="2_inv4x4"]
 [ext_resource type="Texture2D" uid="uid://cp1y8c3k7p46x" path="res://assets/sprites/ui/ui_1x4_inventory.png" id="3_inv1x4"]
-[ext_resource type="Texture2D" uid="uid://71yvbgwiw0cs" path="res://assets/sprites/ui/slot_inventory.png" id="4_slot"]
+[ext_resource type="Texture2D" uid="uid://dg5lwc7b8ge34" path="res://assets/sprites/ui/Inventory/Inv.png" id="4_jfhjy"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
+[ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="5_nyenb"]
+[ext_resource type="Texture2D" uid="uid://cl5a8njkq3qh8" path="res://assets/sprites/library/button_close_clicked.png" id="6_a8p5k"]
 [ext_resource type="PackedScene" uid="uid://dbnxnkqvk50l0" path="res://scenes/ui/MapUI.tscn" id="6_mapui"]
+[ext_resource type="Texture2D" uid="uid://b1wg4unyo5ld8" path="res://assets/sprites/library/button_close_hover.png" id="7_akrtk"]
+[ext_resource type="Texture2D" uid="uid://btky6sduk56s7" path="res://assets/sprites/library/button_close_disabled.png" id="8_ikmsr"]
+[ext_resource type="Texture2D" uid="uid://b0o36ysifni7y" path="res://assets/sprites/library/slot_1x1_ui_stone_table.png" id="9_ajan2"]
+[ext_resource type="Texture2D" uid="uid://bqkj0h0fahurh" path="res://assets/sprites/ui/Bungalope.png" id="10_1jp0f"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot"]
-texture = ExtResource("4_slot")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgest"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_11w2x"]
+texture = ExtResource("9_ajan2")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1r87s"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot"]
+texture = ExtResource("9_ajan2")
 
 [node name="InventoryUI" type="Control" unique_id=1936844999]
 layout_mode = 3
@@ -20,18 +30,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_invui")
-
-[node name="Background4x4" type="TextureRect" parent="." unique_id=495456359]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_inv4x4")
-expand_mode = 1
-stretch_mode = 6
 
 [node name="Background1x4" type="TextureRect" parent="." unique_id=426492034]
 visible = false
@@ -47,25 +45,59 @@ stretch_mode = 6
 
 [node name="InventoryPanel" type="Panel" parent="." unique_id=1996971328]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.448
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -225.0
-offset_right = 225.0
-offset_bottom = 225.0
+anchor_bottom = 0.448
+offset_left = -227.0
+offset_top = -282.56
+offset_right = 353.0
+offset_bottom = 282.94
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(227, 297)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_lgest")
 
-[node name="CloseButton" type="Button" parent="InventoryPanel" unique_id=280665004]
-layout_mode = 0
-offset_left = 460.0
-offset_top = -55.0
-offset_right = 560.0
-offset_bottom = -20.0
-text = "Close"
+[node name="Background" type="ColorRect" parent="InventoryPanel" unique_id=1432633611]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -970.0167
+offset_top = -356.0
+offset_right = 853.0167
+offset_bottom = 431.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.27450982)
+
+[node name="Sprite2D" type="Sprite2D" parent="InventoryPanel" unique_id=1601481806]
+position = Vector2(224.00006, 281)
+scale = Vector2(0.28683692, 0.25345972)
+texture = ExtResource("4_jfhjy")
+
+[node name="CloseButton" type="TextureButton" parent="InventoryPanel" unique_id=1742692618]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.897
+anchor_top = 0.07700001
+anchor_right = 0.897
+anchor_bottom = 0.08800001
+offset_left = 133.73999
+offset_top = -15.543503
+offset_right = 233.73999
+offset_bottom = 13.235996
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(53, 19)
+texture_normal = ExtResource("5_nyenb")
+texture_pressed = ExtResource("6_a8p5k")
+texture_hover = ExtResource("7_akrtk")
+texture_disabled = ExtResource("8_ikmsr")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="TitleLabel" type="Label" parent="InventoryPanel" unique_id=903453001]
 visible = false
@@ -80,138 +112,139 @@ horizontal_alignment = 1
 
 [node name="InventorySlots" type="Control" parent="InventoryPanel" unique_id=754698384]
 anchors_preset = 0
-offset_left = -18.0
-offset_top = -4.0
-offset_right = 469.0
-offset_bottom = 463.0
+offset_left = -23.0
+offset_top = 72.0
+offset_right = 464.0
+offset_bottom = 518.0
+pivot_offset = Vector2(249, 222)
 
 [node name="Slot0" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2124594779]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 10.0
-offset_right = 130.0
-offset_bottom = 116.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 57.0
+offset_top = 32.0
+offset_right = 145.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot1" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=702537809]
+[node name="Slot1" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1941714777]
 layout_mode = 0
-offset_left = 135.0
-offset_top = 10.0
-offset_right = 241.0
-offset_bottom = 116.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 156.0
+offset_top = 32.0
+offset_right = 244.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot2" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1864535272]
+[node name="Slot2" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2096304562]
 layout_mode = 0
-offset_left = 246.0
-offset_top = 10.0
-offset_right = 352.0
-offset_bottom = 116.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 254.0
+offset_top = 32.0
+offset_right = 342.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot3" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1352511166]
+[node name="Slot3" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=592413368]
 layout_mode = 0
-offset_left = 357.0
-offset_top = 10.0
-offset_right = 463.0
-offset_bottom = 116.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 353.0
+offset_top = 32.0
+offset_right = 441.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot4" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2135377268]
+[node name="Slot4" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=350097414]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 120.0
-offset_right = 129.0
-offset_bottom = 226.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 57.0
+offset_top = 130.0
+offset_right = 145.0
+offset_bottom = 218.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot5" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1840642303]
+[node name="Slot5" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1559837365]
 layout_mode = 0
-offset_left = 134.0
-offset_top = 121.0
-offset_right = 240.0
-offset_bottom = 227.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 156.0
+offset_top = 130.0
+offset_right = 244.0
+offset_bottom = 218.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot6" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=12116753]
+[node name="Slot6" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=416424001]
 layout_mode = 0
-offset_left = 245.0
-offset_top = 121.0
-offset_right = 351.0
-offset_bottom = 227.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 254.0
+offset_top = 130.0
+offset_right = 342.0
+offset_bottom = 218.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot7" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1163729675]
+[node name="Slot7" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=913230569]
 layout_mode = 0
-offset_left = 357.0
-offset_top = 121.0
-offset_right = 463.0
-offset_bottom = 227.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 353.0
+offset_top = 130.0
+offset_right = 441.0
+offset_bottom = 218.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot8" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1350016541]
+[node name="Slot8" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1948801990]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 231.0
-offset_right = 130.0
-offset_bottom = 337.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 57.0
+offset_top = 228.0
+offset_right = 145.0
+offset_bottom = 316.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot9" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2084970837]
+[node name="Slot9" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1573646957]
 layout_mode = 0
-offset_left = 134.0
-offset_top = 231.0
-offset_right = 240.0
-offset_bottom = 337.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 156.0
+offset_top = 228.0
+offset_right = 244.0
+offset_bottom = 316.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot10" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=431672900]
+[node name="Slot10" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=133776209]
 layout_mode = 0
-offset_left = 246.0
-offset_top = 232.0
-offset_right = 352.0
-offset_bottom = 338.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 254.0
+offset_top = 228.0
+offset_right = 342.0
+offset_bottom = 316.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot11" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1315835627]
+[node name="Slot11" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=653268687]
 layout_mode = 0
-offset_left = 356.0
-offset_top = 233.0
-offset_right = 462.0
-offset_bottom = 339.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 353.0
+offset_top = 228.0
+offset_right = 441.0
+offset_bottom = 316.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot12" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=418631140]
+[node name="Slot12" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=337356115]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 343.0
-offset_right = 130.0
-offset_bottom = 449.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 57.0
+offset_top = 326.0
+offset_right = 145.0
+offset_bottom = 414.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot13" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1737917061]
+[node name="Slot13" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=90349169]
 layout_mode = 0
-offset_left = 135.0
-offset_top = 343.0
-offset_right = 241.0
-offset_bottom = 449.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 156.0
+offset_top = 326.0
+offset_right = 244.0
+offset_bottom = 414.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot14" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1849709406]
+[node name="Slot14" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1252862952]
 layout_mode = 0
-offset_left = 246.0
-offset_top = 343.0
-offset_right = 352.0
-offset_bottom = 449.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 254.0
+offset_top = 326.0
+offset_right = 342.0
+offset_bottom = 414.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
-[node name="Slot15" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1471395928]
+[node name="Slot15" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2035533030]
 layout_mode = 0
-offset_left = 356.0
-offset_top = 343.0
-offset_right = 462.0
-offset_bottom = 449.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
+offset_left = 353.0
+offset_top = 326.0
+offset_right = 441.0
+offset_bottom = 414.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
 [node name="SelectedItemLabel" type="Label" parent="InventoryPanel" unique_id=1147610626]
 visible = false
@@ -236,46 +269,51 @@ autowrap_mode = 3
 
 [node name="HotbarPanel" type="Panel" parent="." unique_id=587478647]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -340.0
-offset_right = 340.0
-offset_bottom = -10.0
+anchors_preset = -1
+anchor_left = 0.124000005
+anchor_top = 0.78300005
+anchor_right = 0.124000005
+anchor_bottom = 0.78300005
+offset_left = -157.72
+offset_top = -125.76001
+offset_right = 131.28
+offset_bottom = 154.23999
 grow_vertical = 0
+pivot_offset = Vector2(143, 141)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1r87s")
 
 [node name="HotbarSlots" type="Control" parent="HotbarPanel" unique_id=1542641514]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -13.0
-offset_top = -24.0
-offset_right = 78.0
-offset_bottom = 7.0
+anchor_left = 0.505
+anchor_top = 0.563
+anchor_right = 0.505
+anchor_bottom = 0.563
+offset_left = -118.94499
+offset_top = -118.639984
+offset_right = 119.05501
+offset_bottom = 118.36
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(118, 116)
 
 [node name="HotbarSlot0" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=1890186224]
 layout_mode = 0
-offset_left = 184.00002
-offset_top = 90.0
-offset_right = 264.0
-offset_bottom = 170.0
+offset_left = 118.56859
+offset_top = 23.63786
+offset_right = 168.56859
+offset_bottom = 73.63786
 rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0" unique_id=1636216839]
 layout_mode = 0
-offset_left = 59.447205
-offset_top = 65.10405
-offset_right = 74.447205
-offset_bottom = 80.10405
+offset_left = 21.774359
+offset_top = 32.47795
+offset_right = 36.77436
+offset_bottom = 85.47796
 rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 41
 text = "1"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0" unique_id=1960439550]
@@ -300,22 +338,22 @@ autowrap_mode = 3
 
 [node name="HotbarSlot1" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=215728629]
 layout_mode = 0
-offset_left = 122.99998
-offset_top = 151.00003
-offset_right = 202.99997
-offset_bottom = 231.00003
+offset_left = 57.568546
+offset_top = 83.93686
+offset_right = 107.56854
+offset_bottom = 133.93686
 rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1" unique_id=1431149266]
 layout_mode = 0
-offset_left = 59.447235
-offset_top = 65.104004
-offset_right = 74.447235
-offset_bottom = 80.104004
+offset_left = 22.27001
+offset_top = 35.80197
+offset_right = 39.27001
+offset_bottom = 88.80197
 rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 41
 text = "2"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1" unique_id=1834309225]
@@ -340,22 +378,22 @@ autowrap_mode = 3
 
 [node name="HotbarSlot2" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=869289169]
 layout_mode = 0
-offset_left = 244.0
-offset_top = 150.00003
-offset_right = 324.0
-offset_bottom = 230.00003
+offset_left = 178.56857
+offset_top = 83.03677
+offset_right = 228.56857
+offset_bottom = 133.03677
 rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2" unique_id=1706194097]
 layout_mode = 0
-offset_left = 59.447235
-offset_top = 65.104004
-offset_right = 74.447235
-offset_bottom = 80.104004
+offset_left = 23.613592
+offset_top = 32.902958
+offset_right = 40.613594
+offset_bottom = 85.902954
 rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 37
 text = "3"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2" unique_id=1965865801]
@@ -380,22 +418,22 @@ autowrap_mode = 3
 
 [node name="HotbarSlot3" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=114333756]
 layout_mode = 0
-offset_left = 184.0
-offset_top = 211.0
-offset_right = 264.0
-offset_bottom = 291.0
+offset_left = 118.56857
+offset_top = 143.59949
+offset_right = 168.56857
+offset_bottom = 193.59949
 rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3" unique_id=1119335818]
 layout_mode = 0
-offset_left = 59.447205
-offset_top = 65.104034
-offset_right = 74.447205
-offset_bottom = 80.104034
+offset_left = 22.50857
+offset_top = 36.04057
+offset_right = 42.508568
+offset_bottom = 89.04057
 rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 37
 text = "4"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3" unique_id=332100749]
@@ -417,4 +455,11 @@ theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
-[node name="MapUI" parent="." instance=ExtResource("6_mapui")]
+
+[node name="Sprite2D" type="Sprite2D" parent="HotbarPanel/HotbarSlots" unique_id=1460654482]
+position = Vector2(119, 120)
+scale = Vector2(0.036505867, 0.036505867)
+texture = ExtResource("10_1jp0f")
+
+[node name="MapUI" parent="." unique_id=598836053 instance=ExtResource("6_mapui")]
+layout_mode = 1

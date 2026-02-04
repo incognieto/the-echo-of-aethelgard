@@ -7,30 +7,30 @@ public partial class BridgePuzzleUI : Control
 	public delegate void PuzzleCompletedEventHandler(bool success);
 
 	private const string CORRECT_ANSWER = "29";
-	
+
 	// UI Components - Diambil dari scene, bukan dibuat via kode
 	private Panel _calculatorPanel;
 	private Label _displayLabel;
 	private Label _escInstructionLabel;
 	private string _currentInput = "";
-	
+
 	// Buttons - Diambil dari scene
 	private Button _button0, _button1, _button2, _button3, _button4;
 	private Button _button5, _button6, _button7, _button8, _button9;
 	private Button _delButton;
 	private Button _enterButton;
-	private Button _closeButton;
-	
+	private TextureButton _closeButton;
+
 	private BridgePuzzle _bridgePuzzle;
 
 	public override void _Ready()
 	{
 		Visible = false;
-		
+
 		// Get nodes from scene (bukan create baru)
 		_calculatorPanel = GetNode<Panel>("CalculatorPanel");
 		_displayLabel = GetNode<Label>("CalculatorPanel/DisplayContainer/DisplayVBox/DisplayLabel");
-		
+
 		// Get all number buttons
 		var buttonGrid = GetNode<Node2D>("CalculatorPanel/ButtonGrid");
 		_button1 = buttonGrid.GetNode<Button>("Button1");
@@ -43,12 +43,12 @@ public partial class BridgePuzzleUI : Control
 		_button8 = buttonGrid.GetNode<Button>("Button8");
 		_button9 = buttonGrid.GetNode<Button>("Button9");
 		_button0 = buttonGrid.GetNode<Button>("Button0");
-		
+
 		// Get action buttons
 		_delButton = buttonGrid.GetNode<Button>("DelButton");
 		_enterButton = buttonGrid.GetNode<Button>("EnterButton");
-		_closeButton = _calculatorPanel.GetNode<Button>("CloseButton");
-		
+		_closeButton = _calculatorPanel.GetNode<TextureButton>("CloseButton");
+
 		// Connect signals
 		_button1.Pressed += () => OnNumberPressed("1");
 		_button2.Pressed += () => OnNumberPressed("2");
@@ -60,11 +60,11 @@ public partial class BridgePuzzleUI : Control
 		_button8.Pressed += () => OnNumberPressed("8");
 		_button9.Pressed += () => OnNumberPressed("9");
 		_button0.Pressed += () => OnNumberPressed("0");
-		
+
 		_delButton.Pressed += OnDelPressed;
 		_enterButton.Pressed += OnEnterPressed;
 		_closeButton.Pressed += OnClosePressed;
-		
+
 		// Create ESC instruction label
 		_escInstructionLabel = new Label();
 		_escInstructionLabel.Text = "(Esc) to return";
@@ -73,16 +73,22 @@ public partial class BridgePuzzleUI : Control
 		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
 		_escInstructionLabel.Position = new Vector2(10, 10);
 		_calculatorPanel.AddChild(_escInstructionLabel);
-		
+
 		// Setup cursor hover effects
 		SetupButtonHoverEffects();
-		
+
 		GD.Print("✓ BridgePuzzleUI ready - loaded from scene!");
 	}
-	
+
 	private void SetupButtonHoverEffects()
 	{
-		var buttons = new[] { _button0, _button1, _button2, _button3, _button4, _button5, _button6, _button7, _button8, _button9, _delButton, _enterButton, _closeButton };
+		BaseButton[] buttons =
+		{
+		_button0, _button1, _button2, _button3, _button4,
+		_button5, _button6, _button7, _button8, _button9,
+		_delButton, _enterButton, _closeButton
+	};
+
 		foreach (var button in buttons)
 		{
 			if (button != null)
@@ -92,7 +98,7 @@ public partial class BridgePuzzleUI : Control
 			}
 		}
 	}
-	
+
 	private void OnNumberPressed(string digit)
 	{
 		// Limit input to 3 digits
@@ -103,7 +109,7 @@ public partial class BridgePuzzleUI : Control
 			GD.Print($"Input: {_currentInput}");
 		}
 	}
-	
+
 	private void OnDelPressed()
 	{
 		if (_currentInput.Length > 0)
@@ -113,7 +119,7 @@ public partial class BridgePuzzleUI : Control
 			GD.Print($"Deleted. Current: {_currentInput}");
 		}
 	}
-	
+
 	private void OnEnterPressed()
 	{
 		if (_currentInput.Length == 0)
@@ -121,11 +127,11 @@ public partial class BridgePuzzleUI : Control
 			GD.Print("⚠️ No input entered!");
 			return;
 		}
-		
+
 		GD.Print($"Checking answer: {_currentInput}");
-		
+
 		bool isCorrect = _currentInput == CORRECT_ANSWER;
-		
+
 		if (isCorrect)
 		{
 			GD.Print($"✓ CORRECT! Answer: {_currentInput}");
@@ -137,10 +143,10 @@ public partial class BridgePuzzleUI : Control
 		else
 		{
 			GD.Print($"✗ WRONG! Answer: {_currentInput} (correct: {CORRECT_ANSWER})");
-			
+
 			// Flash red on display
 			_displayLabel.AddThemeColorOverride("font_color", Colors.Red);
-			
+
 			// Wait 1 second then emit fail
 			GetTree().CreateTimer(1.0).Timeout += () =>
 			{
@@ -152,7 +158,7 @@ public partial class BridgePuzzleUI : Control
 			};
 		}
 	}
-	
+
 	private void OnClosePressed()
 	{
 		Hide();
@@ -161,12 +167,12 @@ public partial class BridgePuzzleUI : Control
 		_currentInput = "";
 		UpdateDisplay();
 	}
-	
+
 	private void UpdateDisplay()
 	{
 		_displayLabel.Text = _currentInput.Length > 0 ? _currentInput : "";
 	}
-	
+
 	public new void Show()
 	{
 		base.Show();
@@ -177,7 +183,7 @@ public partial class BridgePuzzleUI : Control
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		GD.Print("Calculator UI shown");
 	}
-	
+
 	public void SetBridgePuzzle(BridgePuzzle puzzle)
 	{
 		_bridgePuzzle = puzzle;
@@ -194,9 +200,9 @@ public partial class BridgePuzzleUI : Control
 				return;
 			}
 		}
-		
+
 		if (!Visible) return;
-		
+
 		// Keyboard number input
 		if (@event is InputEventKey keyEvent2 && keyEvent2.Pressed && !keyEvent2.Echo)
 		{
