@@ -59,20 +59,6 @@ grow_vertical = 2
 pivot_offset = Vector2(227, 297)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_lgest")
 
-[node name="Background" type="ColorRect" parent="InventoryPanel" unique_id=1432633611]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -970.0167
-offset_top = -356.0
-offset_right = 853.0167
-offset_bottom = 431.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.27450982)
-
 [node name="Sprite2D" type="Sprite2D" parent="InventoryPanel" unique_id=1601481806]
 position = Vector2(224.00006, 281)
 scale = Vector2(0.28683692, 0.25345972)
