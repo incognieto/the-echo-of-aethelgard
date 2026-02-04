@@ -33,6 +33,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="Background1x4" type="TextureRect" parent="." unique_id=426492034]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,16 +235,13 @@ autowrap_mode = 3
 
 [node name="HotbarPanel" type="Panel" parent="." unique_id=587478647]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -212.0
-offset_top = -108.0
-offset_right = 148.0
-offset_bottom = -18.0
-grow_horizontal = 2
+offset_left = 10.0
+offset_top = -340.0
+offset_right = 340.0
+offset_bottom = -10.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1r87s")
 
@@ -261,20 +259,22 @@ grow_vertical = 2
 
 [node name="HotbarSlot0" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=1890186224]
 layout_mode = 0
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 113.0
-offset_bottom = 114.0
+offset_left = 184.00002
+offset_top = 90.0
+offset_right = 264.0
+offset_bottom = 170.0
+rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0" unique_id=1636216839]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 59.447205
+offset_top = 65.10405
+offset_right = 74.447205
+offset_bottom = 80.10405
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "1"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot0" unique_id=1960439550]
@@ -284,12 +284,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 5.0
+offset_left = -36.46447
+offset_top = 18.890976
+offset_right = 43.53553
+offset_bottom = 43.890976
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
@@ -298,20 +299,22 @@ autowrap_mode = 3
 
 [node name="HotbarSlot1" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=215728629]
 layout_mode = 0
-offset_left = 117.0
-offset_top = 8.0
-offset_right = 223.0
-offset_bottom = 114.0
+offset_left = 122.99998
+offset_top = 151.00003
+offset_right = 202.99997
+offset_bottom = 231.00003
+rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1" unique_id=1431149266]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 59.447235
+offset_top = 65.104004
+offset_right = 74.447235
+offset_bottom = 80.104004
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "2"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot1" unique_id=1834309225]
@@ -321,12 +324,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 5.0
+offset_left = -36.464474
+offset_top = 18.890976
+offset_right = 43.535526
+offset_bottom = 43.890976
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
@@ -335,20 +339,22 @@ autowrap_mode = 3
 
 [node name="HotbarSlot2" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=869289169]
 layout_mode = 0
-offset_left = 227.0
-offset_top = 8.0
-offset_right = 333.0
-offset_bottom = 114.0
+offset_left = 244.0
+offset_top = 150.00003
+offset_right = 324.0
+offset_bottom = 230.00003
+rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2" unique_id=1706194097]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 59.447235
+offset_top = 65.104004
+offset_right = 74.447235
+offset_bottom = 80.104004
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "3"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot2" unique_id=1965865801]
@@ -358,12 +364,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 5.0
+offset_left = -36.464478
+offset_top = 18.890976
+offset_right = 43.535522
+offset_bottom = 43.890976
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
@@ -372,20 +379,22 @@ autowrap_mode = 3
 
 [node name="HotbarSlot3" type="Panel" parent="HotbarPanel/HotbarSlots" unique_id=114333756]
 layout_mode = 0
-offset_left = 339.0
-offset_top = 8.0
-offset_right = 445.0
-offset_bottom = 114.0
+offset_left = 184.0
+offset_top = 211.0
+offset_right = 264.0
+offset_bottom = 291.0
+rotation = 0.7853982
 theme_override_styles/panel = SubResource("StyleBoxTexture_slot")
 
 [node name="SlotNumber" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3" unique_id=1119335818]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 59.447205
+offset_top = 65.104034
+offset_right = 74.447205
+offset_bottom = 80.104034
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "4"
 
 [node name="ItemLabel" type="Label" parent="HotbarPanel/HotbarSlots/HotbarSlot3" unique_id=332100749]
@@ -395,12 +404,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 5.0
+offset_left = -36.464478
+offset_top = 18.890991
+offset_right = 43.535522
+offset_bottom = 43.89099
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.7853982
 theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1

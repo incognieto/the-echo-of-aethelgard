@@ -255,9 +255,20 @@ private void CreateAncientBookNotification()
 	
 	// Color: Yellow/gold notification
 	_ancientBookNotification.AddThemeColorOverride("font_color", new Color(1.0f, 0.9f, 0.3f, 1.0f));
+	
+	// Font: GoudyMediaeval-Regular
+	var goudyFont = GD.Load<FontFile>("res://assets/fonts/GoudyMediaeval-Regular.ttf");
+	if (goudyFont != null)
+	{
+		_ancientBookNotification.AddThemeFontOverride("font", goudyFont);
+	}
+	else
+	{
+		// Fallback to custom font if GoudyMediaeval not found
+		if (_customFont != null) _ancientBookNotification.AddThemeFontOverride("font", _customFont);
+	}
 	// ================================
 	
-	if (_customFont != null) _ancientBookNotification.AddThemeFontOverride("font", _customFont);
 	_ancientBookNotification.Visible = false; // Hidden by default
 	AddChild(_ancientBookNotification);
 }

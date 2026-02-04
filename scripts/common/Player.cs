@@ -673,11 +673,24 @@ public partial class Player : CharacterBody3D
 	}
 	
 	// Method untuk BookItem memanggil UI
+	public void ShowBook(string title, string leftTitle, string leftImage, string rightContent)
+	{
+		if (_bookUI != null)
+		{
+			_bookUI.ShowBook(title, leftTitle, leftImage, rightContent);
+		}
+		else
+		{
+			GD.PrintErr("BookUI is not available!");
+		}
+	}
+	
+	// Overload untuk backward compatibility (buku biasa tanpa gambar)
 	public void ShowBook(string title, string leftContent, string rightContent)
 	{
 		if (_bookUI != null)
 		{
-			_bookUI.ShowBook(title, leftContent, rightContent);
+			_bookUI.ShowBook(title, leftContent, "", rightContent);
 		}
 		else
 		{

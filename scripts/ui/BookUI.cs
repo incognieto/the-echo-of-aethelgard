@@ -21,6 +21,15 @@ public partial class BookUI : Control
 	private Container _leftPageContainer;
 	private Container _rightPageContainer;
 	private VSeparator _pageSeparator;
+	
+	// Ancient book mode - loaded from .tscn
+	private Control _ancientBookUI;
+	private TextureRect _bookBackground;
+	private Label _leftPageTitleLabel;
+	private TextureRect _leftPageImageRect;
+	private RichTextLabel _ancientRightPageLabel;
+	private Label _ancientBookTitle;
+	private Button _ancientBookCloseButton;
 
 	public override void _Ready()
 	{
@@ -200,6 +209,32 @@ public partial class BookUI : Control
 		
 		// Store reference for showing/hiding with poster
 		_posterEscLabel = posterEscLabel;
+		
+		// ===== Ancient Book UI - Load from .tscn =====
+		var ancientBookScene = GD.Load<PackedScene>("res://scenes/ui/AncientBookUI.tscn");
+		if (ancientBookScene != null)
+		{
+			_ancientBookUI = ancientBookScene.Instantiate<Control>();
+			_ancientBookUI.Visible = false;
+			AddChild(_ancientBookUI);
+			
+			// Get references to child nodes from the scene
+			_ancientBookTitle = _ancientBookUI.GetNode<Label>("AncientBookTitle");
+			_bookBackground = _ancientBookUI.GetNode<TextureRect>("BookBackground");
+			_leftPageTitleLabel = _ancientBookUI.GetNode<Label>("BookBackground/LeftPageTitle");
+			_leftPageImageRect = _ancientBookUI.GetNode<TextureRect>("BookBackground/LeftPageImage");
+			_ancientRightPageLabel = _ancientBookUI.GetNode<RichTextLabel>("BookBackground/RightPageContent");
+			_ancientBookCloseButton = _ancientBookUI.GetNode<Button>("AncientBookCloseButton");
+			
+			// Connect close button
+			_ancientBookCloseButton.Pressed += OnClosePressed;
+			_ancientBookCloseButton.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
+			_ancientBookCloseButton.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
+		}
+		else
+		{
+			GD.PrintErr("Failed to load AncientBookUI.tscn");
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -211,34 +246,90 @@ public partial class BookUI : Control
 		}
 	}
 
-	public void ShowBook(string title, string leftContent, string rightContent)
+	public void ShowBook(string title, string leftTitle, string leftImage, string rightContent)
 	{
 		_isPosterMode = false;
 		_bookTitle = title;
-		_leftPageContent = string.IsNullOrEmpty(leftContent) ? "(Empty page)" : leftContent;
-		_rightPageContent = string.IsNullOrEmpty(rightContent) ? "(Empty page)" : rightContent;
 		
-		_titleLabel.Text = title;
-		
-		// Show all book elements, hide poster image
-		_bookPanel.Visible = true;
-		_titleLabel.Visible = true;
-		_leftPageContainer.Visible = true;
-		_leftPageLabel.Visible = true;
-		_posterImage.Visible = false;
-		_posterEscLabel.Visible = false;
-		_rightPageContainer.Visible = true;
-		_pageSeparator.Visible = true;
-		
-		// Center align and display content with BBCode
-		_leftPageLabel.Text = $"[center]{_leftPageContent}[/center]";
-		_rightPageLabel.Text = $"[center]{_rightPageContent}[/center]";
+		// Check if this is an ancient book (has image)
+		bool isAncientBook = !string.IsNullOrEmpty(leftImage);
 		
 		Visible = true;
 		InventoryUI.IsAnyPanelOpen = true; // Block player movement
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(false);
-		GD.Print($"Opening book: {title} | Left: {_leftPageContent} | Right: {_rightPageContent}");
+		
+		if (isAncientBook)
+		{
+			// ===== Ancient Book Mode (Simple, No Animation) =====
+			// Hide old panel-based UI
+			_bookPanel.Visible = false;
+			_titleLabel.Visible = false;
+			_leftPageContainer.Visible = false;
+			_rightPageContainer.Visible = false;
+			_pageSeparator.Visible = false;
+			_posterImage.Visible = false;
+			_posterEscLabel.Visible = false;
+			
+			// Show ancient book UI
+			if (_ancientBookUI != null)
+			{
+				_ancientBookUI.Visible = true;
+				
+				// Set left page title
+				_leftPageTitleLabel.Text = leftTitle;
+				
+				// Load and show left page image
+				var texture = GD.Load<Texture2D>(leftImage);
+				if (texture != null)
+				{
+					_leftPageImageRect.Texture = texture;
+				}
+				else
+				{
+					GD.PrintErr($"Failed to load ancient book image: {leftImage}");
+				}
+				
+				// Set right page narasi
+				_ancientRightPageLabel.Text = rightContent;
+				
+				// Create a new Theme with font size 23px for all levels
+				var customTheme = new Theme();
+				var customFont = GD.Load<FontFile>("res://assets/fonts/BLKCHCRY.TTF");
+				customTheme.SetFont("normal_font", "RichTextLabel", customFont);
+				customTheme.SetFontSize("normal_font_size", "RichTextLabel", 23);
+				_ancientRightPageLabel.Theme = customTheme;
+				
+				GD.Print($"Opening Ancient Book: {title}");
+			}
+		}
+		else
+		{
+			// ===== Normal Book Mode (backward compatibility) =====
+			_leftPageContent = string.IsNullOrEmpty(leftTitle) ? "(Empty page)" : leftTitle;
+			_rightPageContent = string.IsNullOrEmpty(rightContent) ? "(Empty page)" : rightContent;
+			
+			_titleLabel.Text = title;
+			
+			// Hide ancient book UI
+			if (_ancientBookUI != null) _ancientBookUI.Visible = false;
+			
+			// Show all book panel elements, hide poster image
+			_bookPanel.Visible = true;
+			_titleLabel.Visible = true;
+			_leftPageContainer.Visible = true;
+			_leftPageLabel.Visible = true;
+			_posterImage.Visible = false;
+			_posterEscLabel.Visible = false;
+			_rightPageContainer.Visible = true;
+			_pageSeparator.Visible = true;
+			
+			// Center align and display content with BBCode
+			_leftPageLabel.Text = $"[center]{_leftPageContent}[/center]";
+			_rightPageLabel.Text = $"[center]{_rightPageContent}[/center]";
+			
+			GD.Print($"Opening book: {title} | Left: {_leftPageContent} | Right: {_rightPageContent}");
+		}
 	}
 	
 	public void ShowPoster(string title, string imagePath)
@@ -255,6 +346,9 @@ public partial class BookUI : Control
 		_rightPageContainer.Visible = false;
 		_pageSeparator.Visible = false;
 		_leftPageContainer.Visible = false;
+		
+		// Hide ancient book UI
+		if (_ancientBookUI != null) _ancientBookUI.Visible = false;
 		
 		// Load and display image
 		var texture = GD.Load<Texture2D>(imagePath);

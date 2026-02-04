@@ -6,19 +6,31 @@ using System;
 public class BookUsable : IUsableItem
 {
 	private string _bookTitle;
-	private string _leftPageContent;
+	private string _leftPageTitle;
+	private string _leftPageImage;
 	private string _rightPageContent;
 
+	// Constructor baru untuk ancient book dengan gambar
+	public BookUsable(string title, string leftTitle, string leftImage, string rightContent)
+	{
+		_bookTitle = title;
+		_leftPageTitle = leftTitle;
+		_leftPageImage = leftImage;
+		_rightPageContent = rightContent;
+	}
+
+	// Constructor lama untuk kompatibilitas (buku biasa)
 	public BookUsable(string title, string leftContent = "", string rightContent = "")
 	{
 		_bookTitle = title;
-		_leftPageContent = leftContent;
+		_leftPageTitle = leftContent;
+		_leftPageImage = "";
 		_rightPageContent = rightContent;
 	}
 
 	public void Use(Player player)
 	{
-		player.ShowBook(_bookTitle, _leftPageContent, _rightPageContent);
+		player.ShowBook(_bookTitle, _leftPageTitle, _leftPageImage, _rightPageContent);
 	}
 
 	public string GetUseText()
@@ -128,7 +140,18 @@ public partial class BookItem : PickableItem
 			bookData.Description = isKeyItem ? "An ancient mystical book - Contains secrets of alchemy" : "A book that can be read";
 			
 			// Set book behavior
-			bookData.UsableBehavior = new BookUsable(BookTitle);
+			if (isKeyItem)
+			{
+				// Get current level for ancient book content
+				int currentLevel = GetCurrentLevel();
+				var (levelTitle, levelImage, rightContent) = GetAncientBookContent(currentLevel);
+				bookData.UsableBehavior = new BookUsable("Ancient Book", levelTitle, levelImage, rightContent);
+			}
+			else
+			{
+				// Regular book
+				bookData.UsableBehavior = new BookUsable(BookTitle);
+			}
 			
 			// Override the default item data
 			_itemData = bookData;
@@ -178,6 +201,69 @@ public partial class BookItem : PickableItem
 		else
 		{
 			base._Process(delta);
+		}
+	}
+	
+	private int GetCurrentLevel()
+	{
+		// Try to find GameSetup node to get current level
+		var gameSetup = GetTree().Root.GetNodeOrNull<GameSetup>("Main/GameSetup");
+		if (gameSetup != null)
+		{
+			return gameSetup.CurrentLevel;
+		}
+		
+		// Fallback: try to detect from scene name
+		var currentScene = GetTree().CurrentScene;
+		if (currentScene != null)
+		{
+			string sceneName = currentScene.Name.ToString().ToLower();
+			if (sceneName.Contains("level_1") || sceneName.Contains("cell")) return 1;
+			if (sceneName.Contains("level_2") || sceneName.Contains("bridge")) return 2;
+			if (sceneName.Contains("level_3") || sceneName.Contains("lab")) return 3;
+			if (sceneName.Contains("level_4") || sceneName.Contains("library")) return 4;
+			if (sceneName.Contains("level_5") || sceneName.Contains("sewer")) return 5;
+		}
+		
+		return 1; // Default to level 1
+	}
+	
+	private (string title, string image, string narasi) GetAncientBookContent(int level)
+	{
+		switch (level)
+		{
+			case 1:
+				return (
+					"The First Vision: Ironfang's Sentence",
+					"res://assets/sprites/ancient_books/ancient_content_lvl-1.png",
+					"I saw you, Traveller. You stood before the gate, hands trembling as you turned the wheels. One wrong click, and the ceiling wept iron needles. To live, you must mirror the Glimpse. Look into the void, remember the order of the stars: The King, the Eye, the Star, the Sword, the Moon, the Eye, the Sun, and the King again. Do not let the sequence fade, or the spoiler of your death shall become your truth."
+				);
+			case 2:
+				return (
+					"The Chamber of Weighted Sins",
+					"res://assets/sprites/ancient_books/ancient_content_lvl-2.png",
+					"I watched the previous captain fall. He stepped on the center (III) and the floor vanished. The stones only hold those who follow the Path of the Pentagram. Start from the End (V), leap to the Beginning (I), then follow the rhythm: Back to Two, Forward to Three, and Finish at Four. Step lightly, for the stones remember the weight of those who stumble."
+				);
+			case 3:
+				return (
+					"The Synthesis of the Teal Soul",
+					"res://assets/sprites/ancient_books/ancient_content_lvl-3.png",
+					"Pure elements are violent. Do not force the Moss, the Powder, and the Fruit into one vessel, or the lab shall be your tomb. To create the Teal Dissolver, one must first birth the Three Children of Color. Let the Sun (Yellow) rise from Moss and Dust. Let the Heart (Magenta) beat from Dust and Fruit. Let the Sea (Cyan) flow from Fruit and Moss. Only when these three unite, will the iron gate melt before you."
+				);
+			case 4:
+				return (
+					"The Warden's Forbidden Records: Volume IV",
+					"res://assets/sprites/ancient_books/ancient_content_lvl-4.png",
+					"From the towering walls of the ancient [b]Castle[/b], a brave [b]Knight[/b] prepared for his greatest quest. The realm's beloved [b]Princess[/b] had been captured by a fearsome [b]Dragon[/b], casting a shadow of doom over the land. With his trusted [b]Sword[/b] at his side and a sturdy [b]Shield[/b] for protection, the knight mounted his swift [b]Horse[/b] and rode forth. His journey led him through treacherous paths marked by the [b]Skulls[/b] of fallen warriors who had failed before them. Driven by courage, he faced the beast, and from the ashes of the fierce battle, hope for the kingdom rose again like an immortal [b]Phoenix[/b]."
+				);
+			case 5:
+				return (
+					"The Toll of Freedom",
+					"res://assets/sprites/ancient_books/ancient_content_lvl-5.png",
+					"The gate of the sewers does not open for the weak, nor for the heavy-hearted. It demands a Perfect Burden. Many have piled stones until the chains snapped, buried under their own greed. The spoiler is simple: The lock will only turn when the scales feel the weight of Three Chosen Sins. Find the stones of The Giant (40), The Guard (20), and The Youth (15). No more, no less. Seventy-five is the price of the world outside."
+				);
+			default:
+				return ("Empty Page", "", "(Empty page)");
 		}
 	}
 }

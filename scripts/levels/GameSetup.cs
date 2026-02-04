@@ -24,7 +24,8 @@ public partial class GameSetup : Node
 		StartFadeIn();
 		
 		// Spawn ancient book di inventory untuk level 2, 3, 4, dan 5
-		if (CurrentLevel == 2 || CurrentLevel == 3 || CurrentLevel == 4 || CurrentLevel == 5)
+		// Level 1: ancient book adalah pickable item di dunia, bukan auto-spawn
+		if (CurrentLevel >= 2 && CurrentLevel <= 5)
 		{
 			CallDeferred(nameof(SpawnAncientBook));
 		}
@@ -141,46 +142,52 @@ public partial class GameSetup : Node
 		ancientBookData.Description = "An ancient mystical book - Contains secrets of alchemy";
 		
 		// Set konten berbeda per level
-		string leftContent = "";
-		string rightContent = "";
-		
-		switch (CurrentLevel)
-		{
-			case 1:
-				leftContent = "A";
-				rightContent = "B";
-				break;
-			case 2:
-				leftContent = "C";
-				rightContent = "D";
-				break;
-			case 3:
-				leftContent = "E";
-				rightContent = "F";
-				break;
-			case 4:
-				leftContent = "G";
-				rightContent = "H";
-				break;
-			case 5:
-				leftContent = "I";
-				rightContent = "J";
-				break;
-			default:
-				leftContent = "(Empty page)";
-				rightContent = "(Empty page)";
-				break;
-		}
-		
-		// Set book behavior dengan konten per level
-		ancientBookData.UsableBehavior = new BookUsable("Ancient Book", leftContent, rightContent);
-		
+	string levelTitle = "";
+	string levelImage = "";
+	string rightContent = "";
+	
+	switch (CurrentLevel)
+	{
+		case 1:
+			levelTitle = "The First Vision: Ironfang's Sentence";
+			levelImage = "res://assets/sprites/ancient_books/ancient_content_lvl-1.png";
+			rightContent = "I saw you, Traveller. You stood before the gate, hands trembling as you turned the wheels. One wrong click, and the ceiling wept iron needles. To live, you must mirror the Glimpse. Look into the void, remember the order of the stars: The King, the Eye, the Star, the Sword, the Moon, the Eye, the Sun, and the King again. Do not let the sequence fade, or the spoiler of your death shall become your truth.";
+			break;
+		case 2:
+			levelTitle = "The Chamber of Weighted Sins";
+			levelImage = "res://assets/sprites/ancient_books/ancient_content_lvl-2.png";
+			rightContent = "I watched the previous captain fall. He stepped on the center (III) and the floor vanished. The stones only hold those who follow the Path of the Pentagram. Start from the End (V), leap to the Beginning (I), then follow the rhythm: Back to Two, Forward to Three, and Finish at Four. Step lightly, for the stones remember the weight of those who stumble.";
+			break;
+		case 3:
+			levelTitle = "The Synthesis of the Teal Soul";
+			levelImage = "res://assets/sprites/ancient_books/ancient_content_lvl-3.png";
+			rightContent = "Pure elements are violent. Do not force the Moss, the Powder, and the Fruit into one vessel, or the lab shall be your tomb. To create the Teal Dissolver, one must first birth the Three Children of Color. Let the Sun (Yellow) rise from Moss and Dust. Let the Heart (Magenta) beat from Dust and Fruit. Let the Sea (Cyan) flow from Fruit and Moss. Only when these three unite, will the iron gate melt before you.";
+			break;
+		case 4:
+			levelTitle = "The Warden's Forbidden Records: Volume IV";
+			levelImage = "res://assets/sprites/ancient_books/ancient_content_lvl-4.png";
+			rightContent = "From the towering walls of the ancient [b]Castle[/b], a brave [b]Knight[/b] prepared for his greatest quest. The realm's beloved [b]Princess[/b] had been captured by a fearsome [b]Dragon[/b], casting a shadow of doom over the land. With his trusted [b]Sword[/b] at his side and a sturdy [b]Shield[/b] for protection, the knight mounted his swift [b]Horse[/b] and rode forth. His journey led him through treacherous paths marked by the [b]Skulls[/b] of fallen warriors who had failed before them. Driven by courage, he faced the beast, and from the ashes of the fierce battle, hope for the kingdom rose again like an immortal [b]Phoenix[/b].";
+			break;
+		case 5:
+			levelTitle = "The Toll of Freedom";
+			levelImage = "res://assets/sprites/ancient_books/ancient_content_lvl-5.png";
+			rightContent = "The gate of the sewers does not open for the weak, nor for the heavy-hearted. It demands a Perfect Burden. Many have piled stones until the chains snapped, buried under their own greed. The spoiler is simple: The lock will only turn when the scales feel the weight of Three Chosen Sins. Find the stones of The Giant (40), The Guard (20), and The Youth (15). No more, no less. Seventy-five is the price of the world outside.";
+			break;
+		default:
+			levelTitle = "Empty Page";
+			levelImage = "";
+			rightContent = "(Empty page)";
+			break;
+	}
+	
+	// Set book behavior dengan konten per level
+	ancientBookData.UsableBehavior = new BookUsable("Ancient Book", levelTitle, levelImage, rightContent);
 		// Add to inventory
 		bool added = inventorySystem.AddItem(ancientBookData, 1);
 		if (added)
 		{
 			GD.Print($"✓ GameSetup: Ancient Book successfully added to inventory for Level {CurrentLevel}");
-			GD.Print($"   Left page: \"{leftContent}\", Right page: \"{rightContent}\"");
+			GD.Print($"   Title: \"{levelTitle}\", Image: \"{levelImage}\"");
 		}
 		else
 		{

@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://b33a4yprx5g0b"]
+
+[ext_resource type="Texture2D" uid="uid://b62c6whlfdwvr" path="res://assets/sprites/ancient_books/ancient_book_template.png" id="1_ancient_template"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="2_ancient_font"]
+[ext_resource type="FontFile" uid="uid://cxxjt4bfjc1wk" path="res://assets/fonts/GoudyMediaeval-Regular.ttf" id="3_43knl"]
+
+[node name="AncientBookUI" type="Control" unique_id=689393793]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AncientBookTitle" type="Label" parent="." unique_id=1783199109]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 31.0
+offset_right = 300.0
+offset_bottom = 81.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.8, 0.7, 0.5, 1)
+theme_override_fonts/font = ExtResource("2_ancient_font")
+theme_override_font_sizes/font_size = 32
+text = "Grimoire the Ancient Books"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BookBackground" type="TextureRect" parent="." unique_id=71191006]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -433.5
+offset_top = -264.0
+offset_right = 433.5
+offset_bottom = 264.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ancient_template")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LeftPageTitle" type="Label" parent="BookBackground" unique_id=1416078856]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08
+anchor_top = 0.1
+anchor_right = 0.47
+anchor_bottom = 0.22
+offset_left = 36.140015
+offset_top = -9.799999
+offset_bottom = 72.840004
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.15, 0.1, 0.05, 1)
+theme_override_fonts/font = ExtResource("3_43knl")
+theme_override_font_sizes/font_size = 25
+text = "Chapter Title"
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[node name="LeftPageImage" type="TextureRect" parent="BookBackground" unique_id=717287872]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.12
+anchor_top = 0.25
+anchor_right = 0.43
+anchor_bottom = 0.85
+offset_left = 23.089973
+offset_top = -32.0
+offset_right = 24.089966
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RightPageContent" type="RichTextLabel" parent="BookBackground" unique_id=1656786890]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.52
+anchor_top = 0.12
+anchor_right = 0.93
+anchor_bottom = 0.88
+offset_left = -10.339966
+offset_top = -24.359997
+offset_right = -34.809998
+offset_bottom = -44.639984
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.15, 0.1, 0.05, 1)
+theme_override_fonts/normal_font = ExtResource("3_43knl")
+theme_override_font_sizes/normal_font_size = 21
+bbcode_enabled = true
+text = "This is the narasi content that will appear on the right page of the ancient book."
+fit_content = true
+scroll_active = false
+
+[node name="AncientBookCloseButton" type="Button" parent="." unique_id=1775276942]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8, 0.7, 0.5, 1)
+theme_override_fonts/font = ExtResource("2_ancient_font")
+theme_override_font_sizes/font_size = 20
+text = "Close (Esc)"
