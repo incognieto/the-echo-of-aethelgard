@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dbnxnkqvk50l0"]
+
+[ext_resource type="Script" uid="uid://uxk425fnsnto" path="res://scripts/ui/MapUI.cs" id="1_mapui"]
+[ext_resource type="Script" uid="uid://8j38yfd2b64e" path="res://scripts/ui/MapDisplay.cs" id="2_mapdisplay"]
+
+[node name="MapUI" type="Control" unique_id=535230043]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_mapui")
+
+[node name="MapDisplay" type="Control" parent="." unique_id=768744652]
+clip_contents = true
+custom_minimum_size = Vector2(220, 220)
+layout_mode = 1
+anchors_preset = 0
+offset_left = -53.0
+offset_top = -32.0
+offset_right = 167.0
+offset_bottom = 188.0
+rotation = 3.1415927
+script = ExtResource("2_mapdisplay")
+
+[node name="CoordLabel" type="Label" parent="." unique_id=1558063957]
+layout_mode = 1
+offset_left = -260.0
+offset_top = -280.0
+offset_right = -60.0
+offset_bottom = -250.0
+text = "X: 0.0  Z: 0.0"

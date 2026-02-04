@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cp1y8c3k7p46x" path="res://assets/sprites/ui/ui_1x4_inventory.png" id="3_inv1x4"]
 [ext_resource type="Texture2D" uid="uid://71yvbgwiw0cs" path="res://assets/sprites/ui/slot_inventory.png" id="4_slot"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
+[ext_resource type="PackedScene" uid="uid://dbnxnkqvk50l0" path="res://scenes/ui/MapUI.tscn" id="6_mapui"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot"]
 texture = ExtResource("4_slot")
@@ -416,3 +417,4 @@ theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+[node name="MapUI" parent="." instance=ExtResource("6_mapui")]

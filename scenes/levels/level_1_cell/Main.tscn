@@ -104,6 +104,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61408186, 0.87650394, 0)
 [node name="Book" type="StaticBody3D" parent="Items" unique_id=284339182]
 transform = Transform3D(0.36163303, 0, -0.17094316, 0, 0.4, 0, 0.17094316, 0, 0.36163303, -2.4567034, 0.40317273, 2.2735946)
 script = ExtResource("6_bookitem")
+ItemId = "ancient_book"
+ItemName = "Ancient Books"
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Items/Book" unique_id=816795352]
 transform = Transform3D(2.2602065, -1.0683947, -4.6701015e-08, 0, -1.09278474e-07, 2.5, -1.0683947, -2.2602065, -9.879676e-08, 0.022122383, 0.22014976, -0.02346468)
