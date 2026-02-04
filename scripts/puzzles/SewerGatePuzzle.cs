@@ -7,56 +7,61 @@ public partial class SewerGatePuzzle : Node3D
     [ExportGroup("Settings")]
     [Export] public float TargetWeight = 75.0f;
     [Export] public Node3D GateObject; // Referensi ke Gerbang Visual
-    [Export] public float OpenHeight = 4.0f; // Seberapa tinggi gerbang naik
+    [Export] public float MaxGateHeight = 4.0f; // Ketinggian maksimal gerbang (saat 75kg)
     
     [ExportGroup("Feedback")]
     [Export] public Label3D StatusLabel; // Teks angka di atas gerbang
 
     private float _currentWeight = 0.0f;
     private bool _isSolved = false;
+    private bool _isBroken = false; // Gate rusak jika overload
     private Vector3 _gateClosedPos;
-    private Vector3 _gateOpenPos;
+    private Vector3 _gateTargetPos;
 
     public override void _Ready()
     {
         if (GateObject != null)
         {
             _gateClosedPos = GateObject.Position;
-            _gateOpenPos = _gateClosedPos + new Vector3(0, OpenHeight, 0);
+            _gateTargetPos = _gateClosedPos;
         }
         UpdateLabel();
     }
 
     // Hubungkan ini ke signal BodyEntered dari Area3D Scale
-public void OnScaleBodyEntered(Node3D body)
-{
-    // Debug: Cek deteksi
-    GD.Print($"[SENSOR] Mendeteksi: {body.Name}");
-
-    if (body is DroppedItem droppedItem)
+    public void OnScaleBodyEntered(Node3D body)
     {
-        string id = droppedItem.GetItemData().ItemId;
+        // Jika puzzle sudah rusak, tidak bisa ditambah lagi
+        if (_isBroken)
+        {
+            GD.Print("[PUZZLE] Gate rusak! Tidak bisa menambah berat lagi.");
+            return;
+        }
         
-        // 1. Ambil berat dari ID
-        float weight = GetWeightFromId(id);
-        
-        // Debug: Pastikan beratnya bukan 0
-        GD.Print($"[HITUNG] Item: {id} | Berat: {weight} kg");
+        GD.Print($"[SENSOR] Mendeteksi: {body.Name}");
 
-        // 2. TAMBAHKAN BERATNYA (Ini yang tadi hilang)
-        _currentWeight += weight;
-        
-        // 3. Update Teks di Layar
-        UpdateLabel();
-        
-        // 4. Cek apakah puzzle selesai
-        CheckPuzzle();
+        if (body is DroppedItem droppedItem)
+        {
+            string id = droppedItem.GetItemData().ItemId;
+            float weight = GetWeightFromId(id);
+            
+            GD.Print($"[HITUNG] Item: {id} | Berat: {weight} kg");
+
+            _currentWeight += weight;
+            UpdateLabel();
+            CheckPuzzle();
+        }
     }
-}
 
     // Hubungkan ini ke signal BodyExited
     public void OnScaleBodyExited(Node3D body)
     {
+        // Jika puzzle sudah rusak, tidak bisa dikurangi lagi
+        if (_isBroken)
+        {
+            return;
+        }
+        
         if (body is DroppedItem droppedItem)
         {
             float weight = GetWeightFromId(droppedItem.GetItemData().ItemId);
@@ -70,21 +75,32 @@ public void OnScaleBodyEntered(Node3D body)
 
     private void CheckPuzzle()
     {
-        // Toleransi kecil untuk float
+        // Cek jika TEPAT 75kg
         if (Mathf.IsEqualApprox(_currentWeight, TargetWeight))
         {
-            GD.Print("PUZZLE SOLVED: 75kg Reached!");
+            GD.Print("✅ PUZZLE SOLVED: Tepat 75kg! Gate terbuka penuh!");
             _isSolved = true;
+            _gateTargetPos = _gateClosedPos + new Vector3(0, MaxGateHeight, 0);
         }
+        // Cek jika MELEBIHI 75kg -> RUSAK!
         else if (_currentWeight > TargetWeight)
         {
-            GD.Print("OVERLOAD! Too heavy!");
+            GD.Print("❌ OVERLOAD! Gate rusak dan tertutup!");
             _isSolved = false;
-            // Nanti di sini bisa tambah efek gerbang jatuh/hancur
+            _isBroken = true;
+            _gateTargetPos = _gateClosedPos; // Kembali ke posisi tertutup
         }
+        // Jika kurang dari 75kg, gate naik bertahap berdasarkan persentase
         else
         {
             _isSolved = false;
+            // Hitung persentase (0-100%)
+            float percentage = (_currentWeight / TargetWeight) * 100f;
+            // Gate naik proporsional dengan berat
+            float heightMultiplier = _currentWeight / TargetWeight;
+            _gateTargetPos = _gateClosedPos + new Vector3(0, MaxGateHeight * heightMultiplier, 0);
+            
+            GD.Print($"📊 Berat: {_currentWeight}kg ({percentage:F1}%) - Gate naik {heightMultiplier * 100:F1}%");
         }
     }
 
@@ -92,39 +108,46 @@ public void OnScaleBodyEntered(Node3D body)
     {
         if (GateObject == null) return;
 
-        Vector3 targetPos = _isSolved ? _gateOpenPos : _gateClosedPos;
-        
-        // Animasi gerbang gerak perlahan (Lerp)
-        GateObject.Position = GateObject.Position.Lerp(targetPos, (float)delta * 2.0f);
+        // Animasi gerbang gerak perlahan menuju target position
+        GateObject.Position = GateObject.Position.Lerp(_gateTargetPos, (float)delta * 2.0f);
     }
 
     private void UpdateLabel()
     {
         if (StatusLabel != null)
         {
-            StatusLabel.Text = $"{_currentWeight} / {TargetWeight}";
-            if (_currentWeight == TargetWeight) StatusLabel.Modulate = Colors.Green;
-            else if (_currentWeight > TargetWeight) StatusLabel.Modulate = Colors.Red;
-            else StatusLabel.Modulate = Colors.Yellow;
+            if (_isBroken)
+            {
+                StatusLabel.Text = "RUSAK!";
+                StatusLabel.Modulate = Colors.DarkRed;
+            }
+            else
+            {
+                StatusLabel.Text = $"{_currentWeight} / {TargetWeight} kg";
+                if (Mathf.IsEqualApprox(_currentWeight, TargetWeight)) 
+                    StatusLabel.Modulate = Colors.Green;
+                else if (_currentWeight > TargetWeight) 
+                    StatusLabel.Modulate = Colors.Red;
+                else 
+                    StatusLabel.Modulate = Colors.Yellow;
+            }
         }
     }
 
     // Helper sederhana untuk mapping ID ke Berat (Karena DroppedItem.cs belum simpan berat)
-	// Di dalam SewerGatePuzzle.cs
-	private float GetWeightFromId(string itemId)
-	{
-		// Pastikan string di sini SAMA dengan Item Id di Inspector
-		switch (itemId) 
-		{
-			case "stone_10": return 10f;
-			case "stone_15": return 15f;
-			case "stone_20": return 20f; 
-			case "stone_30": return 30f;
-			case "stone_40": return 40f;
-			// dst...
-			default: 
-				GD.PrintErr($"ID '{itemId}' tidak dikenali! Berat dianggap 0.");
-				return 0f; 
-		}
-	}
+    private float GetWeightFromId(string itemId)
+    {
+        // Pastikan string di sini SAMA dengan Item Id di Inspector
+        switch (itemId) 
+        {
+            case "stone_10": return 10f;
+            case "stone_15": return 15f;
+            case "stone_20": return 20f; 
+            case "stone_30": return 30f;
+            case "stone_40": return 40f;
+            default: 
+                GD.PrintErr($"ID '{itemId}' tidak dikenali! Berat dianggap 0.");
+                return 0f; 
+        }
+    }
 }

@@ -61,31 +61,23 @@ transform = Transform3D(-0.06503737, 0, 0.99788284, 0, 1, 0, -0.99788284, 0, -0.
 [node name="Floor" type="CSGBox3D" parent="Sewer/Base" unique_id=1195203968]
 transform = Transform3D(50.00001, 0, 0, 0, 1, 0, 0, 0, 12, -1.8461628, 1.4616271, 14.118364)
 use_collision = true
-collision_layer = 1
-collision_mask = 1
 material = SubResource("StandardMaterial3D_7erlf")
 
 [node name="Wall Left" type="CSGBox3D" parent="Sewer/Base" unique_id=2058695331]
 transform = Transform3D(50.00006, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -1.4946327, 6.382596, 8.709396)
 use_collision = true
-collision_layer = 1
-collision_mask = 1
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
 
 [node name="Wall Right" type="CSGBox3D" parent="Sewer/Base" unique_id=1189358266]
 transform = Transform3D(-7.748604e-07, 0.95292634, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886796, -4.0978193e-08, 2.1316282e-14, -26.75338, 6.382596, 12.944298)
 use_collision = true
-collision_layer = 1
-collision_mask = 1
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
 
 [node name="Wall Left3" type="CSGBox3D" parent="Sewer/Base" unique_id=710122506]
 transform = Transform3D(50.000065, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -2.180481, 6.382596, 19.23252)
 use_collision = true
-collision_layer = 1
-collision_mask = 1
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
 
@@ -98,7 +90,7 @@ shadow_enabled = true
 omni_range = 19.302
 
 [node name="ExitGate" type="StaticBody3D" parent="Sewer" unique_id=1095822255]
-transform = Transform3D(1, 0, 0, 0, 37.17408, 0, 0, 0, 8, 4.794634, 4.6226664, 14.067411)
+transform = Transform3D(1, 0, 0, 0, 20.0569, 0, 0, 0, 8, 4.794634, 7.1850395, 14.067411)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/ExitGate" unique_id=1595340705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9073486e-06, 0.0027770996, -0.0028688908)
