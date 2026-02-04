@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://dpsms4vv44dwx" path="res://assets/items/Book_Book.png" id="6_gm0v4"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="8_0llkn"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="9_k8vh1"]
+[ext_resource type="PackedScene" uid="uid://ddouv7x2807fu" path="res://assets/characters/player.tscn" id="10_0bgmf"]
 [ext_resource type="PackedScene" uid="uid://cvw3f0558f36y" path="res://scenes/ui/PuzzleUI.tscn" id="10_lcffg"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="12_uorno"]
-[ext_resource type="PackedScene" uid="uid://b04wbt8677id4" path="res://assets/characters/Player.glb" id="13_534kg"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="13_rhp76"]
 
 [sub_resource type="Environment" id="Environment_q6uyw"]
@@ -47,166 +47,154 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Player:position")
+tracks/2/path = NodePath("Cams/Angle 2:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(6.9666667),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.7784581, 1.3344244, -1.3241273)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Cams/Angle 2:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(5.6, 10.033334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.168, 1.622, -2.599), Vector3(1.963, 1.622, -2.599)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Cams/Angle 1:current")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 5.5333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Cams/Angle 1:current")
+tracks/4/path = NodePath("Cams/Angle 1:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 5.5333333),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"update": 0,
+"values": [Vector3(5.397, 3.974, -5.135), Vector3(4.757, 3.399, -4.02)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Cams/Angle 1:position")
+tracks/5/path = NodePath("Cams/Angle 1:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 5.5333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(5.397, 3.974, -5.135), Vector3(4.757, 3.399, -4.02)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Cams/Angle 1:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-0.38571778, 2.1903882, 0)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Cams/Angle 3:current")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Cams/Angle 3:current")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(10.066667, 13.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Cams/Angle 3:fov")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(10.066667, 13.666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [61.3, 32.6]
+}
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Cams/Angle 3:fov")
+tracks/8/path = NodePath("Cams/Angle 3:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(10.066667, 13.666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [61.3, 32.6]
+"values": [Vector3(-0.02617994, 2.438225, 0), Vector3(-0.08726646, 2.4818583, 0)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Cams/Angle 3:rotation")
+tracks/9/path = NodePath("Cams/Angle 4:current")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(10.066667, 13.666667),
+"times": PackedFloat32Array(13.733334, 17.566668),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.02617994, 2.438225, 0), Vector3(-0.08726646, 2.4818583, 0)]
+"update": 1,
+"values": [true, false]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Cams/Angle 4:current")
+tracks/10/path = NodePath("Cams/Angle 4:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(13.733334, 17.566668),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"update": 0,
+"values": [Vector3(-2.638, 1.476, 1.41), Vector3(-2.638, 0.991, 1.41)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Cams/Angle 4:position")
+tracks/11/path = NodePath("Cams/Angle 4:fov")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(13.733334, 17.566668),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-2.638, 1.476, 1.41), Vector3(-2.638, 0.991, 1.41)]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Cams/Angle 4:fov")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(13.733334),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [74.1]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Cams/Angle 5:current")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Cams/Angle 5:current")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
 "times": PackedFloat32Array(17.566668, 22.166666),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("Cams/Angle 5:position")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Cams/Angle 5:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "times": PackedFloat32Array(17.533335, 22.115458),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-2.2, 0.797, 2.81), Vector3(-1.635, 0.797, 1.16)]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("Cams/Angle 5:rotation")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Cams/Angle 5:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(17.533335),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -253,91 +241,91 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Player:position")
+tracks/3/path = NodePath("Cams/Angle 1:current")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.7784581, 1.3344244, -1.3241273)]
+"update": 1,
+"values": [false]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Cams/Angle 1:current")
+tracks/4/path = NodePath("Cams/Angle 1:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector3(5.397, 3.974, -5.135)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Cams/Angle 1:position")
+tracks/5/path = NodePath("Cams/Angle 3:current")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(5.397, 3.974, -5.135)]
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Cams/Angle 3:current")
+tracks/6/path = NodePath("Cams/Angle 3:fov")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [32.6]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Cams/Angle 3:fov")
+tracks/7/path = NodePath("Cams/Angle 3:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [32.6]
+"values": [Vector3(-0.08726646, 2.4818583, 0)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Cams/Angle 3:rotation")
+tracks/8/path = NodePath("Cams/Angle 4:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.08726646, 2.4818583, 0)]
+"values": [Vector3(-2.638, 0.991, 1.41)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Cams/Angle 4:position")
+tracks/9/path = NodePath("Cams/Angle 4:current")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-2.638, 0.991, 1.41)]
+"update": 1,
+"values": [false]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Cams/Angle 4:current")
+tracks/10/path = NodePath("Cams/Angle 5:current")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -349,22 +337,10 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Cams/Angle 5:current")
+tracks/11/path = NodePath("Cams/Angle 5:position")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Cams/Angle 5:position")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -484,7 +460,7 @@ height = 3.4236145
 script = ExtResource("1_2wkgt")
 DirectorAnim = NodePath("Director")
 MainCamera = NodePath("Cams/Angle 2")
-PlayerVisual = NodePath("Player")
+PlayerVisual = NodePath("")
 DialogueText = NodePath("ScreenUI/Dialogue Text")
 BlackCover = NodePath("ScreenUI/BlackCover")
 NextScenePath = "uid://bhrdjha0g10ow"
@@ -973,9 +949,9 @@ data = {
 "cells": PackedInt32Array(6, 65529, 1441796, 6, 4, 1441795, 65531, 4, 655363, 65531, 65529, 1048580)
 }
 
-[node name="Player" parent="." unique_id=505709185 instance=ExtResource("13_534kg")]
-transform = Transform3D(0.695, 0, 0, 0, -0.022363968, -0.6946401, 0, 0.6946401, -0.022363968, 0.7784581, 1.3344244, -1.3241273)
+[node name="Player2" parent="." unique_id=439557311 instance=ExtResource("10_0bgmf")]
+transform = Transform3D(0.7, 0, 0, 0, -0.021987572, -0.6996546, 0, 0.6996546, -0.021987572, 0.778, 1.334, -1.324)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=413315678]
-transform = Transform3D(0.9999999, 0, 0, 0, 0.9999997, 4.5448542e-07, 0, -4.5448542e-07, 0.9999997, 0.08205116, 0.076645374, 3.5762787e-07)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player2" unique_id=413315678]
+transform = Transform3D(0.9928571, 0, 0, 0, 0.99285656, -0.0007620044, 0, 0.0007620044, 0.99285656, 0.082119465, 0.07589686, -0.0005414486)
 shape = SubResource("CapsuleShape3D_jnv88")
