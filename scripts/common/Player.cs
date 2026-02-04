@@ -213,7 +213,16 @@ public partial class Player : CharacterBody3D
 		{
 			var inst = DroppedItemScene.Instantiate<DroppedItem>();
 			GetTree().Root.AddChild(inst);
-			inst.GlobalPosition = GlobalPosition + _camera.GlobalTransform.Basis.Z * -1.5f + Vector3.Up;
+			
+			// Hitung ketinggian drop berdasarkan ukuran item
+			float dropHeight = 3.0f; // Default
+			if (dropped.Data.ItemId.Contains("stone"))
+			{
+				// Untuk batu, semakin besar semakin tinggi drop point-nya
+				dropHeight = 3.0f + (dropped.Data.VisualScale * 1.5f);
+			}
+			
+			inst.GlobalPosition = GlobalPosition + _camera.GlobalTransform.Basis.Z * -3.0f + Vector3.Up * dropHeight;
 			bool isWeight = dropped.Data.ItemId.Contains("stone") || dropped.Data.ItemId.Contains("weight");
 			if (isWeight) inst.Initialize(dropped.Data, dropped.Quantity);
 			else inst.Initialize(dropped.Data, dropped.Quantity, dropped.Data.OriginalScale);

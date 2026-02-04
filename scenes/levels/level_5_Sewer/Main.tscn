@@ -2,15 +2,19 @@
 
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="1_ogqkq"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
-[ext_resource type="PackedScene" uid="uid://dmgqcoj4skh3h" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
 [ext_resource type="Script" uid="uid://bbfcukikgxpgo" path="res://scripts/items/WeightItem.cs" id="6_jlque"]
 [ext_resource type="Script" uid="uid://se448mm5xj2s" path="res://scripts/puzzles/SewerGatePuzzle.cs" id="7_uvas7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdfxw"]
-albedo_color = Color(0.29597646, 0.27084768, 0.25471476, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7erlf"]
+albedo_color = Color(0.13552421, 0.24889746, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ogqkq"]
+albedo_color = Color(0.19986886, 0.26043513, 0.19818947, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tdfxw"]
+size = Vector3(1, 0.46929932, 1.2022705)
 
 [sub_resource type="BoxMesh" id="BoxMesh_apwv6"]
 
@@ -28,12 +32,11 @@ albedo_color = Color(0.29597646, 0.27084768, 0.25471476, 1)
 script = ExtResource("1_ogqkq")
 
 [node name="Player" parent="." unique_id=667506092 instance=ExtResource("2_4xt4c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 2, 0)
 ThrowForce = 0.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1912687294]
 transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
-shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=520216363]
 
@@ -51,38 +54,40 @@ grow_vertical = 2
 script = ExtResource("4_nxrbb")
 
 [node name="Sewer" type="Node3D" parent="." unique_id=1748212744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.33554, -0.3919649, -13.601902)
+transform = Transform3D(-0.06503737, 0, 0.99788284, 0, 1, 0, -0.99788284, 0, -0.06503737, 12.33554, -0.3919649, -13.601902)
 
 [node name="Base" type="Node3D" parent="Sewer" unique_id=1320725976]
 
-[node name="Floor" type="CSGBox3D" parent="Sewer/Base" unique_id=705758397]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.761486, 1.7514484, 13.970922)
+[node name="Floor" type="CSGBox3D" parent="Sewer/Base" unique_id=1195203968]
+transform = Transform3D(50.00001, 0, 0, 0, 1, 0, 0, 0, 12, -1.8461628, 1.4616271, 14.118364)
 use_collision = true
-size = Vector3(30, 0.5, 8)
-material = SubResource("StandardMaterial3D_tdfxw")
+collision_layer = 1
+collision_mask = 1
+material = SubResource("StandardMaterial3D_7erlf")
 
-[node name="Floor2" type="CSGBox3D" parent="Sewer/Base" unique_id=1689830718]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -10.761486, 5.807008, 9.818068)
+[node name="Wall Left" type="CSGBox3D" parent="Sewer/Base" unique_id=2058695331]
+transform = Transform3D(50.00006, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -1.4946327, 6.382596, 8.709396)
 use_collision = true
-size = Vector3(30, 0.5, 8)
-material = SubResource("StandardMaterial3D_tdfxw")
+collision_layer = 1
+collision_mask = 1
+size = Vector3(1, 1, 1.1303711)
+material = SubResource("StandardMaterial3D_ogqkq")
 
-[node name="Floor3" type="CSGBox3D" parent="Sewer/Base" unique_id=1658024752]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -10.761486, 5.807008, 18.028427)
+[node name="Wall Right" type="CSGBox3D" parent="Sewer/Base" unique_id=1189358266]
+transform = Transform3D(-7.748604e-07, 0.95292634, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886796, -4.0978193e-08, 2.1316282e-14, -26.75338, 6.382596, 12.944298)
 use_collision = true
-size = Vector3(30, 0.5, 8)
-material = SubResource("StandardMaterial3D_tdfxw")
+collision_layer = 1
+collision_mask = 1
+size = Vector3(1, 1, 1.1303711)
+material = SubResource("StandardMaterial3D_ogqkq")
 
-[node name="Floor4" type="CSGBox3D" parent="Sewer/Base" unique_id=1395042869]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.761486, 9.520538, 14.032972)
+[node name="Wall Left3" type="CSGBox3D" parent="Sewer/Base" unique_id=710122506]
+transform = Transform3D(50.000065, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -2.180481, 6.382596, 19.23252)
 use_collision = true
-size = Vector3(30, 0.5, 8)
-material = SubResource("StandardMaterial3D_tdfxw")
-
-[node name="Wall2" type="CSGBox3D" parent="Sewer/Base" unique_id=802144056]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -25.563845, 5.5141954, 13.962635)
-size = Vector3(8, 0.5, 8)
-material = SubResource("StandardMaterial3D_tdfxw")
+collision_layer = 1
+collision_mask = 1
+size = Vector3(1, 1, 1.1303711)
+material = SubResource("StandardMaterial3D_ogqkq")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Sewer" unique_id=1163947271]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -9.247118, 5.807008, 13.884675)
@@ -93,16 +98,15 @@ shadow_enabled = true
 omni_range = 19.302
 
 [node name="ExitGate" type="StaticBody3D" parent="Sewer" unique_id=1095822255]
-transform = Transform3D(1, 0, 0, 0, 8, 0, 0, 0, 8, 4.794633, 5.5345044, 14.06741)
+transform = Transform3D(1, 0, 0, 0, 37.17408, 0, 0, 0, 8, 4.794634, 4.6226664, 14.067411)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/ExitGate" unique_id=1595340705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9073486e-06, 0.0027770996, -0.0028688908)
 shape = SubResource("BoxShape3D_tdfxw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/ExitGate" unique_id=331229343]
+transform = Transform3D(0.9862327, 0, 0, 0, 0.4837864, 0, 0, 0, 1.2112353, 0, 0, 0)
 mesh = SubResource("BoxMesh_apwv6")
-
-[node name="Label3D" type="Label3D" parent="Sewer/ExitGate" unique_id=2093335559]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.77132034, 0.16993487, 0)
 
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
@@ -184,7 +188,7 @@ shape = SubResource("SphereShape3D_7wgpb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.779447, 16.024921)
 script = ExtResource("7_uvas7")
 GateObject = NodePath("../ExitGate")
-StatusLabel = NodePath("../ExitGate/Label3D")
+StatusLabel = NodePath("Label3D")
 
 [node name="ScaleArea" type="Area3D" parent="Sewer/PulleySystem" unique_id=1996784607]
 transform = Transform3D(2.2514863, 0, 0, 0, 0.44138503, 0, 0, 0, 2.3054318, 1.7430496, -0.48807168, -0.32201815)
@@ -195,7 +199,11 @@ mesh = SubResource("BoxMesh_7wgpb")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=213823445]
 shape = SubResource("BoxShape3D_ad0wm")
 
+[node name="Label3D" type="Label3D" parent="Sewer/PulleySystem" unique_id=2093335559]
+transform = Transform3D(-0.04188806, 7.9998903, 4.371139e-08, 1.83097e-09, -3.496863e-07, 1, 7.9998903, 0.04188806, -2.220446e-16, 1.7133293, -0.23465157, -0.29722404)
+
 [node name="AncientBooks" type="Node3D" parent="." unique_id=119103346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 0, 0)
 script = ExtResource("1_ogqkq")
 CurrentLevel = 5
 

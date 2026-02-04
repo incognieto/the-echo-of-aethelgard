@@ -51,6 +51,10 @@ public partial class DroppedItem : RigidBody3D
 		GravityScale = 1.0f;
 		Mass = 0.5f;
 		
+		// Pastikan collision aktif dan terdeteksi
+		ContactMonitor = true;
+		MaxContactsReported = 4;
+		
 		// Auto-pickup area
 		var area = new Area3D();
 		AddChild(area);
