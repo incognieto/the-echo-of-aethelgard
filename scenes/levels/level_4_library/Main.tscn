@@ -2,8 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="2_setup"]
-[ext_resource type="PackedScene" uid="uid://dmgqcoj4skh3h" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="PackedScene" uid="uid://b6sjec6q4iycs" path="res://scenes/ui/LibraryGridUI.tscn" id="4_gridui"]
+[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="5_4qc1e"]
 [ext_resource type="Script" uid="uid://dr6k8kgdr1tec" path="res://scripts/puzzles/LibraryGridPuzzle.cs" id="5_puzzle"]
 [ext_resource type="Script" uid="uid://blvo03ymhaol2" path="res://scripts/items/StoryBookItem.cs" id="6_bookitem"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="7_ku6bs"]
@@ -167,7 +168,7 @@ use_collision = true
 size = Vector3(8, 4, 1)
 material = SubResource("StandardMaterial3D_bookshelf")
 
-[node name="StoneTable" type="StaticBody3D" parent="." unique_id=1771964825]
+[node name="StoneTable" type="StaticBody3D" parent="." unique_id=1771964825 groups=["minimap_interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -5)
 script = ExtResource("5_puzzle")
 BookshelfPath = NodePath("../Bookshelves/SecretBookshelf")
@@ -309,6 +310,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_book")
 shape = SubResource("SphereShape3D_book")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=935304611]
+
+[node name="MiniMap" parent="UI" unique_id=1041312735 instance=ExtResource("5_4qc1e")]
+MapPosition = Vector2(1000, 480)
+MapPadding = 1.5
+BackgroundColor = Color(0, 0, 0, 0.12941177)
+BorderColor = Color(1, 1, 1, 1)
+WallColor = Color(0, 0, 0, 1)
+WallBorderColor = Color(1, 1, 1, 1)
+PlayerDotSize = 8.0
+ItemDotSize = 5.0
+WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=1340916375 instance=ExtResource("3_invui")]
 
