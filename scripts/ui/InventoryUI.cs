@@ -45,7 +45,6 @@ public partial class InventoryUI : Control
 	private Control _crosshairContainer;
 	private FontFile _customFont; // Custom font for all labels
 	private Label _ancientBookNotification; // Notification for ancient book
-	private Button _backButton; // Back button
 	
 	// State management untuk panel lain
 	private bool _wasVisibleBeforePanel = false;
@@ -124,8 +123,17 @@ public partial class InventoryUI : Control
 				instructions.Text = $"E: Pickup | Q: Drop 1 | Ctrl+Q: Drop All | F: Use Item | Tab/I: Toggle Inventory | {hotbarKeys}: Select Hotbar";
 			}
 			
-			// Create Back button
-			CreateBackButton(panel);
+			// Connect close button from scene
+			var closeButton = panel.GetNodeOrNull<BaseButton>("CloseButton");
+			if (closeButton != null)
+			{
+				closeButton.Pressed += () => {
+					if (_isVisible)
+					{
+						Toggle(); // Close inventory
+					}
+				};
+			}
 		}
 		else
 		{
@@ -174,9 +182,6 @@ public partial class InventoryUI : Control
 			instructions.Position = new Vector2(10, 430);
 			instructions.Size = new Vector2(InventoryPanelSize.X - 20, 10);
 			panel.AddChild(instructions);
-			
-			// Create Back button
-			CreateBackButton(panel);
 		}
 		
 		// Setup inventory slots - use existing Panel nodes or create new ones
@@ -275,22 +280,6 @@ private void CreateAncientBookNotification()
 	
 	_ancientBookNotification.Visible = false; // Hidden by default
 	AddChild(_ancientBookNotification);
-}
-
-private void CreateBackButton(Panel panel)
-{
-	_backButton = new Button();
-	_backButton.Text = "Back";
-	_backButton.CustomMinimumSize = new Vector2(100, 35);
-	_backButton.Position = new Vector2(panel.Size.X - 110, 10); // Top-right corner
-	_backButton.Pressed += () => {
-		if (_isVisible)
-		{
-			Toggle(); // Close inventory
-		}
-	};
-	
-	panel.AddChild(_backButton);
 }
 
 public void SetCrosshairVisible(bool visible)

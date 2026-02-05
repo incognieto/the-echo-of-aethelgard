@@ -29,15 +29,20 @@ public partial class BookUI : Control
 	private TextureRect _leftPageImageRect;
 	private RichTextLabel _ancientRightPageLabel;
 	private Label _ancientBookTitle;
-	private Button _ancientBookCloseButton;
+	private TextureButton _ancientBookCloseButton;
 
 	public override void _Ready()
 	{
 		// Get InventoryUI reference for crosshair control (try to find in scene tree)
 		var root = GetTree().Root;
+		// Try multiple possible paths for InventoryUI
 		if (root.HasNode("Main/UI/InventoryUI"))
 		{
 			_inventoryUI = root.GetNode<InventoryUI>("Main/UI/InventoryUI");
+		}
+		else if (root.HasNode("UI/InventoryUI"))
+		{
+			_inventoryUI = root.GetNode<InventoryUI>("UI/InventoryUI");
 		}
 		else
 		{
@@ -224,7 +229,7 @@ public partial class BookUI : Control
 			_leftPageTitleLabel = _ancientBookUI.GetNode<Label>("BookBackground/LeftPageTitle");
 			_leftPageImageRect = _ancientBookUI.GetNode<TextureRect>("BookBackground/LeftPageImage");
 			_ancientRightPageLabel = _ancientBookUI.GetNode<RichTextLabel>("BookBackground/RightPageContent");
-			_ancientBookCloseButton = _ancientBookUI.GetNode<Button>("AncientBookCloseButton");
+			_ancientBookCloseButton = _ancientBookUI.GetNode<TextureButton>("AncientBookCloseButton");
 			
 			// Connect close button
 			_ancientBookCloseButton.Pressed += OnClosePressed;

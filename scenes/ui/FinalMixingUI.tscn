@@ -14,8 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://di4xtdrxx3qke" path="res://assets/sprites/ui/button_clear_kuali_besar_clicked.png" id="12_clear_click"]
 [ext_resource type="Texture2D" uid="uid://dr0i4n3dn7tdu" path="res://assets/sprites/ui/button_mix_kuali_besar_hover.png" id="12_kk6cl"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="13_font"]
-[ext_resource type="Texture2D" uid="uid://cbgpy5f3p2kwl" path="res://assets/sprites/ui/button_clear_kuali_besar_hover.png" id="15_tmagh"]
-
+[ext_resource type="Texture2D" uid="uid://cbgpy5f3p2kwl" path="res://assets/sprites/ui/button_clear_kuali_besar_hover.png" id="15_tmagh"][ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="16_close"]
+[ext_resource type="Texture2D" uid="uid://cl5a8njkq3qh8" path="res://assets/sprites/library/button_close_clicked.png" id="17_close_click"]
+[ext_resource type="Texture2D" uid="uid://b1wg4unyo5ld8" path="res://assets/sprites/library/button_close_hover.png" id="18_close_hover"]
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0a3e"]
 
 [node name="FinalMixingUI" type="Control" unique_id=1603894472]
@@ -207,3 +208,38 @@ texture_pressed = ExtResource("12_clear_click")
 texture_hover = ExtResource("15_tmagh")
 ignore_texture_size = true
 stretch_mode = 6
+[node name="EscToCloseLabel" type="Label" parent="FinalMixingPanel" unique_id=4021486596]
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 40.0
+grow_horizontal = 1
+grow_vertical = 1
+text = "(Esc) to close"
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 0.8)
+theme_override_font_sizes/font_size = 16
+
+[node name="CloseButton" type="TextureButton" parent="FinalMixingPanel" unique_id=4021486597]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -70.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 1
+texture_normal = ExtResource("16_close")
+texture_pressed = ExtResource("17_close_click")
+texture_hover = ExtResource("18_close_hover")
+ignore_texture_size = true
+stretch_mode = 5

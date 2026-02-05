@@ -6,7 +6,6 @@
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
 [ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="5_nyenb"]
 [ext_resource type="Texture2D" uid="uid://cl5a8njkq3qh8" path="res://assets/sprites/library/button_close_clicked.png" id="6_a8p5k"]
-[ext_resource type="PackedScene" uid="uid://dbnxnkqvk50l0" path="res://scenes/ui/MapUI.tscn" id="6_mapui"]
 [ext_resource type="Texture2D" uid="uid://b1wg4unyo5ld8" path="res://assets/sprites/library/button_close_hover.png" id="7_akrtk"]
 [ext_resource type="Texture2D" uid="uid://btky6sduk56s7" path="res://assets/sprites/library/button_close_disabled.png" id="8_ikmsr"]
 [ext_resource type="Texture2D" uid="uid://b0o36ysifni7y" path="res://assets/sprites/library/slot_1x1_ui_stone_table.png" id="9_ajan2"]
@@ -84,6 +83,16 @@ texture_hover = ExtResource("7_akrtk")
 texture_disabled = ExtResource("8_ikmsr")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="EscToCloseLabel" type="Label" parent="InventoryPanel" unique_id=-273480696]
+layout_mode = 1
+offset_left = -286.0
+offset_top = 28.0
+offset_right = -86.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+theme_override_font_sizes/font_size = 16
+text = "(Esc) to close"
 
 [node name="TitleLabel" type="Label" parent="InventoryPanel" unique_id=903453001]
 visible = false
@@ -446,6 +455,3 @@ autowrap_mode = 3
 position = Vector2(119, 120)
 scale = Vector2(0.036505867, 0.036505867)
 texture = ExtResource("10_1jp0f")
-
-[node name="MapUI" parent="." unique_id=598836053 instance=ExtResource("6_mapui")]
-layout_mode = 1

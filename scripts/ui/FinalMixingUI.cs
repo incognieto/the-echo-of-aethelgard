@@ -10,13 +10,11 @@ public partial class FinalMixingUI : Control
 	private Label _titleLabel;
 	private Label _feedbackLabel;
 	private Label _potionInventoryLabel;
-	private Label _escInstructionLabel; // ESC to return instruction
 	private BaseButton _yellowButton;
 	private BaseButton _magentaButton;
 	private BaseButton _cyanButton;
 	private BaseButton _mixButton;
 	private BaseButton _clearButton;
-	private Button _backButton;
 	private InventoryUI _inventoryUI;
 	private InventorySystem _playerInventory;
 	
@@ -50,11 +48,12 @@ public partial class FinalMixingUI : Control
 		_mixButton.Pressed += OnMixPressed;
 		_clearButton.Pressed += OnClearPressed;
 		
-		// Create ESC instruction label
-		CreateEscInstructionLabel(panel);
-		
-		// Create Back button
-		CreateBackButton(panel);
+		// Connect close button from scene
+		var closeButton = panel.GetNodeOrNull<BaseButton>("CloseButton");
+		if (closeButton != null)
+		{
+			closeButton.Pressed += CloseFinalMixingUI;
+		}
 		
 		CallDeferred(nameof(FindInventoryUI));
 		
@@ -87,33 +86,6 @@ public partial class FinalMixingUI : Control
 		}
 	}
 
-	private void CreateEscInstructionLabel(Panel panel)
-	{
-		// ===== LAYOUT CONFIGURATION =====
-		// ESC instruction label positioning and styling
-		// Adjust these values to change the appearance and position of the ESC instruction
-		_escInstructionLabel = new Label();
-		_escInstructionLabel.Text = "(Esc) to return";
-		_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
-		_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f)); // White with slight transparency
-		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
-		_escInstructionLabel.Position = new Vector2(10, 10); // Top-left corner of panel
-		// ===== END CONFIGURATION =====
-		
-		panel.AddChild(_escInstructionLabel);
-	}
-	
-	private void CreateBackButton(Panel panel)
-	{
-		_backButton = new Button();
-		_backButton.Text = "Back";
-		_backButton.CustomMinimumSize = new Vector2(100, 35);
-		_backButton.Position = new Vector2(panel.Size.X - 110, 10); // Top-right corner
-		_backButton.Pressed += CloseFinalMixingUI;
-		
-		panel.AddChild(_backButton);
-	}
-	
 	private void FindInventoryUI()
 	{
 		var canvasLayer = GetParent() as CanvasLayer;
