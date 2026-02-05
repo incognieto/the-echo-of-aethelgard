@@ -102,7 +102,7 @@ data = PackedVector3Array(1, 5, 1.1, -1, 5, -0.099999994, 1, 5, -0.099999994, 1,
 
 [node name="TileMap" unique_id=218482704 instance=ExtResource("1_dy14v")]
 
-[node name="Dinding_1" parent="." index="0" unique_id=2009962294]
+[node name="Dinding_1" parent="." index="0" unique_id=830604097]
 surface_material_override/0 = SubResource("ShaderMaterial_ktlkq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Dinding_1" index="0" unique_id=1147221002]
@@ -110,7 +110,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_ktlkq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Dinding_1/StaticBody3D" index="0" unique_id=428081581]
 shape = SubResource("ConcavePolygonShape3D_dy14v")
 
-[node name="Lantai_1" parent="." index="1" unique_id=1352243750]
+[node name="Lantai_1" parent="." index="1" unique_id=650162174]
 surface_material_override/0 = SubResource("ShaderMaterial_i1qpr")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Lantai_1" index="0" unique_id=606458477]
@@ -118,7 +118,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_i1qpr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lantai_1/StaticBody3D" index="0" unique_id=602492427]
 shape = SubResource("ConcavePolygonShape3D_818ot")
 
-[node name="Dinding_2" parent="." index="2" unique_id=26414088]
+[node name="Dinding_2" parent="." index="2" unique_id=1855765226]
 surface_material_override/0 = SubResource("ShaderMaterial_8k5w0")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Dinding_2" index="0" unique_id=1223074819]
@@ -126,7 +126,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_8k5w0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Dinding_2/StaticBody3D" index="0" unique_id=981478788]
 shape = SubResource("ConcavePolygonShape3D_dq4dq")
 
-[node name="Dinding_3" parent="." index="3" unique_id=66330162]
+[node name="Dinding_3" parent="." index="3" unique_id=596465216]
 surface_material_override/0 = SubResource("ShaderMaterial_xoi7t")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Dinding_3" index="0" unique_id=1991219484]
@@ -134,7 +134,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_xoi7t")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Dinding_3/StaticBody3D" index="0" unique_id=1469732797]
 shape = SubResource("ConcavePolygonShape3D_nablf")
 
-[node name="Dinding_4" parent="." index="4" unique_id=58643409]
+[node name="Dinding_4" parent="." index="4" unique_id=735826923]
 surface_material_override/0 = SubResource("ShaderMaterial_o8jr0")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Dinding_4" index="0" unique_id=28866590]
@@ -142,7 +142,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_o8jr0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Dinding_4/StaticBody3D" index="0" unique_id=1650091422]
 shape = SubResource("ConcavePolygonShape3D_em1us")
 
-[node name="Lantai_2" parent="." index="5" unique_id=1072285593]
+[node name="Lantai_2" parent="." index="5" unique_id=1698850325]
 surface_material_override/0 = SubResource("ShaderMaterial_0w80c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Lantai_2" index="0" unique_id=780745481]
@@ -150,7 +150,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_0w80c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lantai_2/StaticBody3D" index="0" unique_id=354198342]
 shape = SubResource("ConcavePolygonShape3D_41yl8")
 
-[node name="Lantai_3" parent="." index="6" unique_id=7605037]
+[node name="Lantai_3" parent="." index="6" unique_id=1129710495]
 surface_material_override/0 = SubResource("StandardMaterial3D_ktlkq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Lantai_3" index="0" unique_id=146813428]
@@ -158,7 +158,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ktlkq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lantai_3/StaticBody3D" index="0" unique_id=1087555956]
 shape = SubResource("ConcavePolygonShape3D_mtu87")
 
-[node name="Dinding_5" parent="." index="7" unique_id=1962553276]
+[node name="Dinding_5" parent="." index="7" unique_id=832317075]
 surface_material_override/0 = SubResource("ShaderMaterial_hiuvw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Dinding_5" index="0" unique_id=1243201750]
