@@ -34,13 +34,15 @@ albedo_texture = ExtResource("5_ec5yg")
 render_priority = 0
 next_pass = SubResource("StandardMaterial3D_uvas7")
 shader = ExtResource("8_78t1w")
-shader_parameter/albedo_texture = ExtResource("5_ec5yg")
+shader_parameter/tekstur_dinding = ExtResource("5_ec5yg")
 shader_parameter/circle_radius = 0.15
 shader_parameter/smoothness = 0.08
 shader_parameter/min_opacity = 0.15
 shader_parameter/x_squeeze = 1.5
 shader_parameter/y_offset = 0.1
 shader_parameter/z_margin = 0.2
+shader_parameter/shadow_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/shadow_threshold = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tdfxw"]
 size = Vector3(1, 0.24336243, 1.2022705)
@@ -256,13 +258,14 @@ use_collision = true
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Sewer" unique_id=1163947271]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -9.247118, 5.807008, 13.884675)
+[node name="SewerLight" type="OmniLight3D" parent="Sewer" unique_id=1163947271]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -9.247118, 6.9026327, 13.884676)
 light_color = Color(0.5261257, 0.4429386, 0.17088622, 1)
-light_energy = 5.404
+light_energy = 1.658
 light_specular = 3.556
 shadow_enabled = true
-omni_range = 19.302
+omni_range = 22.765
+omni_attenuation = 1.016
 
 [node name="ExitGate" type="StaticBody3D" parent="Sewer" unique_id=1095822255]
 transform = Transform3D(1, 0, 0, 0, 20.0569, 0, 0, 0, 8, 4.795, 7.12, 14.067)
@@ -538,6 +541,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.441849, 3.0770845, 13.560
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/StaticBody3D" unique_id=1439311415]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.213974, 4.7607117, 1.3640766)
 shape = SubResource("BoxShape3D_78t1w")
+
+[node name="TunnelLight" type="OmniLight3D" parent="Sewer" unique_id=1275560008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3276615, 5.6177354, 15.266932)
+light_color = Color(0.6769806, 0.6206178, 0, 1)
+light_energy = 8.683
+shadow_enabled = true
+omni_range = 14.923194
+omni_attenuation = -0.238
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Sewer" unique_id=129719373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.763638, 6.39334, 14.040586)
+size = Vector3(1, 13.634644, 24.825684)
 
 [node name="AncientBooks" type="Node3D" parent="." unique_id=119103346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 0, 0)

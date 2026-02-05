@@ -13,6 +13,7 @@ public partial class WeightItem : PickableItem
     private Control _circularProgressUI;
     private TextureProgressBar _circularProgress;
     private CanvasLayer _canvasLayer;
+    private AudioStreamPlayer3D _pickupSound;
 
     public override void _Ready()
     {
@@ -74,6 +75,14 @@ public partial class WeightItem : PickableItem
 
         // Setup progress bar 3D
         SetupCircularProgress();
+        
+        // Setup pickup sound
+        _pickupSound = new AudioStreamPlayer3D();
+        _pickupSound.Bus = "SFX";
+        _pickupSound.MaxDistance = 15.0f;
+        AddChild(_pickupSound);
+        // Load sound file ketika sudah tersedia:
+        // _pickupSound.Stream = GD.Load<AudioStream>("res://assets/sounds/sfx/rock_pickup.wav");
     }
 
     private void SetupCircularProgress()
@@ -221,6 +230,12 @@ public partial class WeightItem : PickableItem
             bool added = _currentPlayer._inventory.AddItem(_itemData, 1);
             if (added)
             {
+                // Play pickup sound
+                if (_pickupSound != null && _pickupSound.Stream != null)
+                {
+                    _pickupSound.Play();
+                }
+                
                 GD.Print($"✓ Successfully picked up heavy item: {ItemName}");
                 Pickup(); // This will QueueFree
             }
