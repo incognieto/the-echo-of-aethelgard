@@ -149,6 +149,7 @@ shape = SubResource("BoxShape3D_door")
 
 [node name="ControlPanel" type="CSGBox3D" parent="." unique_id=1258732371]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.9478766, 1.7862463, -6.102982)
+visible = false
 size = Vector3(0.3, 0.8, 0.5)
 material = SubResource("StandardMaterial3D_panel")
 

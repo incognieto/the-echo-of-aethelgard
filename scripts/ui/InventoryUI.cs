@@ -95,7 +95,7 @@ public partial class InventoryUI : Control
 			GD.Print("InventoryUI: Using node-based UI from .tscn");
 			
 			title = panel.GetNodeOrNull<Label>("TitleLabel");
-			_inventorySlotsContainer = panel.GetNodeOrNull<Control>("InventorySlots");
+			_inventorySlotsContainer = panel.GetNodeOrNull<Control>("VBoxContainer/Control/InventorySlots");
 			_selectedItemLabel = panel.GetNodeOrNull<Label>("SelectedItemLabel");
 			
 			// Update dynamic values
@@ -124,7 +124,7 @@ public partial class InventoryUI : Control
 			}
 			
 			// Connect close button from scene
-			var closeButton = panel.GetNodeOrNull<BaseButton>("CloseButton");
+			var closeButton = panel.GetNodeOrNull<BaseButton>("VBoxContainer/CloseButton");
 			if (closeButton != null)
 			{
 				closeButton.Pressed += () => {

@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://d4mweouara7f6"]
 
 [ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="1_invui"]
-[ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="2_1jp0f"]
+[ext_resource type="Shader" path="res://scripts/shaders/ui_blur.gdshader" id="2_1jp0f"]
 [ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="2_lgest"]
 [ext_resource type="Texture2D" uid="uid://dg5lwc7b8ge34" path="res://assets/sprites/ui/Inventory/Inv.png" id="4_jfhjy"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
-[ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="5_nyenb"]
-[ext_resource type="Texture2D" uid="uid://cl5a8njkq3qh8" path="res://assets/sprites/library/button_close_clicked.png" id="6_a8p5k"]
-[ext_resource type="Texture2D" uid="uid://b1wg4unyo5ld8" path="res://assets/sprites/library/button_close_hover.png" id="7_akrtk"]
-[ext_resource type="Texture2D" uid="uid://btky6sduk56s7" path="res://assets/sprites/library/button_close_disabled.png" id="8_ikmsr"]
+[ext_resource type="Texture2D" uid="uid://dm7sdf2owidqr" path="res://assets/sprites/library/button_close.png" id="5_nyenb"]
+[ext_resource type="Texture2D" uid="uid://bb3ap7xxsr28l" path="res://assets/sprites/library/button_close_clicked.png" id="6_a8p5k"]
+[ext_resource type="Texture2D" uid="uid://irdelk8bir7t" path="res://assets/sprites/library/button_close_hover.png" id="7_akrtk"]
+[ext_resource type="Texture2D" uid="uid://dd3nd2si0ug4t" path="res://assets/sprites/library/button_close_disabled.png" id="8_ikmsr"]
 [ext_resource type="Texture2D" uid="uid://b0o36ysifni7y" path="res://assets/sprites/library/slot_1x1_ui_stone_table.png" id="9_ajan2"]
 [ext_resource type="Texture2D" uid="uid://bqkj0h0fahurh" path="res://assets/sprites/ui/Bungalope.png" id="10_1jp0f"]
 
@@ -38,15 +38,9 @@ script = ExtResource("1_invui")
 
 [node name="InventoryPanel" type="Panel" parent="." unique_id=1996971328]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.448
-anchor_right = 0.5
-anchor_bottom = 0.448
-offset_left = -227.0
-offset_top = -282.56
-offset_right = 353.0
-offset_bottom = 282.94
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(227, 297)
@@ -54,14 +48,9 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_lgest")
 
 [node name="BlurLayer" type="Control" parent="InventoryPanel" unique_id=1571051815]
 layout_mode = 1
-anchor_left = -0.71000004
-anchor_top = -0.067
-anchor_right = 1.5020001
-anchor_bottom = 1.2090001
-offset_left = -12.199982
-offset_top = -30.1115
-offset_right = 2.8399658
-offset_bottom = 17.310425
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -83,44 +72,142 @@ offset_bottom = 319.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_lgest")
-expand_mode = 1
+expand_mode = 2
 stretch_mode = 5
 
-[node name="Sprite2D" type="Sprite2D" parent="InventoryPanel" unique_id=1601481806]
-position = Vector2(224.00006, 281)
-scale = Vector2(0.28683692, 0.25345972)
-texture = ExtResource("4_jfhjy")
-
-[node name="CloseButton" type="TextureButton" parent="InventoryPanel" unique_id=1742692618]
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel" unique_id=92792787]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.897
-anchor_top = 0.07700001
-anchor_right = 0.897
-anchor_bottom = 0.08800001
-offset_left = 133.73999
-offset_top = -15.543503
-offset_right = 233.73999
-offset_bottom = 13.235996
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.5
+offset_top = -271.5
+offset_right = 236.5
+offset_bottom = 271.5
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(53, 19)
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Control" type="Control" parent="InventoryPanel/VBoxContainer" unique_id=702840341]
+custom_minimum_size = Vector2(473, 539)
+layout_mode = 2
+
+[node name="Sprite2D" type="TextureRect" parent="InventoryPanel/VBoxContainer/Control" unique_id=556263397]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 473.0
+offset_bottom = 543.0
+texture = ExtResource("4_jfhjy")
+expand_mode = 4
+
+[node name="InventorySlots" type="GridContainer" parent="InventoryPanel/VBoxContainer/Control" unique_id=625198630]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -181.0
+offset_top = -147.0
+offset_right = 183.0
+offset_bottom = 217.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="Slot0" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=2124594779]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot1" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=1941714777]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot2" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=2096304562]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot3" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=592413368]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot4" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=350097414]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot5" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=1559837365]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot6" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=416424001]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot7" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=913230569]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot8" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=1948801990]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot9" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=1573646957]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot10" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=133776209]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot11" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=653268687]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot12" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=337356115]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot13" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=90349169]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot14" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=1252862952]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="Slot15" type="Panel" parent="InventoryPanel/VBoxContainer/Control/InventorySlots" unique_id=2035533030]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
+
+[node name="CloseButton" type="TextureButton" parent="InventoryPanel/VBoxContainer" unique_id=1742692618]
+custom_minimum_size = Vector2(130, 60)
+layout_mode = 2
+size_flags_horizontal = 4
 texture_normal = ExtResource("5_nyenb")
 texture_pressed = ExtResource("6_a8p5k")
 texture_hover = ExtResource("7_akrtk")
 texture_disabled = ExtResource("8_ikmsr")
 ignore_texture_size = true
 stretch_mode = 5
-
-[node name="EscToCloseLabel" type="Label" parent="InventoryPanel" unique_id=-273480696]
-layout_mode = 1
-offset_left = -286.0
-offset_top = 28.0
-offset_right = -86.0
-offset_bottom = 58.0
-theme_override_colors/font_color = Color(1, 1, 1, 0.8)
-theme_override_font_sizes/font_size = 16
-text = "(Esc) to close"
 
 [node name="TitleLabel" type="Label" parent="InventoryPanel" unique_id=903453001]
 visible = false
@@ -132,142 +219,6 @@ offset_bottom = 40.0
 theme_override_font_sizes/font_size = 24
 text = "Inventory (16 Slots)"
 horizontal_alignment = 1
-
-[node name="InventorySlots" type="Control" parent="InventoryPanel" unique_id=754698384]
-anchors_preset = 0
-offset_left = -23.0
-offset_top = 72.0
-offset_right = 464.0
-offset_bottom = 518.0
-pivot_offset = Vector2(249, 222)
-
-[node name="Slot0" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2124594779]
-layout_mode = 0
-offset_left = 57.0
-offset_top = 32.0
-offset_right = 145.0
-offset_bottom = 120.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot1" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1941714777]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 32.0
-offset_right = 244.0
-offset_bottom = 120.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot2" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2096304562]
-layout_mode = 0
-offset_left = 254.0
-offset_top = 32.0
-offset_right = 342.0
-offset_bottom = 120.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot3" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=592413368]
-layout_mode = 0
-offset_left = 353.0
-offset_top = 32.0
-offset_right = 441.0
-offset_bottom = 120.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot4" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=350097414]
-layout_mode = 0
-offset_left = 57.0
-offset_top = 130.0
-offset_right = 145.0
-offset_bottom = 218.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot5" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1559837365]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 130.0
-offset_right = 244.0
-offset_bottom = 218.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot6" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=416424001]
-layout_mode = 0
-offset_left = 254.0
-offset_top = 130.0
-offset_right = 342.0
-offset_bottom = 218.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot7" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=913230569]
-layout_mode = 0
-offset_left = 353.0
-offset_top = 130.0
-offset_right = 441.0
-offset_bottom = 218.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot8" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1948801990]
-layout_mode = 0
-offset_left = 57.0
-offset_top = 228.0
-offset_right = 145.0
-offset_bottom = 316.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot9" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1573646957]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 228.0
-offset_right = 244.0
-offset_bottom = 316.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot10" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=133776209]
-layout_mode = 0
-offset_left = 254.0
-offset_top = 228.0
-offset_right = 342.0
-offset_bottom = 316.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot11" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=653268687]
-layout_mode = 0
-offset_left = 353.0
-offset_top = 228.0
-offset_right = 441.0
-offset_bottom = 316.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot12" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=337356115]
-layout_mode = 0
-offset_left = 57.0
-offset_top = 326.0
-offset_right = 145.0
-offset_bottom = 414.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot13" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=90349169]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 326.0
-offset_right = 244.0
-offset_bottom = 414.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot14" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=1252862952]
-layout_mode = 0
-offset_left = 254.0
-offset_top = 326.0
-offset_right = 342.0
-offset_bottom = 414.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
-
-[node name="Slot15" type="Panel" parent="InventoryPanel/InventorySlots" unique_id=2035533030]
-layout_mode = 0
-offset_left = 353.0
-offset_top = 326.0
-offset_right = 441.0
-offset_bottom = 414.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_11w2x")
 
 [node name="SelectedItemLabel" type="Label" parent="InventoryPanel" unique_id=1147610626]
 visible = false
