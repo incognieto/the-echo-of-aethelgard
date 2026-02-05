@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ds51cru6up8cs"]
 
 [ext_resource type="Script" uid="uid://0dytbisbla5u" path="res://scripts/ui/Settings.cs" id="1_settings"]
+[ext_resource type="Texture2D" uid="uid://dfxpp8bthew3f" path="res://assets/sprites/ui/BG_Blur2.png" id="2_3lbg7"]
 [ext_resource type="Texture2D" uid="uid://3r4hee37kbhf" path="res://assets/sprites/ui/OverlayPopUp.png" id="2_asmva"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s4p7k"]
@@ -14,14 +15,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_settings")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1024338433]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1236279952]
+position = Vector2(640.9308, 360.89893)
+scale = Vector2(0.35947013, 0.35946986)
+texture = ExtResource("2_3lbg7")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1751103663]
 position = Vector2(642.8539, 366)
