@@ -35,13 +35,15 @@ albedo_texture = ExtResource("5_ec5yg")
 render_priority = 0
 next_pass = SubResource("StandardMaterial3D_uvas7")
 shader = ExtResource("8_78t1w")
-shader_parameter/albedo_texture = ExtResource("5_ec5yg")
+shader_parameter/tekstur_dinding = ExtResource("5_ec5yg")
 shader_parameter/circle_radius = 0.15
 shader_parameter/smoothness = 0.08
 shader_parameter/min_opacity = 0.15
 shader_parameter/x_squeeze = 1.5
 shader_parameter/y_offset = 0.1
 shader_parameter/z_margin = 0.2
+shader_parameter/shadow_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/shadow_threshold = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tdfxw"]
 size = Vector3(1, 0.24336243, 1.2022705)
@@ -181,7 +183,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_78t1w"]
-size = Vector3(1, 10.521423, 11.17337)
+size = Vector3(1, 10.521423, 26.444344)
 
 [node name="Main" type="Node3D" unique_id=1411745492]
 
@@ -228,41 +230,54 @@ transform = Transform3D(-0.06503737, 0, 0.99788284, 0, 1, 0, -0.99788284, 0, -0.
 [node name="Base" type="Node3D" parent="Sewer" unique_id=1320725976]
 
 [node name="Floor" type="CSGBox3D" parent="Sewer/Base" unique_id=1195203968]
-transform = Transform3D(50.00001, 0, 0, 0, 1, 0, 0, 0, 12, -1.8461628, 1.4616271, 14.118364)
+transform = Transform3D(46.75173, 0, 0, 0, 1, 0, 2.3841858e-07, 0, 26.303604, -3.1203365, 1.4616271, 14.03532)
 use_collision = true
 material = SubResource("StandardMaterial3D_jlque")
 
 [node name="Wall Left" type="CSGBox3D" parent="Sewer/Base" unique_id=2058695331]
-transform = Transform3D(50.000065, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -1.4946327, 6.382596, 8.709396)
+transform = Transform3D(50.00007, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -1.0211878, 6.382596, 1.445221)
 use_collision = true
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
 
 [node name="Wall Right" type="CSGBox3D" parent="Sewer/Base" unique_id=1189358266]
-transform = Transform3D(-8.34465e-07, 0.9529264, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886797, -4.0978193e-08, 2.1316282e-14, -26.75338, 6.382596, 12.944296)
+transform = Transform3D(-2.1457672e-06, 0.9801823, -5.2453663e-07, 0, -4.2844867e-08, -12, -19.979729, 1.4901161e-07, 2.1316282e-14, -27.034061, 6.382596, 14.19721)
 use_collision = true
-size = Vector3(1, 1, 1.1303711)
+size = Vector3(1.3056641, 1, 1.1303711)
 material = SubResource("ShaderMaterial_vdc3e")
 
 [node name="Wall Right2" type="CSGBox3D" parent="Sewer/Base" unique_id=1896758696]
-transform = Transform3D(-4.053116e-06, 0.9529325, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886834, -1.0058284e-07, 2.1316282e-14, 5.0214863, 10.238526, 14.02557)
+transform = Transform3D(-4.053116e-06, 0.9529325, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886834, -1.0058284e-07, 2.1316282e-14, 5, 10.239, 14.397)
 use_collision = true
-size = Vector3(0.8017578, 1, 0.4755249)
+size = Vector3(1.880127, 1, 0.4755249)
+material = SubResource("ShaderMaterial_vdc3e")
+
+[node name="Wall Right3" type="CSGBox3D" parent="Sewer/Base" unique_id=497436242]
+transform = Transform3D(-4.053116e-06, 0.9529325, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886834, -1.0058284e-07, 2.1316282e-14, 5, 4.591, 5.114)
+use_collision = true
+size = Vector3(0.5432129, 1, 0.4755249)
+material = SubResource("ShaderMaterial_vdc3e")
+
+[node name="Wall Right4" type="CSGBox3D" parent="Sewer/Base" unique_id=730966077]
+transform = Transform3D(-4.053116e-06, 0.9529325, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886834, -1.0058284e-07, 2.1316282e-14, 5, 4.591, 22.667)
+use_collision = true
+size = Vector3(0.5432129, 1, 0.4755249)
 material = SubResource("ShaderMaterial_vdc3e")
 
 [node name="Wall Left3" type="CSGBox3D" parent="Sewer/Base" unique_id=710122506]
-transform = Transform3D(50.00007, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -2.180481, 6.382596, 19.23252)
+transform = Transform3D(50.000076, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -2.6869497, 6.382596, 27.003378)
 use_collision = true
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Sewer" unique_id=1163947271]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -9.247118, 5.807008, 13.884675)
+[node name="SewerLight" type="OmniLight3D" parent="Sewer" unique_id=1163947271]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -9.247118, 6.9026327, 13.884676)
 light_color = Color(0.5261257, 0.4429386, 0.17088622, 1)
-light_energy = 5.404
+light_energy = 1.658
 light_specular = 3.556
 shadow_enabled = true
-omni_range = 19.302
+omni_range = 22.765
+omni_attenuation = 1.016
 
 [node name="ExitGate" type="StaticBody3D" parent="Sewer" unique_id=1095822255]
 transform = Transform3D(1, 0, 0, 0, 20.0569, 0, 0, 0, 8, 4.795, 7.12, 14.067)
@@ -326,7 +341,7 @@ skeleton = NodePath("../../..")
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
 [node name="Baby Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1993682712]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.327995, 3.024523, 10.417305)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.316243, 3.024523, 5.784363)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
 ItemName = "Baby Rock"
@@ -337,8 +352,44 @@ mesh = SubResource("SphereMesh_j0lb3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock" unique_id=1828825301]
 shape = SubResource("SphereShape3D_7wgpb")
 
+[node name="Baby Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=1582324828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.486557, 3.024523, 5.51256)
+script = ExtResource("6_jlque")
+ItemId = "stone_10"
+ItemName = "Baby Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock2" unique_id=1524400635]
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock2" unique_id=515550928]
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="Baby Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=1721127614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.623821, 3.024523, 22.961779)
+script = ExtResource("6_jlque")
+ItemId = "stone_10"
+ItemName = "Baby Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock3" unique_id=1717544450]
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock3" unique_id=1930261962]
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="Baby Rock4" type="StaticBody3D" parent="Sewer/Items" unique_id=539808922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.155333, 2.811312, 12.596722)
+script = ExtResource("6_jlque")
+ItemId = "stone_10"
+ItemName = "Baby Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock4" unique_id=1518493952]
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock4" unique_id=1750890516]
+shape = SubResource("SphereShape3D_7wgpb")
+
 [node name="Young Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=720761817]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25698662, 2.8132353, 10.272209)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1706924, 2.8132353, 4.8384056)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
 ItemId = "stone_15"
@@ -348,12 +399,34 @@ ItemName = "Young Rock"
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Young Rock" unique_id=949168403]
+[node name="Young Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=445608364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0330658, 2.8132353, 7.5433292)
+script = ExtResource("6_jlque")
+WeightValue = 15.0
+ItemId = "stone_15"
+ItemName = "Young Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Young Rock2" unique_id=2056836268]
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="Young Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=277542233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39182663, 2.8132353, 14.057423)
+script = ExtResource("6_jlque")
+WeightValue = 15.0
+ItemId = "stone_15"
+ItemName = "Young Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Young Rock3" unique_id=911444206]
+transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items" unique_id=949168403]
+transform = Transform3D(1.285, 0, 7.450581e-09, 0, 1.285, 0, -7.450581e-09, 0, 1.285, 1.1706924, 2.8132353, 4.8384056)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Guard Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=2068813116]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.511879, 3.2030432, 16.217222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03108, 3.2030432, 4.920082)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
 ItemId = "stone_20"
@@ -367,8 +440,38 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
+[node name="Guard Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=983201326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.330999, 3.2030432, 9.521803)
+script = ExtResource("6_jlque")
+WeightValue = 20.0
+ItemId = "stone_20"
+ItemName = "Guard Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Guard Rock2" unique_id=822342919]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Guard Rock2" unique_id=816425954]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
+shape = SubResource("SphereShape3D_7wgpb")
+
+[node name="Guard Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=150254775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.727896, 3.2030432, 9.300407)
+script = ExtResource("6_jlque")
+WeightValue = 20.0
+ItemId = "stone_20"
+ItemName = "Guard Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Guard Rock3" unique_id=1665914278]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Guard Rock3" unique_id=378758494]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
+shape = SubResource("SphereShape3D_7wgpb")
+
 [node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1957699432]
-transform = Transform3D(1.4150007, 0, -2.2351742e-08, 0, 1.415, 0, 2.2351742e-08, 0, 1.4150007, -7.564822, 3.316188, 10.448145)
+transform = Transform3D(1.4150012, 0, -2.9802322e-08, 0, 1.415, 0, 2.9802322e-08, 0, 1.4150012, -17.728226, 3.316188, 9.526066)
 script = ExtResource("6_jlque")
 WeightValue = 30.0
 ItemId = "stone_30"
@@ -382,8 +485,23 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
+[node name="Huge Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=1954553652]
+transform = Transform3D(1.4150014, 0, -4.4703484e-08, 0, 1.415, 0, 4.4703484e-08, 0, 1.4150014, -18.38297, 3.316188, 19.571928)
+script = ExtResource("6_jlque")
+WeightValue = 30.0
+ItemId = "stone_30"
+ItemName = "Huge Rock"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Huge Rock2" unique_id=751884394]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
+mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Huge Rock2" unique_id=1800667791]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
+shape = SubResource("SphereShape3D_7wgpb")
+
 [node name="Giant Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=213585490]
-transform = Transform3D(1.845, 0, -2.2351742e-08, 0, 1.845, 0, 2.2351742e-08, 0, 1.845, -14.706871, 3.7083163, 16.346817)
+transform = Transform3D(1.845, 0, -2.2351742e-08, 0, 1.845, 0, 2.2351742e-08, 0, 1.845, -12.162089, 3.7083163, 21.86521)
 script = ExtResource("6_jlque")
 WeightValue = 40.0
 ItemId = "stone_40"
@@ -405,23 +523,23 @@ CameraAnimationPlayer = NodePath("../water/AnimationPlayer")
 StatusLabel = NodePath("ScaleArea/Label3D")
 
 [node name="ScaleArea" type="Area3D" parent="Sewer/PulleySystem" unique_id=1996784607]
-transform = Transform3D(2.2514863, 0, 0, 0, 0.44138503, 0, 0, 0, 2.3054318, 2.6537313, -0.48807168, -0.2626667)
+transform = Transform3D(2.2514863, 0, 0, 0, 0.44138503, 0, 0, 0, 2.3054318, 2.441, -0.48807168, 3.00132)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=1436840474]
-transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.9999996, 0, 7.450581e-09, 0, 1.2495217, 0.41580725, 0, 0.65439415)
+transform = Transform3D(3, 0, -3.0410355e-08, 0, 1.02, 0, 3.0410355e-08, 0, 3, -0.5989895, 0, 0.9815359)
 mesh = SubResource("BoxMesh_7wgpb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=213823445]
-transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.99998814, 0, 7.450581e-09, 0, 1.2495217, 0.4183483, 6.3488746, 0.61631584)
+transform = Transform3D(3, 0, -3.0410355e-08, 0, 1.02, 0, 3.0410355e-08, 0, 3, -0.5931835, 6.3488746, 0.89453983)
 shape = SubResource("BoxShape3D_ad0wm")
 
 [node name="Label3D" type="Label3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=2093335559]
-transform = Transform3D(-0.018604577, 3.5531595, 1.9414461e-08, 4.1482346e-09, -7.922473e-07, 2.265594, 3.470018, 0.018169299, -6.661338e-16, -1.1059594, 1.6520004, 0.651268)
+transform = Transform3D(-0.018604577, 3.5531595, 1.9414461e-08, 4.148233e-09, -7.92247e-07, 2.265593, 3.470018, 0.018169299, -6.661338e-16, -3.390496, -0.34090948, 0.8547354)
 text = "12"
-font_size = 16
+font_size = 30
 
 [node name="water" type="MeshInstance3D" parent="Sewer" unique_id=1829388562]
-transform = Transform3D(32, 0, 0, 0, 0.02, 0, 0, 0, 4, -11.023, 1.965, 13.472)
+transform = Transform3D(32, 0, 0, 0, 0.02, 0, 0, 0, 7.475, -11.023, 1.965, 13.472)
 mesh = SubResource("BoxMesh_ec5yg")
 script = ExtResource("10_nxrbb")
 
@@ -433,8 +551,20 @@ libraries/ = SubResource("AnimationLibrary_uvas7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.441849, 3.0770845, 13.560249)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/StaticBody3D" unique_id=1439311415]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.213974, 4.7607117, 0.24688148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.213974, 4.7607117, 1.3640766)
 shape = SubResource("BoxShape3D_78t1w")
+
+[node name="TunnelLight" type="OmniLight3D" parent="Sewer" unique_id=1275560008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3276615, 5.6177354, 15.266932)
+light_color = Color(0.6769806, 0.6206178, 0, 1)
+light_energy = 8.683
+shadow_enabled = true
+omni_range = 14.923194
+omni_attenuation = -0.238
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Sewer" unique_id=129719373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.763638, 6.39334, 14.040586)
+size = Vector3(1, 13.634644, 24.825684)
 
 [node name="AncientBooks" type="Node3D" parent="." unique_id=119103346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 0, 0)

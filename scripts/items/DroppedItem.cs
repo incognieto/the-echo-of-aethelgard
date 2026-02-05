@@ -27,6 +27,8 @@ public partial class DroppedItem : RigidBody3D
 	private Control _circularProgressUI;
 	private TextureProgressBar _circularProgress;
 	private CanvasLayer _canvasLayer;
+	private AudioStreamPlayer3D _dropSound;
+	private bool _hasPlayedDropSound = false; // Hanya play sekali saat drop
 
 	public override void _Ready()
 	{
@@ -70,6 +72,18 @@ public partial class DroppedItem : RigidBody3D
 		
 		area.BodyEntered += OnBodyEntered;
 		area.BodyExited += OnBodyExited;
+		
+		// Setup drop sound
+		_dropSound = new AudioStreamPlayer3D();
+		_dropSound.Bus = "SFX";
+		_dropSound.MaxDistance = 20.0f;
+		_dropSound.VolumeDb = 0.0f;
+		AddChild(_dropSound);
+		// Load sound file ketika sudah tersedia:
+		// _dropSound.Stream = GD.Load<AudioStream>("res://assets/sounds/sfx/rock_drop.wav");
+		
+		// Connect to body_entered signal to detect ground impact
+		BodyEntered += OnRockHitGround;
 	}
 
 	public override void _Process(double delta)
@@ -366,6 +380,13 @@ public partial class DroppedItem : RigidBody3D
 			var inventory = _currentPlayer.GetInventory();
 			if (inventory != null && inventory.AddItem(_itemData, _quantity))
 			{
+				// Play pickup sound
+				if (_dropSound != null && _dropSound.Stream != null)
+				{
+					// Use same sound for pickup (or could be different)
+					_dropSound.Play();
+				}
+				
 				GD.Print($"✓ Successfully picked up dropped heavy item: {_itemData.ItemName}");
 				QueueFree();
 			}
@@ -453,6 +474,25 @@ public partial class DroppedItem : RigidBody3D
 		}
 		
 		return ImageTexture.CreateFromImage(image);
+	}
+	
+	private void OnRockHitGround(Node body)
+	{
+		// Play drop sound ketika rock menabrak ground (atau node apapun)
+		// Hanya play sekali saat pertama kali jatuh
+		if (!_hasPlayedDropSound && _isHeavyItem)
+		{
+			if (_dropSound != null && _dropSound.Stream != null)
+			{
+				// Check velocity agar hanya play jika jatuh cukup keras
+				if (LinearVelocity.Length() > 2.0f)
+				{
+					_dropSound.Play();
+					_hasPlayedDropSound = true;
+					GD.Print($"🔊 Rock impact sound played for {_itemData.ItemName}");
+				}
+			}
+		}
 	}
 	
 	private Mesh CreateRockMesh(float baseRadius)
