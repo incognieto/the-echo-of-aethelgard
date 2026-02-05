@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://bha2jou2pm3e3"]
+
+[ext_resource type="PackedScene" uid="uid://j2ijc3a5dt7b" path="res://assets/environments/KualiKecil.glb" id="1_0kl7k"]
+[ext_resource type="Texture2D" uid="uid://c8mlstc1xickp" path="res://assets/environments/KualiKecil_KualiKecil.png" id="2_geelm"]
+[ext_resource type="Texture2D" uid="uid://do5juw576o26" path="res://assets/environments/KualiKecil_Meja.png" id="3_rytxp"]
+[ext_resource type="Shader" uid="uid://bcd1b08wg38v6" path="res://assets/environments/kuali_kecil.gdshader" id="4_geelm"]
+[ext_resource type="Script" uid="uid://bcnjjexjnlb4" path="res://scripts/environments/TorchFlicker.cs" id="5_rytxp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_42pq5"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_geelm")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rytxp"]
+radius = 1.2328215
+height = 4.1156826
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubi1a"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_rytxp")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_42pq5"]
+radius = 1.7664711
+height = 5.6110706
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rytxp"]
+top_radius = 1.5
+bottom_radius = 0.0
+height = 0.001
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_42pq5"]
+noise_type = 3
+seed = 1
+frequency = 0.0005
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0hofp"]
+noise = SubResource("FastNoiseLite_42pq5")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubi1a"]
+render_priority = 0
+shader = ExtResource("4_geelm")
+shader_parameter/color_main = Color(0.5773825, 0.73181295, 1, 1)
+shader_parameter/color_secondary = Color(0.39228633, 1, 0.39330128, 1)
+shader_parameter/noise_img = SubResource("NoiseTexture2D_0hofp")
+
+[sub_resource type="Gradient" id="Gradient_42pq5"]
+colors = PackedColorArray(0.4197119, 0.7023339, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ubi1a"]
+gradient = SubResource("Gradient_42pq5")
+
+[sub_resource type="Curve" id="Curve_25uv2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eqem5"]
+curve = SubResource("Curve_25uv2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iq2q1"]
+emission_shape_scale = Vector3(1, 1, 2)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+spread = 62.613
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 3, 0)
+scale_curve = SubResource("CurveTexture_eqem5")
+color_ramp = SubResource("GradientTexture1D_ubi1a")
+turbulence_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2bduy"]
+transparency = 1
+emission_enabled = true
+emission = Color(0.2176069, 0.9660606, 0.78271115, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_65to2"]
+material = SubResource("StandardMaterial3D_2bduy")
+radius = 0.1
+height = 0.2
+
+[node name="KualiKecil" unique_id=210053537 instance=ExtResource("1_0kl7k")]
+
+[node name="Cylinder_001" parent="." index="0" unique_id=996576014]
+surface_material_override/0 = SubResource("StandardMaterial3D_42pq5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cylinder_001" index="0" unique_id=1946610436]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0049602985, 0.07448852, -4.7683716e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cylinder_001/StaticBody3D" index="0" unique_id=418144197]
+visible = false
+shape = SubResource("CapsuleShape3D_rytxp")
+
+[node name="Cylinder_004" parent="." index="1" unique_id=1741176561]
+surface_material_override/0 = SubResource("StandardMaterial3D_ubi1a")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cylinder_004" index="0" unique_id=473747037]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -2.937075, 2.3841858e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cylinder_004/StaticBody3D" index="0" unique_id=58895085]
+visible = false
+shape = SubResource("CapsuleShape3D_42pq5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2" unique_id=1624226885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0152372, 0)
+mesh = SubResource("CylinderMesh_rytxp")
+surface_material_override/0 = SubResource("ShaderMaterial_ubi1a")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="3" unique_id=1540728248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2444038, 0)
+amount = 10
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_iq2q1")
+draw_pass_1 = SubResource("SphereMesh_65to2")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="4" unique_id=1195081641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16715336, 1.651421, 0)
+light_color = Color(0, 0.8202405, 0.8359049, 1)
+light_energy = 0.432
+shadow_enabled = true
+omni_range = 1.923
+script = ExtResource("5_rytxp")

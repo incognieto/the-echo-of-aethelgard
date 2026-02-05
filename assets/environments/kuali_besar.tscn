@@ -24,13 +24,14 @@ albedo_texture = ExtResource("3_5dlnb")
 [sub_resource type="CylinderMesh" id="CylinderMesh_5dlnb"]
 top_radius = 2.9
 bottom_radius = 0.0
+height = 0.001
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0hofp"]
 noise_type = 3
 seed = 4
 fractal_octaves = 3
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0hofp"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5dlnb"]
 noise = SubResource("FastNoiseLite_0hofp")
 seamless = true
 
@@ -38,13 +39,13 @@ seamless = true
 render_priority = 0
 shader = ExtResource("4_xdmd3")
 shader_parameter/liquid_color = Color(0, 1, 0.2, 1)
-shader_parameter/noise_img = SubResource("NoiseTexture2D_0hofp")
+shader_parameter/noise_img = SubResource("NoiseTexture2D_5dlnb")
 
 [sub_resource type="Curve" id="Curve_wc6fm"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_eqem5"]
+[sub_resource type="CurveTexture" id="CurveTexture_5dlnb"]
 curve = SubResource("Curve_wc6fm")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hxkdp"]
@@ -59,16 +60,16 @@ spread = 62.613
 initial_velocity_min = 1.0
 initial_velocity_max = 1.0
 gravity = Vector3(0, 3, 0)
-scale_curve = SubResource("CurveTexture_eqem5")
+scale_curve = SubResource("CurveTexture_5dlnb")
 turbulence_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2bduy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc6fm"]
 transparency = 1
 emission_enabled = true
 emission = Color(0.22349137, 0.9999998, 0.20155793, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_dt377"]
-material = SubResource("StandardMaterial3D_2bduy")
+material = SubResource("StandardMaterial3D_wc6fm")
 radius = 0.2
 height = 0.4
 
@@ -88,7 +89,7 @@ shape = SubResource("CapsuleShape3D_5dlnb")
 surface_material_override/0 = SubResource("StandardMaterial3D_lpeg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2" unique_id=635817006]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.67951965, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407964, 0)
 mesh = SubResource("CylinderMesh_5dlnb")
 surface_material_override/0 = SubResource("ShaderMaterial_lpeg6")
 
@@ -105,5 +106,4 @@ light_color = Color(0.39793527, 0.83587086, 0.36598212, 1)
 light_energy = 0.432
 shadow_enabled = true
 omni_range = 3.015
-omni_attenuation = 0.054
 script = ExtResource("5_5dlnb")

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b8pn1xqg35okm" path="res://scripts/items/MaterialItem.cs" id="2_material"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
+[ext_resource type="PackedScene" uid="uid://bha2jou2pm3e3" path="res://assets/environments/kuali_kecil.tscn" id="5_117bl"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://bh7yuw6ath05" path="res://scripts/puzzles/MixingPuzzle.cs" id="6_mixpuzzle"]
 [ext_resource type="PackedScene" uid="uid://cpo1xopshkwk2" path="res://assets/environments/kuali_besar.tscn" id="7_36cqj"]
@@ -210,17 +211,22 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.39
 shape = SubResource("BoxShape3D_poster")
 
 [node name="Player" parent="." unique_id=1725543223 instance=ExtResource("1_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49118698, 8)
 
 [node name="KualiKecil" type="StaticBody3D" parent="." unique_id=1216210040 groups=["minimap_interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.529344, 0.4, 3.1535306)
 script = ExtResource("6_mixpuzzle")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="KualiKecil" unique_id=1330149462]
+visible = false
 mesh = SubResource("CylinderMesh_smallcauldron")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KualiKecil" unique_id=173668773]
+visible = false
 shape = SubResource("CylinderShape3D_smallcauldron")
+
+[node name="KualiKecil" parent="KualiKecil" unique_id=210053537 instance=ExtResource("5_117bl")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.3014135, 0)
 
 [node name="AutoDoor" type="StaticBody3D" parent="." unique_id=1234567890 groups=["minimap_interactable"]]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3.4378614, 2, -18.231127)
