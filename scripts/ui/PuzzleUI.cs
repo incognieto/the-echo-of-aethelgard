@@ -60,30 +60,48 @@ public partial class PuzzleUI : Control
 	}
 
 	private void CheckSequence()
-	{
-		if (_correctSequence == null) return;
+{
+	if (_correctSequence == null) return;
 
-		bool correct = true;
-		for (int i = 0; i < _maxLength; i++)
+	bool correct = true;
+	for (int i = 0; i < _maxLength; i++)
+	{
+		if (_currentSequence[i] != _correctSequence[i])
 		{
-			if (_currentSequence[i] != _correctSequence[i])
-			{
-				correct = false;
-				break;
-			}
-		}
-		
-		if (correct)
-		{
-			_feedbackLabel.Text = "Lock Opened!";
-			_feedbackLabel.AddThemeColorOverride("font_color", new Color(0, 1, 0, 1));
-			
-			GetTree().CreateTimer(1.5).Timeout += () => {
-				EmitSignal(SignalName.PuzzleCompleted, true);
-				Close();
-			};
+			correct = false;
+			break;
 		}
 	}
+	
+	if (correct)
+	{
+		_feedbackLabel.Text = "Lock Opened!";
+		_feedbackLabel.AddThemeColorOverride("font_color", new Color(0, 1, 0, 1));
+		
+		// --- LOGIKA GANTI PINTU ---
+		// Kita naik ke Root/Main untuk mencari folder Map
+		var mapNode = GetTree().Root.FindChild("Map", true, false);
+		if (mapNode != null)
+		{
+			var lockedDoor = mapNode.FindChild("PuzzleDoorLocked", true, false) as Node3D;
+			var unlockedDoor = mapNode.FindChild("PuzzleDoorUnlocked", true, false) as Node3D;
+if (lockedDoor != null)
+{
+	lockedDoor.QueueFree(); // Hapus permanen dari game
+}
+			if (unlockedDoor != null)
+			{
+				unlockedDoor.Visible = true;
+			}
+		}
+		// --------------------------
+
+		GetTree().CreateTimer(1.5).Timeout += () => {
+			EmitSignal(SignalName.PuzzleCompleted, true);
+			Close();
+		};
+	}
+}
 
 	// --- Sisanya fungsi standar lu ---
 
