@@ -33,20 +33,15 @@ public partial class BookUI : Control
 
 	public override void _Ready()
 	{
-		// Get InventoryUI reference for crosshair control (try to find in scene tree)
-		var root = GetTree().Root;
-		// Try multiple possible paths for InventoryUI
-		if (root.HasNode("Main/UI/InventoryUI"))
+		// Get InventoryUI reference for crosshair control
+		var canvasLayer = GetParent() as CanvasLayer;
+		if (canvasLayer != null)
 		{
-			_inventoryUI = root.GetNode<InventoryUI>("Main/UI/InventoryUI");
-		}
-		else if (root.HasNode("UI/InventoryUI"))
-		{
-			_inventoryUI = root.GetNode<InventoryUI>("UI/InventoryUI");
-		}
-		else
-		{
-			GD.PrintErr("InventoryUI not found - crosshair control will be disabled");
+			_inventoryUI = canvasLayer.GetNodeOrNull<InventoryUI>("InventoryUI");
+			if (_inventoryUI == null)
+			{
+				GD.PrintErr("InventoryUI not found - crosshair control will be disabled");
+			}
 		}
 		
 		// Load custom font

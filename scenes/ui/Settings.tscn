@@ -20,44 +20,172 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.1, 0.1, 0.1, 1)
+color = Color(0.42636585, 0.4603126, 0.49389052, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=135983242]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=998877665]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -150.0
-offset_right = 200.0
-offset_bottom = 150.0
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=135983242]
+layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="Title" type="Label" parent="VBoxContainer" unique_id=1911257320]
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1911257320]
 layout_mode = 2
 text = "SETTINGS"
 label_settings = SubResource("LabelSettings_s4p7k")
 horizontal_alignment = 1
 
-[node name="Spacer1" type="Control" parent="VBoxContainer" unique_id=45485351]
-custom_minimum_size = Vector2(0, 30)
+[node name="Spacer1" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=45485351]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="SettingsPlaceholder" type="Label" parent="VBoxContainer" unique_id=385751903]
+[node name="AudioSettings" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=876543210]
 layout_mode = 2
-text = "Settings will be added soon..."
+
+[node name="AudioTitle" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543211]
+layout_mode = 2
+text = "AUDIO"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=2088212992]
+[node name="Spacer" type="Control" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543212]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543213]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MasterVolumeContainer" unique_id=876543214]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Master Volume:"
+
+[node name="Slider" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioSettings/MasterVolumeContainer" unique_id=876543215]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="ValueLabel" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MasterVolumeContainer" unique_id=876543216]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543217]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MusicVolumeContainer" unique_id=876543218]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Music Volume:"
+
+[node name="Slider" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioSettings/MusicVolumeContainer" unique_id=876543219]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="ValueLabel" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MusicVolumeContainer" unique_id=876543220]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543221]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/SFXVolumeContainer" unique_id=876543222]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "SFX Volume:"
+
+[node name="Slider" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioSettings/SFXVolumeContainer" unique_id=876543223]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="ValueLabel" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/SFXVolumeContainer" unique_id=876543224]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="Spacer2" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=2088212992]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="DisplaySettings" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=876543225]
+layout_mode = 2
+
+[node name="DisplayTitle" type="Label" parent="ScrollContainer/VBoxContainer/DisplaySettings" unique_id=876543226]
+layout_mode = 2
+text = "DISPLAY"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="ScrollContainer/VBoxContainer/DisplaySettings" unique_id=876543227]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ResolutionContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/DisplaySettings" unique_id=876543231]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/DisplaySettings/ResolutionContainer" unique_id=876543232]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Resolution:"
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/DisplaySettings/ResolutionContainer" unique_id=876543233]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 6
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1600x900"
+popup/item_1/id = 1
+popup/item_2/text = "1366x768"
+popup/item_2/id = 2
+popup/item_3/text = "1280x720"
+popup/item_3/id = 3
+popup/item_4/text = "1024x576"
+popup/item_4/id = 4
+popup/item_5/text = "800x600"
+popup/item_5/id = 5
+
+[node name="Spacer3" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=2088212993]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="VBoxContainer" unique_id=1226444369]
-custom_minimum_size = Vector2(300, 50)
+[node name="ButtonContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=876543234]
+layout_mode = 2
+alignment = 1
+
+[node name="ApplyButton" type="Button" parent="ScrollContainer/VBoxContainer/ButtonContainer" unique_id=876543235]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Apply"
+
+[node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/ButtonContainer" unique_id=1226444369]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Back"

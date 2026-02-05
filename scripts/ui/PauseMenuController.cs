@@ -33,9 +33,20 @@ public partial class PauseMenuController : CanvasLayer
 
 	public override void _Process(double delta)
 	{
-		// Hanya bisa pause jika tidak ada panel lain yang active
+		// Hanya bisa pause jika di gameplay, bukan di menu
 		if (Input.IsActionJustPressed("ui_cancel"))
 		{
+			// Check apakah sedang di menu scene
+			string currentScenePath = GetTree().CurrentScene.SceneFilePath.ToLower();
+			if (currentScenePath.Contains("menu") || 
+			    currentScenePath.Contains("settings") || 
+			    currentScenePath.Contains("credits") ||
+			    currentScenePath.Contains("levelselect"))
+			{
+				// Jangan buka pause menu di scene menu
+				return;
+			}
+			
 			// Jika ada panel active dan bukan pause menu, jangan buka pause menu
 			if (PanelManager.Instance.HasActivePanels() && 
 				PanelManager.Instance.GetActivePanelTop() != this)

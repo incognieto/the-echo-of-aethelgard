@@ -16,6 +16,12 @@ public partial class GameSetup : Node
 	{
 		GD.Print($"GameSetup: Game initialized - Level {CurrentLevel}");
 		
+		// Start new music for this level
+		if (MusicManager.Instance != null)
+		{
+			MusicManager.Instance.InstantRestart();
+		}
+		
 		// Initialize cursor manager
 		var cursorManager = new CursorManager();
 		AddChild(cursorManager);

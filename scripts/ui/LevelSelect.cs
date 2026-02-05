@@ -12,6 +12,12 @@ public partial class LevelSelect : Control
 
 	public override void _Ready()
 	{
+		// Start music for Level Select scene
+		if (MusicManager.Instance != null)
+		{
+			MusicManager.Instance.InstantRestart();
+		}
+		
 		_level1Button = GetNode<Button>("VBoxContainer/Level1Button");
 		_level2Button = GetNode<Button>("VBoxContainer/Level2Button");
 		_level3Button = GetNode<Button>("VBoxContainer/Level3Button");

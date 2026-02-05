@@ -25,6 +25,12 @@ public partial class Prologue : Node3D
 
     public override async void _Ready()
     {
+        // Start new music for Prologue
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.FadeOutAndRestart();
+        }
+        
         // 1. SETUP VISUAL AWAL
         if (DialogueText != null) DialogueText.Text = "";
         if (BlackCover != null) 

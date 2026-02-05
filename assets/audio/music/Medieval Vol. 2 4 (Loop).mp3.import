@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://codmem2nyokgi"
+path="res://.godot/imported/Medieval Vol. 2 4 (Loop).mp3-06ab84c7a3ab48fb7e6ed0aed8700af0.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Medieval Vol. 2 4 (Loop).mp3"
+dest_files=["res://.godot/imported/Medieval Vol. 2 4 (Loop).mp3-06ab84c7a3ab48fb7e6ed0aed8700af0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -10,6 +10,12 @@ public partial class Credits : Control
 
 	public override void _Ready()
 	{
+		// Start music for Credits scene
+		if (MusicManager.Instance != null)
+		{
+			MusicManager.Instance.InstantRestart();
+		}
+		
 		_scrollContainer = GetNode<ScrollContainer>("ScrollContainer");
 		_backButton = GetNode<Button>("BackButton");
 		

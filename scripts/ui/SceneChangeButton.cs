@@ -277,6 +277,8 @@ public partial class SceneChangeButton : TextureButton
 
 	private async System.Threading.Tasks.Task RunPreChangeAsync()
 	{
+		// No music fade out delay - music will restart instantly when new scene loads
+		
 		if (PreChangeNodePath == null || PreChangeNodePath.IsEmpty || string.IsNullOrWhiteSpace(PreChangeMethod))
 			return;
 

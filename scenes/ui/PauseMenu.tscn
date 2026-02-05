@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cjr1xsq8b2p5x"]
 
-[ext_resource type="Script" uid="uid://dhq1s7v3k4m9w" path="res://scripts/ui/PauseMenuController.cs" id="1_pausemenucontroller"]
+[ext_resource type="Script" uid="uid://butvb6at64o1l" path="res://scripts/ui/PauseMenuController.cs" id="1_pausemenucontroller"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pause"]
 font_sizes/font_size = 48
