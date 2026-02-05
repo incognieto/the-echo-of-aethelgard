@@ -27,9 +27,14 @@ public partial class DroppedItem : RigidBody3D
 	private Control _circularProgressUI;
 	private TextureProgressBar _circularProgress;
 	private CanvasLayer _canvasLayer;
+	private AudioStreamPlayer3D _dropSound;
+	private bool _hasPlayedDropSound = false; // Hanya play sekali saat drop
 
 	public override void _Ready()
 	{
+		// Add to pickable_items group for distance checking
+		AddToGroup("pickable_items");
+		
 		// Create mesh for visual - akan diupdate ukurannya di Initialize()
 		_mesh = new MeshInstance3D();
 		_mesh.Name = "DroppedMesh";
@@ -67,6 +72,18 @@ public partial class DroppedItem : RigidBody3D
 		
 		area.BodyEntered += OnBodyEntered;
 		area.BodyExited += OnBodyExited;
+		
+		// Setup drop sound
+		_dropSound = new AudioStreamPlayer3D();
+		_dropSound.Bus = "SFX";
+		_dropSound.MaxDistance = 20.0f;
+		_dropSound.VolumeDb = 0.0f;
+		AddChild(_dropSound);
+		// Load sound file ketika sudah tersedia:
+		// _dropSound.Stream = GD.Load<AudioStream>("res://assets/sounds/sfx/rock_drop.wav");
+		
+		// Connect to body_entered signal to detect ground impact
+		BodyEntered += OnRockHitGround;
 	}
 
 	public override void _Process(double delta)
@@ -79,7 +96,9 @@ public partial class DroppedItem : RigidBody3D
 		// Update prompt label for heavy items
 		if (_isHeavyItem && _promptLabel != null)
 		{
-			if (_playerNearby && !_isBeingPickedUp)
+			// Only show if player nearby AND this is the closest item
+			bool shouldShow = _playerNearby && !_isBeingPickedUp && IsClosestItem();
+			if (shouldShow)
 			{
 				_promptLabel.Visible = true;
 				var alpha = Mathf.Abs(Mathf.Sin((float)Time.GetTicksMsec() / 500.0f));
@@ -139,11 +158,28 @@ public partial class DroppedItem : RigidBody3D
 			GD.Print($"DroppedItem: {itemData.ItemName}, VisualScale: {itemData.VisualScale}, Radius: {finalRadius}");
 		}
 		
-		// Create sphere mesh dengan radius yang sesuai
-		var sphereMesh = new SphereMesh();
-		sphereMesh.Radius = finalRadius;
-		sphereMesh.Height = finalRadius * 2;
-		_mesh.Mesh = sphereMesh;
+		// Create rock mesh for stones, sphere for others
+		if (itemData.ItemId.StartsWith("stone_"))
+		{
+			_mesh.Mesh = CreateRockMesh(finalRadius);
+			
+			// Apply stone material with texture
+			var material = new StandardMaterial3D();
+			var texture = GD.Load<Texture2D>("res://assets/textures/lichen_rock_diff_1k.png");
+			material.AlbedoTexture = texture;
+			material.AlbedoColor = new Color(1.0f, 1.0f, 1.0f); // White = no tint
+			material.Roughness = 0.9f;
+			material.Metallic = 0.0f;
+			_mesh.SetSurfaceOverrideMaterial(0, material);
+		}
+		else
+		{
+			// Regular sphere mesh for non-stone items
+			var sphereMesh = new SphereMesh();
+			sphereMesh.Radius = finalRadius;
+			sphereMesh.Height = finalRadius * 2;
+			_mesh.Mesh = sphereMesh;
+		}
 		
 		// Create collision shape dengan radius yang sesuai
 		var collisionShape = GetNodeOrNull<CollisionShape3D>("CollisionShape");
@@ -215,16 +251,17 @@ public partial class DroppedItem : RigidBody3D
 		// Skip auto-pickup untuk heavy items (harus manual dengan E)
 		if (_isHeavyItem)
 		{
-			if (body is Player)
+			if (body is Player player)
 			{
 				_playerNearby = true;
+				_currentPlayer = player;
 			}
 			return;
 		}
 		
-		if (body is Player player)
+		if (body is Player player2)
 		{
-			var inventory = player.GetInventory();
+			var inventory = player2.GetInventory();
 			if (inventory != null && inventory.AddItem(_itemData, _quantity))
 			{
 				GD.Print($"Auto-picked up: {_itemData.ItemName} x{_quantity}");
@@ -238,7 +275,33 @@ public partial class DroppedItem : RigidBody3D
 		if (body is Player && _isHeavyItem)
 		{
 			_playerNearby = false;
+			_currentPlayer = null;
 		}
+	}
+	
+	private bool IsClosestItem()
+	{
+		if (_currentPlayer == null) return false;
+
+		float myDistance = GlobalPosition.DistanceTo(_currentPlayer.GlobalPosition);
+
+		// Check all items in pickable_items group
+		var allItems = GetTree().GetNodesInGroup("pickable_items");
+		foreach (var item in allItems)
+		{
+			if (item == this) continue; // Skip self
+			if (item is Node3D itemNode)
+			{
+				float itemDistance = itemNode.GlobalPosition.DistanceTo(_currentPlayer.GlobalPosition);
+				// If another item is closer, this is not the closest
+				if (itemDistance < myDistance - 0.1f) // Small threshold to avoid flickering
+				{
+					return false;
+				}
+			}
+		}
+
+		return true; // This is the closest item
 	}
 	
 	private void OnHeavyPickupEntered(Node3D body)
@@ -317,6 +380,13 @@ public partial class DroppedItem : RigidBody3D
 			var inventory = _currentPlayer.GetInventory();
 			if (inventory != null && inventory.AddItem(_itemData, _quantity))
 			{
+				// Play pickup sound
+				if (_dropSound != null && _dropSound.Stream != null)
+				{
+					// Use same sound for pickup (or could be different)
+					_dropSound.Play();
+				}
+				
 				GD.Print($"✓ Successfully picked up dropped heavy item: {_itemData.ItemName}");
 				QueueFree();
 			}
@@ -404,5 +474,67 @@ public partial class DroppedItem : RigidBody3D
 		}
 		
 		return ImageTexture.CreateFromImage(image);
+	}
+	
+	private void OnRockHitGround(Node body)
+	{
+		// Play drop sound ketika rock menabrak ground (atau node apapun)
+		// Hanya play sekali saat pertama kali jatuh
+		if (!_hasPlayedDropSound && _isHeavyItem)
+		{
+			if (_dropSound != null && _dropSound.Stream != null)
+			{
+				// Check velocity agar hanya play jika jatuh cukup keras
+				if (LinearVelocity.Length() > 2.0f)
+				{
+					_dropSound.Play();
+					_hasPlayedDropSound = true;
+					GD.Print($"🔊 Rock impact sound played for {_itemData.ItemName}");
+				}
+			}
+		}
+	}
+	
+	private Mesh CreateRockMesh(float baseRadius)
+	{
+		var sphereMesh = new SphereMesh();
+		sphereMesh.Radius = baseRadius;
+		sphereMesh.Height = baseRadius * 2.0f;
+		sphereMesh.RadialSegments = 12; // Lower for chunky rock look
+		sphereMesh.Rings = 8; // Lower for chunky rock look
+		
+		// Deform sphere to look like a rock
+		var surfaceTool = new SurfaceTool();
+		surfaceTool.CreateFrom(sphereMesh, 0);
+		
+		var arrayMesh = surfaceTool.Commit();
+		var mdt = new MeshDataTool();
+		mdt.CreateFromSurface(arrayMesh, 0);
+		
+		// Randomize vertices to create irregular rock shape
+		var noise = new FastNoiseLite();
+		noise.Seed = (int)GD.Randi();
+		noise.NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex;
+		noise.Frequency = 2.0f;
+		
+		for (int i = 0; i < mdt.GetVertexCount(); i++)
+		{
+			Vector3 vertex = mdt.GetVertex(i);
+			
+			// Calculate noise at this vertex position
+			float noiseValue = noise.GetNoise3D(vertex.X * 5, vertex.Y * 5, vertex.Z * 5);
+			
+			// Deform vertex outward/inward based on noise (20% variation for better UV mapping)
+			float deformation = 1.0f + (noiseValue * 0.2f);
+			vertex = vertex.Normalized() * baseRadius * deformation;
+			
+			mdt.SetVertex(i, vertex);
+		}
+		
+		// Rebuild mesh with deformed vertices
+		arrayMesh.ClearSurfaces();
+		mdt.CommitToSurface(arrayMesh);
+		
+		return arrayMesh;
 	}
 }

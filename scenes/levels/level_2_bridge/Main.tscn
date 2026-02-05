@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="2_s7lbl"]
 [ext_resource type="PackedScene" uid="uid://c3v8k7j2m5xbt" path="res://scenes/ui/BridgePuzzleUI.tscn" id="3_di2p2"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="3_ymv1o"]
+[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="4_bag35"]
 [ext_resource type="Script" uid="uid://baxkd0n6wuva5" path="res://scripts/puzzles/BridgePuzzle.cs" id="4_s7lbl"]
 [ext_resource type="Texture2D" uid="uid://c8apb5bbm8rfb" path="res://assets/puzzles/level_2_bridge/puzzle4.png" id="5_26hwv"]
 [ext_resource type="Texture2D" uid="uid://dvgukjrdr8632" path="res://assets/puzzles/level_2_bridge/puzzle1.png" id="5_ymv1o"]
@@ -76,6 +77,17 @@ grow_vertical = 2
 script = ExtResource("2_s7lbl")
 
 [node name="BridgePuzzleUI" parent="UI" unique_id=1825712127 instance=ExtResource("3_di2p2")]
+
+[node name="MiniMap" parent="UI" unique_id=1018470719 instance=ExtResource("4_bag35")]
+MapPosition = Vector2(1000, 480)
+MapPadding = 1.5
+BackgroundColor = Color(0, 0, 0, 0.12941177)
+BorderColor = Color(1, 1, 1, 1)
+WallColor = Color(0, 0, 0, 1)
+WallBorderColor = Color(1, 1, 1, 1)
+PlayerDotSize = 8.0
+ItemDotSize = 5.0
+WallThickness = 100.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=521927541]
 transform = Transform3D(-0.19857366, -0.8649451, 0.46091053, -0.0066185943, 0.47144833, 0.88186884, -0.98006356, 0.17206539, -0.099341944, 3.1859086, 9.823743, 0)
@@ -224,29 +236,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.6, 2.5)
 use_collision = true
 size = Vector3(0.2, 1.5, 10)
 
-[node name="Puzzle" type="Node3D" parent="." unique_id=193915800]
+[node name="Puzzle" type="Node3D" parent="." unique_id=193915800 groups=["minimap_interactable"]]
 
-[node name="Puzzle1" type="MeshInstance3D" parent="Puzzle" unique_id=583825129]
+[node name="Puzzle1" type="MeshInstance3D" parent="Puzzle" unique_id=583825129 groups=["minimap_interactable"]]
 transform = Transform3D(1.3113417e-07, 0.99999994, 4.3711392e-08, 3.8213714e-15, 4.3711385e-08, -1.0000001, -1.0000001, 1.3113414e-07, 1.9106857e-15, -12.789035, 2.5106678, 9.896386)
 mesh = SubResource("PlaneMesh_26hwv")
 skeleton = NodePath("../..")
 
-[node name="Puzzle2" type="MeshInstance3D" parent="Puzzle" unique_id=1281241225]
+[node name="Puzzle2" type="MeshInstance3D" parent="Puzzle" unique_id=1281241225 groups=["minimap_interactable"]]
 transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -15.50933, 2.5106678, 9.896386)
 mesh = SubResource("PlaneMesh_t8b2p")
 skeleton = NodePath("../..")
 
-[node name="Puzzle3" type="MeshInstance3D" parent="Puzzle" unique_id=833697597]
+[node name="Puzzle3" type="MeshInstance3D" parent="Puzzle" unique_id=833697597 groups=["minimap_interactable"]]
 transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -27.289352, 2.5106678, 9.896386)
 mesh = SubResource("PlaneMesh_7qf10")
 skeleton = NodePath("../..")
 
-[node name="Puzzle4" type="MeshInstance3D" parent="Puzzle" unique_id=1109915248]
+[node name="Puzzle4" type="MeshInstance3D" parent="Puzzle" unique_id=1109915248 groups=["minimap_interactable"]]
 transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -24.444822, 2.5106678, 9.896386)
 mesh = SubResource("PlaneMesh_30ka6")
 skeleton = NodePath("../..")
 
-[node name="Puzzle5" type="MeshInstance3D" parent="Puzzle" unique_id=1956102092]
+[node name="Puzzle5" type="MeshInstance3D" parent="Puzzle" unique_id=1956102092 groups=["minimap_interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.884842, 2.5719612, 0.15045738)
 mesh = SubResource("PlaneMesh_di2p2")
 
