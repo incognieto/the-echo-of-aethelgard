@@ -191,7 +191,7 @@ shadow_enabled = true
 omni_range = 19.302
 
 [node name="ExitGate" type="StaticBody3D" parent="Sewer" unique_id=1095822255]
-transform = Transform3D(1, 0, 0, 0, 20.0569, 0, 0, 0, 8, 4.794634, 7.1850395, 14.067411)
+transform = Transform3D(1, 0, 0, 0, 20.0569, 0, 0, 0, 8, 4.795, 7.12, 14.067)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/ExitGate" unique_id=1595340705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8146973e-06, -0.11019142, -0.0028698444)
@@ -252,77 +252,75 @@ skeleton = NodePath("../../..")
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
 [node name="Small Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1676649959]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.333789, 3.3805945, 11.288057)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.614278, 3.024523, 10.724524)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
 ItemName = "Small Rock"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Small Rock" unique_id=644432485]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84069824, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Small Rock" unique_id=1828825301]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84207463, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Medium Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=348885335]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.333789, 3.531709, 15.617718)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.375525, 2.8132353, 16.258018)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
 ItemId = "stone_15"
 ItemName = "Medium Rock"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Medium Rock" unique_id=2029920545]
-transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, -0.84069824, 0)
+transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Medium Rock" unique_id=949168403]
-transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, -0.84207463, 0)
+transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Heavy Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1793016969]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5159245, 3.6528404, 16.279335)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.511879, 3.2030432, 16.217222)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
 ItemId = "stone_20"
 ItemName = "Heavy Rock"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Heavy Rock" unique_id=665142675]
-transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0.14514256, -0.79420686, -0.6556554)
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Heavy Rock" unique_id=1615056775]
-transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0.14514256, -0.7955835, -0.6556554)
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1218040056]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7554007, 3.2209747, 11.967998)
+[node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=513267976]
+transform = Transform3D(1.4150004, 0, -2.2351742e-08, 0, 1.415, 0, 2.2351742e-08, 0, 1.4150004, -3.9249525, 3.316188, 10.685375)
 script = ExtResource("6_jlque")
 WeightValue = 30.0
 ItemId = "stone_30"
 ItemName = "Huge Rock"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Huge Rock" unique_id=457186175]
-transform = Transform3D(2.005, 0, 0, 0, 2.005, 0, 0, 0, 2.005, 0, -0.37562108, -0.44315648)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Huge Rock" unique_id=418805660]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Huge Rock" unique_id=774888146]
-transform = Transform3D(2.005, 0, 0, 0, 2.005, 0, 0, 0, 2.005, 0, -0.3769977, -0.44315648)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Huge Rock" unique_id=1537042725]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Gigantic Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=136407317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5430965, 3.7407653, 12.100311)
+[node name="Gigantic Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1116501001]
+transform = Transform3D(1.845, 0, -2.2351742e-08, 0, 1.845, 0, 2.2351742e-08, 0, 1.845, 0.74783516, 3.7083163, 10.989925)
 script = ExtResource("6_jlque")
 WeightValue = 40.0
 ItemId = "stone_40"
-ItemName = "Gigantic  Rock"
+ItemName = "Gigantic Rock"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Gigantic Rock" unique_id=2096904945]
-transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, -0.37562108, -0.44315648)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Gigantic Rock" unique_id=1390347307]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Gigantic Rock" unique_id=1711476922]
-transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, -0.3769977, -0.44315648)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Gigantic Rock" unique_id=1222299270]
+transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="PulleySystem" type="Node3D" parent="Sewer" unique_id=322113394 node_paths=PackedStringArray("GateObject", "StatusLabel")]

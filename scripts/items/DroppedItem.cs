@@ -30,6 +30,9 @@ public partial class DroppedItem : RigidBody3D
 
 	public override void _Ready()
 	{
+		// Add to pickable_items group for distance checking
+		AddToGroup("pickable_items");
+		
 		// Create mesh for visual - akan diupdate ukurannya di Initialize()
 		_mesh = new MeshInstance3D();
 		_mesh.Name = "DroppedMesh";
@@ -79,7 +82,9 @@ public partial class DroppedItem : RigidBody3D
 		// Update prompt label for heavy items
 		if (_isHeavyItem && _promptLabel != null)
 		{
-			if (_playerNearby && !_isBeingPickedUp)
+			// Only show if player nearby AND this is the closest item
+			bool shouldShow = _playerNearby && !_isBeingPickedUp && IsClosestItem();
+			if (shouldShow)
 			{
 				_promptLabel.Visible = true;
 				var alpha = Mathf.Abs(Mathf.Sin((float)Time.GetTicksMsec() / 500.0f));
@@ -215,16 +220,17 @@ public partial class DroppedItem : RigidBody3D
 		// Skip auto-pickup untuk heavy items (harus manual dengan E)
 		if (_isHeavyItem)
 		{
-			if (body is Player)
+			if (body is Player player)
 			{
 				_playerNearby = true;
+				_currentPlayer = player;
 			}
 			return;
 		}
 		
-		if (body is Player player)
+		if (body is Player player2)
 		{
-			var inventory = player.GetInventory();
+			var inventory = player2.GetInventory();
 			if (inventory != null && inventory.AddItem(_itemData, _quantity))
 			{
 				GD.Print($"Auto-picked up: {_itemData.ItemName} x{_quantity}");
@@ -238,7 +244,33 @@ public partial class DroppedItem : RigidBody3D
 		if (body is Player && _isHeavyItem)
 		{
 			_playerNearby = false;
+			_currentPlayer = null;
 		}
+	}
+	
+	private bool IsClosestItem()
+	{
+		if (_currentPlayer == null) return false;
+
+		float myDistance = GlobalPosition.DistanceTo(_currentPlayer.GlobalPosition);
+
+		// Check all items in pickable_items group
+		var allItems = GetTree().GetNodesInGroup("pickable_items");
+		foreach (var item in allItems)
+		{
+			if (item == this) continue; // Skip self
+			if (item is Node3D itemNode)
+			{
+				float itemDistance = itemNode.GlobalPosition.DistanceTo(_currentPlayer.GlobalPosition);
+				// If another item is closer, this is not the closest
+				if (itemDistance < myDistance - 0.1f) // Small threshold to avoid flickering
+				{
+					return false;
+				}
+			}
+		}
+
+		return true; // This is the closest item
 	}
 	
 	private void OnHeavyPickupEntered(Node3D body)

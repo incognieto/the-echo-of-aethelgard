@@ -173,12 +173,61 @@ public partial class Player : CharacterBody3D
 	{
 		if (_currentCameraMode == CameraMode.Isometric)
 		{
-			if (_nearestDroppedItem != null && _nearestDroppedItem.IsHeavyItem()) { _nearestDroppedItem.StartPickup(this); return; }
-			if (_nearestItem != null)
+			// Find closest item from all items in pickup area
+			PickableItem closestPickableItem = null;
+			DroppedItem closestDroppedItem = null;
+			float closestPickableDistance = float.MaxValue;
+			float closestDroppedDistance = float.MaxValue;
+
+			// Scan all items in the pickable_items group
+			var allItems = GetTree().GetNodesInGroup("pickable_items");
+			foreach (var item in allItems)
 			{
-				if (_nearestItem is WeightItem weightItem) { if (!weightItem.IsBeingPickedUp()) weightItem.StartPickup(this); return; }
-				if (_nearestItem.GetType().Name == "MaterialItem") { ((MaterialItem)_nearestItem).PickupWithQuantity(this); _nearestItem = null; return; }
-				if (_inventory.AddItem(_nearestItem.GetItemData(), 1)) { _nearestItem.Pickup(); _nearestItem = null; }
+				if (item is Node3D itemNode)
+				{
+					float distance = GlobalPosition.DistanceTo(itemNode.GlobalPosition);
+					
+					// Only consider items within pickup range
+					if (distance <= 3.5f)
+					{
+						if (item is PickableItem pickable && distance < closestPickableDistance)
+						{
+							closestPickableItem = pickable;
+							closestPickableDistance = distance;
+						}
+						else if (item is DroppedItem dropped && distance < closestDroppedDistance)
+						{
+							closestDroppedItem = dropped;
+							closestDroppedDistance = distance;
+						}
+					}
+				}
+			}
+
+			// Prioritize heavy dropped items if they're closer
+			if (closestDroppedItem != null && closestDroppedItem.IsHeavyItem() && closestDroppedDistance < closestPickableDistance)
+			{
+				closestDroppedItem.StartPickup(this);
+				return;
+			}
+
+			// Otherwise pickup closest pickable item
+			if (closestPickableItem != null)
+			{
+				if (closestPickableItem is WeightItem weightItem)
+				{
+					if (!weightItem.IsBeingPickedUp()) weightItem.StartPickup(this);
+					return;
+				}
+				if (closestPickableItem.GetType().Name == "MaterialItem")
+				{
+					((MaterialItem)closestPickableItem).PickupWithQuantity(this);
+					return;
+				}
+				if (_inventory.AddItem(closestPickableItem.GetItemData(), 1))
+				{
+					closestPickableItem.Pickup();
+				}
 			}
 		}
 		else // FPP Raycast
