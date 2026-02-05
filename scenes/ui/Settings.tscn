@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ds51cru6up8cs"]
 
 [ext_resource type="Script" uid="uid://0dytbisbla5u" path="res://scripts/ui/Settings.cs" id="1_settings"]
+[ext_resource type="Texture2D" uid="uid://3r4hee37kbhf" path="res://assets/sprites/ui/OverlayPopUp.png" id="2_asmva"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s4p7k"]
 
@@ -20,7 +21,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.42636585, 0.4603126, 0.49389052, 1)
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1751103663]
+position = Vector2(642.8539, 366)
+scale = Vector2(0.4986046, 0.49860466)
+texture = ExtResource("2_asmva")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=998877665]
 layout_mode = 1
@@ -29,10 +35,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -300.0
-offset_right = 400.0
-offset_bottom = 300.0
+offset_left = -398.14612
+offset_top = -213.0
+offset_right = 401.85388
+offset_bottom = 387.0
 grow_horizontal = 2
 grow_vertical = 2
 
