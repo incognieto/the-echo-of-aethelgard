@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="1_ogqkq"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
-[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="3_eofdq"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="3_eofdq"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://1r2y70ajbuu3" path="res://assets/textures/worn_mossy_plasterwall_diff_1k.png" id="5_ec5yg"]
@@ -23,6 +23,8 @@ normal_enabled = true
 normal_texture = ExtResource("6_nxrbb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ogqkq"]
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("5_ec5yg")
 roughness_texture = ExtResource("7_78t1w")
 normal_enabled = true

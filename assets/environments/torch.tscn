@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bbu13vyr56ipl"]
+
+[ext_resource type="PackedScene" uid="uid://drat1i4wj1w0k" path="res://assets/environments/Torch.glb" id="1_7pr02"]
+[ext_resource type="Texture2D" uid="uid://w3q3loiqydr2" path="res://assets/environments/Torch_Torch.png" id="2_l2v2v"]
+[ext_resource type="Script" uid="uid://bcnjjexjnlb4" path="res://scripts/environments/TorchFlicker.cs" id="3_l2v2v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tnwk4"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_l2v2v")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l2v2v"]
+size = Vector3(0.48520732, 0.80494493, 0.3631909)
+
+[sub_resource type="Gradient" id="Gradient_tnwk4"]
+offsets = PackedFloat32Array(0, 0.44700462, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.6562982, 0.37465987, 0.099976145, 1, 0.80263674, 0.2064451, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_iykvg"]
+gradient = SubResource("Gradient_tnwk4")
+
+[sub_resource type="Curve" id="Curve_yiloh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_blf3l"]
+curve = SubResource("Curve_yiloh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g1lvm"]
+direction = Vector3(0, 1, 0)
+spread = 19.091
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_blf3l")
+color_ramp = SubResource("GradientTexture1D_iykvg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0icr"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 1
+proximity_fade_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_x67a6"]
+material = SubResource("StandardMaterial3D_s0icr")
+radius = 0.05
+height = 0.1
+
+[node name="Torch" unique_id=787674602 instance=ExtResource("1_7pr02")]
+
+[node name="Cube" parent="." index="0" unique_id=53501146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1862402, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_tnwk4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0" unique_id=1734459026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.135703, 0.50398, -0.001090169)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0" unique_id=2129155426]
+shape = SubResource("BoxShape3D_l2v2v")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="1" unique_id=1247265843]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7780686, 0)
+amount = 40
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_g1lvm")
+draw_pass_1 = SubResource("SphereMesh_x67a6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2" unique_id=1680016818]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5205249, 0)
+light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
+shadow_enabled = true
+script = ExtResource("3_l2v2v")

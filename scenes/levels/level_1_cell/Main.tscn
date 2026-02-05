@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="9_transition"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="10_28jj2"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="10_xuw2q"]
+[ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="11_pdseg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ftsf"]
 resource_name = "Material"
@@ -191,91 +192,13 @@ mesh = SubResource("BoxMesh_transition")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition" unique_id=1847499795]
 shape = SubResource("BoxShape3D_transition")
 
-[node name="Torch" type="Node3D" parent="." unique_id=1437212801]
+[node name="Torchs" type="Node3D" parent="." unique_id=1437212801]
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="Torch" unique_id=1084810483]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.317116, 2.914606, -12.136682)
-light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
-light_energy = 0.4
-shadow_enabled = true
-shadow_bias = 0.3
-shadow_normal_bias = 2.0
-shadow_blur = 0.0
-omni_range = 17.856
-omni_attenuation = 1.557
-omni_shadow_mode = 0
+[node name="Torch" parent="Torchs" unique_id=787674602 instance=ExtResource("11_pdseg")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.7686918, 2.2682493, -5.7074003)
 
-[node name="OmniLight3D6" type="OmniLight3D" parent="Torch" unique_id=720700431]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.331417, 2.914606, -12.136682)
-light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
-light_energy = 0.4
-shadow_enabled = true
-shadow_bias = 0.3
-shadow_normal_bias = 2.0
-shadow_blur = 0.0
-omni_range = 17.856
-omni_attenuation = 1.557
-omni_shadow_mode = 0
-
-[node name="OmniLight3D7" type="OmniLight3D" parent="Torch" unique_id=78488067]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.331417, 2.914606, -21.104134)
-light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
-light_energy = 0.4
-shadow_enabled = true
-shadow_bias = 0.3
-shadow_normal_bias = 2.0
-shadow_blur = 0.0
-omni_range = 17.856
-omni_attenuation = 1.557
-omni_shadow_mode = 0
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="Torch" unique_id=1523338414]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.317116, 2.914606, -21.09318)
-light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
-light_energy = 0.4
-shadow_enabled = true
-shadow_bias = 0.3
-shadow_normal_bias = 2.0
-shadow_blur = 0.0
-omni_range = 17.856
-omni_attenuation = 1.557
-omni_shadow_mode = 0
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="Torch" unique_id=1132559652]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4363356, 2.914606, -0.3883469)
-light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
-light_energy = 0.4
-shadow_enabled = true
-shadow_bias = 0.3
-shadow_normal_bias = 2.0
-shadow_blur = 0.0
-omni_range = 17.856
-omni_attenuation = 1.557
-omni_shadow_mode = 0
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="Torch/OmniLight3D4" unique_id=1486658143]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.206164, 0.066263676, -5.2379255)
-light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
-light_energy = 0.4
-shadow_enabled = true
-shadow_bias = 0.3
-shadow_normal_bias = 2.0
-shadow_blur = 0.0
-omni_range = 17.856
-omni_attenuation = 1.557
-omni_shadow_mode = 0
-
-[node name="OmniLight3D5" type="OmniLight3D" parent="Torch" unique_id=1097672091]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3983994, 2.914606, -0.3883469)
-light_color = Color(0.85490197, 0.4627451, 0.21960784, 1)
-light_energy = 0.4
-shadow_enabled = true
-shadow_bias = 0.3
-shadow_normal_bias = 2.0
-shadow_blur = 0.0
-omni_range = 17.856
-omni_attenuation = 1.557
-omni_shadow_mode = 0
+[node name="Torch2" parent="Torchs" unique_id=480850287 instance=ExtResource("11_pdseg")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.760792, 2.2682493, -5.7074003)
 
 [node name="Map" type="Node3D" parent="." unique_id=1331018373]
 
