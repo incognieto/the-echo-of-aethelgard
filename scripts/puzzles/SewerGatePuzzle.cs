@@ -78,9 +78,9 @@ public partial class SewerGatePuzzle : Node3D
         // Cek jika TEPAT 75kg
         if (Mathf.IsEqualApprox(_currentWeight, TargetWeight))
         {
-            GD.Print("✅ PUZZLE SOLVED: Tepat 75kg! Gate terbuka penuh!");
+            GD.Print("✅ PUZZLE SOLVED: Tepat 75kg! Gate terbuka 33%!");
             _isSolved = true;
-            _gateTargetPos = _gateClosedPos + new Vector3(0, MaxGateHeight, 0);
+            _gateTargetPos = _gateClosedPos + new Vector3(0, MaxGateHeight * 0.33f, 0);
         }
         // Cek jika MELEBIHI 75kg -> RUSAK!
         else if (_currentWeight > TargetWeight)
@@ -96,8 +96,8 @@ public partial class SewerGatePuzzle : Node3D
             _isSolved = false;
             // Hitung persentase (0-100%)
             float percentage = (_currentWeight / TargetWeight) * 100f;
-            // Gate naik proporsional dengan berat
-            float heightMultiplier = _currentWeight / TargetWeight;
+            // Gate naik proporsional dengan berat (maksimal 33%)
+            float heightMultiplier = (_currentWeight / TargetWeight) * 0.33f;
             _gateTargetPos = _gateClosedPos + new Vector3(0, MaxGateHeight * heightMultiplier, 0);
             
             GD.Print($"📊 Berat: {_currentWeight}kg ({percentage:F1}%) - Gate naik {heightMultiplier * 100:F1}%");

@@ -4,19 +4,50 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
+[ext_resource type="Texture2D" uid="uid://1r2y70ajbuu3" path="res://assets/textures/worn_mossy_plasterwall_diff_1k.png" id="5_ec5yg"]
 [ext_resource type="Script" uid="uid://bbfcukikgxpgo" path="res://scripts/items/WeightItem.cs" id="6_jlque"]
+[ext_resource type="Texture2D" uid="uid://dfw0chnqnwnq6" path="res://assets/textures/worn_mossy_plasterwall_nor_dx_1k.png" id="6_nxrbb"]
+[ext_resource type="Texture2D" uid="uid://df5170f7qosx3" path="res://assets/textures/worn_mossy_plasterwall_rough_1k.png" id="7_78t1w"]
 [ext_resource type="Script" uid="uid://se448mm5xj2s" path="res://scripts/puzzles/SewerGatePuzzle.cs" id="7_uvas7"]
+[ext_resource type="Shader" uid="uid://dnmduhckg5ggw" path="res://scripts/shaders/see_through.gdshader" id="8_78t1w"]
+[ext_resource type="Texture2D" uid="uid://i3nkcqysosys" path="res://assets/textures/rusty_metal_04_diff_1k.png" id="9_jlque"]
+[ext_resource type="Script" uid="uid://bps0ucv6d60ec" path="res://scripts/levels/WaterAnimator.cs" id="10_nxrbb"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7erlf"]
-albedo_color = Color(0.13552421, 0.24889746, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlque"]
+albedo_texture = ExtResource("5_ec5yg")
+roughness_texture = ExtResource("7_78t1w")
+normal_enabled = true
+normal_texture = ExtResource("6_nxrbb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ogqkq"]
-albedo_color = Color(0.19986886, 0.26043513, 0.19818947, 1)
+albedo_texture = ExtResource("5_ec5yg")
+roughness_texture = ExtResource("7_78t1w")
+normal_enabled = true
+normal_texture = ExtResource("6_nxrbb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvas7"]
+albedo_texture = ExtResource("5_ec5yg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdc3e"]
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_uvas7")
+shader = ExtResource("8_78t1w")
+shader_parameter/albedo_texture = ExtResource("5_ec5yg")
+shader_parameter/circle_radius = 0.15
+shader_parameter/smoothness = 0.08
+shader_parameter/min_opacity = 0.15
+shader_parameter/x_squeeze = 1.5
+shader_parameter/y_offset = 0.1
+shader_parameter/z_margin = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tdfxw"]
-size = Vector3(1, 0.46929932, 1.2022705)
+size = Vector3(1, 0.24336243, 1.2022705)
 
-[sub_resource type="BoxMesh" id="BoxMesh_apwv6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdc3e"]
+albedo_texture = ExtResource("9_jlque")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eofdq"]
+material = SubResource("StandardMaterial3D_vdc3e")
 
 [sub_resource type="SphereMesh" id="SphereMesh_j0lb3"]
 
@@ -25,6 +56,69 @@ size = Vector3(1, 0.46929932, 1.2022705)
 [sub_resource type="BoxMesh" id="BoxMesh_7wgpb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad0wm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ec5yg"]
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxrbb"]
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0.2509804, 0.2, 0.12156863, 0.8509804)
+metallic = 0.1
+roughness = 0.7
+emission_enabled = true
+emission = Color(0.09019608, 0.13333334, 0.047058824, 1)
+emission_energy_multiplier = 0.35
+normal_enabled = true
+normal_scale = 0.35
+normal_texture = SubResource("NoiseTexture2D_ec5yg")
+refraction_enabled = true
+uv1_offset = Vector3(-0.055, -0.06, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ec5yg"]
+material = SubResource("StandardMaterial3D_nxrbb")
+
+[sub_resource type="Animation" id="Animation_78t1w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sewer/water:mesh:material:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.055, -0.06, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jlque"]
+resource_name = "water_flow"
+length = 10.033334
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sewer/water:mesh:material:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.9666667, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.505, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uvas7"]
+_data = {
+&"RESET": SubResource("Animation_78t1w"),
+&"water_flow": SubResource("Animation_jlque")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_78t1w"]
+size = Vector3(1, 10.521423, 11.17337)
 
 [node name="Main" type="Node3D" unique_id=1411745492]
 
@@ -37,6 +131,7 @@ ThrowForce = 0.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1912687294]
 transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
+visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=520216363]
 
@@ -61,22 +156,28 @@ transform = Transform3D(-0.06503737, 0, 0.99788284, 0, 1, 0, -0.99788284, 0, -0.
 [node name="Floor" type="CSGBox3D" parent="Sewer/Base" unique_id=1195203968]
 transform = Transform3D(50.00001, 0, 0, 0, 1, 0, 0, 0, 12, -1.8461628, 1.4616271, 14.118364)
 use_collision = true
-material = SubResource("StandardMaterial3D_7erlf")
+material = SubResource("StandardMaterial3D_jlque")
 
 [node name="Wall Left" type="CSGBox3D" parent="Sewer/Base" unique_id=2058695331]
-transform = Transform3D(50.00006, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -1.4946327, 6.382596, 8.709396)
+transform = Transform3D(50.000065, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -1.4946327, 6.382596, 8.709396)
 use_collision = true
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
 
 [node name="Wall Right" type="CSGBox3D" parent="Sewer/Base" unique_id=1189358266]
-transform = Transform3D(-7.748604e-07, 0.95292634, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886796, -4.0978193e-08, 2.1316282e-14, -26.75338, 6.382596, 12.944298)
+transform = Transform3D(-8.34465e-07, 0.9529264, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886797, -4.0978193e-08, 2.1316282e-14, -26.75338, 6.382596, 12.944296)
 use_collision = true
 size = Vector3(1, 1, 1.1303711)
-material = SubResource("StandardMaterial3D_ogqkq")
+material = SubResource("ShaderMaterial_vdc3e")
+
+[node name="Wall Right2" type="CSGBox3D" parent="Sewer/Base" unique_id=1896758696]
+transform = Transform3D(-4.053116e-06, 0.9529325, -5.2453663e-07, 0, -4.1653724e-08, -12, -13.886834, -1.0058284e-07, 2.1316282e-14, 5.0214863, 10.238526, 14.02557)
+use_collision = true
+size = Vector3(0.8017578, 1, 0.4755249)
+material = SubResource("ShaderMaterial_vdc3e")
 
 [node name="Wall Left3" type="CSGBox3D" parent="Sewer/Base" unique_id=710122506]
-transform = Transform3D(50.000065, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -2.180481, 6.382596, 19.23252)
+transform = Transform3D(50.00007, 0, 0, 0, -4.371139e-08, -12, 2.3841858e-06, 1, -5.2453663e-07, -2.180481, 6.382596, 19.23252)
 use_collision = true
 size = Vector3(1, 1, 1.1303711)
 material = SubResource("StandardMaterial3D_ogqkq")
@@ -93,12 +194,60 @@ omni_range = 19.302
 transform = Transform3D(1, 0, 0, 0, 20.0569, 0, 0, 0, 8, 4.794634, 7.1850395, 14.067411)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/ExitGate" unique_id=1595340705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9073486e-06, 0.0027770996, -0.0028688908)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8146973e-06, -0.11019142, -0.0028698444)
 shape = SubResource("BoxShape3D_tdfxw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/ExitGate" unique_id=331229343]
-transform = Transform3D(0.9862327, 0, 0, 0, 0.4837864, 0, 0, 0, 1.2112353, 0, 0, 0)
-mesh = SubResource("BoxMesh_apwv6")
+[node name="bars" type="Node3D" parent="Sewer/ExitGate" unique_id=1918607301]
+
+[node name="RustyBar" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=1020548603]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.079366684, -0.11557317, -0.5709262)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar2" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=1459016210]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.07936478, -0.11557317, -0.4459262)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar3" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=554590441]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.07936478, -0.11557317, -0.32092667)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar4" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=1424278133]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.07936478, -0.11557317, -0.19592619)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar5" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=1449047755]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.079366684, -0.11557317, -0.07092619)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar6" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=2030220166]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.07936287, -0.11557317, 0.054073334)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar7" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=646782371]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.079366684, -0.11557317, 0.17907381)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar8" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=1744042322]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.079366684, -0.11557317, 0.3040738)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar9" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=1293818056]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.079366684, -0.11557317, 0.4290738)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
+
+[node name="RustyBar10" type="MeshInstance3D" parent="Sewer/ExitGate/bars" unique_id=1633834985]
+transform = Transform3D(0.5, 0, 0, 0, 0.12464538, 0, 0, 0, 0.0625, 0.07936478, -0.11557317, 0.5540738)
+mesh = SubResource("CylinderMesh_eofdq")
+skeleton = NodePath("../../..")
 
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
@@ -177,22 +326,42 @@ transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, -0.3769977, -0.44315
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="PulleySystem" type="Node3D" parent="Sewer" unique_id=322113394 node_paths=PackedStringArray("GateObject", "StatusLabel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.779447, 16.024921)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3876219, 2.779447, 15.9344845)
 script = ExtResource("7_uvas7")
 GateObject = NodePath("../ExitGate")
-StatusLabel = NodePath("Label3D")
+StatusLabel = NodePath("ScaleArea/Label3D")
 
 [node name="ScaleArea" type="Area3D" parent="Sewer/PulleySystem" unique_id=1996784607]
-transform = Transform3D(2.2514863, 0, 0, 0, 0.44138503, 0, 0, 0, 2.3054318, 1.7430496, -0.48807168, -0.32201815)
+transform = Transform3D(2.2514863, 0, 0, 0, 0.44138503, 0, 0, 0, 2.3054318, 2.6537313, -0.48807168, -0.2626667)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=1436840474]
+transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.9999996, 0, 7.450581e-09, 0, 1.2495217, 0.41580725, 0, 0.65439415)
 mesh = SubResource("BoxMesh_7wgpb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=213823445]
+transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.9999996, 0, 7.450581e-09, 0, 1.2495217, 0.4183483, 0, 0.61631584)
 shape = SubResource("BoxShape3D_ad0wm")
 
-[node name="Label3D" type="Label3D" parent="Sewer/PulleySystem" unique_id=2093335559]
-transform = Transform3D(-0.04188806, 7.9998903, 4.371139e-08, 1.83097e-09, -3.496863e-07, 1, 7.9998903, 0.04188806, -2.220446e-16, 1.7133293, -0.23465157, -0.29722404)
+[node name="Label3D" type="Label3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=2093335559]
+transform = Transform3D(-0.018604577, 3.5531595, 1.9414461e-08, 4.148236e-09, -7.922475e-07, 2.2655947, 3.470018, 0.018169299, -6.661338e-16, 0.18453121, 1.5116591, 0.61384773)
+text = "12"
+font_size = 20
+
+[node name="water" type="MeshInstance3D" parent="Sewer" unique_id=1829388562]
+transform = Transform3D(32, 0, 0, 0, 0.02, 0, 0, 0, 4, -11.022926, 2.0103974, 13.472033)
+mesh = SubResource("BoxMesh_ec5yg")
+script = ExtResource("10_nxrbb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sewer/water" unique_id=1613782355]
+root_node = NodePath("../../..")
+libraries/ = SubResource("AnimationLibrary_uvas7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Sewer" unique_id=84551770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.441849, 3.0770845, 13.560249)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/StaticBody3D" unique_id=1439311415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.213974, 4.7607117, 0.24688148)
+shape = SubResource("BoxShape3D_78t1w")
 
 [node name="AncientBooks" type="Node3D" parent="." unique_id=119103346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 0, 0)

@@ -36,6 +36,10 @@ window/stretch/aspect="ignore"
 
 project/assembly_name="teoa-1"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_forward={
