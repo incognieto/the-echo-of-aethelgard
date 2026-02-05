@@ -3,10 +3,10 @@ using System;
 
 public partial class PauseMenuController : CanvasLayer
 {
-	private Button _resumeButton;
-	private Button _restartButton;
-	private Button _settingsButton;
-	private Button _exitButton;
+	private TextureButton _resumeButton;
+	private TextureButton _restartButton;
+	private TextureButton _settingsButton;
+	private TextureButton _exitButton;
 	private bool _isPaused = false;
 	private string _currentScenePath = "";
 
@@ -15,10 +15,10 @@ public partial class PauseMenuController : CanvasLayer
 		// Set process mode agar bisa terima input meskipun game paused
 		ProcessMode = ProcessModeEnum.Always;
 		
-		_resumeButton = GetNode<Button>("PanelContainer/VBoxContainer/ResumeButton");
-		_restartButton = GetNode<Button>("PanelContainer/VBoxContainer/RestartButton");
-		_settingsButton = GetNode<Button>("PanelContainer/VBoxContainer/SettingsButton");
-		_exitButton = GetNode<Button>("PanelContainer/VBoxContainer/ExitButton");
+		_resumeButton = GetNode<TextureButton>("PanelContainer/VBoxContainer/ResumeButton");
+		_restartButton = GetNode<TextureButton>("PanelContainer/VBoxContainer/RestartButton");
+		_settingsButton = GetNode<TextureButton>("PanelContainer/VBoxContainer/SettingsButton");
+		_exitButton = GetNode<TextureButton>("PanelContainer/VBoxContainer/ExitButton");
 
 		// Connect button signals
 		_resumeButton.Pressed += OnResumePressed;
@@ -39,9 +39,9 @@ public partial class PauseMenuController : CanvasLayer
 			// Check apakah sedang di menu scene
 			string currentScenePath = GetTree().CurrentScene.SceneFilePath.ToLower();
 			if (currentScenePath.Contains("menu") || 
-			    currentScenePath.Contains("settings") || 
-			    currentScenePath.Contains("credits") ||
-			    currentScenePath.Contains("levelselect"))
+				currentScenePath.Contains("settings") || 
+				currentScenePath.Contains("credits") ||
+				currentScenePath.Contains("levelselect"))
 			{
 				// Jangan buka pause menu di scene menu
 				return;

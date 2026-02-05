@@ -137,9 +137,9 @@ public partial class MiniMapSystem : Control
 		{
 			// Detect StaticBody3D, CSG nodes, or nodes in group
 			bool isRelevant = node3D is StaticBody3D || 
-			                  node3D is CsgShape3D || 
-			                  node3D.IsInGroup("minimap_visible") ||
-			                  node.Name.ToString().ToLower().Contains("wall");
+							  node3D is CsgShape3D || 
+							  node3D.IsInGroup("minimap_visible") ||
+							  node.Name.ToString().ToLower().Contains("wall");
 			
 			// Skip player and items
 			if (isRelevant && !(node3D is PickableItem) && !node.Name.ToString().Contains("Player"))

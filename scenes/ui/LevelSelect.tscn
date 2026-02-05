@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="5_ijalg"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="6_jcfyq"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="7_riy7l"]
-[ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="8_6axhp"]
-[ext_resource type="Script" uid="uid://dajue2twr482c" path="res://scripts/ui/MainMenu/PrisonBars.cs" id="9_vowwd"]
 [ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="10_2ophx"]
 [ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="11_sc7te"]
 [ext_resource type="Texture2D" uid="uid://cakrjxgrr8e5a" path="res://assets/sprites/mainmenuassets/LevelPage/SelectLevel.png" id="12_078v8"]
@@ -72,15 +70,6 @@ scale = Vector2(0.34500888, 0.3450089)
 texture = ExtResource("7_riy7l")
 offset = Vector2(1846.3292, 1075.3345)
 script = ExtResource("6_jcfyq")
-
-[node name="PrisonBars" type="Sprite2D" parent="Node2D" unique_id=933711079]
-light_mask = 0
-z_index = 4096
-position = Vector2(-8.000008, -816)
-scale = Vector2(0.3210376, 0.3200299)
-texture = ExtResource("8_6axhp")
-script = ExtResource("9_vowwd")
-DropDistance = 750.0
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1436894794]
 color = Color(0.14117648, 0.14117648, 0.21176471, 1)
