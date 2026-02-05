@@ -56,6 +56,7 @@ material = SubResource("StandardMaterial3D_vdc3e")
 [sub_resource type="BoxMesh" id="BoxMesh_7wgpb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad0wm"]
+size = Vector3(1, 13.697754, 1)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ec5yg"]
 seamless = true
@@ -251,7 +252,7 @@ skeleton = NodePath("../../..")
 
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
-[node name="Small Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1676649959]
+[node name="Small Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1993682712]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.614278, 3.024523, 10.724524)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
@@ -263,7 +264,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Small Rock" unique_id=1828825301]
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Medium Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=348885335]
+[node name="Medium Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=720761817]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.375525, 2.8132353, 16.258018)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
@@ -278,7 +279,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Heavy Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1793016969]
+[node name="Heavy Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=2068813116]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.511879, 3.2030432, 16.217222)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
@@ -293,7 +294,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=513267976]
+[node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1957699432]
 transform = Transform3D(1.4150004, 0, -2.2351742e-08, 0, 1.415, 0, 2.2351742e-08, 0, 1.4150004, -3.9249525, 3.316188, 10.685375)
 script = ExtResource("6_jlque")
 WeightValue = 30.0
@@ -308,7 +309,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Gigantic Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1116501001]
+[node name="Gigantic Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=213585490]
 transform = Transform3D(1.845, 0, -2.2351742e-08, 0, 1.845, 0, 2.2351742e-08, 0, 1.845, 0.74783516, 3.7083163, 10.989925)
 script = ExtResource("6_jlque")
 WeightValue = 40.0
@@ -337,7 +338,7 @@ transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.9999996, 0, 7.450581e-0
 mesh = SubResource("BoxMesh_7wgpb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=213823445]
-transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.9999996, 0, 7.450581e-09, 0, 1.2495217, 0.4183483, 0, 0.61631584)
+transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.99998814, 0, 7.450581e-09, 0, 1.2495217, 0.4183483, 6.3488746, 0.61631584)
 shape = SubResource("BoxShape3D_ad0wm")
 
 [node name="Label3D" type="Label3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=2093335559]
