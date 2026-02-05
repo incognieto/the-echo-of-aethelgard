@@ -1,11 +1,45 @@
 [gd_scene format=3 uid="uid://cvw3f0558f36y"]
 
 [ext_resource type="Script" uid="uid://cw2hj8u1lbjxj" path="res://scripts/ui/PuzzleUI.cs" id="1_puzzle"]
-[ext_resource type="Texture2D" uid="uid://cw0332cyrbqno" path="res://assets/sprites/ui/UI_GembokLayout.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://b6vtjmrwtvckm" path="res://assets/puzzles/level_1/lock.png" id="2_mbnp7"]
 [ext_resource type="Texture2D" uid="uid://cwpnmnfskhc1g" path="res://assets/sprites/ui/ButtonBunga.png" id="3_bunga"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="4_font"]
+[ext_resource type="Texture2D" uid="uid://b85vvifjrf06d" path="res://assets/puzzles/level_1/keys.png" id="5_gc05c"]
+[ext_resource type="Script" uid="uid://2e2jysnmvfj6" path="res://scripts/puzzles/KeyLock.cs" id="6_du4i4"]
+[ext_resource type="Texture2D" uid="uid://dm7sdf2owidqr" path="res://assets/sprites/library/button_close.png" id="7_iq3e2"]
+[ext_resource type="Texture2D" uid="uid://bb3ap7xxsr28l" path="res://assets/sprites/library/button_close_clicked.png" id="8_2cchp"]
+[ext_resource type="Texture2D" uid="uid://irdelk8bir7t" path="res://assets/sprites/library/button_close_hover.png" id="9_8cjcj"]
+[ext_resource type="Texture2D" uid="uid://dd3nd2si0ug4t" path="res://assets/sprites/library/button_close_disabled.png" id="10_wvj4s"]
+[ext_resource type="Texture2D" uid="uid://cs565gw6d6bs1" path="res://assets/puzzles/level_1/key_shade.png" id="11_2cchp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mbnp7"]
+
+[sub_resource type="Shader" id="Shader_du4i4"]
+code = "shader_type canvas_item;
+
+uniform float target_index = 0.0; 
+uniform float total_frames = 6.0;
+
+void fragment() {
+    vec2 uv = UV;
+    
+    // 1. Perkecil UV Y sesuai jumlah frame
+    float frame_height = 1.0 / total_frames;
+    
+    // 2. Geser UV berdasarkan index yang dikirim C#
+    // Kita gunakan fract() agar ketika index bertambah terus, UV-nya mengulang (loop)
+    float scroll = target_index * frame_height;
+    uv.y = uv.y * frame_height + scroll;
+    
+    // Karena kita sudah set 'Repeat' di Import, uv.y yang lebih dari 1.0 
+    // akan otomatis mengambil gambar dari awal lagi.
+    COLOR = texture(TEXTURE, uv);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sd6p3"]
+shader = SubResource("Shader_du4i4")
+shader_parameter/target_index = 0.0
+shader_parameter/total_frames = 6.0
 
 [node name="PuzzleUI" type="Control" unique_id=973671154]
 layout_mode = 3
@@ -29,36 +63,44 @@ color = Color(0, 0, 0, 0.8)
 
 [node name="PuzzlePanel" type="Control" parent="." unique_id=1879425854]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundPanel" type="Panel" parent="PuzzlePanel" unique_id=130469141]
+custom_minimum_size = Vector2(600, 300)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -250.0
+offset_top = -300.0
 offset_right = 300.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BackgroundPanel" type="Panel" parent="PuzzlePanel" unique_id=130469141]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_mbnp7")
 
 [node name="BackgroundTexture" type="TextureRect" parent="PuzzlePanel/BackgroundPanel" unique_id=1237711629]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -229.0
+offset_right = 338.16675
+offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_bg")
-expand_mode = 1
+texture = ExtResource("2_mbnp7")
+expand_mode = 3
 stretch_mode = 5
 
 [node name="TitleLabel" type="Label" parent="PuzzlePanel" unique_id=629325728]
@@ -66,10 +108,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -150.0
-offset_top = -19.0
-offset_right = 150.0
-offset_bottom = 26.0
+offset_left = -132.0
+offset_top = 90.0
+offset_right = 168.0
+offset_bottom = 135.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.9, 0.8, 0.5, 1)
 theme_override_fonts/font = ExtResource("4_font")
@@ -82,10 +124,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -200.0
-offset_top = 31.0
-offset_right = 200.0
-offset_bottom = 54.0
+offset_left = -182.0
+offset_top = 140.0
+offset_right = 218.0
+offset_bottom = 163.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_fonts/font = ExtResource("4_font")
@@ -93,79 +135,64 @@ theme_override_font_sizes/font_size = 16
 text = "Click symbols to cycle through patterns"
 horizontal_alignment = 1
 
-[node name="SymbolContainer" type="Control" parent="PuzzlePanel" unique_id=1415492353]
+[node name="SymbolContainer" type="HBoxContainer" parent="PuzzlePanel" unique_id=423439441]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -255.0
-offset_top = -35.0
-offset_right = 255.0
-offset_bottom = 35.0
+offset_left = -246.0
+offset_top = 54.0
+offset_right = 264.0
+offset_bottom = 97.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
 
 [node name="Symbol1" type="TextureButton" parent="PuzzlePanel/SymbolContainer" unique_id=215777331]
-layout_mode = 0
-offset_left = 82.0
-offset_top = 111.0
-offset_right = 137.0
-offset_bottom = 166.0
+custom_minimum_size = Vector2(38, 30)
+layout_mode = 2
 texture_normal = ExtResource("3_bunga")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Symbol2" type="TextureButton" parent="PuzzlePanel/SymbolContainer" unique_id=1591327511]
-layout_mode = 0
-offset_left = 141.0
-offset_top = 111.0
-offset_right = 196.0
-offset_bottom = 166.0
+custom_minimum_size = Vector2(38, 30)
+layout_mode = 2
 texture_normal = ExtResource("3_bunga")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Symbol3" type="TextureButton" parent="PuzzlePanel/SymbolContainer" unique_id=1908582480]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 111.0
-offset_right = 255.0
-offset_bottom = 166.0
+custom_minimum_size = Vector2(38, 30)
+layout_mode = 2
 texture_normal = ExtResource("3_bunga")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Symbol4" type="TextureButton" parent="PuzzlePanel/SymbolContainer" unique_id=262802122]
-layout_mode = 0
-offset_left = 258.0
-offset_top = 111.0
-offset_right = 313.0
-offset_bottom = 166.0
+custom_minimum_size = Vector2(38, 30)
+layout_mode = 2
 texture_normal = ExtResource("3_bunga")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Symbol5" type="TextureButton" parent="PuzzlePanel/SymbolContainer" unique_id=1077672268]
-layout_mode = 0
-offset_left = 317.0
-offset_top = 111.0
-offset_right = 372.0
-offset_bottom = 166.0
+custom_minimum_size = Vector2(38, 30)
+layout_mode = 2
 texture_normal = ExtResource("3_bunga")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Symbol6" type="TextureButton" parent="PuzzlePanel/SymbolContainer" unique_id=1705122115]
-layout_mode = 0
-offset_left = 375.0
-offset_top = 111.0
-offset_right = 430.0
-offset_bottom = 166.0
+custom_minimum_size = Vector2(38, 30)
+layout_mode = 2
 texture_normal = ExtResource("3_bunga")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="FeedbackLabel" type="Label" parent="PuzzlePanel" unique_id=1655608483]
 layout_mode = 1
@@ -181,16 +208,167 @@ theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 
-[node name="CloseButton" type="Button" parent="PuzzlePanel" unique_id=973601064]
+[node name="KeysContainer" type="Control" parent="PuzzlePanel" unique_id=1867734245]
+anchors_preset = 0
+offset_left = 490.0
+offset_top = 439.0
+offset_right = 812.0
+offset_bottom = 479.0
+
+[node name="Keys5" type="TextureRect" parent="PuzzlePanel/KeysContainer" unique_id=923029577]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sd6p3")
+custom_minimum_size = Vector2(27, 40)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -75.0
-offset_right = 75.0
+offset_right = 27.0
 offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Close (ESC)"
+texture = ExtResource("5_gc05c")
+expand_mode = 1
+script = ExtResource("6_du4i4")
+
+[node name="Keys4" type="TextureRect" parent="PuzzlePanel/KeysContainer" unique_id=1560587666]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sd6p3")
+custom_minimum_size = Vector2(27, 40)
+layout_mode = 1
+offset_left = 59.0
+offset_right = 86.0
+offset_bottom = 40.0
+texture = ExtResource("5_gc05c")
+expand_mode = 1
+script = ExtResource("6_du4i4")
+
+[node name="Keys6" type="TextureRect" parent="PuzzlePanel/KeysContainer" unique_id=721602580]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sd6p3")
+custom_minimum_size = Vector2(27, 40)
+layout_mode = 1
+offset_left = 118.0
+offset_right = 145.0
+offset_bottom = 40.0
+texture = ExtResource("5_gc05c")
+expand_mode = 1
+script = ExtResource("6_du4i4")
+
+[node name="Keys3" type="TextureRect" parent="PuzzlePanel/KeysContainer" unique_id=1211172121]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sd6p3")
+custom_minimum_size = Vector2(27, 40)
+layout_mode = 1
+offset_left = 176.0
+offset_right = 203.0
+offset_bottom = 40.0
+texture = ExtResource("5_gc05c")
+expand_mode = 1
+script = ExtResource("6_du4i4")
+
+[node name="Keys2" type="TextureRect" parent="PuzzlePanel/KeysContainer" unique_id=1173443977]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sd6p3")
+custom_minimum_size = Vector2(27, 40)
+layout_mode = 1
+offset_left = 236.0
+offset_right = 263.0
+offset_bottom = 40.0
+texture = ExtResource("5_gc05c")
+expand_mode = 1
+script = ExtResource("6_du4i4")
+
+[node name="Keys1" type="TextureRect" parent="PuzzlePanel/KeysContainer" unique_id=1780581673]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sd6p3")
+custom_minimum_size = Vector2(27, 40)
+layout_mode = 1
+offset_left = 295.0
+offset_right = 322.0
+offset_bottom = 40.0
+texture = ExtResource("5_gc05c")
+expand_mode = 1
+script = ExtResource("6_du4i4")
+
+[node name="KeyShadow" type="Control" parent="PuzzlePanel" unique_id=918740395]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="PuzzlePanel/KeyShadow" unique_id=2081296111]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 439.0
+offset_right = 517.0
+offset_bottom = 479.0
+mouse_filter = 2
+texture = ExtResource("11_2cchp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="PuzzlePanel/KeyShadow" unique_id=724711197]
+layout_mode = 0
+offset_left = 549.0
+offset_top = 439.0
+offset_right = 576.0
+offset_bottom = 479.0
+mouse_filter = 2
+texture = ExtResource("11_2cchp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="PuzzlePanel/KeyShadow" unique_id=408344622]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 439.0
+offset_right = 635.0
+offset_bottom = 479.0
+mouse_filter = 2
+texture = ExtResource("11_2cchp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect4" type="TextureRect" parent="PuzzlePanel/KeyShadow" unique_id=614099578]
+layout_mode = 0
+offset_left = 666.0
+offset_top = 439.0
+offset_right = 693.0
+offset_bottom = 479.0
+mouse_filter = 2
+texture = ExtResource("11_2cchp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect5" type="TextureRect" parent="PuzzlePanel/KeyShadow" unique_id=1693988713]
+layout_mode = 0
+offset_left = 726.0
+offset_top = 439.0
+offset_right = 753.0
+offset_bottom = 479.0
+mouse_filter = 2
+texture = ExtResource("11_2cchp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect6" type="TextureRect" parent="PuzzlePanel/KeyShadow" unique_id=1750629797]
+layout_mode = 0
+offset_left = 785.0
+offset_top = 439.0
+offset_right = 812.0
+offset_bottom = 479.0
+mouse_filter = 2
+texture = ExtResource("11_2cchp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="CloseButton" type="TextureButton" parent="PuzzlePanel" unique_id=1126023692]
+custom_minimum_size = Vector2(130, 60)
+layout_mode = 0
+offset_left = 582.0
+offset_top = 559.0
+offset_right = 712.0
+offset_bottom = 619.0
+size_flags_horizontal = 4
+texture_normal = ExtResource("7_iq3e2")
+texture_pressed = ExtResource("8_2cchp")
+texture_hover = ExtResource("9_8cjcj")
+texture_disabled = ExtResource("10_wvj4s")
+ignore_texture_size = true
+stretch_mode = 5

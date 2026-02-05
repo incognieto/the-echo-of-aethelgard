@@ -4,192 +4,65 @@ using System.Collections.Generic;
 
 public partial class PuzzleUI : Control
 {
-	[Signal]
-	public delegate void PuzzleCompletedEventHandler(bool success);
+	[Signal] public delegate void PuzzleCompletedEventHandler(bool success);
 
-	// Symbol enum untuk puzzle
 	private enum Symbol
 	{
-		Bunga = 0,    // Flower
-		Mata = 1,     // Eye
-		Matahari = 2, // Sun
-		Petir = 3,    // Lightning
-		Bulan = 4,    // Moon
-		Bintang = 5   // Star
+		Bunga = 0, Mata = 1, Matahari = 2, Petir = 3, Bulan = 4, Bintang = 5
 	}
 	
 	private Label _feedbackLabel;
-	private Label _escInstructionLabel;
-	private Button _closeButton;
+	private TextureButton _closeButton;
 	private InventoryUI _inventoryUI;
 	
-	private List<TextureButton> _symbolButtons = new List<TextureButton>();
+	// Simpan referensi ke roda-roda gembok
+	private List<KeyLock> _keyNodes = new List<KeyLock>();
 	private List<Symbol> _currentSequence = new List<Symbol>();
 	private Symbol[] _correctSequence;
 	private int _maxLength = 6;
-	
-	// Symbol textures
-	private Dictionary<Symbol, Texture2D> _symbolTextures = new Dictionary<Symbol, Texture2D>();
 
 	public override void _Ready()
 	{
 		Visible = false;
 		
-		// Load symbol textures
-		LoadSymbolTextures();
+		// Init sequence awal (semua Bunga/0)
+		for (int i = 0; i < _maxLength; i++) _currentSequence.Add(Symbol.Bunga);
 		
-		// Initialize sequence dengan Bunga semua
-		for (int i = 0; i < _maxLength; i++)
-		{
-			_currentSequence.Add(Symbol.Bunga);
-		}
-		
-		// Get nodes dari scene tree
 		_feedbackLabel = GetNode<Label>("PuzzlePanel/FeedbackLabel");
-		_closeButton = GetNode<Button>("PuzzlePanel/CloseButton");
+		_closeButton = GetNode<TextureButton>("PuzzlePanel/CloseButton");
+		var panel = GetNode<Control>("PuzzlePanel");
+
+		// Cari KeyContainer dan Keys1-6
+		var keyContainer = GetNode<Control>("PuzzlePanel/KeysContainer");
+		for (int i = 1; i <= 6; i++)
+		{
+			var keyNode = keyContainer.GetNode<KeyLock>($"Keys{i}");
+			int index = i - 1;
+			
+			// SINKRONISASI: Connect signal dari KeyLock ke fungsi di sini
+			keyNode.Rotated += (newIdx) => OnKeyRotated(index, newIdx);
+			
+			_keyNodes.Add(keyNode);
+		}
 		
-	// Get panel for positioning
-	var panel = GetNode<Control>("PuzzlePanel");
-	
-	// Position Close button di pojok kanan atas
-	_closeButton.Text = "Back";
-	_closeButton.CustomMinimumSize = new Vector2(100, 35);
-	_closeButton.Position = new Vector2(panel.Size.X - 110, 10); // Top-right corner
-	
-	// Create ESC instruction label di pojok kiri atas
-	_escInstructionLabel = new Label();
-	_escInstructionLabel.Text = "(Esc) to return";
-	_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
-	_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f));
-	_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
-	_escInstructionLabel.Position = new Vector2(10, 10); // Top-left corner
-	panel.AddChild(_escInstructionLabel);
-	
-	// Get symbol buttons
-	var symbolContainer = GetNode<Control>("PuzzlePanel/SymbolContainer");
-	for (int i = 1; i <= 6; i++)
-	{
-		var btn = symbolContainer.GetNode<TextureButton>($"Symbol{i}");
-		int index = i - 1;
-		btn.Pressed += () => OnSymbolButtonPressed(index);
-		_symbolButtons.Add(btn);
-	}
-	
-	// Connect close button
-	_closeButton.Pressed += OnClosePressed;
-	
-	// Find InventoryUI
-	CallDeferred(nameof(FindInventoryUI));
-	
-	// Setup cursor hover effects
-	SetupButtonHoverEffects();
-	
-	UpdateDisplay();
-}
-
-private void SetupButtonHoverEffects()
-{
-	foreach (var button in _symbolButtons)
-	{
-		if (button != null)
-		{
-			button.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
-			button.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
-		}
-	}
-	if (_closeButton != null)
-	{
-		_closeButton.MouseEntered += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Hover);
-		_closeButton.MouseExited += () => CursorManager.Instance?.SetCursor(CursorManager.CursorType.Standard);
-	}
-}
-
-private void FindInventoryUI()
-{
-	var canvasLayer = GetParent() as CanvasLayer;
-	if (canvasLayer != null)
-	{
-		_inventoryUI = canvasLayer.GetNodeOrNull<InventoryUI>("InventoryUI");
-		if (_inventoryUI == null)
-		{
-			GD.PrintErr("PuzzleUI: InventoryUI not found!");
-		}
-	}
-}
-
-private void LoadSymbolTextures()
-	{
-		_symbolTextures[Symbol.Bunga] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonBunga.png");
-		_symbolTextures[Symbol.Mata] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonMata.png");
-		_symbolTextures[Symbol.Matahari] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonMatahari.png");
-		_symbolTextures[Symbol.Petir] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonPetir.png");
-		_symbolTextures[Symbol.Bulan] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonBulan.png");
-		_symbolTextures[Symbol.Bintang] = GD.Load<Texture2D>("res://assets/sprites/ui/ButtonBintang.png");
-		
-		foreach (var kvp in _symbolTextures)
-		{
-			if (kvp.Value == null)
-			{
-				GD.PrintErr($"Failed to load texture for symbol: {kvp.Key}");
-			}
-		}
+		_closeButton.Pressed += OnClosePressed;
+		CallDeferred(nameof(FindInventoryUI));
 	}
 
-	public override void _Input(InputEvent @event)
+	// Fungsi ini dipanggil tiap kali lu klik roda
+	private void OnKeyRotated(int keySlot, int newSymbolIndex)
 	{
-		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
-		{
-			if (Visible)
-			{
-				Close();
-				GetViewport().SetInputAsHandled();
-			}
-		}
-	}
-
-	public void ShowPuzzle(PuzzleSymbol[] correctSequence)
-	{
-		// Convert PuzzleSymbol to internal Symbol enum
-		_correctSequence = new Symbol[correctSequence.Length];
-		for (int i = 0; i < correctSequence.Length; i++)
-		{
-			_correctSequence[i] = (Symbol)((int)correctSequence[i]);
-		}
+		// Update urutan saat ini berdasarkan apa yang dikirim roda
+		_currentSequence[keySlot] = (Symbol)newSymbolIndex;
 		
-		// Reset semua ke Bunga
-		for (int i = 0; i < _maxLength; i++)
-		{
-			_currentSequence[i] = Symbol.Bunga;
-		}
-		
-		_feedbackLabel.Text = "";
-		UpdateDisplay();
-		Visible = true;
-		InventoryUI.IsAnyPanelOpen = true; // Set global flag
-		Input.MouseMode = Input.MouseModeEnum.Visible;
-		
-		// Hide crosshair dan hotbar
-		if (_inventoryUI != null)
-		{
-			_inventoryUI.SetCrosshairVisible(false);
-			_inventoryUI.SetHotbarVisible(false);
-		}
-		
-		GD.Print("Symbol lock puzzle opened");
-	}
-
-	private void OnSymbolButtonPressed(int index)
-	{
-		// Cycle ke symbol berikutnya
-		_currentSequence[index] = (Symbol)(((int)_currentSequence[index] + 1) % 6);
-		UpdateDisplay();
-		
-		// Auto-check jika semua symbol sudah diatur
+		// Tiap muter, langsung cek apakah sudah bener
 		CheckSequence();
 	}
-	
+
 	private void CheckSequence()
 	{
+		if (_correctSequence == null) return;
+
 		bool correct = true;
 		for (int i = 0; i < _maxLength; i++)
 		{
@@ -204,50 +77,57 @@ private void LoadSymbolTextures()
 		{
 			_feedbackLabel.Text = "Lock Opened!";
 			_feedbackLabel.AddThemeColorOverride("font_color", new Color(0, 1, 0, 1));
-			GD.Print("Puzzle solved!");
 			
-			// Delay sebelum close
-			GetTree().CreateTimer(1.5).Timeout += () =>
-			{
+			GetTree().CreateTimer(1.5).Timeout += () => {
 				EmitSignal(SignalName.PuzzleCompleted, true);
 				Close();
 			};
 		}
 	}
 
-	private void OnClosePressed()
+	// --- Sisanya fungsi standar lu ---
+
+	public void ShowPuzzle(PuzzleSymbol[] correctSequence)
 	{
-		Close();
+		_correctSequence = new Symbol[correctSequence.Length];
+		for (int i = 0; i < correctSequence.Length; i++)
+			_correctSequence[i] = (Symbol)((int)correctSequence[i]);
+		
+		_feedbackLabel.Text = "";
+		Visible = true;
+		InventoryUI.IsAnyPanelOpen = true;
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		
+		if (_inventoryUI != null)
+		{
+			_inventoryUI.SetCrosshairVisible(false);
+			_inventoryUI.SetHotbarVisible(false);
+		}
 	}
 
 	private void Close()
 	{
 		Visible = false;
-		InventoryUI.IsAnyPanelOpen = false; // Clear global flag
+		InventoryUI.IsAnyPanelOpen = false;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-		
-		// Restore hotbar dan crosshair sesuai camera mode
-		if (_inventoryUI != null)
-		{
-			_inventoryUI.SetHotbarVisible(true);
-			// Crosshair sudah di-handle oleh Player sesuai camera mode, kita perlu cek dari Player
-			// Tapi kita tidak punya reference ke Player, jadi biarkan Player yang handle crosshair visibility
-		}
-		
+		if (_inventoryUI != null) _inventoryUI.SetHotbarVisible(true);
 		EmitSignal(SignalName.PuzzleCompleted, false);
 	}
 
-	private void UpdateDisplay()
+	private void OnClosePressed() => Close();
+
+	private void FindInventoryUI()
 	{
-		for (int i = 0; i < _maxLength; i++)
+		var canvasLayer = GetParent() as CanvasLayer;
+		if (canvasLayer != null) _inventoryUI = canvasLayer.GetNodeOrNull<InventoryUI>("InventoryUI");
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape && Visible)
 		{
-			var btn = _symbolButtons[i];
-			var currentSymbol = _currentSequence[i];
-			
-			if (_symbolTextures.ContainsKey(currentSymbol) && _symbolTextures[currentSymbol] != null)
-			{
-				btn.TextureNormal = _symbolTextures[currentSymbol];
-			}
+			Close();
+			GetViewport().SetInputAsHandled();
 		}
 	}
 }
