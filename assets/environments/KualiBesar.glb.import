@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://daiip8ifaw8op"
-path="res://.godot/imported/TileMap.glb-1b82fc069ed95ae3772fcdb00a5ab49c.scn"
+uid="uid://fvrl7pis45kt"
+path="res://.godot/imported/KualiBesar.glb-52db40cf01cb90a0282166acd5e2c98f.scn"
 
 [deps]
 
-source_file="res://assets/map/TileMap.glb"
-dest_files=["res://.godot/imported/TileMap.glb-1b82fc069ed95ae3772fcdb00a5ab49c.scn"]
+source_file="res://assets/environments/KualiBesar.glb"
+dest_files=["res://.godot/imported/KualiBesar.glb-52db40cf01cb90a0282166acd5e2c98f.scn"]
 
 [params]
 
