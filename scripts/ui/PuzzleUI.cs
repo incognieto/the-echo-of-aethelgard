@@ -78,6 +78,8 @@ public partial class PuzzleUI : Control
 		_feedbackLabel.Text = "Lock Opened!";
 		_feedbackLabel.AddThemeColorOverride("font_color", new Color(0, 1, 0, 1));
 		
+		_closeButton.QueueFree();
+		
 		// --- LOGIKA GANTI PINTU ---
 		// Kita naik ke Root/Main untuk mencari folder Map
 		var mapNode = GetTree().Root.FindChild("Map", true, false);
@@ -85,10 +87,10 @@ public partial class PuzzleUI : Control
 		{
 			var lockedDoor = mapNode.FindChild("PuzzleDoorLocked", true, false) as Node3D;
 			var unlockedDoor = mapNode.FindChild("PuzzleDoorUnlocked", true, false) as Node3D;
-if (lockedDoor != null)
-{
-	lockedDoor.QueueFree(); // Hapus permanen dari game
-}
+		if (lockedDoor != null)
+		{
+			lockedDoor.QueueFree(); // Hapus permanen dari game
+		}
 			if (unlockedDoor != null)
 			{
 				unlockedDoor.Visible = true;
