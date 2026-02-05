@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="8_bookitem"]
 [ext_resource type="PackedScene" uid="uid://cpj1vkmfr8tn1" path="res://scenes/ui/QuantityPickerUI.tscn" id="9_qtyui"]
 [ext_resource type="PackedScene" uid="uid://cl25celniqxra" path="res://scenes/ui/FinalMixingUI.tscn" id="10_finalmix"]
+[ext_resource type="PackedScene" uid="uid://ct1xg4qibwsv0" path="res://assets/environments/moss.tscn" id="10_tqfxa"]
 [ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="12_transition"]
 [ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="13_3bs35"]
@@ -275,7 +276,7 @@ size = Vector3(8, 1, 2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.721986, 0, 0)
 
 [node name="GreenMoss" type="StaticBody3D" parent="Items" unique_id=1252871519]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.843592, 0.37992334, -7)
+transform = Transform3D(-0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, -0.9975641, -9.843593, 0.37992334, -5.87726)
 script = ExtResource("2_material")
 AvailableQuantity = 3
 ItemId = "green_moss"
@@ -283,11 +284,30 @@ ItemName = "Green Moss"
 MaxStackSize = 10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Items/GreenMoss" unique_id=1450105786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7685318, 0, 0.94840336)
+visible = false
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_green")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Items/GreenMoss" unique_id=2049043449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5586567, 0, 0)
+visible = false
 shape = SubResource("SphereShape3D_item")
+
+[node name="Moss2" parent="Items/GreenMoss" unique_id=723610225 instance=ExtResource("10_tqfxa")]
+transform = Transform3D(0.2967094, 0, 0.40244684, 0, 0.5, 0, -0.40244684, 0, 0.2967094, 0.56061745, 0, 0.92714643)
+
+[node name="Moss" parent="Items/GreenMoss" unique_id=1106255862 instance=ExtResource("10_tqfxa")]
+transform = Transform3D(0.4, 0, 3.7252903e-09, 0, 0.4, 0, -3.7252903e-09, 0, 0.4, 0.5532799, 0, -0.32482862)
+
+[node name="Moss3" parent="Items/GreenMoss" unique_id=1672712934 instance=ExtResource("10_tqfxa")]
+transform = Transform3D(-0.009946536, 0, -0.2998351, 0, 0.3, 0, 0.2998351, 0, -0.009946536, 1.2962761, 0, -1.1465912)
+
+[node name="Moss5" parent="Items/GreenMoss" unique_id=1791240719 instance=ExtResource("10_tqfxa")]
+transform = Transform3D(0.4822786, 0, 0.13193652, 0, 0.5, 0, -0.13193652, 0, 0.4822786, 1.8845787, 0, -0.18559074)
+
+[node name="Moss4" parent="Items/GreenMoss" unique_id=778803320 instance=ExtResource("10_tqfxa")]
+transform = Transform3D(-0.26777574, 0, 0.13526326, 0, 0.3, 0, -0.13526326, 0, -0.26777574, 1.7218628, 0, 0.89075994)
 
 [node name="RedPowder" type="StaticBody3D" parent="Items" unique_id=324060498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.675169, 1.3918908, 5.9542065)

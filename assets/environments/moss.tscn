@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ct1xg4qibwsv0"]
+
+[ext_resource type="PackedScene" uid="uid://dk5qf4dgi57rr" path="res://assets/environments/Moss.glb" id="1_q2yii"]
+[ext_resource type="Texture2D" uid="uid://616l4oo1o3qw" path="res://assets/environments/Moss_Moss.png" id="2_urhq7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kkx6e"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_urhq7")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q2yii"]
+radius = 1.0337336
+height = 2.6378684
+
+[node name="Moss" unique_id=723610225 instance=ExtResource("1_q2yii")]
+
+[node name="Sphere_003" parent="." index="0" unique_id=276728206]
+surface_material_override/0 = SubResource("StandardMaterial3D_kkx6e")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Sphere_003" index="0" unique_id=237139260]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.027333498, 0.21243799, -0.06346583)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sphere_003/StaticBody3D" index="0" unique_id=1486569609]
+shape = SubResource("CapsuleShape3D_q2yii")
