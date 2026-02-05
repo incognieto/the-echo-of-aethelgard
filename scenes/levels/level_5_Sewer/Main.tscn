@@ -12,6 +12,8 @@
 [ext_resource type="Shader" uid="uid://dnmduhckg5ggw" path="res://scripts/shaders/see_through.gdshader" id="8_78t1w"]
 [ext_resource type="Texture2D" uid="uid://i3nkcqysosys" path="res://assets/textures/rusty_metal_04_diff_1k.png" id="9_jlque"]
 [ext_resource type="Script" uid="uid://bps0ucv6d60ec" path="res://scripts/levels/WaterAnimator.cs" id="10_nxrbb"]
+[ext_resource type="Texture2D" uid="uid://6k4xsg4j7rhk" path="res://assets/textures/dark_wooden_planks_diff_1k.png" id="12_vdc3e"]
+[ext_resource type="Texture2D" uid="uid://bq2u0rt5iu4ry" path="res://assets/textures/dark_wooden_planks_nor_dx_1k.png" id="13_eofdq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlque"]
 albedo_texture = ExtResource("5_ec5yg")
@@ -53,7 +55,13 @@ material = SubResource("StandardMaterial3D_vdc3e")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7wgpb"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpy2w"]
+albedo_texture = ExtResource("12_vdc3e")
+normal_enabled = true
+normal_texture = ExtResource("13_eofdq")
+
 [sub_resource type="BoxMesh" id="BoxMesh_7wgpb"]
+material = SubResource("StandardMaterial3D_tpy2w")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad0wm"]
 size = Vector3(1, 13.697754, 1)
@@ -80,6 +88,34 @@ uv1_offset = Vector3(-0.055, -0.06, 0)
 [sub_resource type="BoxMesh" id="BoxMesh_ec5yg"]
 material = SubResource("StandardMaterial3D_nxrbb")
 
+[sub_resource type="Animation" id="Animation_vdc3e"]
+resource_name = "Gate_Cam"
+length = 3.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GateCam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.92),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(26.379, 3.308, -10.488), Vector3(26.379, 3.308, -13.853)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GateCam:current")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.96),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="Animation" id="Animation_78t1w"]
 length = 0.001
 tracks/0/type = "value"
@@ -93,6 +129,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-0.055, -0.06, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GateCam:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(26.379, 3.308, -13.853)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GateCam:current")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_jlque"]
@@ -114,6 +174,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uvas7"]
 _data = {
+&"Gate_Cam": SubResource("Animation_vdc3e"),
 &"RESET": SubResource("Animation_78t1w"),
 &"water_flow": SubResource("Animation_jlque")
 }
@@ -252,50 +313,50 @@ skeleton = NodePath("../../..")
 
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
-[node name="Small Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1993682712]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.614278, 3.024523, 10.724524)
+[node name="Baby Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1993682712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.327995, 3.024523, 10.417305)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
-ItemName = "Small Rock"
+ItemName = "Baby Rock"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Small Rock" unique_id=644432485]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock" unique_id=644432485]
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Small Rock" unique_id=1828825301]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock" unique_id=1828825301]
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Medium Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=720761817]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.375525, 2.8132353, 16.258018)
+[node name="Young Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=720761817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25698662, 2.8132353, 10.272209)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
 ItemId = "stone_15"
-ItemName = "Medium Rock"
+ItemName = "Young Rock"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Medium Rock" unique_id=2029920545]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Young Rock" unique_id=2029920545]
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Medium Rock" unique_id=949168403]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Young Rock" unique_id=949168403]
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Heavy Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=2068813116]
+[node name="Guard Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=2068813116]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.511879, 3.2030432, 16.217222)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
 ItemId = "stone_20"
-ItemName = "Heavy Rock"
+ItemName = "Guard Rock"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Heavy Rock" unique_id=665142675]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Guard Rock" unique_id=665142675]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Heavy Rock" unique_id=1615056775]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Guard Rock" unique_id=1615056775]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1957699432]
-transform = Transform3D(1.4150004, 0, -2.2351742e-08, 0, 1.415, 0, 2.2351742e-08, 0, 1.4150004, -3.9249525, 3.316188, 10.685375)
+transform = Transform3D(1.4150007, 0, -2.2351742e-08, 0, 1.415, 0, 2.2351742e-08, 0, 1.4150007, -7.564822, 3.316188, 10.448145)
 script = ExtResource("6_jlque")
 WeightValue = 30.0
 ItemId = "stone_30"
@@ -309,25 +370,26 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Gigantic Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=213585490]
-transform = Transform3D(1.845, 0, -2.2351742e-08, 0, 1.845, 0, 2.2351742e-08, 0, 1.845, 0.74783516, 3.7083163, 10.989925)
+[node name="Giant Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=213585490]
+transform = Transform3D(1.845, 0, -2.2351742e-08, 0, 1.845, 0, 2.2351742e-08, 0, 1.845, -14.706871, 3.7083163, 16.346817)
 script = ExtResource("6_jlque")
 WeightValue = 40.0
 ItemId = "stone_40"
-ItemName = "Gigantic Rock"
+ItemName = "Giant Rock"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Gigantic Rock" unique_id=1390347307]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Giant Rock" unique_id=1390347307]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Gigantic Rock" unique_id=1222299270]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Giant Rock" unique_id=1222299270]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="PulleySystem" type="Node3D" parent="Sewer" unique_id=322113394 node_paths=PackedStringArray("GateObject", "StatusLabel")]
+[node name="PulleySystem" type="Node3D" parent="Sewer" unique_id=322113394 node_paths=PackedStringArray("GateObject", "CameraAnimationPlayer", "StatusLabel")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3876219, 2.779447, 15.9344845)
 script = ExtResource("7_uvas7")
 GateObject = NodePath("../ExitGate")
+CameraAnimationPlayer = NodePath("../water/AnimationPlayer")
 StatusLabel = NodePath("ScaleArea/Label3D")
 
 [node name="ScaleArea" type="Area3D" parent="Sewer/PulleySystem" unique_id=1996784607]
@@ -342,12 +404,12 @@ transform = Transform3D(1.3193718, 0, 7.450581e-09, 0, 0.99998814, 0, 7.450581e-
 shape = SubResource("BoxShape3D_ad0wm")
 
 [node name="Label3D" type="Label3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=2093335559]
-transform = Transform3D(-0.018604577, 3.5531595, 1.9414461e-08, 4.148236e-09, -7.922475e-07, 2.2655947, 3.470018, 0.018169299, -6.661338e-16, 0.18453121, 1.5116591, 0.61384773)
+transform = Transform3D(-0.018604577, 3.5531595, 1.9414461e-08, 4.1482346e-09, -7.922473e-07, 2.265594, 3.470018, 0.018169299, -6.661338e-16, -1.1059594, 1.6520004, 0.651268)
 text = "12"
-font_size = 20
+font_size = 16
 
 [node name="water" type="MeshInstance3D" parent="Sewer" unique_id=1829388562]
-transform = Transform3D(32, 0, 0, 0, 0.02, 0, 0, 0, 4, -11.022926, 2.0103974, 13.472033)
+transform = Transform3D(32, 0, 0, 0, 0.02, 0, 0, 0, 4, -11.023, 1.965, 13.472)
 mesh = SubResource("BoxMesh_ec5yg")
 script = ExtResource("10_nxrbb")
 
@@ -366,6 +428,9 @@ shape = SubResource("BoxShape3D_78t1w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 0, 0)
 script = ExtResource("1_ogqkq")
 CurrentLevel = 5
+
+[node name="GateCam" type="Camera3D" parent="." unique_id=1390506892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.379, 3.308, -13.853)
 
 [connection signal="body_entered" from="Sewer/PulleySystem/ScaleArea" to="Sewer/PulleySystem" method="OnScaleBodyEntered"]
 [connection signal="body_exited" from="Sewer/PulleySystem/ScaleArea" to="Sewer/PulleySystem" method="OnScaleBodyExited"]

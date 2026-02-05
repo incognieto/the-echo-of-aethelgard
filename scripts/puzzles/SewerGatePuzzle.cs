@@ -8,6 +8,7 @@ public partial class SewerGatePuzzle : Node3D
     [Export] public float TargetWeight = 75.0f;
     [Export] public Node3D GateObject; // Referensi ke Gerbang Visual
     [Export] public float MaxGateHeight = 4.0f; // Ketinggian maksimal gerbang (saat 75kg)
+    [Export] public AnimationPlayer CameraAnimationPlayer; // Referensi ke AnimationPlayer untuk Gate_Cam
     
     [ExportGroup("Feedback")]
     [Export] public Label3D StatusLabel; // Teks angka di atas gerbang
@@ -50,6 +51,13 @@ public partial class SewerGatePuzzle : Node3D
             _currentWeight += weight;
             UpdateLabel();
             CheckPuzzle();
+            
+            // Play camera animation when rock is placed
+            if (CameraAnimationPlayer != null && CameraAnimationPlayer.HasAnimation("Gate_Cam"))
+            {
+                CameraAnimationPlayer.Play("Gate_Cam");
+                GD.Print("[ANIMATION] Playing Gate_Cam animation");
+            }
         }
     }
 
