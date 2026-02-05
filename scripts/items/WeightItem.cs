@@ -23,6 +23,22 @@ public partial class WeightItem : PickableItem
         var meshChild = GetNodeOrNull<MeshInstance3D>("MeshInstance3D");
         if (meshChild != null)
         {
+            // Only create rock mesh for stone items (safety check)
+            if (ItemId.Contains("stone"))
+            {
+                // Create rock-like mesh with base radius 0.5 (matches default SphereMesh)
+                meshChild.Mesh = CreateRockMesh(0.5f);
+                
+                // Apply rocky material with texture
+                var material = new StandardMaterial3D();
+                var texture = GD.Load<Texture2D>("res://assets/textures/japanese_stone_wall_diff_1k.png");
+                material.AlbedoTexture = texture;
+                material.AlbedoColor = new Color(1.0f, 1.0f, 1.0f); // White = no tint
+                material.Roughness = 0.9f;
+                material.Metallic = 0.0f;
+                meshChild.SetSurfaceOverrideMaterial(0, material);
+            }
+            
             // Debug: cek radius mesh asli
             if (meshChild.Mesh is SphereMesh sphereMesh)
             {
@@ -235,5 +251,48 @@ public partial class WeightItem : PickableItem
     public bool IsBeingPickedUp()
     {
         return _isBeingPickedUp;
+    }
+    
+    private Mesh CreateRockMesh(float baseRadius)
+    {
+        var sphereMesh = new SphereMesh();
+        sphereMesh.Radius = baseRadius;
+        sphereMesh.Height = baseRadius * 2.0f;
+        sphereMesh.RadialSegments = 12; // Lower for chunky rock look
+        sphereMesh.Rings = 8; // Lower for chunky rock look
+        
+        // Deform sphere to look like a rock
+        var surfaceTool = new SurfaceTool();
+        surfaceTool.CreateFrom(sphereMesh, 0);
+        
+        var arrayMesh = surfaceTool.Commit();
+        var mdt = new MeshDataTool();
+        mdt.CreateFromSurface(arrayMesh, 0);
+        
+        // Randomize vertices to create irregular rock shape
+        var noise = new FastNoiseLite();
+        noise.Seed = (int)GD.Randi();
+        noise.NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex;
+        noise.Frequency = 2.0f;
+        
+        for (int i = 0; i < mdt.GetVertexCount(); i++)
+        {
+            Vector3 vertex = mdt.GetVertex(i);
+            
+            // Calculate noise at this vertex position
+            float noiseValue = noise.GetNoise3D(vertex.X * 5, vertex.Y * 5, vertex.Z * 5);
+            
+            // Deform vertex outward/inward based on noise (20% variation for better UV mapping)
+            float deformation = 1.0f + (noiseValue * 0.2f);
+            vertex = vertex.Normalized() * baseRadius * deformation;
+            
+            mdt.SetVertex(i, vertex);
+        }
+        
+        // Rebuild mesh with deformed vertices
+        arrayMesh.ClearSurfaces();
+        mdt.CommitToSurface(arrayMesh);
+        
+        return arrayMesh;
     }
 }
