@@ -1,8 +1,40 @@
 [gd_scene format=3 uid="uid://0d365t6esd51"]
 
 [ext_resource type="Script" uid="uid://wbkfm7ia0u1l" path="res://scripts/ui/LevelSelect.cs" id="1_levelselect"]
+[ext_resource type="Texture2D" uid="uid://b72duq0ptn2j6" path="res://assets/sprites/mainmenuassets/Background Main Menu.png" id="2_b8qwi"]
+[ext_resource type="Script" uid="uid://bmy48inqd4fhy" path="res://scripts/ui/MainMenu/Background.cs" id="3_078v8"]
+[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="4_wmr2p"]
+[ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="5_ijalg"]
+[ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="6_jcfyq"]
+[ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="7_riy7l"]
+[ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="8_6axhp"]
+[ext_resource type="Script" uid="uid://dajue2twr482c" path="res://scripts/ui/MainMenu/PrisonBars.cs" id="9_vowwd"]
+[ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="10_2ophx"]
+[ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="11_sc7te"]
+[ext_resource type="Texture2D" uid="uid://cakrjxgrr8e5a" path="res://assets/sprites/mainmenuassets/LevelPage/SelectLevel.png" id="12_078v8"]
+[ext_resource type="Texture2D" uid="uid://d2fdkt6qarv6r" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel1.png" id="13_ssdfm"]
+[ext_resource type="Texture2D" uid="uid://ck3nxhi1v8ucq" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel1_Clicked.png" id="14_bjiam"]
+[ext_resource type="Texture2D" uid="uid://doybbqvl62qf8" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel1_Hover.png" id="15_n2mgx"]
+[ext_resource type="Texture2D" uid="uid://bwkm2wpp3818l" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel2.png" id="16_un7if"]
+[ext_resource type="Texture2D" uid="uid://doktrplgvv31j" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel2_Clicked.png" id="17_7tm47"]
+[ext_resource type="Texture2D" uid="uid://bnwtoi4r2owdx" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel2_Hover.png" id="18_48b5h"]
+[ext_resource type="Texture2D" uid="uid://da7xtf7rxgayl" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel3.png" id="19_iws8q"]
+[ext_resource type="Texture2D" uid="uid://n0t2mmuqap5t" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel3_Clicked.png" id="20_f5ofe"]
+[ext_resource type="Texture2D" uid="uid://cubntjvgcc7kw" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel3_Hover.png" id="21_hd1h6"]
+[ext_resource type="Texture2D" uid="uid://dujpmuwv7nl5x" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel4.png" id="22_fno51"]
+[ext_resource type="Texture2D" uid="uid://bqlhjtua58cwd" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel4_Clicked.png" id="23_npfco"]
+[ext_resource type="Texture2D" uid="uid://n8ksb7a0o3yf" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel4_Hover.png" id="24_rpyma"]
+[ext_resource type="Texture2D" uid="uid://cdyq233fsc3x0" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel5.png" id="25_iws8q"]
+[ext_resource type="Texture2D" uid="uid://dfoyk7kiju102" path="res://assets/sprites/ui/BackButton.png" id="25_un7if"]
+[ext_resource type="Texture2D" uid="uid://bh7ru8828om63" path="res://assets/sprites/ui/BackButtonHoverClicked.png" id="26_7tm47"]
+[ext_resource type="Texture2D" uid="uid://bghg15whqt5pr" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel5_Clicked.png" id="26_f5ofe"]
+[ext_resource type="Texture2D" uid="uid://3pmlh3vbslyx" path="res://assets/sprites/ui/BackButtonHover.png" id="27_48b5h"]
+[ext_resource type="Texture2D" uid="uid://c5e5eajy0qfyo" path="res://assets/sprites/mainmenuassets/LevelPage/ButtonLevel5_Hover.png" id="27_hd1h6"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_nm7x4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j18r4"]
+shader = ExtResource("10_2ophx")
+shader_parameter/blur_amount = 2.5
+shader_parameter/dim_amount = 0.15
 
 [node name="LevelSelect" type="Control" unique_id=142690140]
 layout_mode = 3
@@ -13,14 +45,75 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_levelselect")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=104531085]
+[node name="Node2D" type="Node2D" parent="." unique_id=515696311]
+position = Vector2(640, 360)
+
+[node name="Background" type="Sprite2D" parent="Node2D" unique_id=887572871]
+position = Vector2(2.9087067e-05, 3.0000153)
+scale = Vector2(0.37470347, 0.37470365)
+texture = ExtResource("2_b8qwi")
+offset = Vector2(-65.954346, -315.66656)
+script = ExtResource("3_078v8")
+
+[node name="TorchMenu" parent="Node2D/Background" unique_id=1130348849 instance=ExtResource("4_wmr2p")]
+position = Vector2(771.2766, -306.90924)
+scale = Vector2(2.6687772, 2.668776)
+
+[node name="BoxBlur1" type="Sprite2D" parent="Node2D" unique_id=1091718179]
+position = Vector2(76.99999, 28)
+scale = Vector2(0.48215842, 0.4821585)
+texture = ExtResource("5_ijalg")
+offset = Vector2(-1317.6427, 549.6272)
+script = ExtResource("6_jcfyq")
+
+[node name="BoxBlur2" type="Sprite2D" parent="Node2D" unique_id=989645161]
+position = Vector2(-13, 2)
+scale = Vector2(0.34500888, 0.3450089)
+texture = ExtResource("7_riy7l")
+offset = Vector2(1846.3292, 1075.3345)
+script = ExtResource("6_jcfyq")
+
+[node name="PrisonBars" type="Sprite2D" parent="Node2D" unique_id=933711079]
+light_mask = 0
+z_index = 4096
+position = Vector2(-8.000008, -816)
+scale = Vector2(0.3210376, 0.3200299)
+texture = ExtResource("8_6axhp")
+script = ExtResource("9_vowwd")
+DropDistance = 750.0
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1436894794]
+color = Color(0.14117648, 0.14117648, 0.21176471, 1)
+energy = 6.43
+blend_mode = 1
+range_z_max = 1020
+
+[node name="BlurLayer" type="Control" parent="." unique_id=1040320852]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.111084
+offset_top = -4.0
+offset_right = 7.111084
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="BlurLayer" unique_id=1385731447]
+copy_mode = 2
+
+[node name="Blur" type="TextureRect" parent="BlurLayer" unique_id=1650637273]
+material = SubResource("ShaderMaterial_j18r4")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.1, 0.1, 0.1, 1)
+texture = ExtResource("11_sc7te")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1149317835]
 layout_mode = 1
@@ -29,54 +122,77 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -250.0
-offset_right = 200.0
-offset_bottom = 250.0
+offset_left = -379.0
+offset_top = -315.0
+offset_right = 383.0
+offset_bottom = 253.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="VBoxContainer" unique_id=1069770466]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=2065666694]
 layout_mode = 2
-text = "SELECT LEVEL"
-label_settings = SubResource("LabelSettings_nm7x4")
-horizontal_alignment = 1
+texture = ExtResource("12_078v8")
 
 [node name="Spacer1" type="Control" parent="VBoxContainer" unique_id=418888114]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Level1Button" type="Button" parent="VBoxContainer" unique_id=732733025]
+[node name="Level1Button" type="TextureButton" parent="VBoxContainer" unique_id=1084609375]
+texture_filter = 4
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
-text = "Level 1: Cell"
+texture_normal = ExtResource("13_ssdfm")
+texture_pressed = ExtResource("14_bjiam")
+texture_hover = ExtResource("15_n2mgx")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Level2Button" type="Button" parent="VBoxContainer" unique_id=1630908030]
+[node name="Level2Button" type="TextureButton" parent="VBoxContainer" unique_id=694250498]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
-text = "Level 2: Bridge"
+texture_normal = ExtResource("16_un7if")
+texture_pressed = ExtResource("17_7tm47")
+texture_hover = ExtResource("18_48b5h")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Level3Button" type="Button" parent="VBoxContainer" unique_id=1290683304]
+[node name="Level3Button" type="TextureButton" parent="VBoxContainer" unique_id=668795945]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
-text = "Level 3: Lab"
+texture_normal = ExtResource("19_iws8q")
+texture_pressed = ExtResource("20_f5ofe")
+texture_hover = ExtResource("21_hd1h6")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Level4Button" type="Button" parent="VBoxContainer" unique_id=369644221]
+[node name="Level4Button" type="TextureButton" parent="VBoxContainer" unique_id=1583216303]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
-text = "Level 4: Library"
+texture_normal = ExtResource("22_fno51")
+texture_pressed = ExtResource("23_npfco")
+texture_hover = ExtResource("24_rpyma")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Level5Button" type="Button" parent="VBoxContainer" unique_id=1915567922]
+[node name="Level5Button" type="TextureButton" parent="VBoxContainer" unique_id=647922877]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
-text = "Level 5: Sewer"
+texture_normal = ExtResource("25_iws8q")
+texture_pressed = ExtResource("26_f5ofe")
+texture_hover = ExtResource("27_hd1h6")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=1386648239]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="VBoxContainer" unique_id=1607299616]
+[node name="BackButton" type="TextureButton" parent="VBoxContainer" unique_id=1846640454]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
-text = "Back"
+texture_normal = ExtResource("25_un7if")
+texture_pressed = ExtResource("26_7tm47")
+texture_hover = ExtResource("27_48b5h")
+ignore_texture_size = true
+stretch_mode = 5
