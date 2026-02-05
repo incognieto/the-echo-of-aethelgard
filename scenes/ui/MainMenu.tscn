@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="3_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="4_e2per"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
-[ext_resource type="PackedScene" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
+[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="7_7vr37"]
 [ext_resource type="Texture2D" uid="uid://dkhwf1jmi177v" path="res://assets/sprites/mainmenuassets/Btn/PlayBtn.png" id="7_e2per"]
 [ext_resource type="Texture2D" uid="uid://by7riw20biptd" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnClicked.png" id="8_nqjyj"]
 [ext_resource type="Texture2D" uid="uid://b034dbjee8j0a" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnHover.png" id="9_7vr37"]
+[ext_resource type="AudioStream" uid="uid://dkiuwy3hnqsse" path="res://assets/sfx/Gate Smash.mp3" id="9_utjo4"]
 [ext_resource type="Script" uid="uid://u4ifoxgo1jrq" path="res://scripts/ui/SceneChangeButton.cs" id="11_3da5a"]
 [ext_resource type="Texture2D" uid="uid://e4lxss8wjdbf" path="res://assets/sprites/mainmenuassets/Btn/OptionsBtn.png" id="11_ayd4e"]
 [ext_resource type="Texture2D" uid="uid://biw6umqd5gsd6" path="res://assets/sprites/mainmenuassets/Btn/OptionsBtnClicked.png" id="12_3da5a"]
@@ -73,6 +74,7 @@ scale = Vector2(0.3210376, 0.3200299)
 texture = ExtResource("7_7vr37")
 script = ExtResource("20_prisonbars")
 DropDistance = 750.0
+StartDropSfx = ExtResource("9_utjo4")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1524960737]
 color = Color(0.14117648, 0.14117648, 0.21176471, 1)
