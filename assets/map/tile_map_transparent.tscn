@@ -95,7 +95,7 @@ data = PackedVector3Array(-1, 0, 1, -1, 0.19999999, -1, -1, 0.19999999, 1, -1, 0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ejgp6"]
 render_priority = 0
 shader = ExtResource("2_fenow")
-shader_parameter/tekstur_dinding = ExtResource("3_yed6g")
+shader_parameter/tekstur_dinding = ExtResource("4_yed6g")
 shader_parameter/circle_radius = 0.15
 shader_parameter/smoothness = 0.08
 shader_parameter/min_opacity = 0.15

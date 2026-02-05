@@ -50,7 +50,7 @@ public partial class Player : CharacterBody3D
 		_camera.Fov = 50.0f; 
 
 		_currentCameraMode = CameraMode.Isometric;
-		Input.MouseMode = Input.MouseModeEnum.Visible;
+		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 	
 	private void ConnectInventoryUI()

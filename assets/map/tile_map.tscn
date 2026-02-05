@@ -75,7 +75,7 @@ data = PackedVector3Array(-1, 0, 1, -1, 0.19999999, -1, -1, 0.19999999, 1, -1, 0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hiuvw"]
 render_priority = 0
 shader = ExtResource("3_0w80c")
-shader_parameter/tekstur_dinding = ExtResource("2_818ot")
+shader_parameter/tekstur_dinding = ExtResource("4_nablf")
 shader_parameter/shadow_color = Color(0.2, 0.2, 0.2, 1)
 shader_parameter/shadow_threshold = 0.5
 
