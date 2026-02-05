@@ -43,7 +43,7 @@ public partial class QuantityPickerUI : Control
 		_cancelButton = panel.GetNodeOrNull<BaseButton>("CancelButton");
 		
 		if (_titleLabel == null || _quantityLabel == null || _minusButton == null || 
-		    _plusButton == null || _confirmButton == null || _cancelButton == null)
+			_plusButton == null || _confirmButton == null || _cancelButton == null)
 		{
 			GD.PrintErr("QuantityPickerUI: Some UI nodes not found!");
 			GD.PrintErr($"  TitleLabel: {_titleLabel != null}");

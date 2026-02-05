@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://d4mweouara7f6"]
 
 [ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="1_invui"]
-[ext_resource type="Texture2D" uid="uid://cp1y8c3k7p46x" path="res://assets/sprites/ui/ui_1x4_inventory.png" id="3_inv1x4"]
+[ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="2_1jp0f"]
+[ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="2_lgest"]
 [ext_resource type="Texture2D" uid="uid://dg5lwc7b8ge34" path="res://assets/sprites/ui/Inventory/Inv.png" id="4_jfhjy"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
 [ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="5_nyenb"]
@@ -12,6 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://bqkj0h0fahurh" path="res://assets/sprites/ui/Bungalope.png" id="10_1jp0f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgest"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfhjy"]
+shader = ExtResource("2_1jp0f")
+shader_parameter/blur_amount = 2.5
+shader_parameter/dim_amount = 0.15
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_11w2x"]
 texture = ExtResource("9_ajan2")
@@ -30,18 +36,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_invui")
 
-[node name="Background1x4" type="TextureRect" parent="." unique_id=426492034]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_inv1x4")
-expand_mode = 1
-stretch_mode = 6
-
 [node name="InventoryPanel" type="Panel" parent="." unique_id=1996971328]
 layout_mode = 1
 anchors_preset = -1
@@ -57,6 +51,40 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(227, 297)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_lgest")
+
+[node name="BlurLayer" type="Control" parent="InventoryPanel" unique_id=1571051815]
+layout_mode = 1
+anchor_left = -0.71000004
+anchor_top = -0.067
+anchor_right = 1.5020001
+anchor_bottom = 1.2090001
+offset_left = -12.199982
+offset_top = -30.1115
+offset_right = 2.8399658
+offset_bottom = 17.310425
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="InventoryPanel/BlurLayer" unique_id=560169370]
+position = Vector2(657.5, 385.5)
+scale = Vector2(6.475, 3.675)
+copy_mode = 2
+
+[node name="Blur" type="TextureRect" parent="InventoryPanel/BlurLayer" unique_id=1728368038]
+material = SubResource("ShaderMaterial_jfhjy")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -538.44214
+offset_top = -319.0
+offset_right = 538.44214
+offset_bottom = 319.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_lgest")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="InventoryPanel" unique_id=1601481806]
 position = Vector2(224.00006, 281)

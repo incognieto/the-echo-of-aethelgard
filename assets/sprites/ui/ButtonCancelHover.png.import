@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://butxg4vj4f281"
-path="res://.godot/imported/ButtonConfirmClicked.png-361474e6d44fffa652d62c38dd12ca80.ctex"
+uid="uid://xd8bu1bhuaa0"
+path="res://.godot/imported/ButtonCancelHover.png-62e0ada356f172c5319b108b987c9ab5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/ButtonConfirmClicked.png"
-dest_files=["res://.godot/imported/ButtonConfirmClicked.png-361474e6d44fffa652d62c38dd12ca80.ctex"]
+source_file="res://assets/sprites/ui/ButtonCancelHover.png"
+dest_files=["res://.godot/imported/ButtonCancelHover.png-62e0ada356f172c5319b108b987c9ab5.ctex"]
 
 [params]
 
