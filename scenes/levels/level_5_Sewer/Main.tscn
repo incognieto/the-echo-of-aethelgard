@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="1_ogqkq"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
-[ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="3_eofdq"]
+[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="3_eofdq"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://1r2y70ajbuu3" path="res://assets/textures/worn_mossy_plasterwall_diff_1k.png" id="5_ec5yg"]
@@ -210,10 +210,10 @@ MapPadding = 1.5
 BackgroundColor = Color(0, 0, 0, 0.12941177)
 BorderColor = Color(1, 1, 1, 1)
 WallColor = Color(0, 0, 0, 1)
-WallBorderColor = Color(1, 1, 1, 1)
 PlayerDotSize = 8.0
 ItemDotSize = 5.0
 WallThickness = 100.0
+WallBorderColor = Color(1, 1, 1, 1)
 
 [node name="InventoryUI" parent="UI" unique_id=1260366128 instance=ExtResource("3_invui")]
 

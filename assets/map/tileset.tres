@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b1j25bsm7qb55" path="res://assets/map/TileMap_Dinding.png" id="1_06ent"]
 [ext_resource type="Texture2D" uid="uid://cqw8q4jemnngj" path="res://assets/map/TileMap_Lantai.png" id="1_tnlny"]
-[ext_resource type="Shader" uid="uid://dfnxdu4jfe1a5" path="res://scripts/shaders/map.gdshader" id="2_i3gbh"]
+[ext_resource type="Shader" path="res://scripts/shaders/map.gdshader" id="2_i3gbh"]
 [ext_resource type="Texture2D" uid="uid://bq3x6ilkccfcr" path="res://assets/map/TileMap_Dinding_2.png" id="3_i3gbh"]
 [ext_resource type="Texture2D" uid="uid://dqvwi7g5606ta" path="res://assets/map/TileMap_Dinding_3.png" id="4_nr5iw"]
 [ext_resource type="Texture2D" uid="uid://cl8svapfpblhc" path="res://assets/map/TileMap_Dinding_4.png" id="5_btdkl"]

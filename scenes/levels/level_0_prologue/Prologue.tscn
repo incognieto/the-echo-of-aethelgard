@@ -4,6 +4,7 @@
 [ext_resource type="MeshLibrary" uid="uid://bajpgkeyyfrhf" path="res://scenes/tiles/tiles.tres" id="2_gux3y"]
 [ext_resource type="PackedScene" uid="uid://btgybh1pswcx2" path="res://assets/items/Book.glb" id="3_q6uyw"]
 [ext_resource type="Texture2D" uid="uid://dpsms4vv44dwx" path="res://assets/items/Book_Book.png" id="6_gm0v4"]
+[ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="8_0bgmf"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="8_0llkn"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="9_k8vh1"]
 [ext_resource type="PackedScene" uid="uid://ddouv7x2807fu" path="res://assets/characters/player.tscn" id="10_0bgmf"]
@@ -12,7 +13,7 @@
 
 [sub_resource type="Animation" id="Animation_q6uyw"]
 resource_name = "CinematicSequence"
-length = 22.233334
+length = 23.133333
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -20,9 +21,9 @@ tracks/0/path = NodePath("ScreenUI/BlackCover:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.97222227, 0.16666667, 0, 0),
-"times": PackedFloat32Array(1.6666667, 2.3666666)
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.97222227, 0.16666667, 0, 0, 0, -3.138889, 0, 0, 0, 1, -0.15555541, 0, 0, 0),
+"times": PackedFloat32Array(1.6666667, 2.3666666, 22.6, 23.066668)
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -91,7 +92,7 @@ tracks/6/path = NodePath("Cams/Angle 3:current")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(10.066667, 13.7),
+"times": PackedFloat32Array(10.066667, 14.766666),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -103,7 +104,7 @@ tracks/7/path = NodePath("Cams/Angle 3:fov")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(10.066667, 13.666667),
+"times": PackedFloat32Array(10.066667, 14.733334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [61.3, 32.6]
@@ -115,7 +116,7 @@ tracks/8/path = NodePath("Cams/Angle 3:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(10.066667, 13.666667),
+"times": PackedFloat32Array(10.066667, 14.733334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-0.02617994, 2.438225, 0), Vector3(-0.08726646, 2.4818583, 0)]
@@ -127,7 +128,7 @@ tracks/9/path = NodePath("Cams/Angle 4:current")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(13.733334, 17.566668),
+"times": PackedFloat32Array(14.766666, 19.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -139,7 +140,7 @@ tracks/10/path = NodePath("Cams/Angle 4:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(13.733334, 17.566668),
+"times": PackedFloat32Array(14.766666, 19.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-2.638, 1.476, 1.41), Vector3(-2.638, 0.991, 1.41)]
@@ -151,7 +152,7 @@ tracks/11/path = NodePath("Cams/Angle 4:fov")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(13.733334),
+"times": PackedFloat32Array(14.766666),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [74.1]
@@ -163,7 +164,7 @@ tracks/12/path = NodePath("Cams/Angle 5:current")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(17.566668, 22.166666),
+"times": PackedFloat32Array(19.5, 23.017876),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -175,7 +176,7 @@ tracks/13/path = NodePath("Cams/Angle 5:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(17.533335, 22.115458),
+"times": PackedFloat32Array(19.466667, 22.966667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-2.2, 0.797, 2.81), Vector3(-1.635, 0.797, 1.16)]
@@ -187,7 +188,7 @@ tracks/14/path = NodePath("Cams/Angle 5:rotation")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(17.533335),
+"times": PackedFloat32Array(19.466667),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, -0.3577925, 0)]
@@ -452,7 +453,7 @@ height = 3.4236145
 script = ExtResource("1_2wkgt")
 DirectorAnim = NodePath("Director")
 MainCamera = NodePath("Cams/Angle 2")
-PlayerVisual = NodePath("")
+PlayerVisual = NodePath("Player2")
 DialogueText = NodePath("ScreenUI/Dialogue Text")
 BlackCover = NodePath("ScreenUI/BlackCover")
 NextScenePath = "uid://bhrdjha0g10ow"
@@ -900,13 +901,16 @@ omni_range = 17.856
 omni_attenuation = 1.557
 omni_shadow_mode = 0
 
+[node name="Torch" parent="Torch" unique_id=787674602 instance=ExtResource("8_0bgmf")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.7686918, 2.2682493, -5.7074003)
+
 [node name="Map" type="Node3D" parent="." unique_id=762147807]
 
 [node name="Floor" type="GridMap" parent="Map" unique_id=1026932270]
 mesh_library = ExtResource("12_uorno")
 cell_size = Vector3(2, 0.2, 2)
 data = {
-"cells": PackedInt32Array(65534, 65533, 655365, 65534, 65534, 655361, 65534, 65535, 5, 65534, 0, 1048581, 65534, 1, 1441793, 65535, 65533, 1441797, 65535, 65534, 5, 65535, 65535, 1441797, 65535, 0, 5, 65535, 1, 1441797, 0, 65533, 5, 0, 65534, 5, 0, 65535, 5, 0, 0, 1441793, 0, 1, 5, 1, 65533, 1441793, 1, 65534, 655365, 1, 65535, 1441797, 1, 0, 1048581, 1, 1, 1441797, 2, 65533, 1048581, 2, 65534, 5, 2, 65535, 1048577, 2, 0, 5, 2, 1, 655361, 65534, 65528, 5, 65534, 65529, 1441797, 65534, 65530, 5, 65534, 65531, 1441797, 65534, 65532, 5, 65535, 65528, 1441797, 65535, 65529, 5, 65535, 65530, 1441797, 65535, 65531, 5, 65535, 65532, 5, 0, 65528, 655361, 0, 65529, 1441797, 0, 65530, 5, 0, 65531, 5, 0, 65532, 5, 1, 65528, 1441797, 1, 65529, 5, 1, 65530, 1441797, 1, 65531, 1441797, 1, 65532, 5, 2, 65528, 5, 2, 65529, 1048581, 2, 65530, 5, 2, 65531, 1, 2, 65532, 5, 65534, 65524, 1441797, 65534, 65525, 5, 65534, 65526, 1048581, 65534, 65527, 1, 65535, 65524, 5, 65535, 65525, 1441797, 65535, 65526, 1048577, 65535, 65527, 5, 0, 65524, 5, 0, 65525, 5, 0, 65526, 5, 0, 65527, 1441797, 1, 65524, 655361, 1, 65525, 1048581, 1, 65526, 1441793, 1, 65527, 5, 2, 65524, 5, 2, 65525, 1441797, 2, 65526, 5, 2, 65527, 655365, 1572866, 1, 6, 1572866, 0, 6, 1572866, 65535, 6, 1572866, 65534, 6, 1572866, 65533, 6, 1572865, 1, 6, 1572865, 0, 6, 1572865, 65535, 6, 1572865, 65534, 6, 1572865, 65533, 6, 1572864, 65533, 6, 1572864, 65534, 6, 1572864, 65535, 6, 1572864, 0, 6, 1572864, 1, 6, 1638399, 1, 6, 1638399, 0, 6, 1638399, 65535, 6, 1638399, 65534, 6, 1638399, 65533, 6, 1638398, 65533, 6, 1638398, 65534, 6, 1638398, 65535, 6, 1638398, 0, 6, 1638398, 1, 6)
+"cells": PackedInt32Array(65534, 65533, 655365, 65534, 65534, 655361, 65534, 65535, 5, 65534, 0, 1048581, 65534, 1, 1441793, 65535, 65533, 1441797, 65535, 65534, 5, 65535, 65535, 1441797, 65535, 0, 5, 65535, 1, 1441797, 0, 65533, 5, 0, 65534, 5, 0, 65535, 5, 0, 0, 1441793, 0, 1, 5, 1, 65533, 1441793, 1, 65534, 655365, 1, 65535, 1441797, 1, 0, 1048581, 1, 1, 1441797, 2, 65533, 1048581, 2, 65534, 5, 2, 65535, 1048577, 2, 0, 5, 2, 1, 655361, 65534, 65528, 5, 65534, 65529, 1441797, 65534, 65530, 5, 65534, 65531, 1441797, 65534, 65532, 5, 65535, 65528, 1441797, 65535, 65529, 5, 65535, 65530, 1441797, 65535, 65531, 5, 65535, 65532, 5, 0, 65528, 655361, 0, 65529, 1441797, 0, 65530, 5, 0, 65531, 5, 0, 65532, 5, 1, 65528, 1441797, 1, 65529, 5, 1, 65530, 1441797, 1, 65531, 1441797, 1, 65532, 5, 2, 65528, 5, 2, 65529, 1048581, 2, 65530, 5, 2, 65531, 1, 2, 65532, 5, 65534, 65524, 1441797, 65534, 65525, 5, 65534, 65526, 1048581, 65534, 65527, 1, 65535, 65524, 5, 65535, 65525, 1441797, 65535, 65526, 1048577, 65535, 65527, 5, 0, 65524, 5, 0, 65525, 5, 0, 65526, 5, 0, 65527, 1441797, 1, 65524, 655361, 1, 65525, 1048581, 1, 65526, 1441793, 1, 65527, 5, 2, 65524, 5, 2, 65525, 1441797, 2, 65526, 5, 2, 65527, 655365, 1638398, 1, 5, 1638398, 0, 5, 1638398, 65535, 5, 1638398, 65534, 5, 1638398, 65533, 5, 1638399, 65533, 5, 1638399, 65534, 5, 1638399, 65535, 5, 1638399, 0, 5, 1638399, 1, 5, 1572864, 1, 5, 1572864, 0, 5, 1572864, 65535, 5, 1572864, 65534, 5, 1572864, 65533, 5, 1572865, 65533, 5, 1572865, 65534, 5, 1572865, 65535, 5, 1572865, 0, 5, 1572865, 1, 5, 1572866, 1, 5, 1572866, 0, 5, 1572866, 65535, 5, 1572866, 65534, 5, 1572866, 65533, 5)
 }
 metadata/_editor_floor_ = Vector3(0, 24, 0)
 
@@ -939,8 +943,8 @@ data = {
 }
 
 [node name="Player2" parent="." unique_id=439557311 instance=ExtResource("10_0bgmf")]
-transform = Transform3D(0.7, 0, 0, 0, -0.021987572, -0.6996546, 0, 0.6996546, -0.021987572, 0.778, 0.7, -1.324)
+transform = Transform3D(0.7, 0, 0, 0, -3.059797e-08, -0.7, 0, 0.7, -3.059797e-08, 0.778, 1.246, -1.324)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player2" unique_id=413315678]
-transform = Transform3D(0.9928571, 0, 0, 0, 0.99285656, -0.0007620044, 0, 0.0007620044, 0.99285656, 0.082119465, 0.07589686, -0.0005414486)
+transform = Transform3D(0.9928571, 0, 0, 0, 0.9928564, -0.00076200254, 0, 0.00076200254, 0.9928564, 0.082119465, 0.12429607, 0.3118794)
 shape = SubResource("CapsuleShape3D_jnv88")

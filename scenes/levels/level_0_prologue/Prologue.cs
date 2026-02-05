@@ -32,7 +32,8 @@ public partial class Prologue : Node3D
 		}
 		
 		// 1. SETUP VISUAL AWAL
-		if (DialogueText != null) DialogueText.Text = "";
+		SetupDialogueText();
+		
 		if (BlackCover != null) 
 		{
 			BlackCover.Color = new Color(0, 0, 0, 1); // Layar hitam total
@@ -158,5 +159,33 @@ public partial class Prologue : Node3D
 				}
 			}));
 		}
+	}
+	
+	private void SetupDialogueText()
+	{
+		if (DialogueText == null) return;
+		
+		// Clear text
+		DialogueText.Text = "";
+		
+		// Set positioning - CENTER BOTTOM
+		DialogueText.SetAnchorsPreset(Control.LayoutPreset.BottomWide);
+		DialogueText.HorizontalAlignment = HorizontalAlignment.Center;
+		DialogueText.VerticalAlignment = VerticalAlignment.Bottom;
+		
+		// Set margin dari bottom (jarak dari bawah layar)
+		DialogueText.OffsetBottom = -30; // 30 pixel dari bawah (lebih dekat ke bawah)
+		DialogueText.OffsetTop = -120; // Height area text
+		
+		// Styling
+		DialogueText.AddThemeFontSizeOverride("font_size", 22); // Font sedikit lebih besar dari default (16)
+		DialogueText.AddThemeColorOverride("font_color", Colors.White);
+		DialogueText.AddThemeColorOverride("font_outline_color", Colors.Black);
+		DialogueText.AddThemeConstantOverride("outline_size", 8); // Outline untuk readability
+		
+		// Autowrap untuk text panjang
+		DialogueText.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+		
+		GD.Print("✓ Dialogue text positioned: Center Bottom, Font Size 22");
 	}
 }
