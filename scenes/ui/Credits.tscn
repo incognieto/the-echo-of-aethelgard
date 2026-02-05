@@ -1,6 +1,24 @@
 [gd_scene format=3 uid="uid://cnferq4rywq1j"]
 
 [ext_resource type="Script" uid="uid://hm1nel06fah6" path="res://scripts/ui/Credits.cs" id="1_credits"]
+[ext_resource type="Texture2D" uid="uid://b72duq0ptn2j6" path="res://assets/sprites/mainmenuassets/Background Main Menu.png" id="2_oy77l"]
+[ext_resource type="Script" uid="uid://bmy48inqd4fhy" path="res://scripts/ui/MainMenu/Background.cs" id="3_mcff3"]
+[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="4_a4hrm"]
+[ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="5_lt7co"]
+[ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="6_lovxg"]
+[ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="7_hxsos"]
+[ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="8_fu4vq"]
+[ext_resource type="Script" uid="uid://dajue2twr482c" path="res://scripts/ui/MainMenu/PrisonBars.cs" id="9_840cb"]
+[ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="10_e11fv"]
+[ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="11_vs01m"]
+[ext_resource type="Texture2D" uid="uid://dfoyk7kiju102" path="res://assets/sprites/ui/BackButton.png" id="12_lt7co"]
+[ext_resource type="Texture2D" uid="uid://bh7ru8828om63" path="res://assets/sprites/ui/BackButtonHoverClicked.png" id="13_lovxg"]
+[ext_resource type="Texture2D" uid="uid://3pmlh3vbslyx" path="res://assets/sprites/ui/BackButtonHover.png" id="14_hxsos"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qat3x"]
+shader = ExtResource("10_e11fv")
+shader_parameter/blur_amount = 2.5
+shader_parameter/dim_amount = 0.15
 
 [sub_resource type="LabelSettings" id="LabelSettings_6nm4x"]
 
@@ -17,7 +35,78 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_credits")
 
+[node name="Node2D" type="Node2D" parent="." unique_id=1059485131]
+position = Vector2(640, 360)
+
+[node name="Background" type="Sprite2D" parent="Node2D" unique_id=549236566]
+position = Vector2(2.9087067e-05, 3.0000153)
+scale = Vector2(0.37470347, 0.37470365)
+texture = ExtResource("2_oy77l")
+offset = Vector2(-65.954346, -315.66656)
+script = ExtResource("3_mcff3")
+
+[node name="TorchMenu" parent="Node2D/Background" unique_id=1130348849 instance=ExtResource("4_a4hrm")]
+position = Vector2(771.2766, -306.90924)
+scale = Vector2(2.6687772, 2.668776)
+
+[node name="BoxBlur1" type="Sprite2D" parent="Node2D" unique_id=1333518151]
+position = Vector2(76.99999, 28)
+scale = Vector2(0.48215842, 0.4821585)
+texture = ExtResource("5_lt7co")
+offset = Vector2(-1317.6427, 549.6272)
+script = ExtResource("6_lovxg")
+
+[node name="BoxBlur2" type="Sprite2D" parent="Node2D" unique_id=1938626298]
+position = Vector2(-13, 2)
+scale = Vector2(0.34500888, 0.3450089)
+texture = ExtResource("7_hxsos")
+offset = Vector2(1846.3292, 1075.3345)
+script = ExtResource("6_lovxg")
+
+[node name="PrisonBars" type="Sprite2D" parent="Node2D" unique_id=116757596]
+light_mask = 0
+z_index = 4096
+position = Vector2(-8.000008, -816)
+scale = Vector2(0.3210376, 0.3200299)
+texture = ExtResource("8_fu4vq")
+script = ExtResource("9_840cb")
+DropDistance = 750.0
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1233902786]
+color = Color(0.14117648, 0.14117648, 0.21176471, 1)
+energy = 10.43
+blend_mode = 1
+range_z_max = 1020
+
+[node name="BlurLayer" type="Control" parent="." unique_id=94625723]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.111084
+offset_top = -4.0
+offset_right = 7.111084
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="BlurLayer" unique_id=234594396]
+copy_mode = 2
+
+[node name="Blur" type="TextureRect" parent="BlurLayer" unique_id=1960920752]
+material = SubResource("ShaderMaterial_qat3x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_vs01m")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2127583428]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,11 +216,14 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 720)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="." unique_id=1504114878]
+[node name="BackButton" type="TextureButton" parent="." unique_id=1120393929]
 layout_mode = 1
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 120.0
-offset_bottom = 70.0
-grow_vertical = 0
-text = "Back"
+offset_left = 1147.0
+offset_top = 33.0
+offset_right = 1247.0
+offset_bottom = 83.0
+texture_normal = ExtResource("12_lt7co")
+texture_pressed = ExtResource("13_lovxg")
+texture_hover = ExtResource("14_hxsos")
+ignore_texture_size = true
+stretch_mode = 5

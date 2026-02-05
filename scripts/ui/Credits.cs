@@ -4,7 +4,7 @@ using System;
 public partial class Credits : Control
 {
 	private ScrollContainer _scrollContainer;
-	private Button _backButton;
+	private TextureButton _backButton;
 	private float _scrollSpeed = 100f; // pixels per second
 	private bool _isScrolling = true;
 
@@ -17,7 +17,7 @@ public partial class Credits : Control
 		}
 		
 		_scrollContainer = GetNode<ScrollContainer>("ScrollContainer");
-		_backButton = GetNode<Button>("BackButton");
+		_backButton = GetNode<TextureButton>("BackButton");
 		
 		_backButton.Pressed += OnBackPressed;
 	}
