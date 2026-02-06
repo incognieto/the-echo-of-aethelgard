@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b8pn1xqg35okm" path="res://scripts/items/MaterialItem.cs" id="2_material"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
-[ext_resource type="PackedScene" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
+[ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="PackedScene" uid="uid://bha2jou2pm3e3" path="res://assets/environments/kuali_kecil.tscn" id="5_117bl"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
@@ -20,11 +20,12 @@
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="12_transition"]
 [ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="13_3bs35"]
 [ext_resource type="Script" uid="uid://bvnsdjc7nbgdd" path="res://scripts/common/AutoDoor.cs" id="13_autodoor"]
-[ext_resource type="Script" path="res://scenes/levels/level_3_lab/Main.cs" id="15_main"]
+[ext_resource type="Shader" uid="uid://bsmuwi3t55gho" path="res://assets/environments/blue_extract.gdshader" id="14_a3r6l"]
+[ext_resource type="Script" uid="uid://on0wiscpon4" path="res://scenes/levels/level_3_lab/Main.cs" id="15_main"]
 [ext_resource type="Texture2D" uid="uid://cmh6yh2g2w3g6" path="res://assets/sprites/lab/poster_ingredients_1080x1350.png" id="15_poster"]
-[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="16_oi0on"]
-[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
+[ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="17_qyj1f"]
 [ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="18_qyj1f"]
 
@@ -81,6 +82,32 @@ height = 1.5
 height = 1.5
 radius = 1.2
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a3r6l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3ry7i"]
+noise = SubResource("FastNoiseLite_a3r6l")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iffmi"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.19197425, 0.1751757, 0.17949668, 1)
+albedo_texture = SubResource("NoiseTexture2D_3ry7i")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_onhb4"]
+noise_type = 3
+seed = 2
+frequency = 0.0023
+fractal_weighted_strength = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a3r6l"]
+noise = SubResource("FastNoiseLite_onhb4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ry7i"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.34434772, 0.20984823, 0.075086005, 1)
+albedo_texture = SubResource("NoiseTexture2D_a3r6l")
+
 [sub_resource type="SphereMesh" id="SphereMesh_item"]
 radius = 0.3
 height = 0.6
@@ -119,6 +146,17 @@ height = 0.08
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blue"]
 albedo_color = Color(0.2, 0.5, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3ry7i"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.004
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iffmi"]
+render_priority = 0
+shader = ExtResource("14_a3r6l")
+shader_parameter/water_color = Color(0, 0.4, 0.9, 0.5)
+shader_parameter/roughness = 0.1
 
 [sub_resource type="BoxMesh" id="BoxMesh_transition"]
 size = Vector3(3, 0.2, 3)
@@ -260,14 +298,16 @@ shape = SubResource("CylinderShape3D_smallcauldron")
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.3014135, 0)
 
 [node name="AutoDoor" type="StaticBody3D" parent="." unique_id=1234567890 groups=["minimap_interactable"]]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3.4378614, 2, -18.231127)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.07717228, 2, -10.936657)
 script = ExtResource("13_autodoor")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="AutoDoor" unique_id=1234567891]
+visible = false
 mesh = SubResource("BoxMesh_autodoor")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AutoDoor" unique_id=1234567892]
 shape = SubResource("BoxShape3D_autodoor")
+disabled = true
 
 [node name="KualiBesar" type="StaticBody3D" parent="." unique_id=1850987654 groups=["minimap_interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.047627, 0.75, -5.6166573)
@@ -291,16 +331,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.085423, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -8)
 use_collision = true
 size = Vector3(4, 2, 0.5)
+material = SubResource("StandardMaterial3D_iffmi")
 
 [node name="Shelf2" type="CSGBox3D" parent="LabEquipment" unique_id=1006268438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -4)
 use_collision = true
 size = Vector3(4, 2, 0.5)
+material = SubResource("StandardMaterial3D_iffmi")
 
 [node name="Counter" type="CSGBox3D" parent="LabEquipment" unique_id=1413545040]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -11, 0.5, 4)
 use_collision = true
 size = Vector3(8, 1, 2)
+material = SubResource("StandardMaterial3D_3ry7i")
 
 [node name="Items" type="Node3D" parent="." unique_id=1649151714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.721986, 0, 0)
@@ -390,6 +433,7 @@ mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_blue")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Items/BlueExtract" unique_id=280504403]
+visible = false
 shape = SubResource("SphereShape3D_item")
 
 [node name="BlueExtract" parent="Items/BlueExtract" unique_id=1781219249 instance=ExtResource("11_2hbj3")]
@@ -400,6 +444,16 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.3155136, -0.09080601
 
 [node name="BlueExtract3" parent="Items/BlueExtract" unique_id=923251526 instance=ExtResource("11_2hbj3")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.3155136, -0.09080601, 0.3689425)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Items/BlueExtract" unique_id=1007896961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31954575, -0.21984732, -0.16554356)
+mesh = SubResource("CylinderMesh_3ry7i")
+surface_material_override/0 = SubResource("ShaderMaterial_iffmi")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Items/BlueExtract" unique_id=1334057232]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.19702911, -0.21984732, 0.35394788)
+mesh = SubResource("CylinderMesh_3ry7i")
+surface_material_override/0 = SubResource("ShaderMaterial_iffmi")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1931185845]
 
@@ -479,7 +533,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7108388, 2.2682493, -7.295
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.7122355, 2.2682493, -7.295925)
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Environment" unique_id=1931094529]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0800453, 1.5021944, -17.547241)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0800453, 1.5021944, -18.496634)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D2" unique_id=552520864]
 shape = SubResource("BoxShape3D_36cqj")

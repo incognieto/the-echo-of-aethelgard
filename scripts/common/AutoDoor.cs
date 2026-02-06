@@ -8,6 +8,8 @@ public partial class AutoDoor : StaticBody3D
 	[Export] public float DestroyDuration = 2.0f;
 	[Export] public int ParticleCount = 200;
 	[Export] public float NotificationDuration = 2.0f;
+	[Export] public NodePath LockedDoorPath;
+	[Export] public NodePath UnlockedDoorPath;
 	
 	private Player _player;
 	private bool _playerNearby = false;
@@ -21,6 +23,8 @@ public partial class AutoDoor : StaticBody3D
 	private CollisionShape3D _collisionShape;
 	private List<ParticleData> _particles = new List<ParticleData>();
 	private Node3D _particleContainer;
+	private GridMap _lockedDoor;
+	private GridMap _unlockedDoor;
 	
 	private class ParticleData
 	{
@@ -34,6 +38,13 @@ public partial class AutoDoor : StaticBody3D
 	{
 		_meshInstance = GetNodeOrNull<MeshInstance3D>("MeshInstance3D");
 		_collisionShape = GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
+		
+		// Ambil referensi node berdasarkan path yang di-export
+		_lockedDoor = GetNodeOrNull<GridMap>("/root/Main/Map/PuzzleDoorLocked");
+		_unlockedDoor = GetNodeOrNull<GridMap>("/root/Main/Map/PuzzleDoorUnlocked");
+
+		// Pastikan pintu unlocked sembunyi di awal
+		if (_unlockedDoor != null) _unlockedDoor.Visible = false;
 		
 		// Setup interaction area
 		SetupInteractionArea();
@@ -242,6 +253,20 @@ public partial class AutoDoor : StaticBody3D
 	{
 		_isDestroying = true;
 		_destroyProgress = 0.0f;
+		
+		// Hapus PuzzleDoorLocked
+		if (_lockedDoor != null)
+		{
+			_lockedDoor.QueueFree();
+			GD.Print("Locked Door removed (QueueFree)");
+		}
+
+		// Munculkan PuzzleDoorUnlocked
+		if (_unlockedDoor != null)
+		{
+			_unlockedDoor.Visible = true;
+			GD.Print("Unlocked Door is now visible");
+		}
 		
 		// Hide prompt
 		if (_promptLabel != null)

@@ -3,16 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="2_setup"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
-[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
+[ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="PackedScene" uid="uid://b6sjec6q4iycs" path="res://scenes/ui/LibraryGridUI.tscn" id="4_gridui"]
-[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="5_4qc1e"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="5_4qc1e"]
 [ext_resource type="Script" uid="uid://dr6k8kgdr1tec" path="res://scripts/puzzles/LibraryGridPuzzle.cs" id="5_puzzle"]
 [ext_resource type="Script" uid="uid://blvo03ymhaol2" path="res://scripts/items/StoryBookItem.cs" id="6_bookitem"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="7_ku6bs"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="8_transition"]
 [ext_resource type="Script" path="res://scenes/levels/level_4_library/Main.cs" id="9_main"]
-[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
-[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
+[ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(40, 0.2, 8)
@@ -329,11 +329,12 @@ WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=1340916375 instance=ExtResource("3_invui")]
 
-[node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
+[node name="GameHUD" parent="UI" unique_id=1377130201 instance=ExtResource("4_gamehud")]
 
-[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+[node name="FailScreen" parent="UI" unique_id=607898908 instance=ExtResource("16_failscreen")]
 
-[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
+[node name="GameOverScreen" parent="UI" unique_id=149334640 instance=ExtResource("17_gameoverscreen")]
+
 [node name="LibraryGridUI" parent="UI" unique_id=1591995581 instance=ExtResource("4_gridui")]
 
 [node name="BookUI" type="Control" parent="UI" unique_id=2004485882]
