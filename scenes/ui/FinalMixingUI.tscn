@@ -5,14 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://c7ih66mjcwqs2" path="res://assets/sprites/ui/yellow_potion.png" id="3_yellow"]
 [ext_resource type="Texture2D" uid="uid://gyib8axt8ej3" path="res://assets/sprites/ui/yellow_potion__clicked.png" id="4_yellow_click"]
 [ext_resource type="Texture2D" uid="uid://cw3qp7fqsk12v" path="res://assets/sprites/ui/magenta_potion.png" id="5_magenta"]
+[ext_resource type="Texture2D" uid="uid://d3euyucmryn2b" path="res://assets/sprites/ui/yellow_potion_hover.png" id="6_fcsmr"]
 [ext_resource type="Texture2D" uid="uid://dpo0yqo1svqet" path="res://assets/sprites/ui/magenta_potion_clicked.png" id="6_magenta_click"]
 [ext_resource type="Texture2D" uid="uid://cngbbon62pjqa" path="res://assets/sprites/ui/cyan_potion.png" id="7_cyan"]
 [ext_resource type="Texture2D" uid="uid://brjbkb0rggl0j" path="res://assets/sprites/ui/cyan_potion_clicked.png" id="8_cyan_click"]
 [ext_resource type="Texture2D" uid="uid://7y65v3uhn3jc" path="res://assets/sprites/ui/button_mix_kuali_besar.png" id="9_mix"]
+[ext_resource type="Texture2D" uid="uid://chldrmylugn01" path="res://assets/sprites/ui/magenta_potion_hover.png" id="9_vpr70"]
 [ext_resource type="Texture2D" uid="uid://dbmrtesrmg1pg" path="res://assets/sprites/ui/button_mix_kuali_besar_clicked.png" id="10_mix_click"]
 [ext_resource type="Texture2D" uid="uid://bod37sd2nxyvy" path="res://assets/sprites/ui/button_clear_kuali_besar.png" id="11_clear"]
 [ext_resource type="Texture2D" uid="uid://di4xtdrxx3qke" path="res://assets/sprites/ui/button_clear_kuali_besar_clicked.png" id="12_clear_click"]
 [ext_resource type="Texture2D" uid="uid://dr0i4n3dn7tdu" path="res://assets/sprites/ui/button_mix_kuali_besar_hover.png" id="12_kk6cl"]
+[ext_resource type="Texture2D" uid="uid://ckoikj1xuymgj" path="res://assets/sprites/ui/cyan_potion_hover.png" id="12_ugcvx"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="13_font"]
 [ext_resource type="Texture2D" uid="uid://cbgpy5f3p2kwl" path="res://assets/sprites/ui/button_clear_kuali_besar_hover.png" id="15_tmagh"]
 [ext_resource type="Texture2D" uid="uid://dm7sdf2owidqr" path="res://assets/sprites/library/button_close.png" id="16_close"]
@@ -137,6 +140,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_yellow")
 texture_pressed = ExtResource("4_yellow_click")
+texture_hover = ExtResource("6_fcsmr")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -155,6 +159,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("5_magenta")
 texture_pressed = ExtResource("6_magenta_click")
+texture_hover = ExtResource("9_vpr70")
 ignore_texture_size = true
 stretch_mode = 6
 
@@ -173,6 +178,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("7_cyan")
 texture_pressed = ExtResource("8_cyan_click")
+texture_hover = ExtResource("12_ugcvx")
 ignore_texture_size = true
 stretch_mode = 6
 
