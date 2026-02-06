@@ -9,6 +9,93 @@ In this first edition, your journey begins from the lowest point. With the help 
 
 ---
 
+## 🚀 Setup Development Environment
+
+### Prerequisites
+Sebelum memulai development, pastikan Anda sudah menginstal:
+
+1. **Git** - Untuk clone repository
+   - Download: https://git-scm.com/download/win
+   - Verifikasi: `git --version` di terminal
+
+2. **Godot 4.6 (Mono)** - Game engine
+   - Download: https://godotengine.org/download/archive/4.6-mono
+   - Pilih versi .NET/Mono (`Godot_v4.6_mono_win64.zip`)
+
+3. **.NET 8.0 SDK** - C# runtime & tools
+   - Download: https://dotnet.microsoft.com/download/dotnet/8.0
+   - Verifikasi: `dotnet --version` di terminal
+
+### Installation Steps
+
+#### 1. Clone Repository
+```bash
+git clone <repository-url>
+cd the-echo-of-aethelgard
+```
+
+#### 2. Install Godot 4.6 (Mono)
+- Download dari https://godotengine.org/download/archive/4.6-mono
+- Extract ke folder pilihan Anda
+- Catat lokasi `godot.exe` (misal: `C:\Path\To\Godot\godot.exe`)
+
+#### 3. Install .NET 8.0 SDK
+```bash
+# Verifikasi instalasi
+dotnet --version
+# Output harus v8.x.x atau lebih tinggi
+```
+
+#### 4. Import Project di Godot
+1. Buka **Godot Project Manager**
+2. Klik **Import**
+3. Pilih folder project (`the-echo-of-aethelgard`)
+4. Klik **Select Current Folder**
+5. Selesai! Project akan muncul di list
+
+#### 5. Build C# Project di Godot
+1. Di Godot, buka **File → Tools → C# → Build Project**
+   - Atau tekan `Ctrl + Shift + B`
+2. Tunggu proses build selesai (biasanya 5-15 detik)
+3. Pastikan tidak ada error di Output Console
+
+#### 6. Run Project
+- Tekan **F5** atau klik tombol **Play** di Godot Editor
+- Project akan launch dan menjalankan main scene
+
+### Troubleshooting
+
+**Error: "C# project not found"**
+- Build project manual: `dotnet build` di folder project
+- Restart Godot Editor
+
+**Error: "Cannot find .NET SDK"**
+- Pastikan .NET 8.0 SDK sudah terinstall: `dotnet --version`
+- Restart terminal/IDE setelah instalasi
+
+**Error: "Failed to instantiate autoload scripts"**
+- Build ulang: `dotnet build`
+- Verifikasi script inheritance (semua manager harus inherit dari `Node`)
+
+**Error: "Mono compilation failed"**
+- Delete folder `.godot/mono/temp/`
+- Rebuild: `dotnet build`
+
+### Quick Development Workflow
+```bash
+# Clone & setup
+git clone <repository-url>
+cd the-echo-of-aethelgard
+
+# Build C# project
+dotnet build
+
+# Open in Godot
+# (Then F5 to run)
+```
+
+---
+
 ## Tech Stack
 | Technology | Version |
 |------------|---------|
@@ -344,93 +431,6 @@ scripts/
 - Nieto Salim Maula
 - Umar Faruq Robbany
 - Muhammad Ichsan Rahmat Ramadhan
-
----
-
-## 🚀 Setup Development Environment
-
-### Prerequisites
-Sebelum memulai development, pastikan Anda sudah menginstal:
-
-1. **Git** - Untuk clone repository
-   - Download: https://git-scm.com/download/win
-   - Verifikasi: `git --version` di terminal
-
-2. **Godot 4.6 (Mono)** - Game engine
-   - Download: https://godotengine.org/download/archive/4.6-mono
-   - Pilih versi .NET/Mono (`Godot_v4.6_mono_win64.zip`)
-
-3. **.NET 8.0 SDK** - C# runtime & tools
-   - Download: https://dotnet.microsoft.com/download/dotnet/8.0
-   - Verifikasi: `dotnet --version` di terminal
-
-### Installation Steps
-
-#### 1. Clone Repository
-```bash
-git clone <repository-url>
-cd the-echo-of-aethelgard
-```
-
-#### 2. Install Godot 4.6 (Mono)
-- Download dari https://godotengine.org/download/archive/4.6-mono
-- Extract ke folder pilihan Anda
-- Catat lokasi `godot.exe` (misal: `C:\Path\To\Godot\godot.exe`)
-
-#### 3. Install .NET 8.0 SDK
-```bash
-# Verifikasi instalasi
-dotnet --version
-# Output harus v8.x.x atau lebih tinggi
-```
-
-#### 4. Import Project di Godot
-1. Buka **Godot Project Manager**
-2. Klik **Import**
-3. Pilih folder project (`the-echo-of-aethelgard`)
-4. Klik **Select Current Folder**
-5. Selesai! Project akan muncul di list
-
-#### 5. Build C# Project di Godot
-1. Di Godot, buka **File → Tools → C# → Build Project**
-   - Atau tekan `Ctrl + Shift + B`
-2. Tunggu proses build selesai (biasanya 5-15 detik)
-3. Pastikan tidak ada error di Output Console
-
-#### 6. Run Project
-- Tekan **F5** atau klik tombol **Play** di Godot Editor
-- Project akan launch dan menjalankan main scene
-
-### Troubleshooting
-
-**Error: "C# project not found"**
-- Build project manual: `dotnet build` di folder project
-- Restart Godot Editor
-
-**Error: "Cannot find .NET SDK"**
-- Pastikan .NET 8.0 SDK sudah terinstall: `dotnet --version`
-- Restart terminal/IDE setelah instalasi
-
-**Error: "Failed to instantiate autoload scripts"**
-- Build ulang: `dotnet build`
-- Verifikasi script inheritance (semua manager harus inherit dari `Node`)
-
-**Error: "Mono compilation failed"**
-- Delete folder `.godot/mono/temp/`
-- Rebuild: `dotnet build`
-
-### Quick Development Workflow
-```bash
-# Clone & setup
-git clone <repository-url>
-cd the-echo-of-aethelgard
-
-# Build C# project
-dotnet build
-
-# Open in Godot
-# (Then F5 to run)
-```
 
 ---
 
