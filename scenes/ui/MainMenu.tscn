@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="3_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="4_e2per"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
-[ext_resource type="PackedScene" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
+[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="7_7vr37"]
 [ext_resource type="Texture2D" uid="uid://dkhwf1jmi177v" path="res://assets/sprites/mainmenuassets/Btn/PlayBtn.png" id="7_e2per"]
 [ext_resource type="Texture2D" uid="uid://by7riw20biptd" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnClicked.png" id="8_nqjyj"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bke064jg1pjn5" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuClicked.png" id="18_dq25m"]
 [ext_resource type="Texture2D" uid="uid://b2d1hlgyagd6v" path="res://assets/sprites/mainmenuassets/Btn/ExitBtnMenuHover.png" id="19_jfpbv"]
 [ext_resource type="Script" uid="uid://dajue2twr482c" path="res://scripts/ui/MainMenu/PrisonBars.cs" id="20_prisonbars"]
+[ext_resource type="Texture2D" uid="uid://boxc7alb1a4yq" path="res://assets/sprites/mainmenuassets/TitleGame.png" id="26_dq25m"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhu4a"]
 
@@ -78,7 +79,7 @@ StartDropSfx = ExtResource("9_utjo4")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1524960737]
 color = Color(0.14117648, 0.14117648, 0.21176471, 1)
-energy = 5.59
+energy = 6.17
 blend_mode = 1
 range_z_max = 1020
 
@@ -194,3 +195,13 @@ ignore_texture_size = true
 stretch_mode = 4
 script = ExtResource("11_3da5a")
 QuitGame = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2089825933]
+layout_mode = 0
+offset_left = 604.0
+offset_top = -134.0
+offset_right = 1268.0
+offset_bottom = 530.0
+texture = ExtResource("26_dq25m")
+expand_mode = 1
+stretch_mode = 5
