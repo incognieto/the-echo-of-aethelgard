@@ -46,6 +46,7 @@ public partial class BookItem : PickableItem
 	[Export(PropertyHint.MultilineText)] public string BookContent = "This book is empty...";
 	[Export(PropertyHint.File, "*.png,*.jpg,*.jpeg")] public string PosterImagePath = "";
 	[Export] public NodePath PosterContentPath = "PosterContent";
+	[Export] public Vector3 PromptLabelOffset = new Vector3(0, 1.5f, 0); // Offset dari origin node untuk prompt label
 
 	private bool _isPoster = false;
 	private Player _nearbyPlayer = null;
@@ -55,7 +56,8 @@ public partial class BookItem : PickableItem
 	public override void _Ready()
 	{
 		// Check if this is a poster (attached to wall, not pickable)
-		_isPoster = ItemId == "recipe_poster";
+		// Any ItemId containing "_poster" will be treated as a poster
+		_isPoster = ItemId.Contains("_poster");
 		
 		if (_isPoster)
 		{
@@ -75,7 +77,7 @@ public partial class BookItem : PickableItem
 			// Create prompt label for poster
 			_promptLabel = new Label3D();
 			_promptLabel.Text = "[E] See Poster";
-			_promptLabel.Position = new Vector3(1.2f, 1.2f, 1.8f); // Above poster, matching poster X and Z position
+			_promptLabel.Position = PromptLabelOffset; // Gunakan Export variable untuk posisi
 			_promptLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 			_promptLabel.FontSize = 32;
 			_promptLabel.Modulate = new Color(1, 1, 0, 0); // Start invisible

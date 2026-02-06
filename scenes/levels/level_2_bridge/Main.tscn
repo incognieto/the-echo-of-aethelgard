@@ -10,52 +10,59 @@
 [ext_resource type="Texture2D" uid="uid://dvgukjrdr8632" path="res://assets/puzzles/level_2_bridge/puzzle1.png" id="5_ymv1o"]
 [ext_resource type="Texture2D" uid="uid://bq3bhin1tc2qa" path="res://assets/puzzles/level_2_bridge/puzzle2.png" id="6_umwk0"]
 [ext_resource type="Texture2D" uid="uid://bjgokyl347woe" path="res://assets/puzzles/level_2_bridge/puzzle3.png" id="7_26hwv"]
+[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="7_ue13m"]
 [ext_resource type="Texture2D" uid="uid://c4nlggiffv2jd" path="res://assets/puzzles/level_2_bridge/puzzle5.png" id="9_7qf10"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="10_transition"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="12_ubowq"]
-[ext_resource type="Script" uid="uid://bw6m8yv31vayx" path="res://scenes/levels/level_2_bridge/Main.cs" id="15_main"]
 [ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
 [ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
+[ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="17_h2j8q"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umwk0"]
-transparency = 1
+[sub_resource type="BoxMesh" id="BoxMesh_cmin7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bag35"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2j8q"]
 albedo_texture = ExtResource("5_ymv1o")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_26hwv"]
-material = SubResource("StandardMaterial3D_umwk0")
-size = Vector2(1.5, 2)
+[sub_resource type="PlaneMesh" id="PlaneMesh_jbspc"]
+material = SubResource("StandardMaterial3D_h2j8q")
 orientation = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26hwv"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_l0o3a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3r52"]
 albedo_texture = ExtResource("6_umwk0")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_t8b2p"]
-material = SubResource("StandardMaterial3D_26hwv")
-size = Vector2(2, 1.5)
+[sub_resource type="PlaneMesh" id="PlaneMesh_i2r8m"]
+material = SubResource("StandardMaterial3D_d3r52")
 orientation = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8b2p"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_b7x1s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ky4h"]
 albedo_texture = ExtResource("7_26hwv")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_7qf10"]
-material = SubResource("StandardMaterial3D_t8b2p")
-size = Vector2(2, 1.5)
+[sub_resource type="PlaneMesh" id="PlaneMesh_u8igs"]
+material = SubResource("StandardMaterial3D_3ky4h")
 orientation = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qf10"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ue13m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uemxu"]
 albedo_texture = ExtResource("5_26hwv")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_30ka6"]
-material = SubResource("StandardMaterial3D_7qf10")
-size = Vector2(2, 1.5)
+[sub_resource type="PlaneMesh" id="PlaneMesh_pqf6v"]
+material = SubResource("StandardMaterial3D_uemxu")
 orientation = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_di2p2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_hyd6m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kaxxb"]
 albedo_texture = ExtResource("9_7qf10")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_di2p2"]
-material = SubResource("StandardMaterial3D_di2p2")
-size = Vector2(4.5, 3.5)
+[sub_resource type="PlaneMesh" id="PlaneMesh_cmin7"]
+material = SubResource("StandardMaterial3D_kaxxb")
 orientation = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_transition"]
@@ -64,8 +71,29 @@ size = Vector3(3, 0.2, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_transition"]
 size = Vector3(3, 0.5, 3)
 
+[sub_resource type="BoxMesh" id="BoxMesh_hyd6m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2j8q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jbspc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_d3r52"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i2r8m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3ky4h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u8igs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uemxu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pqf6v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kaxxb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_74i5k"]
+
 [node name="Main" type="Node3D" unique_id=1741748220]
-script = ExtResource("15_main")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1996217250]
 
@@ -74,8 +102,10 @@ script = ExtResource("15_main")
 [node name="GameHUD" parent="UI" unique_id=963667746 instance=ExtResource("2_gamehud")]
 
 [node name="FailScreen" parent="UI" unique_id=394124047 instance=ExtResource("16_failscreen")]
+visible = true
 
 [node name="GameOverScreen" parent="UI" unique_id=350383701 instance=ExtResource("17_gameoverscreen")]
+visible = true
 
 [node name="BookUI" type="Control" parent="UI" unique_id=1249212671]
 layout_mode = 3
@@ -88,102 +118,82 @@ script = ExtResource("2_s7lbl")
 
 [node name="BridgePuzzleUI" parent="UI" unique_id=1825712127 instance=ExtResource("3_di2p2")]
 
+[node name="MinimapRenderer" parent="UI" unique_id=231393186 instance=ExtResource("7_ue13m")]
+layout_mode = 3
+ObstacleColor = Color(1, 1, 1, 1)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=521927541]
 transform = Transform3D(-0.19857366, -0.8649451, 0.46091053, -0.0066185943, 0.47144833, 0.88186884, -0.98006356, 0.17206539, -0.099341944, 3.1859086, 9.823743, 0)
 
-[node name="Player" parent="." unique_id=509487869 instance=ExtResource("3_ymv1o")]
-transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, -20.083529, 2, -0.6962377)
+[node name="Player" parent="." unique_id=509487869 groups=["minimap_item", "minimap_obstacle", "minimap_player"] instance=ExtResource("3_ymv1o")]
+transform = Transform3D(0.9971943, 0, 0.07485673, 0, 1, 0, -0.07485673, 0, 0.9971943, -20.083529, 2, -0.6962377)
 
 [node name="Floors" type="Node3D" parent="." unique_id=44486075]
 
 [node name="FloorRoom2" type="CSGBox3D" parent="Floors" unique_id=1594034778]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
-use_collision = true
-size = Vector3(20, 0.2, 20)
-
-[node name="FloorRoom" type="CSGBox3D" parent="Floors" unique_id=493730174]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
 use_collision = true
 size = Vector3(20, 0.2, 20)
 
 [node name="FloorRoom3" type="CSGBox3D" parent="Floors" unique_id=1957111991]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 39.87931)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -20.018747, 0, -39.867447)
 use_collision = true
 size = Vector3(20, 0.2, 20)
 
 [node name="Walls" type="Node3D" parent="." unique_id=696727244]
 
-[node name="WallNorth" type="CSGBox3D" parent="Walls" unique_id=923015090]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
-use_collision = true
-size = Vector3(20, 5, 0.2)
-
-[node name="WallSouth" type="CSGBox3D" parent="Walls" unique_id=1038481654]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
-use_collision = true
-size = Vector3(20, 5, 0.2)
-
-[node name="WallEast" type="CSGBox3D" parent="Walls" unique_id=535448083]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5, 0)
-use_collision = true
-size = Vector3(0.2, 5, 20)
-
-[node name="WallWestNorth" type="CSGBox3D" parent="Walls" unique_id=979769826]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, -6)
-use_collision = true
-size = Vector3(0.2, 5, 8)
-
-[node name="WallWestSouth" type="CSGBox3D" parent="Walls" unique_id=1845490175]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 6)
-use_collision = true
-size = Vector3(0.2, 5, 8)
-
 [node name="WallWestRoom2" type="CSGBox3D" parent="Walls" unique_id=1618436762]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 2.5, 0)
 use_collision = true
 size = Vector3(0.2, 5, 20)
 
 [node name="WallNorthRoom2" type="CSGBox3D" parent="Walls" unique_id=90074779]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, -10)
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, 10)
 use_collision = true
 size = Vector3(20, 5, 0.2)
 
 [node name="WallSouthRoom2Left" type="CSGBox3D" parent="Walls" unique_id=136794260]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2.5, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.987549, 2.5, -10)
 use_collision = true
-size = Vector3(8, 5, 0.2)
+size = Vector3(10, 5, 0.2)
 
 [node name="WallSouthRoom2Right" type="CSGBox3D" parent="Walls" unique_id=458274162]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.034241, 2.5, -10)
 use_collision = true
-size = Vector3(8, 5, 0.2)
+size = Vector3(10, 5, 0.2)
 
 [node name="WallSouthRoom2Left2" type="CSGBox3D" parent="Walls" unique_id=1954363000]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2.5, 29.787327)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -13.910594, 2.5, -29.84055)
 use_collision = true
 size = Vector3(8, 5, 0.2)
 
 [node name="WallSouthRoom2Right2" type="CSGBox3D" parent="Walls" unique_id=637733942]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 29.787327)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -25.909903, 2.5, -29.71154)
 use_collision = true
 size = Vector3(8, 5, 0.2)
 
 [node name="WallWestRoom3" type="CSGBox3D" parent="Walls" unique_id=2025880301]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2.5, 39.787327)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -10.018335, 2.5, -39.882977)
 use_collision = true
 size = Vector3(0.2, 5, 20)
 
 [node name="WallWestRoom4" type="CSGBox3D" parent="Walls" unique_id=2052787546]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 39.787327)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -30.017178, 2.5, -39.667957)
 use_collision = true
 size = Vector3(0.2, 5, 20)
 
 [node name="WallNorthRoom3" type="CSGBox3D" parent="Walls" unique_id=1592365376]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, 49.787327)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -20.125265, 2.5, -49.77489)
 use_collision = true
 size = Vector3(20, 5, 0.2)
 
+[node name="WallWestRoom5" type="CSGBox3D" parent="Walls" unique_id=1676596556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.5, 0)
+use_collision = true
+size = Vector3(0.2, 5, 20)
+
 [node name="Bridge1" type="Node3D" parent="." unique_id=2117430868]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.086082, 0, 12.446149)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -19, 0, -12.457)
 
 [node name="Floor" type="CSGBox3D" parent="Bridge1" unique_id=1728584438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2.4999075)
@@ -200,12 +210,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.6, 2.5)
 use_collision = true
 size = Vector3(0.2, 1.5, 10)
 
-[node name="BridgeController" type="Node3D" parent="Bridge1" unique_id=1032608149]
+[node name="BridgeController" type="Node3D" parent="Bridge1" unique_id=1032608149 groups=["minimap_interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08608246, 1, 6.553851)
 script = ExtResource("4_s7lbl")
 Bridge1Path = NodePath("..")
 Bridge2Path = NodePath("../../Bridge2")
-Bridge2TargetOffset = Vector3(0, 0, -7.2)
+Bridge2TargetOffset = Vector3(0, 0, 7.4)
 
 [node name="Stand" type="CSGBox3D" parent="Bridge1/BridgeController" unique_id=77995919]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33571053, -0.3778997, 0.2770176)
@@ -218,7 +228,7 @@ use_collision = true
 size = Vector3(1, 0.1, 1)
 
 [node name="Bridge2" type="Node3D" parent="." unique_id=743685314]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.086082, 0, 29.583319)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -19, 0, -29.850971)
 
 [node name="Floor" type="CSGBox3D" parent="Bridge2" unique_id=479434039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2.4999075)
@@ -235,34 +245,91 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.6, 2.5)
 use_collision = true
 size = Vector3(0.2, 1.5, 10)
 
-[node name="Puzzle" type="Node3D" parent="." unique_id=193915800 groups=["minimap_interactable"]]
+[node name="Wall3" type="MeshInstance3D" parent="Bridge2" unique_id=456362427 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 5, 3.6000004, 5.6619506, 2.500002)
+visible = false
+mesh = SubResource("BoxMesh_cmin7")
 
-[node name="Puzzle1" type="MeshInstance3D" parent="Puzzle" unique_id=583825129 groups=["minimap_interactable"]]
-transform = Transform3D(1.3113417e-07, 0.99999994, 4.3711392e-08, 3.8213714e-15, 4.3711385e-08, -1.0000001, -1.0000001, 1.3113414e-07, 1.9106857e-15, -12.789035, 2.5106678, 9.896386)
-mesh = SubResource("PlaneMesh_26hwv")
-skeleton = NodePath("../..")
+[node name="Wall4" type="MeshInstance3D" parent="Bridge2" unique_id=324579291 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 5, -1.6, 5.662, 2.5)
+visible = false
+mesh = SubResource("BoxMesh_cmin7")
 
-[node name="Puzzle2" type="MeshInstance3D" parent="Puzzle" unique_id=1281241225 groups=["minimap_interactable"]]
-transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -15.50933, 2.5106678, 9.896386)
-mesh = SubResource("PlaneMesh_t8b2p")
-skeleton = NodePath("../..")
+[node name="Puzzle" type="Node3D" parent="." unique_id=193915800]
 
-[node name="Puzzle3" type="MeshInstance3D" parent="Puzzle" unique_id=833697597 groups=["minimap_interactable"]]
-transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -27.289352, 2.5106678, 9.896386)
-mesh = SubResource("PlaneMesh_7qf10")
-skeleton = NodePath("../..")
+[node name="Puzzle1" type="StaticBody3D" parent="Puzzle" unique_id=417765450 groups=["minimap_interactable"]]
+transform = Transform3D(1.1924882e-08, -0.99999994, 4.3711392e-08, 0, -4.3711385e-08, -1.0000001, 1.0000001, 1.192488e-08, -5.212531e-16, -9.777452, 2.511, -9.8)
+script = ExtResource("17_h2j8q")
+PosterImagePath = "uid://dvgukjrdr8632"
+PromptLabelOffset = Vector3(0, 0, -1.5)
+ItemId = "puzzle_1_poster"
+ItemName = "Puzzle 1"
 
-[node name="Puzzle4" type="MeshInstance3D" parent="Puzzle" unique_id=1109915248 groups=["minimap_interactable"]]
-transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -24.444822, 2.5106678, 9.896386)
-mesh = SubResource("PlaneMesh_30ka6")
-skeleton = NodePath("../..")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzle/Puzzle1" unique_id=693605579]
+transform = Transform3D(1, -8.881784e-16, 0, 0, 1, -6.215882e-24, 0, -6.21588e-24, 1, -0.45590496, 0, 0)
+shape = SubResource("BoxShape3D_bag35")
 
-[node name="Puzzle5" type="MeshInstance3D" parent="Puzzle" unique_id=1956102092 groups=["minimap_interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.884842, 2.5719612, 0.15045738)
-mesh = SubResource("PlaneMesh_di2p2")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puzzle/Puzzle1" unique_id=1877717391]
+mesh = SubResource("PlaneMesh_jbspc")
 
-[node name="LevelTransition" type="Area3D" parent="." unique_id=1847499793]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.1, 47)
+[node name="Puzzle2" type="StaticBody3D" parent="Puzzle" unique_id=52211101 groups=["minimap_interactable"]]
+transform = Transform3D(1.1924882e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 1.1924882e-08, -16.044025, 2.511, -9.8)
+script = ExtResource("17_h2j8q")
+PosterImagePath = "uid://bq3bhin1tc2qa"
+ItemId = "puzzle_2_poster"
+ItemName = "Puzzle 2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzle/Puzzle2" unique_id=1109734547]
+transform = Transform3D(1, 0, -8.881784e-16, 0, 1, 0, 8.881784e-16, 0, 1, -0.45590496, 0, 0)
+shape = SubResource("BoxShape3D_l0o3a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puzzle/Puzzle2" unique_id=258292005]
+mesh = SubResource("PlaneMesh_i2r8m")
+
+[node name="Puzzle3" type="StaticBody3D" parent="Puzzle" unique_id=314182305 groups=["minimap_interactable"]]
+transform = Transform3D(1.1924882e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 1.1924882e-08, -29.972124, 2.511, -9.8)
+script = ExtResource("17_h2j8q")
+PosterImagePath = "uid://bjgokyl347woe"
+ItemId = "puzzle_3_poster"
+ItemName = "Puzzle 3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzle/Puzzle3" unique_id=1565344568]
+transform = Transform3D(1, 0, -8.881784e-16, 0, 1, 0, 8.881784e-16, 0, 1, -0.45590496, 0, 0)
+shape = SubResource("BoxShape3D_b7x1s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puzzle/Puzzle3" unique_id=1201519435]
+mesh = SubResource("PlaneMesh_u8igs")
+
+[node name="Puzzle4" type="StaticBody3D" parent="Puzzle" unique_id=2036187316 groups=["minimap_interactable"]]
+transform = Transform3D(1.1924882e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 1.1924882e-08, -24.02715, 2.511, -9.8)
+script = ExtResource("17_h2j8q")
+PosterImagePath = "uid://c8apb5bbm8rfb"
+ItemId = "puzzle_4_poster"
+ItemName = "Puzzle 4"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzle/Puzzle4" unique_id=1575061768]
+transform = Transform3D(1, 0, -8.881784e-16, 0, 1, 0, 8.881784e-16, 0, 1, -0.45590496, 0, 0)
+shape = SubResource("BoxShape3D_ue13m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puzzle/Puzzle4" unique_id=328928735]
+mesh = SubResource("PlaneMesh_pqf6v")
+
+[node name="Puzzle5" type="StaticBody3D" parent="Puzzle" unique_id=1128889013 groups=["minimap_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.877842, 2.5719612, 0.15045738)
+script = ExtResource("17_h2j8q")
+PosterImagePath = "uid://c4nlggiffv2jd"
+PromptLabelOffset = Vector3(0.5, 1.5, 0)
+ItemId = "puzzle_5_poster"
+ItemName = "Puzzle 5"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzle/Puzzle5" unique_id=1082775709]
+shape = SubResource("BoxShape3D_hyd6m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puzzle/Puzzle5" unique_id=591419648]
+mesh = SubResource("PlaneMesh_cmin7")
+
+[node name="LevelTransition" type="Area3D" parent="." unique_id=1847499793 groups=["minimap_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.1, -44.945976)
 script = ExtResource("10_transition")
 NextLevel = 3
 AreaColor = Color(0.2, 1, 0.2, 0.6)
@@ -276,3 +343,56 @@ shape = SubResource("BoxShape3D_transition")
 [node name="AncientBooks" type="Node3D" parent="." unique_id=1039515135]
 script = ExtResource("12_ubowq")
 CurrentLevel = 2
+
+[node name="MiniMap" type="Node3D" parent="." unique_id=1531807889]
+visible = false
+
+[node name="WallWestRoom2" type="MeshInstance3D" parent="MiniMap" unique_id=1152899395 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 10, -32, 6.219483, 0)
+mesh = SubResource("BoxMesh_hyd6m")
+
+[node name="WallNorthRoom2" type="MeshInstance3D" parent="MiniMap" unique_id=1784361638 groups=["minimap_obstacle"]]
+transform = Transform3D(24, 0, 0, 0, 1, 0, 0, 0, 0.1, -20, 6.2112756, 10)
+mesh = SubResource("BoxMesh_h2j8q")
+
+[node name="WallSouthRoom2Left" type="MeshInstance3D" parent="MiniMap" unique_id=247637643 groups=["minimap_obstacle"]]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 0.1, -26.987549, 6.229911, -10)
+mesh = SubResource("BoxMesh_jbspc")
+
+[node name="WallSouthRoom2Right" type="MeshInstance3D" parent="MiniMap" unique_id=470669283 groups=["minimap_obstacle"]]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 0.1, -13.034241, 6.234152, -10)
+mesh = SubResource("BoxMesh_d3r52")
+
+[node name="WallSouthRoom2Left2" type="MeshInstance3D" parent="MiniMap" unique_id=1120712168 groups=["minimap_obstacle"]]
+transform = Transform3D(-8, 0, 1.509958e-08, 0, 1, 0, -1.2079664e-06, 0, -0.1, -13.910594, 6.0341196, -29.84055)
+mesh = SubResource("BoxMesh_i2r8m")
+
+[node name="WallSouthRoom2Right2" type="MeshInstance3D" parent="MiniMap" unique_id=1725949376 groups=["minimap_obstacle"]]
+transform = Transform3D(-8, 0, 1.509958e-08, 0, 1, 0, -1.2079664e-06, 0, -0.1, -25.909903, 6.081772, -29.71154)
+mesh = SubResource("BoxMesh_3ky4h")
+
+[node name="WallWestRoom3" type="MeshInstance3D" parent="MiniMap" unique_id=2043343178 groups=["minimap_obstacle"]]
+transform = Transform3D(-0.1, 0, 1.509958e-06, 0, 1, 0, -1.509958e-08, 0, -10, -10.018335, 6.078917, -39.882977)
+mesh = SubResource("BoxMesh_u8igs")
+
+[node name="WallWestRoom4" type="MeshInstance3D" parent="MiniMap" unique_id=792677244 groups=["minimap_obstacle"]]
+transform = Transform3D(-0.1, 0, 1.509958e-06, 0, 1, 0, -1.509958e-08, 0, -10, -30.017178, 6.1950927, -39.667957)
+mesh = SubResource("BoxMesh_uemxu")
+
+[node name="WallNorthRoom3" type="MeshInstance3D" parent="MiniMap" unique_id=1913544141 groups=["minimap_obstacle"]]
+transform = Transform3D(-20, 0, 1.509958e-08, 0, 1, 0, -3.019916e-06, 0, -0.1, -20.125265, 6.126805, -49.77489)
+mesh = SubResource("BoxMesh_pqf6v")
+
+[node name="WallWestRoom5" type="MeshInstance3D" parent="MiniMap" unique_id=1169398465 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 10, -8, 6.1893253, 0)
+mesh = SubResource("BoxMesh_kaxxb")
+
+[node name="Wall3" type="MeshInstance3D" parent="MiniMap" unique_id=669878362 groups=["minimap_obstacle"]]
+transform = Transform3D(-0.1, 0, -7.54979e-07, 0, 1, 0, 1.509958e-08, 0, -5, -17.4, 6.299777, -14.957)
+mesh = SubResource("BoxMesh_74i5k")
+skeleton = NodePath("../../Bridge1")
+
+[node name="Wall4" type="MeshInstance3D" parent="MiniMap" unique_id=552796710 groups=["minimap_obstacle"]]
+transform = Transform3D(-0.1, 0, -7.54979e-07, 0, 1, 0, 1.509958e-08, 0, -5, -22.6, 6.299471, -14.957)
+mesh = SubResource("BoxMesh_74i5k")
+skeleton = NodePath("../../Bridge1")
