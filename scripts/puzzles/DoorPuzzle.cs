@@ -34,26 +34,14 @@ public partial class DoorPuzzle : StaticBody3D
 	[Export]
 	public float InteractionRange { get; set; } = 3.0f;
 	
-	[Export]
-	public Vector3 OpenOffset { get; set; } = new Vector3(0, 5, 0);
-	
-	[Export]
-	public float OpenSpeed { get; set; } = 2.0f;
-	
 	private Label3D _promptLabel;
 	private Area3D _interactionArea;
 	private bool _playerNearby = false;
 	private bool _isLocked = true;
-	private bool _isOpening = false;
-	private Vector3 _closedPosition;
-	private Vector3 _openPosition;
 	private PuzzleUI _puzzleUI;
 
 	public override void _Ready()
 	{
-		_closedPosition = GlobalPosition;
-		_openPosition = _closedPosition + OpenOffset;
-		
 		// Wait for control panel to be ready (created from scene)
 		CallDeferred(nameof(SetupControlPanel));
 		
@@ -146,18 +134,6 @@ public partial class DoorPuzzle : StaticBody3D
 				_promptLabel.Visible = false;
 			}
 		}
-		
-		// Animate door opening
-		if (_isOpening)
-		{
-			GlobalPosition = GlobalPosition.Lerp(_openPosition, OpenSpeed * (float)delta);
-			if (GlobalPosition.DistanceTo(_openPosition) < 0.1f)
-			{
-				GlobalPosition = _openPosition;
-				_isOpening = false;
-				GD.Print("Door fully opened");
-			}
-		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -238,14 +214,44 @@ public partial class DoorPuzzle : StaticBody3D
 	private void UnlockDoor()
 	{
 		_isLocked = false;
-		_isOpening = true;
 		GD.Print("Door unlocked! Opening...");
 		
-		// Disable collision saat buka
+		// Disable collision
 		var collisionShape = GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
 		if (collisionShape != null)
 		{
 			collisionShape.Disabled = true;
+		}
+		
+		// Swap GridMap visibility - hide locked door, show unlocked door
+		// Try multiple paths to find the GridMaps
+		GridMap lockedDoor = null;
+		GridMap unlockedDoor = null;
+		
+		// Method 1: Try absolute path
+		lockedDoor = GetNodeOrNull<GridMap>("/root/Main/Map/PuzzleDoorLocked");
+		unlockedDoor = GetNodeOrNull<GridMap>("/root/Main/Map/PuzzleDoorUnlocked");
+		
+		// Method 2: If not found, try finding Map node from parent
+		if (lockedDoor == null || unlockedDoor == null)
+		{
+			var mapNode = GetParent()?.GetNodeOrNull<Node3D>("Map");
+			if (mapNode != null)
+			{
+				lockedDoor = mapNode.GetNodeOrNull<GridMap>("PuzzleDoorLocked");
+				unlockedDoor = mapNode.GetNodeOrNull<GridMap>("PuzzleDoorUnlocked");
+			}
+		}
+		
+		if (lockedDoor != null && unlockedDoor != null)
+		{
+			lockedDoor.Visible = false;
+			unlockedDoor.Visible = true;
+			GD.Print("✓ Door visual swapped - unlocked door now visible!");
+		}
+		else
+		{
+			GD.Print("⚠ PuzzleDoorLocked or PuzzleDoorUnlocked not found - collision disabled, door passable");
 		}
 	}
 }

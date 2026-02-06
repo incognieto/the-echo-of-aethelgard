@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="3_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="4_e2per"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="4_xpiny"]
-[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TorchMenu.tscn" id="6_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://cnvf0gdeuopb8" path="res://assets/sprites/mainmenuassets/prison barr.png" id="7_7vr37"]
 [ext_resource type="Texture2D" uid="uid://dkhwf1jmi177v" path="res://assets/sprites/mainmenuassets/Btn/PlayBtn.png" id="7_e2per"]
 [ext_resource type="Texture2D" uid="uid://by7riw20biptd" path="res://assets/sprites/mainmenuassets/Btn/PlayBtnClicked.png" id="8_nqjyj"]
