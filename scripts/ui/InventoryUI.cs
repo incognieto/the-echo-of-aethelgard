@@ -638,10 +638,10 @@ private void UpdateRockNotification()
 	
 	// Check if player has any rock (stone) in inventory
 	bool hasRock = _inventory.HasItem("stone_10") || 
-	               _inventory.HasItem("stone_15") || 
-	               _inventory.HasItem("stone_20") || 
-	               _inventory.HasItem("stone_30") || 
-	               _inventory.HasItem("stone_40");
+				   _inventory.HasItem("stone_15") || 
+				   _inventory.HasItem("stone_20") || 
+				   _inventory.HasItem("stone_30") || 
+				   _inventory.HasItem("stone_40");
 	_rockNotification.Visible = hasRock;
 }
 
