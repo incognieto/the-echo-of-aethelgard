@@ -13,8 +13,8 @@
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="10_28jj2"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="10_xuw2q"]
 [ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="11_pdseg"]
-[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="13_kntvk"]
-[ext_resource type="Script" uid="uid://btfclcps0y34h" path="res://scenes/levels/level_1_cell/Main.cs" id="15_main"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="13_kntvk"]
+[ext_resource type="Script" path="res://scenes/levels/level_1_cell/Main.cs" id="15_main"]
 [ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
 [ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 
