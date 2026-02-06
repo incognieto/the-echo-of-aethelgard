@@ -1,25 +1,17 @@
-# Godot 4+ specific ignores
-.godot/
-/android/
-
-# Create .gitignore
-@"
-
 # Godot-specific ignores
-.import/
-export.cfg
-export_presets.cfg
-*.translation
+.godot/
+extended_editor_settings.tres
 
-# Mono-specific ignores
-.mono/
-data_*/
-mono_crash.*.json
-
-# Build outputs
+# C# / .NET ignores
 bin/
 obj/
+*.csproj.old*
+
+# Mono/Visual Studio/Rider
 .vs/
-*.csproj
+.vscode/
 *.sln
-"@ | Out-File -FilePath .gitignore -Encoding UTF8
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
