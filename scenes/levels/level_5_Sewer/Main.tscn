@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="1_ogqkq"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
-[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="3_eofdq"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
-[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
-[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
+[ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://1r2y70ajbuu3" path="res://assets/textures/worn_mossy_plasterwall_diff_1k.png" id="5_ec5yg"]
 [ext_resource type="Script" uid="uid://bbfcukikgxpgo" path="res://scripts/items/WeightItem.cs" id="6_jlque"]
@@ -13,13 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://df5170f7qosx3" path="res://assets/textures/worn_mossy_plasterwall_rough_1k.png" id="7_78t1w"]
 [ext_resource type="Script" uid="uid://se448mm5xj2s" path="res://scripts/puzzles/SewerGatePuzzle.cs" id="7_uvas7"]
 [ext_resource type="Shader" uid="uid://dnmduhckg5ggw" path="res://scripts/shaders/see_through.gdshader" id="8_78t1w"]
-[ext_resource type="Script" path="res://scenes/levels/level_5_Sewer/Main.cs" id="15_main"]
-[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
-[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
+[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="9_5tf44"]
 [ext_resource type="Texture2D" uid="uid://i3nkcqysosys" path="res://assets/textures/rusty_metal_04_diff_1k.png" id="9_jlque"]
 [ext_resource type="Script" uid="uid://bps0ucv6d60ec" path="res://scripts/levels/WaterAnimator.cs" id="10_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://6k4xsg4j7rhk" path="res://assets/textures/dark_wooden_planks_diff_1k.png" id="12_vdc3e"]
 [ext_resource type="Texture2D" uid="uid://bq2u0rt5iu4ry" path="res://assets/textures/dark_wooden_planks_nor_dx_1k.png" id="13_eofdq"]
+[ext_resource type="Script" uid="uid://b60pbxnc27vlo" path="res://scenes/levels/level_5_Sewer/Main.cs" id="15_main"]
+[ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlque"]
 albedo_texture = ExtResource("5_ec5yg")
@@ -192,13 +191,15 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_78t1w"]
 size = Vector3(1, 10.521423, 26.444344)
 
+[sub_resource type="BoxMesh" id="BoxMesh_5tf44"]
+
 [node name="Main" type="Node3D" unique_id=1411745492]
 script = ExtResource("15_main")
 
 [node name="GameSetup" type="Node" parent="." unique_id=641014099]
 script = ExtResource("1_ogqkq")
 
-[node name="Player" parent="." unique_id=667506092 instance=ExtResource("2_4xt4c")]
+[node name="Player" parent="." unique_id=667506092 groups=["minimap_player"] instance=ExtResource("2_4xt4c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 2, 0)
 ThrowForce = 0.0
 
@@ -210,24 +211,14 @@ visible = false
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=694167344]
 
-[node name="MiniMap" parent="UI" unique_id=1310880008 instance=ExtResource("3_eofdq")]
-MapPosition = Vector2(1000, 480)
-MapPadding = 1.5
-BackgroundColor = Color(0, 0, 0, 0.12941177)
-BorderColor = Color(1, 1, 1, 1)
-WallColor = Color(0, 0, 0, 1)
-PlayerDotSize = 8.0
-ItemDotSize = 5.0
-WallThickness = 100.0
-WallBorderColor = Color(1, 1, 1, 1)
-
 [node name="InventoryUI" parent="UI" unique_id=1260366128 instance=ExtResource("3_invui")]
 
-[node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
+[node name="GameHUD" parent="UI" unique_id=450500312 instance=ExtResource("4_gamehud")]
 
-[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+[node name="FailScreen" parent="UI" unique_id=1936824890 instance=ExtResource("16_failscreen")]
 
-[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
+[node name="GameOverScreen" parent="UI" unique_id=1108923619 instance=ExtResource("17_gameoverscreen")]
+
 [node name="BookUI" type="Control" parent="UI" unique_id=1515685859]
 layout_mode = 3
 anchors_preset = 15
@@ -236,6 +227,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nxrbb")
+
+[node name="MinimapRenderer" parent="UI" unique_id=1924246061 instance=ExtResource("9_5tf44")]
+layout_mode = 3
+ObstacleColor = Color(1, 1, 1, 1)
 
 [node name="Sewer" type="Node3D" parent="." unique_id=1748212744]
 transform = Transform3D(-0.06503737, 0, 0.99788284, 0, 1, 0, -0.99788284, 0, -0.06503737, 12.33554, -0.3919649, -13.601902)
@@ -353,7 +348,7 @@ skeleton = NodePath("../../..")
 
 [node name="Items" type="Node3D" parent="Sewer" unique_id=1494858237]
 
-[node name="Baby Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1993682712]
+[node name="Baby Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1993682712 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.316243, 3.024523, 5.784363)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
@@ -365,7 +360,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock" unique_id=1828825301]
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Baby Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=1582324828]
+[node name="Baby Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=1582324828 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.486557, 3.024523, 5.51256)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
@@ -377,7 +372,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock2" unique_id=515550928]
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Baby Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=1721127614]
+[node name="Baby Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=1721127614 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.623821, 3.024523, 22.961779)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
@@ -389,7 +384,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock3" unique_id=1930261962]
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Baby Rock4" type="StaticBody3D" parent="Sewer/Items" unique_id=539808922]
+[node name="Baby Rock4" type="StaticBody3D" parent="Sewer/Items" unique_id=539808922 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.155333, 2.811312, 12.596722)
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
@@ -401,7 +396,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Baby Rock4" unique_id=1750890516]
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Young Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=720761817]
+[node name="Young Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=720761817 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1706924, 2.8132353, 4.8384056)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
@@ -412,7 +407,7 @@ ItemName = "Young Rock"
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="Young Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=445608364]
+[node name="Young Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=445608364 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0330658, 2.8132353, 7.5433292)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
@@ -423,7 +418,7 @@ ItemName = "Young Rock"
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
 
-[node name="Young Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=277542233]
+[node name="Young Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=277542233 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39182663, 2.8132353, 14.057423)
 script = ExtResource("6_jlque")
 WeightValue = 15.0
@@ -438,7 +433,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.285, 0, 7.450581e-09, 0, 1.285, 0, -7.450581e-09, 0, 1.285, 1.1706924, 2.8132353, 4.8384056)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Guard Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=2068813116]
+[node name="Guard Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=2068813116 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03108, 3.2030432, 4.920082)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
@@ -453,7 +448,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Guard Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=983201326]
+[node name="Guard Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=983201326 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.330999, 3.2030432, 9.521803)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
@@ -468,7 +463,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Guard Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=150254775]
+[node name="Guard Rock3" type="StaticBody3D" parent="Sewer/Items" unique_id=150254775 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.727896, 3.2030432, 9.300407)
 script = ExtResource("6_jlque")
 WeightValue = 20.0
@@ -483,7 +478,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1957699432]
+[node name="Huge Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=1957699432 groups=["minimap_item"]]
 transform = Transform3D(1.4150012, 0, -2.9802322e-08, 0, 1.415, 0, 2.9802322e-08, 0, 1.4150012, -17.728226, 3.316188, 9.526066)
 script = ExtResource("6_jlque")
 WeightValue = 30.0
@@ -498,7 +493,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Huge Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=1954553652]
+[node name="Huge Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=1954553652 groups=["minimap_item"]]
 transform = Transform3D(1.4150014, 0, -4.4703484e-08, 0, 1.415, 0, 4.4703484e-08, 0, 1.4150014, -18.38297, 3.316188, 19.571928)
 script = ExtResource("6_jlque")
 WeightValue = 30.0
@@ -513,7 +508,7 @@ mesh = SubResource("SphereMesh_j0lb3")
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
 shape = SubResource("SphereShape3D_7wgpb")
 
-[node name="Giant Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=213585490]
+[node name="Giant Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=213585490 groups=["minimap_item"]]
 transform = Transform3D(1.845, 0, -2.2351742e-08, 0, 1.845, 0, 2.2351742e-08, 0, 1.845, -12.162089, 3.7083163, 21.86521)
 script = ExtResource("6_jlque")
 WeightValue = 40.0
@@ -538,7 +533,7 @@ StatusLabel = NodePath("ScaleArea/Label3D")
 [node name="ScaleArea" type="Area3D" parent="Sewer/PulleySystem" unique_id=1996784607]
 transform = Transform3D(2.2514863, 0, 0, 0, 0.44138503, 0, 0, 0, 2.3054318, 2.441, -0.48807168, 3.00132)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=1436840474]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=1436840474 groups=["minimap_interactable"]]
 transform = Transform3D(3, 0, -3.0410355e-08, 0, 1.02, 0, 3.0410355e-08, 0, 3, -0.5989895, 0, 0.9815359)
 mesh = SubResource("BoxMesh_7wgpb")
 
@@ -586,6 +581,25 @@ CurrentLevel = 5
 
 [node name="GateCam" type="Camera3D" parent="." unique_id=1390506892]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.379, 3.308, -13.853)
+
+[node name="MiniMap" type="Node3D" parent="." unique_id=341467038]
+visible = false
+
+[node name="Wall" type="MeshInstance3D" parent="MiniMap" unique_id=678516362 groups=["minimap_obstacle"]]
+transform = Transform3D(0.099821076, 0, 1.6144434, 0, 1, 0, -0.00597942, 0, 26.951689, 14.872438, 15.121946, -3.655683)
+mesh = SubResource("BoxMesh_5tf44")
+
+[node name="Wall2" type="MeshInstance3D" parent="MiniMap" unique_id=1853217858 groups=["minimap_obstacle"]]
+transform = Transform3D(0.099821076, 0, 1.6144434, 0, 1, 0, -0.00597942, 0, 26.951689, 40.17349, 15.121946, -3.7326236)
+mesh = SubResource("BoxMesh_5tf44")
+
+[node name="Wall3" type="MeshInstance3D" parent="MiniMap" unique_id=462552738 groups=["minimap_obstacle"]]
+transform = Transform3D(25.454374, 0, 0.005979421, 0, 1, 0, -1.5247524, 0, 0.099821076, 27.58249, 15.121946, 12.205252)
+mesh = SubResource("BoxMesh_5tf44")
+
+[node name="Wall4" type="MeshInstance3D" parent="MiniMap" unique_id=1609804805 groups=["minimap_obstacle"]]
+transform = Transform3D(25.454374, 0, 0.005979421, 0, 1, 0, -1.5247524, 0, 0.099821076, 27.438505, 15.121946, -19.558733)
+mesh = SubResource("BoxMesh_5tf44")
 
 [connection signal="body_entered" from="Sewer/PulleySystem/ScaleArea" to="Sewer/PulleySystem" method="OnScaleBodyEntered"]
 [connection signal="body_exited" from="Sewer/PulleySystem/ScaleArea" to="Sewer/PulleySystem" method="OnScaleBodyExited"]

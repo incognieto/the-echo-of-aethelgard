@@ -18,7 +18,6 @@
 [ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
 [ext_resource type="PackedScene" uid="uid://cenruus0sispb" path="res://assets/environments/red_powder.tscn" id="11_xdy5j"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="12_transition"]
-[ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="13_3bs35"]
 [ext_resource type="Script" uid="uid://bvnsdjc7nbgdd" path="res://scripts/common/AutoDoor.cs" id="13_autodoor"]
 [ext_resource type="Shader" uid="uid://bsmuwi3t55gho" path="res://assets/environments/blue_extract.gdshader" id="14_a3r6l"]
 [ext_resource type="Script" uid="uid://on0wiscpon4" path="res://scenes/levels/level_3_lab/Main.cs" id="15_main"]
@@ -28,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="17_qyj1f"]
 [ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="18_qyj1f"]
+[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="23_a3r6l"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_poster"]
 size = Vector2(1.6, 2)
@@ -185,6 +185,10 @@ tonemap_exposure = 4.0
 ssao_enabled = true
 glow_enabled = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_a3r6l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3ry7i"]
+
 [node name="Main" type="Node3D" unique_id=1136436961]
 script = ExtResource("15_main")
 
@@ -279,7 +283,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_poster")
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.397, 0, 1.625)
 shape = SubResource("BoxShape3D_poster")
 
-[node name="Player" parent="." unique_id=1725543223 instance=ExtResource("1_player")]
+[node name="Player" parent="." unique_id=1725543223 groups=["minimap_player"] instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49118698, 8)
 
 [node name="KualiKecil" type="StaticBody3D" parent="." unique_id=1216210040 groups=["minimap_interactable"]]
@@ -348,7 +352,7 @@ material = SubResource("StandardMaterial3D_3ry7i")
 [node name="Items" type="Node3D" parent="." unique_id=1649151714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.721986, 0, 0)
 
-[node name="GreenMoss" type="StaticBody3D" parent="Items" unique_id=1252871519]
+[node name="GreenMoss" type="StaticBody3D" parent="Items" unique_id=1252871519 groups=["minimap_item"]]
 transform = Transform3D(-0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, -0.9975641, -9.843593, 0.37992334, -5.87726)
 script = ExtResource("2_material")
 AvailableQuantity = 3
@@ -382,7 +386,7 @@ transform = Transform3D(0.4822786, 0, 0.13193652, 0, 0.5, 0, -0.13193652, 0, 0.4
 [node name="Moss4" parent="Items/GreenMoss" unique_id=778803320 instance=ExtResource("10_tqfxa")]
 transform = Transform3D(-0.26777574, 0, 0.13526326, 0, 0.3, 0, -0.13526326, 0, -0.26777574, 1.7218628, 0, 0.89075994)
 
-[node name="RedPowder" type="StaticBody3D" parent="Items" unique_id=324060498]
+[node name="RedPowder" type="StaticBody3D" parent="Items" unique_id=324060498 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.675169, 1.3918908, 5.9542065)
 script = ExtResource("2_material")
 AvailableQuantity = 3
@@ -419,7 +423,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060466766, -0.34307492, 0.
 mesh = SubResource("CylinderMesh_onhb4")
 surface_material_override/0 = SubResource("StandardMaterial3D_d861c")
 
-[node name="BlueExtract" type="StaticBody3D" parent="Items" unique_id=1156292908]
+[node name="BlueExtract" type="StaticBody3D" parent="Items" unique_id=1156292908 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.849406, 1.2360945, 3.0074177)
 script = ExtResource("2_material")
 AvailableQuantity = 3
@@ -457,16 +461,9 @@ surface_material_override/0 = SubResource("ShaderMaterial_iffmi")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1931185845]
 
-[node name="MiniMap" parent="UI" unique_id=929860020 instance=ExtResource("13_3bs35")]
-MapPosition = Vector2(1000, 480)
-MapPadding = 1.5
-BackgroundColor = Color(0, 0, 0, 0.12941177)
-BorderColor = Color(1, 1, 1, 1)
-WallColor = Color(0, 0, 0, 1)
-WallBorderColor = Color(1, 1, 1, 1)
-PlayerDotSize = 8.0
-ItemDotSize = 5.0
-WallThickness = 100.0
+[node name="MinimapRenderer" parent="UI" unique_id=1117337828 instance=ExtResource("23_a3r6l")]
+layout_mode = 3
+ObstacleColor = Color(1, 1, 1, 1)
 
 [node name="InventoryUI" parent="UI" unique_id=1954206059 instance=ExtResource("3_invui")]
 
@@ -682,3 +679,38 @@ data = {
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=8988065]
 environment = SubResource("Environment_oi0on")
+
+[node name="MiniMap" type="Node3D" parent="." unique_id=1326404801]
+visible = false
+
+[node name="Wall1" type="MeshInstance3D" parent="MiniMap" unique_id=66995095 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 24, 5.42748, 6.982292, -0.5658746)
+mesh = SubResource("BoxMesh_a3r6l")
+
+[node name="Wall2a" type="MeshInstance3D" parent="MiniMap" unique_id=383941558 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 13, -5.4509997, 6.982292, 4.2043023)
+mesh = SubResource("BoxMesh_a3r6l")
+
+[node name="Wall2b" type="MeshInstance3D" parent="MiniMap" unique_id=634850193 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 7.4, -5.4509997, 6.982292, -7.603156)
+mesh = SubResource("BoxMesh_a3r6l")
+
+[node name="Wall3" type="MeshInstance3D" parent="MiniMap" unique_id=1933068501 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 24, -20.507637, 6.982292, -0.5658746)
+mesh = SubResource("BoxMesh_a3r6l")
+
+[node name="Wall4" type="MeshInstance3D" parent="MiniMap" unique_id=1086508939 groups=["minimap_obstacle"]]
+transform = Transform3D(26, 0, 0, 0, 1, 0, 0, 0, 0.1, -7.5383167, 6.982292, 9.581709)
+mesh = SubResource("BoxMesh_a3r6l")
+
+[node name="Wall5" type="MeshInstance3D" parent="MiniMap" unique_id=1602783840 groups=["minimap_obstacle"]]
+transform = Transform3D(26, 0, 0, 0, 1, 0, 0, 0, 0.1, -7.5383167, 6.982292, -10.438224)
+mesh = SubResource("BoxMesh_a3r6l")
+
+[node name="Wall6" type="MeshInstance3D" parent="MiniMap" unique_id=621310210 groups=["minimap_obstacle"]]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 0.1, -18.247568, 7.000596, -3.9835505)
+mesh = SubResource("BoxMesh_3ry7i")
+
+[node name="Wall7" type="MeshInstance3D" parent="MiniMap" unique_id=392181097 groups=["minimap_obstacle"]]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 0.1, -18.247568, 7.000596, -7.9939523)
+mesh = SubResource("BoxMesh_3ry7i")

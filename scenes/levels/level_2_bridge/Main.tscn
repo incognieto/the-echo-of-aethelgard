@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://4xmvllydtgai"]
 
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="1_nfhxa"]
-[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="2_gamehud"]
+[ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="2_gamehud"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="2_s7lbl"]
 [ext_resource type="PackedScene" uid="uid://c3v8k7j2m5xbt" path="res://scenes/ui/BridgePuzzleUI.tscn" id="3_di2p2"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="3_ymv1o"]
-[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="4_bag35"]
 [ext_resource type="Script" uid="uid://baxkd0n6wuva5" path="res://scripts/puzzles/BridgePuzzle.cs" id="4_s7lbl"]
 [ext_resource type="Texture2D" uid="uid://c8apb5bbm8rfb" path="res://assets/puzzles/level_2_bridge/puzzle4.png" id="5_26hwv"]
 [ext_resource type="Texture2D" uid="uid://dvgukjrdr8632" path="res://assets/puzzles/level_2_bridge/puzzle1.png" id="5_ymv1o"]
@@ -13,10 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://bjgokyl347woe" path="res://assets/puzzles/level_2_bridge/puzzle3.png" id="7_26hwv"]
 [ext_resource type="Texture2D" uid="uid://c4nlggiffv2jd" path="res://assets/puzzles/level_2_bridge/puzzle5.png" id="9_7qf10"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="10_transition"]
-[ext_resource type="Script" path="res://scenes/levels/level_2_bridge/Main.cs" id="15_main"]
-[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
-[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="12_ubowq"]
+[ext_resource type="Script" uid="uid://bw6m8yv31vayx" path="res://scenes/levels/level_2_bridge/Main.cs" id="15_main"]
+[ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umwk0"]
 transparency = 1
@@ -72,11 +71,11 @@ script = ExtResource("15_main")
 
 [node name="InventoryUI" parent="UI" unique_id=1936844999 instance=ExtResource("1_nfhxa")]
 
-[node name="GameHUD" parent="UI" instance=ExtResource("2_gamehud")]
+[node name="GameHUD" parent="UI" unique_id=963667746 instance=ExtResource("2_gamehud")]
 
-[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+[node name="FailScreen" parent="UI" unique_id=394124047 instance=ExtResource("16_failscreen")]
 
-[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
+[node name="GameOverScreen" parent="UI" unique_id=350383701 instance=ExtResource("17_gameoverscreen")]
 
 [node name="BookUI" type="Control" parent="UI" unique_id=1249212671]
 layout_mode = 3
@@ -88,17 +87,6 @@ grow_vertical = 2
 script = ExtResource("2_s7lbl")
 
 [node name="BridgePuzzleUI" parent="UI" unique_id=1825712127 instance=ExtResource("3_di2p2")]
-
-[node name="MiniMap" parent="UI" unique_id=1018470719 instance=ExtResource("4_bag35")]
-MapPosition = Vector2(1000, 480)
-MapPadding = 1.5
-BackgroundColor = Color(0, 0, 0, 0.12941177)
-BorderColor = Color(1, 1, 1, 1)
-WallColor = Color(0, 0, 0, 1)
-WallBorderColor = Color(1, 1, 1, 1)
-PlayerDotSize = 8.0
-ItemDotSize = 5.0
-WallThickness = 100.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=521927541]
 transform = Transform3D(-0.19857366, -0.8649451, 0.46091053, -0.0066185943, 0.47144833, 0.88186884, -0.98006356, 0.17206539, -0.099341944, 3.1859086, 9.823743, 0)
