@@ -290,7 +290,7 @@ private void CreateRockNotification()
 {
 	_rockNotification = new Label();
 	_rockNotification.Name = "RockNotification";
-	_rockNotification.Text = "Press the G key to drop the rock.";
+	_rockNotification.Text = "Press the Q key to drop the rock.";
 	
 	// ===== LAYOUT CONFIGURATION =====
 	// Position: Below ancient book notification
