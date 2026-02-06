@@ -318,7 +318,7 @@ mesh = SubResource("PlaneMesh_cmin7")
 [node name="LevelTransition" type="Area3D" parent="." unique_id=1847499793 groups=["minimap_interactable"]]
 transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.1, -48.01987)
 script = ExtResource("10_transition")
-NextLevel = 3
+NextLevel = 6
 AreaColor = Color(0.2, 1, 0.2, 0.6)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTransition" unique_id=1847499794]

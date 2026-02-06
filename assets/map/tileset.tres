@@ -1,6 +1,6 @@
 [gd_resource type="MeshLibrary" format=4 uid="uid://b173h3x1y4sm6"]
 
-[ext_resource type="Shader" path="res://scripts/shaders/map.gdshader" id="2_i3gbh"]
+[ext_resource type="Shader" uid="uid://dfnxdu4jfe1a5" path="res://scripts/shaders/map.gdshader" id="2_i3gbh"]
 [ext_resource type="Texture2D" uid="uid://b51dlejvmorfv" path="res://assets/map/TileMap_Lantai_6.png" id="2_tnlny"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nablf"]

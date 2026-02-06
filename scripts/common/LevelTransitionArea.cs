@@ -84,7 +84,7 @@ public partial class LevelTransitionArea : Area3D
 			3 => "res://scenes/levels/level_3_lab/Main.tscn",
 			4 => "res://scenes/levels/level_4_library/Main.tscn",
 			5 => "res://scenes/levels/level_5_Sewer/Main.tscn",
-			_ => "res://scenes/levels/level_1_cell/Main.tscn"
+			6 => "res://scenes/ui/Credits.tscn"
 		};
 		
 		GD.Print($"Loading level: {levelPath}");
