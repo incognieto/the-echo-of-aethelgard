@@ -21,7 +21,7 @@ namespace Level3Lab
 			
 			if (TimerManager.Instance != null)
 			{
-				TimerManager.Instance.StartTimer(120f, "Laboratory");
+				TimerManager.Instance.StartTimer(300f, "Laboratory");
 				GD.Print("⏱️ Level 3 timer started");
 			}
 		}

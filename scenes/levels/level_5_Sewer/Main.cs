@@ -21,7 +21,7 @@ namespace Level5Sewer
 			
 			if (TimerManager.Instance != null)
 			{
-				TimerManager.Instance.StartTimer(10f, "Sewer");
+				TimerManager.Instance.StartTimer(300f, "Sewer");
 				GD.Print("⏱️ Level 5 timer started");
 			}
 		}

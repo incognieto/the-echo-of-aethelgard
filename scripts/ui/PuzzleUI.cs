@@ -121,7 +121,7 @@ public partial class PuzzleUI : Control
 		if (_inventoryUI != null)
 		{
 			_inventoryUI.SetCrosshairVisible(false);
-			_inventoryUI.SetHotbarVisible(false);
+			// Hotbar tetap visible, hanya di belakang background
 		}
 	}
 
@@ -130,7 +130,7 @@ public partial class PuzzleUI : Control
 		Visible = false;
 		InventoryUI.IsAnyPanelOpen = false;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-		if (_inventoryUI != null) _inventoryUI.SetHotbarVisible(true);
+		// No need to toggle hotbar visibility
 		EmitSignal(SignalName.PuzzleCompleted, false);
 	}
 

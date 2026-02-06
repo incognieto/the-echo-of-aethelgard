@@ -291,14 +291,17 @@ ItemDotSize = 5.0
 WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=1340916375 instance=ExtResource("3_invui")]
+z_index = -10
 
 [node name="GameHUD" parent="UI" unique_id=1377130201 instance=ExtResource("4_gamehud")]
+z_index = -10
 
 [node name="FailScreen" parent="UI" unique_id=607898908 instance=ExtResource("16_failscreen")]
 
 [node name="GameOverScreen" parent="UI" unique_id=149334640 instance=ExtResource("17_gameoverscreen")]
 
 [node name="LibraryGridUI" parent="UI" unique_id=1591995581 instance=ExtResource("4_gridui")]
+z_index = 10
 
 [node name="BookUI" type="Control" parent="UI" unique_id=2004485882]
 layout_mode = 3

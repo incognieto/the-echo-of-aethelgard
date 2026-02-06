@@ -59,7 +59,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.8)
+color = Color(0, 0, 0, 0.9019608)
 
 [node name="PuzzlePanel" type="Control" parent="." unique_id=1879425854]
 layout_mode = 1
@@ -362,9 +362,9 @@ stretch_mode = 4
 custom_minimum_size = Vector2(130, 60)
 layout_mode = 0
 offset_left = 582.0
-offset_top = 559.0
+offset_top = 571.0
 offset_right = 712.0
-offset_bottom = 619.0
+offset_bottom = 631.0
 size_flags_horizontal = 4
 texture_normal = ExtResource("7_iq3e2")
 texture_pressed = ExtResource("8_2cchp")

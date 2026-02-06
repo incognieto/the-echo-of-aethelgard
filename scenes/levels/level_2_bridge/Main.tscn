@@ -73,6 +73,7 @@ script = ExtResource("15_main")
 [node name="InventoryUI" parent="UI" unique_id=1936844999 instance=ExtResource("1_nfhxa")]
 
 [node name="GameHUD" parent="UI" instance=ExtResource("2_gamehud")]
+z_index = -10
 
 [node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
 
@@ -88,8 +89,10 @@ grow_vertical = 2
 script = ExtResource("2_s7lbl")
 
 [node name="BridgePuzzleUI" parent="UI" unique_id=1825712127 instance=ExtResource("3_di2p2")]
+z_index = 10
 
 [node name="MiniMap" parent="UI" unique_id=1018470719 instance=ExtResource("4_bag35")]
+z_index = -10
 MapPosition = Vector2(1000, 480)
 MapPadding = 1.5
 BackgroundColor = Color(0, 0, 0, 0.12941177)

@@ -12,7 +12,6 @@ public partial class LibraryGridUI : Control
 	private Panel _gridPanel;
 	private Label _titleLabel;
 	private Label _feedbackLabel;
-	private Label _escInstructionLabel;
 	private TextureButton _confirmButton;
 	private TextureButton _clearButton;
 	private TextureButton _closeButton;
@@ -24,7 +23,7 @@ public partial class LibraryGridUI : Control
 	
 	// Book selection
 	private Control _bookSelectionPanel;
-	private VBoxContainer _bookSelectionContainer;
+	private Control _bookSelectionContainer;
 	private List<TextureButton> _bookButtons = new List<TextureButton>();
 	private int _selectedSlotIndex = -1; // Slot yang dipilih untuk diisi
 	
@@ -73,7 +72,7 @@ public partial class LibraryGridUI : Control
 		_closeButton = GetNode<TextureButton>("GridPanel/CloseButton");
 		
 		// Get book selection nodes from scene
-		_bookSelectionContainer = GetNode<VBoxContainer>("GridPanel/BookSelectionContainer");
+		_bookSelectionContainer = GetNode<Control>("GridPanel/BookSelectionContainer");
 		_bookSelectionPanel = GetNode<Control>("GridPanel/BookSelectionContainer/BookGrid");
 		
 		// Setup grid slots - get manual nodes instead of creating in GridContainer
@@ -97,15 +96,6 @@ public partial class LibraryGridUI : Control
 		_confirmButton.Pressed += OnConfirmPressed;
 		_clearButton.Pressed += OnClearPressed;
 		_closeButton.Pressed += OnClosePressed;
-		
-		// Create ESC instruction label
-		_escInstructionLabel = new Label();
-		_escInstructionLabel.Text = "(Esc) to return";
-		_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
-		_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f));
-		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
-		_escInstructionLabel.Position = new Vector2(10, 10);
-		_gridPanel.AddChild(_escInstructionLabel);
 		
 		// Find InventoryUI
 		CallDeferred(nameof(FindInventoryUI));
@@ -268,104 +258,107 @@ public partial class LibraryGridUI : Control
 	
 	private void UpdateBookSelection()
 	{
-		// Disconnect all previous button connections before clearing list
-		foreach (var btn in _bookButtons)
+		// Disconnect ALL 9 button nodes (not just from _bookButtons list)
+		for (int i = 0; i < 9; i++)
 		{
-			if (btn != null && !btn.IsQueuedForDeletion())
+			var btnNode = _bookSelectionPanel.GetNodeOrNull<TextureButton>($"BookButton{i + 1}");
+			if (btnNode != null && !btnNode.IsQueuedForDeletion())
 			{
-				try
+				// Check if signal is connected before disconnecting to avoid errors
+				var callable = Callable.From(OnBookButtonPressed);
+				if (btnNode.IsConnected(BaseButton.SignalName.Pressed, callable))
 				{
-					btn.Pressed -= OnBookButtonPressed;
+					btnNode.Pressed -= OnBookButtonPressed;
 				}
-				catch { /* Ignore if already disconnected */ }
+				// Re-enable all buttons first (reset state)
+				btnNode.Disabled = false;
 			}
 		}
 		
 		// Clear existing button references (don't queue free scene nodes)
 		_bookButtons.Clear();
 		
-		if (_player == null || _player._inventory == null)
-		{
-			_bookSelectionContainer.Visible = false;
-			return;
-		}
+		_bookSelectionContainer.Visible = true;
 		
-		// Get all available books from inventory
-		var inventory = _player._inventory;
+		// Get available books from inventory (if player exists)
 		var availableBooks = new List<BookSymbol>();
 		
-		// Cek semua buku di inventory yang belum digunakan
-		for (int i = 0; i < 9; i++)
+		if (_player != null && _player._inventory != null)
 		{
-			var symbol = (BookSymbol)i;
-			var itemId = $"book_{symbol.ToString().ToLower()}";
+			var inventory = _player._inventory;
 			
-			// Hanya tampilkan jika ada di inventory dan belum digunakan
-			if (inventory.HasItem(itemId) && !_usedBooks.Contains(symbol))
+			// Cek semua buku di inventory yang belum digunakan
+			for (int i = 0; i < 9; i++)
 			{
-				availableBooks.Add(symbol);
+				var symbol = (BookSymbol)i;
+				var itemId = $"book_{symbol.ToString().ToLower()}";
+				
+				// Tambahkan jika ada di inventory dan belum digunakan
+				if (inventory.HasItem(itemId) && !_usedBooks.Contains(symbol))
+				{
+					availableBooks.Add(symbol);
+				}
+			}
+			
+			// SHUFFLE urutan buku agar tidak berurutan sesuai solusi!
+			var random = new Random();
+			for (int i = availableBooks.Count - 1; i > 0; i--)
+			{
+				int j = random.Next(i + 1);
+				var temp = availableBooks[i];
+				availableBooks[i] = availableBooks[j];
+				availableBooks[j] = temp;
 			}
 		}
 		
-		if (availableBooks.Count == 0)
+		// SELALU tampilkan 9 slot (BookButton1 to BookButton9)
+		// Jika ada buku di inventory, tampilkan texture buku
+		// Jika tidak ada buku, hanya tampilkan slot kosong (SlotSprite)
+		for (int i = 0; i < 9; i++)
 		{
-			_bookSelectionContainer.Visible = false;
-			_feedbackLabel.Text = "You don't have any story books yet! Explore the library to find them.";
-			_feedbackLabel.Modulate = new Color(1, 0.5f, 0);
-			return;
-		}
-		
-		_bookSelectionContainer.Visible = true;
-		
-		// SHUFFLE urutan buku agar tidak berurutan sesuai solusi!
-		// Ini membuat puzzle lebih menantang karena pemain tidak bisa mengandalkan urutan tombol
-		var random = new Random();
-		for (int i = availableBooks.Count - 1; i > 0; i--)
-		{
-			int j = random.Next(i + 1);
-			var temp = availableBooks[i];
-			availableBooks[i] = availableBooks[j];
-			availableBooks[j] = temp;
-		}
-		
-		GD.Print($"📚 Book buttons shuffled: {string.Join(", ", availableBooks)}");
-		
-		// Assign textures to book button nodes (BookButton1 to BookButton9)
-		for (int i = 0; i < availableBooks.Count && i < 9; i++)
-		{
-			var symbol = availableBooks[i];
 			var btnNode = _bookSelectionPanel.GetNodeOrNull<TextureButton>($"BookButton{i + 1}");
 			
 			if (btnNode != null)
 			{
+				// SELALU visible (tampilkan slot kosong)
 				btnNode.Visible = true;
 				btnNode.IgnoreTextureSize = true;
 				btnNode.StretchMode = TextureButton.StretchModeEnum.Scale;
 				
-				// Set book texture
-				if (_bookTextures != null && _bookTextures.ContainsKey(symbol))
+				// Cek apakah ada buku untuk slot ini
+				if (i < availableBooks.Count)
 				{
-					var texture = _bookTextures[symbol];
-					btnNode.TextureNormal = texture;
-					btnNode.TextureHover = texture;
-					btnNode.TexturePressed = texture;
+					var symbol = availableBooks[i];
+					
+					// Set book texture
+					if (_bookTextures != null && _bookTextures.ContainsKey(symbol))
+					{
+						var texture = _bookTextures[symbol];
+						btnNode.TextureNormal = texture;
+						btnNode.TextureHover = texture;
+						btnNode.TexturePressed = texture;
+					}
+					
+					// Store symbol in metadata
+					btnNode.SetMeta("book_symbol", (int)symbol);
+					
+					// Enable button dan attach event handler
+					btnNode.Disabled = false;
+					btnNode.Pressed += OnBookButtonPressed;
+					
+					_bookButtons.Add(btnNode);
 				}
-				
-				// Store symbol in metadata
-				btnNode.SetMeta("book_symbol", (int)symbol);
-				btnNode.Pressed += OnBookButtonPressed;
-				
-				_bookButtons.Add(btnNode);
-			}
-		}
-		
-		// Hide unused button nodes
-		for (int i = availableBooks.Count; i < 9; i++)
-		{
-			var btnNode = _bookSelectionPanel.GetNodeOrNull<TextureButton>($"BookButton{i + 1}");
-			if (btnNode != null)
-			{
-				btnNode.Visible = false;
+				else
+				{
+					// Slot kosong - hapus texture buku, hanya tampilkan SlotSprite
+					btnNode.TextureNormal = null;
+					btnNode.TextureHover = null;
+					btnNode.TexturePressed = null;
+					btnNode.SetMeta("book_symbol", -1); // No book
+					
+					// Disabled untuk slot kosong (tidak bisa diklik)
+					btnNode.Disabled = true;
+				}
 			}
 		}
 	}

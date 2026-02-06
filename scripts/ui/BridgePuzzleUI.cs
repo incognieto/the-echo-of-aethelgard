@@ -11,7 +11,6 @@ public partial class BridgePuzzleUI : Control
 	// UI Components - Diambil dari scene, bukan dibuat via kode
 	private Panel _calculatorPanel;
 	private Label _displayLabel;
-	private Label _escInstructionLabel;
 	private string _currentInput = "";
 
 	// Buttons - Diambil dari scene
@@ -64,15 +63,6 @@ public partial class BridgePuzzleUI : Control
 		_delButton.Pressed += OnDelPressed;
 		_enterButton.Pressed += OnEnterPressed;
 		_closeButton.Pressed += OnClosePressed;
-
-		// Create ESC instruction label
-		_escInstructionLabel = new Label();
-		_escInstructionLabel.Text = "(Esc) to return";
-		_escInstructionLabel.HorizontalAlignment = HorizontalAlignment.Center;
-		_escInstructionLabel.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 0.8f));
-		_escInstructionLabel.AddThemeFontSizeOverride("font_size", 18);
-		_escInstructionLabel.Position = new Vector2(10, 10);
-		_calculatorPanel.AddChild(_escInstructionLabel);
 
 		// Setup cursor hover effects
 		SetupButtonHoverEffects();

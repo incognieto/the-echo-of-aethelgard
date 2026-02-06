@@ -180,8 +180,10 @@ ItemDotSize = 5.0
 WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=3306095 instance=ExtResource("3_invui")]
+z_index = -10
 
 [node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
+z_index = -10
 
 [node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
 
@@ -197,6 +199,7 @@ grow_vertical = 2
 script = ExtResource("5_bookui")
 
 [node name="PuzzleUI" parent="UI" unique_id=692572082 instance=ExtResource("7_puzzleui")]
+z_index = 10
 
 [node name="LevelTransition" type="Area3D" parent="." unique_id=1847499793]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.078995, 0.1, -29.54354)
