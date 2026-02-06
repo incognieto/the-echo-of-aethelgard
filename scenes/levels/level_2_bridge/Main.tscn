@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://4xmvllydtgai"]
 
+[ext_resource type="Script" uid="uid://bw6m8yv31vayx" path="res://scenes/levels/level_2_bridge/Main.cs" id="1_i2r8m"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="1_nfhxa"]
 [ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="2_gamehud"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="2_s7lbl"]
@@ -137,6 +138,7 @@ size = Vector3(4, 4, 0.3)
 size = Vector3(6, 1, 1)
 
 [node name="Main" type="Node3D" unique_id=1741748220]
+script = ExtResource("1_i2r8m")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1996217250]
 
