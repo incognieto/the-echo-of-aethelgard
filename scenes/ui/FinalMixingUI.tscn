@@ -15,9 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://dr0i4n3dn7tdu" path="res://assets/sprites/ui/button_mix_kuali_besar_hover.png" id="12_kk6cl"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="13_font"]
 [ext_resource type="Texture2D" uid="uid://cbgpy5f3p2kwl" path="res://assets/sprites/ui/button_clear_kuali_besar_hover.png" id="15_tmagh"]
-[ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="16_close"]
-[ext_resource type="Texture2D" uid="uid://cl5a8njkq3qh8" path="res://assets/sprites/library/button_close_clicked.png" id="17_close_click"]
-[ext_resource type="Texture2D" uid="uid://b1wg4unyo5ld8" path="res://assets/sprites/library/button_close_hover.png" id="18_close_hover"]
+[ext_resource type="Texture2D" uid="uid://dm7sdf2owidqr" path="res://assets/sprites/library/button_close.png" id="16_close"]
+[ext_resource type="Texture2D" uid="uid://bb3ap7xxsr28l" path="res://assets/sprites/library/button_close_clicked.png" id="17_close_click"]
+[ext_resource type="Texture2D" uid="uid://irdelk8bir7t" path="res://assets/sprites/library/button_close_hover.png" id="18_close_hover"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0a3e"]
 
@@ -46,13 +46,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -35.0
-offset_bottom = -35.0
+offset_left = 465.0
+offset_top = 219.0
+offset_right = -422.57275
+offset_bottom = -251.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_bg_kuali_besar")
-stretch_mode = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="FinalMixingPanel" type="Panel" parent="." unique_id=1886325178]
 layout_mode = 1
