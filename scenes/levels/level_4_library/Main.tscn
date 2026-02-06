@@ -3,10 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="2_setup"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://c8wqcqs6s0m3s" path="res://assets/environments/bookshelf.tscn" id="4_8pxuo"]
 [ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="PackedScene" uid="uid://b6sjec6q4iycs" path="res://scenes/ui/LibraryGridUI.tscn" id="4_gridui"]
 [ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="5_4qc1e"]
 [ext_resource type="Script" uid="uid://dr6k8kgdr1tec" path="res://scripts/puzzles/LibraryGridPuzzle.cs" id="5_puzzle"]
+[ext_resource type="PackedScene" uid="uid://v5jpn4ey58pu" path="res://assets/environments/stone_tablet.tscn" id="6_055jf"]
 [ext_resource type="Script" uid="uid://blvo03ymhaol2" path="res://scripts/items/StoryBookItem.cs" id="6_bookitem"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="7_ku6bs"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="8_transition"]
@@ -15,9 +17,6 @@
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="15_8pxuo"]
 [ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
 [ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bookshelf"]
-albedo_color = Color(0.4, 0.25, 0.15, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_table"]
 top_radius = 2.0
@@ -64,6 +63,9 @@ size = Vector3(4, 4, 0.3)
 shading_mode = 0
 vertex_color_use_as_albedo = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8pxuo"]
+size = Vector3(4, 4, 0.3)
+
 [node name="Main" type="Node3D" unique_id=252024924]
 script = ExtResource("9_main")
 
@@ -84,61 +86,50 @@ sky_mode = 1
 [node name="Bookshelves" type="Node3D" parent="." unique_id=1987756179]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.958695, 0, 3.5048647)
 
-[node name="Bookshelf1" type="CSGBox3D" parent="Bookshelves" unique_id=140256078]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, -19)
-use_collision = true
-size = Vector3(4, 4, 1)
-material = SubResource("StandardMaterial3D_bookshelf")
+[node name="Bookshelf2" parent="Bookshelves" unique_id=1771431326 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -18.93872, 0.2736554, -4.8714914)
 
-[node name="Bookshelf2" type="CSGBox3D" parent="Bookshelves" unique_id=1905277717]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, -19)
-use_collision = true
-size = Vector3(4, 4, 1)
-material = SubResource("StandardMaterial3D_bookshelf")
+[node name="Bookshelf3" parent="Bookshelves" unique_id=566912709 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -18.93872, 0.2736554, -15.730383)
 
-[node name="Bookshelf3" type="CSGBox3D" parent="Bookshelves" unique_id=1940739487]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -19)
-use_collision = true
-size = Vector3(4, 4, 1)
-material = SubResource("StandardMaterial3D_bookshelf")
+[node name="Bookshelf4" parent="Bookshelves" unique_id=1174793693 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, -14.518626, 0.2736554, -20.207443)
 
-[node name="Bookshelf4" type="CSGBox3D" parent="Bookshelves" unique_id=652767744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -19)
-use_collision = true
-size = Vector3(4, 4, 1)
-material = SubResource("StandardMaterial3D_bookshelf")
+[node name="Bookshelf5" parent="Bookshelves" unique_id=1069915379 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, -9.455461, 0.2736554, -20.207443)
 
-[node name="Bookshelf5" type="CSGBox3D" parent="Bookshelves" unique_id=1602091530]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, -19)
-use_collision = true
-size = Vector3(4, 4, 1)
-material = SubResource("StandardMaterial3D_bookshelf")
+[node name="Bookshelf6" parent="Bookshelves" unique_id=1083262481 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, -4.5211763, 0.2736554, -20.207443)
 
-[node name="Bookshelf6" type="CSGBox3D" parent="Bookshelves" unique_id=799068521]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2, -19)
-use_collision = true
-size = Vector3(4, 4, 1)
-material = SubResource("StandardMaterial3D_bookshelf")
+[node name="Bookshelf7" parent="Bookshelves" unique_id=1857005782 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 5.3021297, 0.2736554, -20.207443)
 
-[node name="SecretBookshelf" type="CSGBox3D" parent="Bookshelves" unique_id=1829655091]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.6743822)
-use_collision = true
-size = Vector3(8, 4, 1)
-material = SubResource("StandardMaterial3D_bookshelf")
+[node name="Bookshelf8" parent="Bookshelves" unique_id=370660318 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 10.365295, 0.2736554, -20.207443)
+
+[node name="Bookshelf9" parent="Bookshelves" unique_id=2047787412 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 15.29958, 0.2736554, -20.207443)
+
+[node name="Bookshelf10" parent="Bookshelves" unique_id=647364511 instance=ExtResource("4_8pxuo")]
+transform = Transform3D(-0.5, 0, 4.371139e-08, 0, 0.5, 0, -4.371139e-08, 0, -0.5, 19.771328, 0.2736554, -10.429163)
 
 [node name="StoneTable" type="StaticBody3D" parent="." unique_id=1771964825 groups=["minimap_interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.804358, 1.15, -6.6219063)
 script = ExtResource("5_puzzle")
-BookshelfPath = NodePath("../Bookshelves/SecretBookshelf")
+BookshelfPath = NodePath("")
 BookshelfOffset = Vector3(10, 0, 0)
 BookshelfSpeed = 1.2
 
 [node name="TableMesh" type="MeshInstance3D" parent="StoneTable" unique_id=1220516837]
+visible = false
 mesh = SubResource("CylinderMesh_table")
 surface_material_override/0 = SubResource("StandardMaterial3D_table")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoneTable" unique_id=517670956]
 shape = SubResource("CylinderShape3D_table")
+
+[node name="StoneTablet" parent="StoneTable" unique_id=979953317 instance=ExtResource("6_055jf")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, -1.6569366, 0)
 
 [node name="StoryBooks" type="Node3D" parent="." unique_id=1262697267]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.561114, 0, 0)
@@ -150,10 +141,12 @@ ItemId = "book_castle"
 ItemName = "Castle Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookCastle" unique_id=2131017745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookCastle" unique_id=1494704645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookKnight" type="StaticBody3D" parent="StoryBooks" unique_id=824411275]
@@ -164,10 +157,12 @@ ItemId = "book_knight"
 ItemName = "Knight Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookKnight" unique_id=250301383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202528, 0, -0.9205761)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookKnight" unique_id=1555701300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202528, 0, -0.9205761)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookPrincess" type="StaticBody3D" parent="StoryBooks" unique_id=1347867757]
@@ -178,10 +173,12 @@ ItemId = "book_princess"
 ItemName = "Princess Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookPrincess" unique_id=1645808425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookPrincess" unique_id=1781080916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookDragon" type="StaticBody3D" parent="StoryBooks" unique_id=1121508018]
@@ -192,10 +189,12 @@ ItemId = "book_dragon"
 ItemName = "Dragon Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookDragon" unique_id=1021167917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookDragon" unique_id=1955124084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookSword" type="StaticBody3D" parent="StoryBooks" unique_id=1692934462]
@@ -206,10 +205,12 @@ ItemId = "book_sword"
 ItemName = "Sword Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookSword" unique_id=1805331209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookSword" unique_id=302094798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookShield" type="StaticBody3D" parent="StoryBooks" unique_id=264018001]
@@ -220,10 +221,12 @@ ItemId = "book_shield"
 ItemName = "Shield Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookShield" unique_id=929972189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookShield" unique_id=423607776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookHorse" type="StaticBody3D" parent="StoryBooks" unique_id=330920144]
@@ -234,12 +237,12 @@ ItemId = "book_horse"
 ItemName = "Horse Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookHorse" unique_id=649501736]
-transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0, 0, 0)
+transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.46363068, 0, -0.78817844)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookHorse" unique_id=858998611]
-transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0, 0, 0)
+transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.46363068, 0, -0.78817844)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookSkulls" type="StaticBody3D" parent="StoryBooks" unique_id=1592994783]
@@ -250,12 +253,12 @@ ItemId = "book_skulls"
 ItemName = "Skulls Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookSkulls" unique_id=2103398918]
-transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0, 0, 0)
+transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.55648804, 0, 0.71548367)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookSkulls" unique_id=380832925]
-transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0, 0, 0)
+transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.55648804, 0, 0.71548367)
 shape = SubResource("SphereShape3D_book")
 
 [node name="BookPhoenix" type="StaticBody3D" parent="StoryBooks" unique_id=1099790408]
@@ -266,12 +269,12 @@ ItemId = "book_phoenix"
 ItemName = "Phoenix Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookPhoenix" unique_id=789416023]
-transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0, 0, 0)
+transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.6954498, 0, 0.04636383)
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookPhoenix" unique_id=539176861]
-transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0, 0, 0)
+transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.6954498, 0, 0.04636383)
 shape = SubResource("SphereShape3D_book")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=935304611]
@@ -311,7 +314,7 @@ script = ExtResource("2_setup")
 CurrentLevel = 4
 
 [node name="LevelTransition" type="Area3D" parent="." unique_id=68311355]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 17.34996)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.353748, 0.1, -6.6500397)
 script = ExtResource("8_transition")
 NextLevel = 5
 AreaColor = Color(1, 0.8, 0.2, 0.6)
@@ -389,7 +392,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0800453, 1.5021944, -18.496
 shape = SubResource("BoxShape3D_3hlef")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/StaticBody3D2" unique_id=1567755120]
-transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, -0.3088684)
 mesh = SubResource("PlaneMesh_8pxuo")
 surface_material_override/0 = SubResource("StandardMaterial3D_055jf")
 
@@ -398,3 +401,10 @@ transform = Transform3D(-1, -3.5975727e-08, 7.9677406e-08, 0, 0.9114033, 0.41151
 light_energy = 2.946
 spot_attenuation = -0.46
 spot_angle = 59.59
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=487483482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.881216, 0, 5.030265)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=456281089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_8pxuo")
