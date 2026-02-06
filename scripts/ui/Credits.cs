@@ -49,6 +49,9 @@ public partial class Credits : Control
 
 	public override async void _Ready()
 	{
+		// Ensure mouse is visible when entering credits scene
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		
 		// Start epic music for credits
 		if (MusicManager.Instance != null)
 		{
