@@ -1,30 +1,57 @@
 [gd_scene format=3 uid="uid://cnferq4rywq1j"]
 
 [ext_resource type="Script" uid="uid://hm1nel06fah6" path="res://scripts/ui/Credits.cs" id="1_credits"]
+[ext_resource type="Texture2D" uid="uid://m4ovke81wi6t" path="res://assets/credits/logo/godot icon.svg" id="2_3rdos"]
 [ext_resource type="Texture2D" uid="uid://b72duq0ptn2j6" path="res://assets/sprites/mainmenuassets/Background Main Menu.png" id="2_oy77l"]
+[ext_resource type="Texture2D" uid="uid://cwcoe566b4yo5" path="res://assets/credits/logo/C# icon.png" id="3_4nm8g"]
 [ext_resource type="Script" uid="uid://bmy48inqd4fhy" path="res://scripts/ui/MainMenu/Background.cs" id="3_mcff3"]
-[ext_resource type="PackedScene" uid="uid://csj4nijrtmpyy" path="res://scenes/ui/TorchMenu.tscn" id="4_a4hrm"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TorchMenu.tscn" id="4_a4hrm"]
+[ext_resource type="Texture2D" uid="uid://cn5yxi4jcdtqq" path="res://assets/credits/logo/blender icon.png" id="4_mry3l"]
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="5_lt7co"]
+[ext_resource type="Texture2D" uid="uid://q58sowd47crg" path="res://assets/credits/logo/figma logo.svg" id="5_pvb4y"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="6_lovxg"]
+[ext_resource type="Texture2D" uid="uid://culqls4rwabf4" path="res://assets/credits/logo/canva logo.jpeg" id="6_vyvtx"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="7_hxsos"]
-[ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="10_e11fv"]
+[ext_resource type="Texture2D" uid="uid://cymmpf2iypv3q" path="res://assets/credits/logo/GitHub-Logo.wine.svg" id="7_lua3l"]
+[ext_resource type="Texture2D" uid="uid://cq17ud78bc00u" path="res://assets/credits/logo/Photoshop-logo.png" id="8_owbts"]
+[ext_resource type="Texture2D" uid="uid://bfmlqtbgic0f0" path="res://assets/credits/logo/logo-polban-80.png" id="9_3m35s"]
+[ext_resource type="Texture2D" uid="uid://214l2toxvpwx" path="res://assets/credits/logo/arkav-logo.png" id="10_1f85e"]
+[ext_resource type="Shader" path="res://scripts/shaders/ui_blur.gdshader" id="10_e11fv"]
+[ext_resource type="Texture2D" uid="uid://duwr73xxuqde6" path="res://assets/credits/dev/nieto.png" id="10_fu4vq"]
+[ext_resource type="Texture2D" uid="uid://bmms8j7p6u7hw" path="res://assets/credits/dev/farras.png" id="11_840cb"]
 [ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="11_vs01m"]
+[ext_resource type="Texture2D" uid="uid://l7bo0d888tt2" path="res://assets/credits/dev/ican.png" id="12_e11fv"]
 [ext_resource type="Texture2D" uid="uid://dfoyk7kiju102" path="res://assets/sprites/ui/BackButton.png" id="12_lt7co"]
 [ext_resource type="Texture2D" uid="uid://bh7ru8828om63" path="res://assets/sprites/ui/BackButtonHoverClicked.png" id="13_lovxg"]
+[ext_resource type="Texture2D" uid="uid://b4p0oxxrtj75u" path="res://assets/credits/dev/faruq.png" id="13_vs01m"]
 [ext_resource type="Texture2D" uid="uid://3pmlh3vbslyx" path="res://assets/sprites/ui/BackButtonHover.png" id="14_hxsos"]
+[ext_resource type="Texture2D" uid="uid://hri1rjfmfxp1" path="res://assets/credits/dev/satria.png" id="14_qat3x"]
+[ext_resource type="AudioStream" uid="uid://djursrmob26rp" path="res://assets/sfx/Dialogue Blip.mp3" id="27_w1keq"]
+[ext_resource type="FontFile" uid="uid://cxxjt4bfjc1wk" path="res://assets/fonts/GoudyMediaeval-Regular.ttf" id="28_goudy"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="29_blkchcry"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qat3x"]
 shader = ExtResource("10_e11fv")
 shader_parameter/blur_amount = 2.5
 shader_parameter/dim_amount = 0.15
 
-[sub_resource type="LabelSettings" id="LabelSettings_6nm4x"]
+[sub_resource type="LabelSettings" id="LabelSettings_mry3l"]
+font = ExtResource("28_goudy")
+font_size = 30
 
-[sub_resource type="LabelSettings" id="LabelSettings_8yk2p"]
+[sub_resource type="LabelSettings" id="LabelSettings_pvb4y"]
+font = ExtResource("28_goudy")
+font_size = 50
 
-[sub_resource type="LabelSettings" id="LabelSettings_3jk8p"]
+[sub_resource type="LabelSettings" id="LabelSettings_vyvtx"]
+font = ExtResource("29_blkchcry")
+font_size = 50
 
-[node name="Credits" type="Control" unique_id=441978430]
+[sub_resource type="LabelSettings" id="LabelSettings_lua3l"]
+font = ExtResource("29_blkchcry")
+font_size = 30
+
+[node name="Credits" type="Control" unique_id=441978430 node_paths=PackedStringArray("DialogueLabel", "DefiedFateLabel", "TitleLabel", "BlackCover", "ScrollContainer", "CreditsContent", "BackButton", "DialogueTypeSFX")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,6 +59,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_credits")
+DialogueLabel = NodePath("DialogueLabel")
+DefiedFateLabel = NodePath("DefiedFateLabel")
+TitleLabel = NodePath("TitleLabel")
+BlackCover = NodePath("CanvasLayer/BlackCover")
+ScrollContainer = NodePath("ScrollContainer")
+CreditsContent = NodePath("ScrollContainer/VBoxContainer")
+BackButton = NodePath("BackButton")
+Tool1Image = ExtResource("2_3rdos")
+Tool2Image = ExtResource("3_4nm8g")
+Tool3Image = ExtResource("4_mry3l")
+Tool4Image = ExtResource("5_pvb4y")
+Tool5Image = ExtResource("6_vyvtx")
+Tool6Image = ExtResource("7_lua3l")
+Tool7Image = ExtResource("8_owbts")
+Logo1Image = ExtResource("9_3m35s")
+Logo2Image = ExtResource("10_1f85e")
+DialogueTypeSFX = NodePath("AudioStreamPlayer")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1059485131]
 position = Vector2(640, 360)
@@ -63,7 +107,7 @@ script = ExtResource("6_lovxg")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1233902786]
 color = Color(0.14117648, 0.14117648, 0.21176471, 1)
-energy = 10.43
+energy = 6.28
 blend_mode = 1
 range_z_max = 1020
 
@@ -104,104 +148,465 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=280873601]
+layer = 100
+
+[node name="BlackCover" type="ColorRect" parent="CanvasLayer" unique_id=1508595294]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DialogueLabel" type="Label" parent="." unique_id=796249121]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -100.0
+offset_right = 600.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("29_blkchcry")
+theme_override_font_sizes/font_size = 24
+label_settings = SubResource("LabelSettings_mry3l")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="DefiedFateLabel" type="Label" parent="." unique_id=1299814829]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -50.0
+offset_right = 400.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("28_goudy")
+theme_override_font_sizes/font_size = 52
+text = "YOU HAVE DEFIED FATE."
+label_settings = SubResource("LabelSettings_pvb4y")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="." unique_id=299184742]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 150.0
+offset_right = 400.0
+offset_bottom = 200.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 52
+label_settings = SubResource("LabelSettings_vyvtx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=568438420]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2078079400]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
 
-[node name="Spacer1" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1368532719]
+[node name="StartSpacer" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=840540756]
 custom_minimum_size = Vector2(0, 720)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1887399581]
+[node name="GameLogo" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=965412433]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "CREDITS"
-label_settings = SubResource("LabelSettings_6nm4x")
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GameTitle" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=752198748]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("29_blkchcry")
+theme_override_font_sizes/font_size = 56
+text = "The Echo of Aethelgard"
+label_settings = SubResource("LabelSettings_lua3l")
 horizontal_alignment = 1
 
-[node name="Spacer2" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1211926638]
+[node name="Spacer1" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=946365441]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="TeamHeader" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=548387638]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("29_blkchcry")
+theme_override_font_sizes/font_size = 40
+text = "The Development Team"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1290812760]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="DevelopedBy" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2018568463]
+[node name="Member1" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1781825084]
 layout_mode = 2
-text = "Developed By"
-label_settings = SubResource("LabelSettings_8yk2p")
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="Photo" type="TextureRect" parent="ScrollContainer/VBoxContainer/Member1" unique_id=576726004]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("10_fu4vq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Role" type="Label" parent="ScrollContainer/VBoxContainer/Member1" unique_id=806462310]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Project Manager & Lead Narrative"
 horizontal_alignment = 1
 
-[node name="DeveloperName" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1034135561]
+[node name="Name" type="Label" parent="ScrollContainer/VBoxContainer/Member1" unique_id=257084523]
 layout_mode = 2
-text = "Your Name"
-label_settings = SubResource("LabelSettings_3jk8p")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Nieto Salim Maula"
 horizontal_alignment = 1
 
-[node name="Spacer3" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=729843985]
-custom_minimum_size = Vector2(0, 60)
+[node name="Spacer3" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=78190185]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Art" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2042645224]
+[node name="Member2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=131565450]
 layout_mode = 2
-text = "Art"
-label_settings = SubResource("LabelSettings_8yk2p")
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="Photo" type="TextureRect" parent="ScrollContainer/VBoxContainer/Member2" unique_id=1366814013]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("11_840cb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Role" type="Label" parent="ScrollContainer/VBoxContainer/Member2" unique_id=740535771]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "UI/UX Designer & 2D Artist"
 horizontal_alignment = 1
 
-[node name="ArtistsContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1458332624]
+[node name="Name" type="Label" parent="ScrollContainer/VBoxContainer/Member2" unique_id=839083004]
 layout_mode = 2
-alignment = 1
-
-[node name="Artist1" type="Label" parent="ScrollContainer/VBoxContainer/ArtistsContainer" unique_id=147144756]
-layout_mode = 2
-text = "Artist Name 1"
-label_settings = SubResource("LabelSettings_3jk8p")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Farras Ahmad Rasyid"
 horizontal_alignment = 1
 
-[node name="Artist2" type="Label" parent="ScrollContainer/VBoxContainer/ArtistsContainer" unique_id=1822343864]
+[node name="Spacer4" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1637682661]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Artist Name 2"
-label_settings = SubResource("LabelSettings_3jk8p")
+
+[node name="Member3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=845302029]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="Photo" type="TextureRect" parent="ScrollContainer/VBoxContainer/Member3" unique_id=2074873588]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("12_e11fv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Role" type="Label" parent="ScrollContainer/VBoxContainer/Member3" unique_id=57163792]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Lead Programmer (Systems & Vision)"
 horizontal_alignment = 1
 
-[node name="Spacer4" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1494820502]
-custom_minimum_size = Vector2(0, 60)
+[node name="Name" type="Label" parent="ScrollContainer/VBoxContainer/Member3" unique_id=1981293720]
 layout_mode = 2
-
-[node name="Music" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1772820397]
-layout_mode = 2
-text = "Music"
-label_settings = SubResource("LabelSettings_8yk2p")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Muhammad Ichsan Rahmat Ramadhan"
 horizontal_alignment = 1
 
-[node name="ComposerName" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=630891725]
+[node name="Spacer5" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1319323636]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Composer Name"
-label_settings = SubResource("LabelSettings_3jk8p")
+
+[node name="Member4" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1962791121]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="Photo" type="TextureRect" parent="ScrollContainer/VBoxContainer/Member4" unique_id=1340083005]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("13_vs01m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Role" type="Label" parent="ScrollContainer/VBoxContainer/Member4" unique_id=745302379]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Lead 3D Artist (Environment & Props)"
 horizontal_alignment = 1
 
-[node name="Spacer5" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=2047712941]
-custom_minimum_size = Vector2(0, 60)
+[node name="Name" type="Label" parent="ScrollContainer/VBoxContainer/Member4" unique_id=2058852903]
 layout_mode = 2
-
-[node name="Thanks" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2096937588]
-layout_mode = 2
-text = "Special Thanks"
-label_settings = SubResource("LabelSettings_8yk2p")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Umar Faruq Robbany"
 horizontal_alignment = 1
 
-[node name="ThanksText" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1559626574]
+[node name="Spacer6" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1863503467]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Thank you for playing!"
-label_settings = SubResource("LabelSettings_3jk8p")
+
+[node name="Member5" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1355416224]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="Photo" type="TextureRect" parent="ScrollContainer/VBoxContainer/Member5" unique_id=27508320]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("14_qat3x")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Role" type="Label" parent="ScrollContainer/VBoxContainer/Member5" unique_id=161063628]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Gameplay Programmer (Puzzles & Logic)"
 horizontal_alignment = 1
 
-[node name="Spacer6" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=780510299]
+[node name="Name" type="Label" parent="ScrollContainer/VBoxContainer/Member5" unique_id=1607059816]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Satria Permata Sejati"
+horizontal_alignment = 1
+
+[node name="Spacer7" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=879756099]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="ToolsGrid" type="GridContainer" parent="ScrollContainer/VBoxContainer" unique_id=587783675]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="Tool1" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=1928111446]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("2_3rdos")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tool2" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=1550520725]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("3_4nm8g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tool3" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=430526533]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("4_mry3l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tool4" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=1569080727]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("5_pvb4y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tool5" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=1671176850]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("6_vyvtx")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tool6" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=1671446708]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("7_lua3l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tool7" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=1852812982]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("8_owbts")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tool8" type="TextureRect" parent="ScrollContainer/VBoxContainer/ToolsGrid" unique_id=1755764909]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Spacer8" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=306078142]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="ResourcesHeader" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1342030635]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("29_blkchcry")
+theme_override_font_sizes/font_size = 40
+text = "External Resources"
+horizontal_alignment = 1
+
+[node name="Spacer9" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=877702786]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="FontsLabel" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2007338027]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("28_goudy")
+theme_override_font_sizes/font_size = 24
+text = "Fonts: Black Chancery, Goudy (www.dafont.com)"
+horizontal_alignment = 1
+
+[node name="MusicLabel" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=87581813]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("28_goudy")
+theme_override_font_sizes/font_size = 24
+text = "Music: https://alkakrab.itch.io/free-medieval-soundtrack-no-copyright"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="AssetsLabel" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1754201435]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("28_goudy")
+theme_override_font_sizes/font_size = 24
+text = "3D Assets Additional: [To be added]"
+horizontal_alignment = 1
+
+[node name="Spacer10" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=1781084228]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="GratitudeHeader" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1544601240]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("29_blkchcry")
+theme_override_font_sizes/font_size = 40
+text = "Special Gratitude"
+horizontal_alignment = 1
+
+[node name="Spacer11" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=349730111]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Gratitude1" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2101064146]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("28_goudy")
+theme_override_font_sizes/font_size = 24
+text = "To the Judges and Curators for witnessing this tale."
+horizontal_alignment = 1
+
+[node name="Gratitude2" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1225942099]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("28_goudy")
+theme_override_font_sizes/font_size = 24
+text = "To the Coffee and sleepless nights of the 10-day quest."
+horizontal_alignment = 1
+
+[node name="Gratitude3" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1150610882]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("28_goudy")
+theme_override_font_sizes/font_size = 24
+text = "And to You, for choosing to change the story."
+horizontal_alignment = 1
+
+[node name="Spacer12" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=860683381]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="LogosGrid" type="GridContainer" parent="ScrollContainer/VBoxContainer" unique_id=1814379731]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 50
+columns = 2
+
+[node name="Logo1" type="TextureRect" parent="ScrollContainer/VBoxContainer/LogosGrid" unique_id=35337364]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("9_3m35s")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Logo2" type="TextureRect" parent="ScrollContainer/VBoxContainer/LogosGrid" unique_id=222772609]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("10_1f85e")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Spacer13" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=978280808]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="FinalMessage" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1044049333]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("29_blkchcry")
+theme_override_font_sizes/font_size = 32
+text = "The Echo of Aethelgard will return."
+horizontal_alignment = 1
+
+[node name="EndSpacer" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=309744113]
 custom_minimum_size = Vector2(0, 720)
 layout_mode = 2
 
@@ -216,3 +621,6 @@ texture_pressed = ExtResource("13_lovxg")
 texture_hover = ExtResource("14_hxsos")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=907655016]
+stream = ExtResource("27_w1keq")

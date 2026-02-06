@@ -14,7 +14,7 @@
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="10_xuw2q"]
 [ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="11_pdseg"]
 [ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="13_kntvk"]
-[ext_resource type="Script" path="res://scenes/levels/level_1_cell/Main.cs" id="15_main"]
+[ext_resource type="Script" uid="uid://btfclcps0y34h" path="res://scenes/levels/level_1_cell/Main.cs" id="15_main"]
 [ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
 [ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 
@@ -141,6 +141,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_h8skm")
 visible = false
 shape = SubResource("ConvexPolygonShape3D_rlifa")
 
+[node name="Label3D" type="Label3D" parent="Items/Book" unique_id=1822567868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+billboard = 1
+no_depth_test = true
+text = "[E] Take an ancient book"
+font_size = 100
+outline_size = 8
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2095177373]
 environment = SubResource("Environment_nfynn")
 
@@ -163,6 +171,14 @@ CorrectSequenceValues = PackedInt32Array(3, 3, 3, 3, 3, 3)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PuzzleDoor" unique_id=786038635]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.437454)
 shape = SubResource("BoxShape3D_door")
+
+[node name="DoorLabel" type="Label3D" parent="." unique_id=246666992]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2485409, 4.045083, -5.807089)
+pixel_size = 0.008
+billboard = 1
+no_depth_test = true
+text = "[E] Open the cell"
+font_size = 40
 
 [node name="ControlPanel" type="CSGBox3D" parent="." unique_id=1258732371]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.9478766, 1.7862463, -6.102982)

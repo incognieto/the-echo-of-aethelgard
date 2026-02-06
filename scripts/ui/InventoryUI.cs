@@ -45,6 +45,7 @@ public partial class InventoryUI : Control
 	private Control _crosshairContainer;
 	private FontFile _customFont; // Custom font for all labels
 	private Label _ancientBookNotification; // Notification for ancient book
+	private Label _rockNotification; // Notification for rock items
 	
 	// State management untuk panel lain
 	private bool _wasVisibleBeforePanel = false;
@@ -213,6 +214,9 @@ public partial class InventoryUI : Control
 	
 	// Create ancient book notification (top-left)
 	CreateAncientBookNotification();
+	
+	// Create rock notification (below ancient book notification)
+	CreateRockNotification();
 }
 
 private void CreateCrosshair()
@@ -280,6 +284,39 @@ private void CreateAncientBookNotification()
 	
 	_ancientBookNotification.Visible = false; // Hidden by default
 	AddChild(_ancientBookNotification);
+}
+
+private void CreateRockNotification()
+{
+	_rockNotification = new Label();
+	_rockNotification.Name = "RockNotification";
+	_rockNotification.Text = "Press the G key to drop the rock.";
+	
+	// ===== LAYOUT CONFIGURATION =====
+	// Position: Below ancient book notification
+	_rockNotification.Position = new Vector2(20, 60); // 40px below ancient book (20 + 40)
+	
+	// Font size: Same as ancient book notification
+	_rockNotification.AddThemeFontSizeOverride("font_size", 24);
+	
+	// Color: Orange/red notification
+	_rockNotification.AddThemeColorOverride("font_color", new Color(1.0f, 0.6f, 0.2f, 1.0f));
+	
+	// Font: GoudyMediaeval-Regular
+	var goudyFont = GD.Load<FontFile>("res://assets/fonts/GoudyMediaeval-Regular.ttf");
+	if (goudyFont != null)
+	{
+		_rockNotification.AddThemeFontOverride("font", goudyFont);
+	}
+	else
+	{
+		// Fallback to custom font if GoudyMediaeval not found
+		if (_customFont != null) _rockNotification.AddThemeFontOverride("font", _customFont);
+	}
+	// ================================
+	
+	_rockNotification.Visible = false; // Hidden by default
+	AddChild(_rockNotification);
 }
 
 public void SetCrosshairVisible(bool visible)
@@ -581,6 +618,9 @@ private void CreateHotbar()
 	
 	// Update ancient book notification
 	UpdateAncientBookNotification();
+	
+	// Update rock notification
+	UpdateRockNotification();
 }
 
 private void UpdateAncientBookNotification()
@@ -590,6 +630,19 @@ private void UpdateAncientBookNotification()
 	// Check if player has ancient book in inventory
 	bool hasAncientBook = _inventory.HasItem("ancient_book");
 	_ancientBookNotification.Visible = hasAncientBook;
+}
+
+private void UpdateRockNotification()
+{
+	if (_rockNotification == null || _inventory == null) return;
+	
+	// Check if player has any rock (stone) in inventory
+	bool hasRock = _inventory.HasItem("stone_10") || 
+	               _inventory.HasItem("stone_15") || 
+	               _inventory.HasItem("stone_20") || 
+	               _inventory.HasItem("stone_30") || 
+	               _inventory.HasItem("stone_40");
+	_rockNotification.Visible = hasRock;
 }
 
 private void UpdateHotbar()
