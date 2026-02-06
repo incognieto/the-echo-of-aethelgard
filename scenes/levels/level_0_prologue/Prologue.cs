@@ -90,17 +90,25 @@ public partial class Prologue : Node3D
 		
 		// === ANGLE 4: Close-Up Grimoire (14.76-19.5s) ===
 		if (GrimoireMagicSFX != null) GrimoireMagicSFX.Play(); // Magic sound saat grimoire "bangun"
-		_ = ShowDialogueTyped("The Grimoire: \"Welcome, weaver of fates.\""); // LANGSUNG typing
 		ApplyScreenShake();
+		_ = ShowDialogueTyped("The Grimoire: \"Welcome, weaver of fates. They wrote your end in blood together, we shall rewrite it in light.\""); // LANGSUNG typing
 		
-		await ToSignal(GetTree().CreateTimer(4.74f), "timeout"); // Total: 19.5s - ANGLE 5 SWITCH
+		await ToSignal(GetTree().CreateTimer(5.74f), "timeout"); // Total: 19.5s - ANGLE 5 SWITCH
 		
 		// === ANGLE 5: Final Shot - Spoiler (19.5-23.01s) ===
-		if (HeartbeatSFX != null) HeartbeatSFX.Play(); // Tension build
-		_ = ShowDialogueTyped("The Grimoire: \"Spoiler: Beyond that door... six seals await your answer.\""); // LANGSUNG typing
+		if (HeartbeatSFX != null) HeartbeatSFX.Play(); // Tension buildy
+		_ = ShowDialogueTyped("The Grimoire: \"Spoiler: Beyond that door, six seals await your answer.\""); // LANGSUNG typing
 		
 		await ToSignal(GetTree().CreateTimer(3.1f), "timeout"); // Total: 22.6s - FADE OUT
-		
+
+		_= ShowDialogueTyped("The Grimoire: \"Reach for me, and I shall grant you The Glimpse a window into your future.\""); // LANGSUNG typing
+
+		await ToSignal(GetTree().CreateTimer(4.1f), "timeout"); // Total: 22.6s - FADE OUT
+
+		_= ShowDialogueTyped("The Grimoire: \"to guide your every step.\""); // LANGSUNG typing
+
+		await ToSignal(GetTree().CreateTimer(3.1f), "timeout"); // Total: 22.6s - FADE OUT
+
 		// === Clear & Fade Out (22.6-23.06s) ===
 		ShowDialogue(""); // Clear dialogue
 		

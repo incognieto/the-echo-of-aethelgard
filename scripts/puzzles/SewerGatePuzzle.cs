@@ -9,6 +9,7 @@ public partial class SewerGatePuzzle : Node3D
     [Export] public Node3D GateObject; // Referensi ke Gerbang Visual
     [Export] public float MaxGateHeight = 4.0f; // Ketinggian maksimal gerbang (saat 75kg)
     [Export] public AnimationPlayer CameraAnimationPlayer; // Referensi ke AnimationPlayer untuk Gate_Cam
+    [Export] public Node Player; // Referensi ke Player untuk disable input saat animasi
     
     [ExportGroup("Feedback")]
     [Export] public Label3D StatusLabel; // Teks angka di atas gerbang
@@ -16,11 +17,17 @@ public partial class SewerGatePuzzle : Node3D
     [ExportGroup("Audio")]
     [Export] public AudioStreamPlayer3D GateRisingSound; // Suara gate naik
     [Export] public AudioStreamPlayer3D GateOverloadSound; // Suara gate rusak/crash
+    
+    [ExportGroup("Fail Screen")]
+    [Export] public FailScreen FailScreen; // Referensi ke FailScreen
+    [Export] public float FailDelay = 3.0f; // Delay sebelum fail screen (detik)
 
     private float _currentWeight = 0.0f;
     private bool _isSolved = false;
     private bool _isBroken = false; // Gate rusak jika overload
     private bool _isDropping = false; // Flag untuk animasi jatuh cepat saat overload
+    private bool _failTriggered = false; // Flag untuk mencegah trigger fail berulang
+    private float _failTimer = 0.0f; // Timer untuk countdown fail
     private Vector3 _gateClosedPos;
     private Vector3 _gateTargetPos;
 
@@ -35,7 +42,97 @@ public partial class SewerGatePuzzle : Node3D
         // Setup audio nodes jika belum ada di scene
         SetupAudio();
         
+        // Auto-find Player if not assigned
+        if (Player == null)
+        {
+            Player = GetTree().Root.GetNodeOrNull<Node>("Main/Player");
+            if (Player != null)
+            {
+                GD.Print("✅ Player auto-detected for input control");
+            }
+        }
+        
+        // Connect animation finished signal to re-enable player input
+        if (CameraAnimationPlayer != null)
+        {
+            CameraAnimationPlayer.AnimationFinished += OnCameraAnimationFinished;
+            GD.Print("✅ Connected to CameraAnimationPlayer.AnimationFinished");
+        }
+        
+        // Auto-find FailScreen if not assigned
+        if (FailScreen == null)
+        {
+            FailScreen = GetTree().Root.GetNodeOrNull<FailScreen>("Main/UI/FailScreen");
+            if (FailScreen == null)
+            {
+                GD.PrintErr("⚠️ FailScreen not found! Auto-trigger won't work.");
+            }
+            else
+            {
+                GD.Print("✅ FailScreen auto-detected");
+                // Connect to respawn signal
+                FailScreen.RespawnRequested += OnRespawn;
+                GD.Print("✅ Connected to FailScreen.RespawnRequested");
+            }
+        }
+        
         UpdateLabel();
+    }
+    
+    private void OnRespawn()
+    {
+        GD.Print("🔄 SewerGatePuzzle: Respawn requested - Resetting puzzle");
+        ResetPuzzle();
+    }
+    
+    /// <summary>
+    /// Reset puzzle to initial state
+    /// </summary>
+    public void ResetPuzzle()
+    {
+        _currentWeight = 0.0f;
+        _isSolved = false;
+        _isBroken = false;
+        _isDropping = false;
+        _failTriggered = false;
+        _failTimer = 0.0f;
+        _gateTargetPos = _gateClosedPos;
+        
+        // Reset gate position immediately
+        if (GateObject != null)
+        {
+            GateObject.Position = _gateClosedPos;
+        }
+        
+        UpdateLabel();
+        
+        GD.Print("✅ SewerGatePuzzle reset to initial state");
+    }
+    
+    public override void _ExitTree()
+    {
+        // Disconnect signals when node is removed
+        if (FailScreen != null)
+        {
+            FailScreen.RespawnRequested -= OnRespawn;
+        }
+        
+        if (CameraAnimationPlayer != null)
+        {
+            CameraAnimationPlayer.AnimationFinished -= OnCameraAnimationFinished;
+        }
+    }
+    
+    private void OnCameraAnimationFinished(StringName animName)
+    {
+        // Re-enable player when Gate_Cam animation finishes
+        if (animName == "Gate_Cam" && Player != null)
+        {
+            Player.SetProcessInput(true);
+            Player.SetProcess(true);
+            Player.SetPhysicsProcess(true);
+            GD.Print("✅ Player re-enabled after Gate_Cam animation");
+        }
     }
     
     private void SetupAudio()
@@ -121,6 +218,15 @@ public partial class SewerGatePuzzle : Node3D
             // Play camera animation when rock is placed
             if (CameraAnimationPlayer != null && CameraAnimationPlayer.HasAnimation("Gate_Cam"))
             {
+                // Disable player completely during camera animation
+                if (Player != null)
+                {
+                    Player.SetProcessInput(false);
+                    Player.SetProcess(false);
+                    Player.SetPhysicsProcess(false);
+                    GD.Print("🔒 Player disabled for Gate_Cam animation");
+                }
+                
                 CameraAnimationPlayer.Play("Gate_Cam");
                 GD.Print("[ANIMATION] Playing Gate_Cam animation");
             }
@@ -172,6 +278,14 @@ public partial class SewerGatePuzzle : Node3D
                 GateOverloadSound.Play();
                 GD.Print("🔊 Playing Gate Smash sound");
             }
+            
+            // Start fail countdown jika belum triggered
+            if (!_failTriggered)
+            {
+                _failTriggered = true;
+                _failTimer = FailDelay;
+                GD.Print($"⏱️ Fail countdown started: {FailDelay} seconds");
+            }
         }
         // Jika kurang dari 75kg, gate naik bertahap berdasarkan persentase
         else
@@ -197,6 +311,17 @@ public partial class SewerGatePuzzle : Node3D
         
         // Animasi gerbang gerak menuju target position
         GateObject.Position = GateObject.Position.Lerp(_gateTargetPos, (float)delta * lerpSpeed);
+        
+        // Handle fail countdown
+        if (_failTriggered && _failTimer > 0)
+        {
+            _failTimer -= (float)delta;
+            
+            if (_failTimer <= 0)
+            {
+                TriggerFail();
+            }
+        }
     }
 
     private void UpdateLabel()
@@ -221,6 +346,27 @@ public partial class SewerGatePuzzle : Node3D
         }
     }
 
+    private void TriggerFail()
+    {
+        GD.Print("");
+        GD.Print("═══════════════════════════════════════════");
+        GD.Print("⚙️ OVERLOAD FAIL - Pulley rusak!");
+        GD.Print("═══════════════════════════════════════════");
+        GD.Print("");
+        
+        if (FailScreen != null)
+        {
+            // Trigger fail screen (will lose 1 life)
+            FailScreen.OnPulleyOverload();
+            
+            GD.Print("✅ Fail screen triggered with overload message");
+        }
+        else
+        {
+            GD.PrintErr("⚠️ Cannot trigger Fail - FailScreen is null!");
+        }
+    }
+    
     // Helper sederhana untuk mapping ID ke Berat (Karena DroppedItem.cs belum simpan berat)
     private float GetWeightFromId(string itemId)
     {

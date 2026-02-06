@@ -34,11 +34,11 @@ In this first edition, your journey begins from the lowest point. With the help 
 ### UI Systems
 | Feature | Description |
 |---------|-------------|
-| Mini Map | Real-time top-down map with player, items, and walls |
 | Timer & Lives | Countdown timer + 3 lives system with fail/game over screens |
 | Crosshair | FPP-only aiming reticle |
 | Inventory Panel | Visual drag-drop interface with hotbar |
 | Item Prompts | Context-sensitive interaction hints |
+| Static Minimap | Bottom-right minimap with group-based color-coded objects |
 
 ### Puzzles
 | Level | Puzzle Type | Description |
@@ -68,32 +68,6 @@ In this first edition, your journey begins from the lowest point. With the help 
 ---
 
 ## System Documentation
-
-### 🗺️ Mini Map System
-
-Real-time mini map di top-right corner yang menampilkan:
-- **🟢 Player Position**: Titik hijau dengan indikator arah hadap
-- **🟡 Pickable Items**: Semua item yang dapat diambil
-- **⬜ Static Obstacles**: Dinding, lantai, dan objek statis
-
-**Files:**
-- Scene: `scenes/ui/MiniMap.tscn`
-- Script: `scripts/ui/MiniMapSystem.cs`
-
-**Setup ke Level:**
-1. Buka level scene (e.g., `level_1_cell/Main.tscn`)
-2. Pilih node `UI` (CanvasLayer)
-3. **Scene → Instantiate Child Scene** atau `Ctrl+Shift+A`
-4. Pilih `scenes/ui/MiniMap.tscn`
-5. Save (`Ctrl+S`)
-
-**Export Variables:**
-- `MapSize`: Ukuran mini map (default: 200x200)
-- `MapPosition`: Offset dari top-right (default: -220, 20)
-- `PlayerColor`, `ItemColor`, `WallColor`: Warna elemen
-- `PlayerDotSize`, `ItemDotSize`: Ukuran titik
-
----
 
 ### ⏱️ Timer & Lives System
 
@@ -189,38 +163,77 @@ InventoryUI (Control)
 
 ---
 
-## Setup Guide for New Levels
+### 🗺️ Static Minimap System
 
-### Quick Integration Checklist
+Lightweight static minimap yang menampilkan seluruh area level dengan notasi warna berbeda untuk setiap tipe object. Menggunakan sistem **grup Godot** untuk fleksibilitas.
 
-When creating a new level, add these UI components:
+**Files:**
+- Scene: `scenes/ui/MinimapRenderer.tscn`
+- Script: `scripts/ui/MinimapRenderer.cs`
 
-**1. Mini Map**
+**Color Codes:**
+- 🟢 **Hijau** = Player (`minimap_player`)
+- 🟡 **Kuning** = Items (`minimap_item`)
+- 🟣 **Ungu** = Interactable Objects/Puzzles (`minimap_interactable`)
+- ⚫ **Hitam/Abu** = Obstacles/Walls (`minimap_obstacle`)
+
+**Setup per Level:**
+
+**Method 1: Instantiate via Godot Editor (RECOMMENDED)**
+1. Buka scene level (e.g., `level_1_cell/Main.tscn`)
+2. Pilih node `UI` (CanvasLayer)
+3. **Scene → Instantiate Child Scene**
+4. Pilih `scenes/ui/MinimapRenderer.tscn`
+5. Save
+
+**Method 2: Add Nodes to Groups**
+1. Pilih node yang ingin ditampilkan di minimap (Player, Items, Doors, Walls, etc.)
+2. Di Inspector, tab **Node** → **Groups** → ketik nama grup:
+   - `minimap_player` untuk Player
+   - `minimap_item` untuk items yang bisa dipick
+   - `minimap_interactable` untuk puzzle objects, doors, control panels
+   - `minimap_obstacle` untuk walls, barriers, obstacles
+3. Klik **Add**
+4. Ulangi untuk semua objects yang ingin ditampilkan
+
+**Customization via Inspector:**
 ```
-UI (CanvasLayer)
-└─ MiniMap [Instance: scenes/ui/MiniMap.tscn]
+Minimap Settings:
+  - Minimap Size: Ukuran minimap (default: 200x200)
+  - Margin: Jarak dari edge layar (default: 20)
+  
+Visual Settings:
+  - Background Color: Warna background (default: hitam semi-transparent)
+  - Border Color: Warna border (default: putih)
+  
+Object Colors:
+  - Player Color, Item Color, Interactable Color, Obstacle Color
+  
+Dot Sizes:
+  - Player Dot Size, Item Dot Size, dll.
+  
+Level Bounds:
+  - Auto Detect Bounds: true (otomatis detect dari semua objects)
+  - Manual Bounds Min/Max: jika Auto Detect = false
 ```
 
-**2. Timer & Lives**
-```
-UI (CanvasLayer)
-└─ GameHUD [Instance: scenes/ui/GameHUD.tscn]
+**Contoh Penambahan Grup via Script (Optional):**
+```csharp
+// Di _Ready() Player
+AddToGroup("minimap_player");
+
+// Di _Ready() PickableItem
+AddToGroup("minimap_item");
+
+// Di _Ready() Puzzle/Door
+AddToGroup("minimap_interactable");
 ```
 
-**3. Inventory**
-```
-UI (CanvasLayer)
-└─ InventoryUI [Instance: scenes/ui/InventoryUI.tscn]
-```
-
-**Steps:**
-1. Open level scene (e.g., `level_2_bridge/Main.tscn`)
-2. Select `UI` node
-3. For each component:
-   - Scene → Instantiate Child Scene
-   - Select `.tscn` file
-   - Save
-4. Test in-game to verify all UI elements appear
+**Tips:**
+- **Auto-detect bounds** akan menghitung area level otomatis dari semua object
+- Minimap refresh setiap frame untuk tracking player movement
+- Semua objects di-render sebagai **titik bulat (circles)**
+- Posisi minimap: **bottom-right corner** (bisa diubah di script/Inspector)
 
 ---
 
@@ -239,8 +252,8 @@ scenes/
 │   └── level_5_Sewer/Main.tscn
 └── ui/
     ├── GameHUD.tscn           # Timer & Lives display
-    ├── MiniMap.tscn           # Mini map
     ├── InventoryUI.tscn       # Inventory panel
+    ├── MinimapRenderer.tscn   # Static minimap (NEW)
     ├── FailScreen.tscn        # Fail screen (auto-created)
     ├── GameOverScreen.tscn    # Game over (auto-created)
     └── [other UI scenes]
@@ -260,8 +273,8 @@ scripts/
     ├── GameHUD.cs
     ├── FailScreen.cs
     ├── GameOverScreen.cs
-    ├── MiniMapSystem.cs
-    └── InventoryUI.cs
+    ├── InventoryUI.cs
+    └── MinimapRenderer.cs   # Minimap renderer (NEW)
 ```
 
 ---
@@ -303,7 +316,6 @@ scripts/
 ### Completed ✅
 - Dual camera system
 - Inventory with drag-drop
-- Mini map with real-time tracking
 - Timer & lives system with fail states
 - Multiple puzzles (door, mixing, grid)
 - Item interaction system
@@ -354,14 +366,12 @@ scripts/
 
 **Key Scenes:**
 - `scenes/ui/GameHUD.tscn` - Timer & Lives UI
-- `scenes/ui/MiniMap.tscn` - Mini map
 - `scenes/ui/InventoryUI.tscn` - Inventory panel
 - `scenes/common/Player.tscn` - Player character
 
 **Essential Scripts:**
 - `scripts/systems/LevelGameManager.cs` - Level integration
 - `scripts/ui/GameHUD.cs` - HUD controller
-- `scripts/ui/MiniMapSystem.cs` - Mini map logic
 - `scripts/ui/InventoryUI.cs` - Inventory controller
 
 ---

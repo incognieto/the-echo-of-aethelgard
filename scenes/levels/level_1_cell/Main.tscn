@@ -3,20 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_qg8n7"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Texture2D" uid="uid://dpsms4vv44dwx" path="res://assets/items/Book_Book.png" id="4_28jj2"]
-[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
+[ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
-[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
-[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="6_bookitem"]
-[ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="6_rlifa"]
 [ext_resource type="PackedScene" uid="uid://cvw3f0558f36y" path="res://scenes/ui/PuzzleUI.tscn" id="7_puzzleui"]
 [ext_resource type="Script" uid="uid://bthdhyq4ff2n6" path="res://scripts/puzzles/DoorPuzzle.cs" id="8_doorpuzzle"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="9_transition"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="10_28jj2"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="10_xuw2q"]
 [ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="11_pdseg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="13_kntvk"]
 [ext_resource type="Script" path="res://scenes/levels/level_1_cell/Main.cs" id="15_main"]
+[ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ftsf"]
 resource_name = "Material"
@@ -96,18 +96,22 @@ size = Vector3(3, 0.2, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_transition"]
 size = Vector3(3, 0.5, 3)
 
+[sub_resource type="BoxMesh" id="BoxMesh_kntvk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mdnck"]
+
 [node name="Main" type="Node3D" unique_id=2043194446]
 script = ExtResource("15_main")
 
 [node name="GameSetup" type="Node" parent="." unique_id=1537644261]
 script = ExtResource("4_setup")
 
-[node name="Player" parent="." unique_id=1038942510 instance=ExtResource("1_qg8n7")]
+[node name="Player" parent="." unique_id=1038942510 groups=["minimap_player"] instance=ExtResource("1_qg8n7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61408186, 0.87650394, 0)
 
 [node name="Items" type="Node3D" parent="." unique_id=1048350633]
 
-[node name="Book" type="StaticBody3D" parent="Items" unique_id=284339182]
+[node name="Book" type="StaticBody3D" parent="Items" unique_id=284339182 groups=["minimap_item"]]
 transform = Transform3D(0.36163303, 0, -0.17094316, 0, 0.4, 0, 0.17094316, 0, 0.36163303, -2.4567034, 0.40317273, 2.2735946)
 script = ExtResource("6_bookitem")
 ItemId = "ancient_book"
@@ -146,7 +150,7 @@ environment = SubResource("Environment_nfynn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.692343, 2, -29.284832)
 shape = SubResource("BoxShape3D_door")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1653936703]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1653936703 groups=["minimap_interactable"]]
 transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, -21.005566, 1.924334, -28.860064)
 mesh = SubResource("PlaneMesh_pdseg")
 surface_material_override/0 = SubResource("StandardMaterial3D_5ah1m")
@@ -168,26 +172,13 @@ material = SubResource("StandardMaterial3D_panel")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=211670853]
 
-[node name="MiniMap" parent="UI" unique_id=557347172 instance=ExtResource("6_rlifa")]
-MapPosition = Vector2(1000, 480)
-MapPadding = 1.5
-BackgroundColor = Color(0, 0, 0, 0.12941177)
-BorderColor = Color(1, 1, 1, 1)
-WallColor = Color(0, 0, 0, 1)
-WallBorderColor = Color(1, 1, 1, 1)
-PlayerDotSize = 8.0
-ItemDotSize = 5.0
-WallThickness = 100.0
-
 [node name="InventoryUI" parent="UI" unique_id=3306095 instance=ExtResource("3_invui")]
-z_index = -10
 
-[node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
-z_index = -10
+[node name="GameHUD" parent="UI" unique_id=815802863 instance=ExtResource("4_gamehud")]
 
-[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+[node name="FailScreen" parent="UI" unique_id=1037798895 instance=ExtResource("16_failscreen")]
 
-[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
+[node name="GameOverScreen" parent="UI" unique_id=742117473 instance=ExtResource("17_gameoverscreen")]
 
 [node name="BookUI" type="Control" parent="UI" unique_id=1847499792]
 layout_mode = 3
@@ -199,7 +190,10 @@ grow_vertical = 2
 script = ExtResource("5_bookui")
 
 [node name="PuzzleUI" parent="UI" unique_id=692572082 instance=ExtResource("7_puzzleui")]
-z_index = 10
+
+[node name="MinimapRenderer" parent="UI" unique_id=1902927505 instance=ExtResource("13_kntvk")]
+layout_mode = 3
+ObstacleColor = Color(1, 1, 1, 1)
 
 [node name="LevelTransition" type="Area3D" parent="." unique_id=1847499793]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.078995, 0.1, -29.54354)
@@ -321,3 +315,54 @@ transform = Transform3D(-1, -3.5975727e-08, 7.9677406e-08, 0, 0.9114033, 0.41151
 light_energy = 2.946
 spot_attenuation = -0.46
 spot_angle = 59.59
+
+[node name="MiniMap" type="Node3D" parent="." unique_id=229367869]
+visible = false
+
+[node name="Door" type="MeshInstance3D" parent="MiniMap" unique_id=1325379558 groups=["minimap_interactable"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.0184221, 3.3322039, -5.8474245)
+mesh = SubResource("BoxMesh_kntvk")
+
+[node name="Wall" type="MeshInstance3D" parent="MiniMap" unique_id=2078672207 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 33, 6.625819, 6.639956, -12.435469)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall2" type="MeshInstance3D" parent="MiniMap" unique_id=1839359347 groups=["minimap_obstacle"]]
+transform = Transform3D(0.094, 0, 0, 0, 0.942, 0, 0, 0, 33, -26.156567, 6.639956, -12.435469)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall3" type="MeshInstance3D" parent="MiniMap" unique_id=1332932928 groups=["minimap_obstacle"]]
+transform = Transform3D(33, 0, 0, 0, 1, 0, 0, 0, 0.1, -9.933462, 6.639956, 3.876894)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall4" type="MeshInstance3D" parent="MiniMap" unique_id=728169826 groups=["minimap_obstacle"]]
+transform = Transform3D(33, 0, 0, 0, 1, 0, 0, 0, 0.1, -9.93, 6.64, -28.983)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall5" type="MeshInstance3D" parent="MiniMap" unique_id=620918296 groups=["minimap_obstacle"]]
+transform = Transform3D(33, 0, 0, 0, 1, 0, 0, 0, 0.1, -9.93, 6.64, -6.587)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall6" type="MeshInstance3D" parent="MiniMap" unique_id=368289537 groups=["minimap_obstacle"]]
+transform = Transform3D(22, 0, 0, 0, 1, 0, 0, 0, 0.1, -4.417916, 6.639956, -17.609657)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall7" type="MeshInstance3D" parent="MiniMap" unique_id=973166905 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 11.5, -4.230139, 6.639956, -23.157093)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall8" type="MeshInstance3D" parent="MiniMap" unique_id=206061113 groups=["minimap_obstacle"]]
+transform = Transform3D(0.094, 0, 0, 0, 0.942, 0, 0, 0, 33, 6.625819, 6.639956, -12.435469)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall9" type="MeshInstance3D" parent="MiniMap" unique_id=805392310 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 11.5, -15.45466, 6.639956, -23.157093)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall10" type="MeshInstance3D" parent="MiniMap" unique_id=832840155 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 11, -4.23, 6.64, -1.4)
+mesh = SubResource("BoxMesh_mdnck")
+
+[node name="Wall11" type="MeshInstance3D" parent="MiniMap" unique_id=1435975991 groups=["minimap_obstacle"]]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 11, -15.455, 6.64, -1.4)
+mesh = SubResource("BoxMesh_mdnck")

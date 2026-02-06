@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://cq5m34wvhu6ds"]
+
+[ext_resource type="PackedScene" uid="uid://cervluu6kmafc" path="res://assets/environments/StoneTableActive.glb" id="1_xt7xh"]
+[ext_resource type="Texture2D" uid="uid://bpynrvflwejhx" path="res://assets/environments/StoneTablet_Table.png" id="2_1ugxu"]
+[ext_resource type="Texture2D" uid="uid://dkpmtdrvlk8k1" path="res://assets/environments/StoneTablet_TempatBuku.png" id="3_7tcsb"]
+[ext_resource type="Texture2D" uid="uid://shicrtqsugkp" path="res://assets/environments/StoneTableActive_Buku.png" id="4_1bx4g"]
+[ext_resource type="Texture2D" uid="uid://burnl62gl3dv1" path="res://assets/environments/Books_Buku_1.png" id="5_40eqg"]
+[ext_resource type="Texture2D" uid="uid://wwhwcab1lf3a" path="res://assets/environments/Books_Buku_2.png" id="6_g6ogg"]
+[ext_resource type="Texture2D" uid="uid://d1e48a6100x47" path="res://assets/environments/Books_Buku_3.png" id="7_x4yx1"]
+[ext_resource type="Texture2D" uid="uid://bxa6mlts4nu5a" path="res://assets/environments/Books_Buku_4.png" id="8_fxdbn"]
+[ext_resource type="Texture2D" uid="uid://dnq6wafrqxh0e" path="res://assets/environments/Books_Buku_5.png" id="9_n5r02"]
+[ext_resource type="Texture2D" uid="uid://cofjm2doif2yr" path="res://assets/environments/Books_Buku_6.png" id="10_4lied"]
+[ext_resource type="Texture2D" uid="uid://bqgfekkxpngqj" path="res://assets/environments/Books_Buku_7.png" id="11_3tger"]
+[ext_resource type="Texture2D" uid="uid://cw6vcj6eug1hl" path="res://assets/environments/Books_Buku_8.png" id="12_3ct4n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3unm8"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_1ugxu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qv26h"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_7tcsb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwnkj"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_1bx4g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1je0"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("5_40eqg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gr3lo"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("6_g6ogg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmfca"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("7_x4yx1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfp6p"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("8_fxdbn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eivo4"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("9_n5r02")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gpdqk"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("10_4lied")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fglnq"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("11_3tger")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxxkr"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("12_3ct4n")
+
+[node name="StoneTableActive" unique_id=1315851904 instance=ExtResource("1_xt7xh")]
+
+[node name="Table" parent="." index="0" unique_id=232759559]
+surface_material_override/0 = SubResource("StandardMaterial3D_3unm8")
+
+[node name="TempatBuku" parent="." index="1" unique_id=1399116057]
+surface_material_override/0 = SubResource("StandardMaterial3D_qv26h")
+
+[node name="Buku_1" parent="." index="2" unique_id=2005719758]
+surface_material_override/0 = SubResource("StandardMaterial3D_qwnkj")
+
+[node name="Buku_2" parent="." index="3" unique_id=1061655543]
+surface_material_override/0 = SubResource("StandardMaterial3D_d1je0")
+
+[node name="Buku_9" parent="." index="4" unique_id=1761243153]
+surface_material_override/0 = SubResource("StandardMaterial3D_gr3lo")
+
+[node name="Buku_8" parent="." index="5" unique_id=1839659877]
+surface_material_override/0 = SubResource("StandardMaterial3D_bmfca")
+
+[node name="Buku_7" parent="." index="6" unique_id=879725518]
+surface_material_override/0 = SubResource("StandardMaterial3D_sfp6p")
+
+[node name="Buku_6" parent="." index="7" unique_id=548695486]
+surface_material_override/0 = SubResource("StandardMaterial3D_eivo4")
+
+[node name="Buku_3" parent="." index="8" unique_id=1832745858]
+surface_material_override/0 = SubResource("StandardMaterial3D_gpdqk")
+
+[node name="Buku_4" parent="." index="9" unique_id=1657817016]
+surface_material_override/0 = SubResource("StandardMaterial3D_fglnq")
+
+[node name="Buku_5" parent="." index="10" unique_id=559378835]
+surface_material_override/0 = SubResource("StandardMaterial3D_kxxkr")

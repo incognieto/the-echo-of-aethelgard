@@ -22,7 +22,11 @@ namespace Level1Cell
 			// Start timer for this level
 			if (TimerManager.Instance != null)
 			{
+<<<<<<< HEAD
 				TimerManager.Instance.StartTimer(300f, "Cell Block");
+=======
+				TimerManager.Instance.StartTimer(120f, "Cell Block");
+>>>>>>> b04d3e712924dfab1f226c58d1662cb56868cfbb
 				GD.Print("⏱️ Level 1 timer started");
 			}
 			else
