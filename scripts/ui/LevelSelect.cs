@@ -3,12 +3,12 @@ using System;
 
 public partial class LevelSelect : Control
 {
-	private Button _level1Button;
-	private Button _level2Button;
-	private Button _level3Button;
-	private Button _level4Button;
-	private Button _level5Button;
-	private Button _backButton;
+	private TextureButton _level1Button;
+	private TextureButton _level2Button;
+	private TextureButton _level3Button;
+	private TextureButton _level4Button;
+	private TextureButton _level5Button;
+	private TextureButton _backButton;
 
 	public override void _Ready()
 	{
@@ -18,12 +18,12 @@ public partial class LevelSelect : Control
 			MusicManager.Instance.InstantRestart();
 		}
 		
-		_level1Button = GetNode<Button>("VBoxContainer/Level1Button");
-		_level2Button = GetNode<Button>("VBoxContainer/Level2Button");
-		_level3Button = GetNode<Button>("VBoxContainer/Level3Button");
-		_level4Button = GetNode<Button>("VBoxContainer/Level4Button");
-		_level5Button = GetNode<Button>("VBoxContainer/Level5Button");
-		_backButton = GetNode<Button>("VBoxContainer/BackButton");
+		_level1Button = GetNode<TextureButton>("VBoxContainer/Level1Button");
+		_level2Button = GetNode<TextureButton>("VBoxContainer/Level2Button");
+		_level3Button = GetNode<TextureButton>("VBoxContainer/Level3Button");
+		_level4Button = GetNode<TextureButton>("VBoxContainer/Level4Button");
+		_level5Button = GetNode<TextureButton>("VBoxContainer/Level5Button");
+		_backButton = GetNode<TextureButton>("VBoxContainer/BackButton");
 
 		_level1Button.Pressed += OnLevel1Pressed;
 		_level2Button.Pressed += OnLevel2Pressed;

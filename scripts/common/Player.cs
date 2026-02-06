@@ -4,7 +4,7 @@ using System;
 public partial class Player : CharacterBody3D
 {
 	[ExportGroup("Movement")]
-	[Export] public float Speed = 7.0f;
+	[Export] public float Speed = 6.0f;
 	[Export] public float JumpVelocity = 4.5f;
 	[Export] public float RotationSpeed = 10.0f; // Kecepatan putar karakter
 	
@@ -20,6 +20,10 @@ public partial class Player : CharacterBody3D
 	public InventorySystem _inventory; 
 	private InventoryUI _inventoryUI;
 	private BookUI _bookUI;
+	
+	// Node References
+private AnimationPlayer _animPlayer; // Tambahkan ini
+private bool _isCarrying = false;    // Status apakah sedang memegang item berat
 	
 	// Rotation Logic
 	private float _lastTargetAngle = 0f;
@@ -40,6 +44,7 @@ public partial class Player : CharacterBody3D
 		_visualNode = GetNode<Node3D>("Player"); 
 		
 		_inventory = GetNode<InventorySystem>("InventorySystem");
+		_animPlayer = GetNode<AnimationPlayer>("Player/PlayerAnimated/AnimationPlayer");
 		
 		CallDeferred(nameof(ConnectInventoryUI));
 		SetupPickupArea();
@@ -52,6 +57,31 @@ public partial class Player : CharacterBody3D
 		_currentCameraMode = CameraMode.Isometric;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
+	
+	private void UpdateAnimations(Vector3 direction)
+{
+	if (_animPlayer == null) return;
+
+	string animToPlay = "";
+
+	// Logika Prioritas Animasi
+	if (direction == Vector3.Zero)
+	{
+		// Jika diam
+		animToPlay = _isCarrying ? "Carrying (2)_3" : "Idle (2)_1";
+	}
+	else
+	{
+		// Jika bergerak
+		animToPlay = _isCarrying ? "Walking (4)_4" : "Walking (6)_2";
+	}
+
+	// Hanya ganti jika animasi yang diminta berbeda dari yang sedang jalan
+	if (_animPlayer.CurrentAnimation != animToPlay)
+	{
+		_animPlayer.Play(animToPlay, 0.2f); // 0.2f untuk transisi halus (crossfade)
+	}
+}
 	
 	private void ConnectInventoryUI()
 	{
@@ -163,6 +193,8 @@ public partial class Player : CharacterBody3D
 			float newAngle = (float)Mathf.LerpAngle(currentAngle, _lastTargetAngle, delta * RotationSpeed);
 			_visualNode.Rotation = new Vector3(0, newAngle, 0);
 		}
+		
+		UpdateAnimations(direction);
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -208,6 +240,7 @@ public partial class Player : CharacterBody3D
 			if (closestDroppedItem != null && closestDroppedItem.IsHeavyItem() && closestDroppedDistance < closestPickableDistance)
 			{
 				closestDroppedItem.StartPickup(this);
+				_isCarrying = true;
 				return;
 			}
 
@@ -273,8 +306,11 @@ public partial class Player : CharacterBody3D
 			
 			inst.GlobalPosition = GlobalPosition + _camera.GlobalTransform.Basis.Z * -3.0f + Vector3.Up * dropHeight;
 			bool isWeight = dropped.Data.ItemId.Contains("stone") || dropped.Data.ItemId.Contains("weight");
-			if (isWeight) inst.Initialize(dropped.Data, dropped.Quantity);
-			else inst.Initialize(dropped.Data, dropped.Quantity, dropped.Data.OriginalScale);
+			if (isWeight) {
+				_isCarrying = false; // MATIKAN CARRYING
+				inst.Initialize(dropped.Data, dropped.Quantity);
+			}
+			else { inst.Initialize(dropped.Data, dropped.Quantity, dropped.Data.OriginalScale); }
 			inst.Throw(-_camera.GlobalTransform.Basis.Z * ThrowForce);
 		}
 	}

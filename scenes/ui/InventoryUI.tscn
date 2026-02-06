@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d4mweouara7f6"]
 
 [ext_resource type="Script" uid="uid://dr1utu7s137p1" path="res://scripts/ui/InventoryUI.cs" id="1_invui"]
-[ext_resource type="Shader" path="res://scripts/shaders/ui_blur.gdshader" id="2_1jp0f"]
+[ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="2_1jp0f"]
 [ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="2_lgest"]
 [ext_resource type="Texture2D" uid="uid://dg5lwc7b8ge34" path="res://assets/sprites/ui/Inventory/Inv.png" id="4_jfhjy"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="5_font"]
@@ -97,7 +97,7 @@ layout_mode = 2
 
 [node name="Sprite2D" type="TextureRect" parent="InventoryPanel/VBoxContainer/Control" unique_id=556263397]
 layout_mode = 0
-offset_top = 4.0
+offset_top = -10.5
 offset_right = 473.0
 offset_bottom = 543.0
 texture = ExtResource("4_jfhjy")

@@ -1,21 +1,75 @@
 [gd_scene format=3 uid="uid://cjr1xsq8b2p5x"]
 
 [ext_resource type="Script" uid="uid://butvb6at64o1l" path="res://scripts/ui/PauseMenuController.cs" id="1_pausemenucontroller"]
-[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="2_7ida2"]
+[ext_resource type="Shader" uid="uid://yrq7n4ldojw" path="res://scripts/shaders/ui_blur.gdshader" id="2_n5dsq"]
+[ext_resource type="Texture2D" uid="uid://mifqrt8ogytn" path="res://assets/sprites/ui/BG_Blur.png" id="3_5twic"]
+[ext_resource type="Texture2D" uid="uid://kr4ucvoj66pt" path="res://assets/sprites/mainmenuassets/Pause/Paused.png" id="4_5twic"]
+[ext_resource type="Texture2D" uid="uid://bp2fmot0xasjd" path="res://assets/sprites/mainmenuassets/Pause/BG_Paused.png" id="4_bjk0l"]
+[ext_resource type="Texture2D" uid="uid://dsx6k0gp32puv" path="res://assets/sprites/mainmenuassets/Pause/Resume Button.png" id="6_y5d2p"]
+[ext_resource type="Texture2D" uid="uid://cl8xypag0ylvr" path="res://assets/sprites/mainmenuassets/Pause/Resume Button_Clicked.png" id="7_mq8pi"]
+[ext_resource type="Texture2D" uid="uid://dro1s3wvg428n" path="res://assets/sprites/mainmenuassets/Pause/Resume Button_Hover.png" id="8_epfii"]
+[ext_resource type="Texture2D" uid="uid://bwmooihnb0tft" path="res://assets/sprites/mainmenuassets/Pause/Restart Button.png" id="9_0bs3u"]
+[ext_resource type="Texture2D" uid="uid://ha3nmom6hvnv" path="res://assets/sprites/mainmenuassets/Pause/Restart Button_Clicked.png" id="10_nh787"]
+[ext_resource type="Texture2D" uid="uid://bqopf8kcni0vh" path="res://assets/sprites/mainmenuassets/Pause/Restart Button_Hover.png" id="11_cblg5"]
+[ext_resource type="Texture2D" uid="uid://c1f3pp4i6ux78" path="res://assets/sprites/mainmenuassets/Pause/Settings Button.png" id="12_k0lqy"]
+[ext_resource type="Texture2D" uid="uid://nkr4wa5ha35l" path="res://assets/sprites/mainmenuassets/Pause/Settings Button_Clicked.png" id="13_vx2t8"]
+[ext_resource type="Texture2D" uid="uid://qbugymq5yncj" path="res://assets/sprites/mainmenuassets/Pause/Settings Button_Hover.png" id="14_3hr5g"]
+[ext_resource type="Texture2D" uid="uid://dppvbdqtobbsm" path="res://assets/sprites/mainmenuassets/Pause/exittomain.png" id="15_e385v"]
+[ext_resource type="Texture2D" uid="uid://byqfnyg87k2ek" path="res://assets/sprites/mainmenuassets/Pause/exittomain_clicked.png" id="16_x3743"]
+[ext_resource type="Texture2D" uid="uid://dbobisfm6kw0g" path="res://assets/sprites/mainmenuassets/Pause/exittomain_hover.png" id="17_iaetu"]
 
-[node name="PauseMenu" type="CanvasLayer" unique_id=1004834538]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5pi0"]
+shader = ExtResource("2_n5dsq")
+shader_parameter/blur_amount = 2.5
+shader_parameter/dim_amount = 0.15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2pf5d"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=674863029]
 process_mode = 3
 layer = 100
 script = ExtResource("1_pausemenucontroller")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=521164472]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1075806888]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.7)
+color = Color(0, 0, 0, 0.50980395)
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=641892766]
-anchors_preset = 8
+[node name="BlurLayer" type="Control" parent="." unique_id=1131732678]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="BlurLayer" unique_id=1051914422]
+copy_mode = 2
+
+[node name="Blur" type="TextureRect" parent="BlurLayer" unique_id=509480999]
+material = SubResource("ShaderMaterial_v5pi0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_5twic")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=468008981]
+offset_left = 463.0
+offset_top = 263.0
+offset_right = 819.0
+offset_bottom = 619.0
+texture = ExtResource("4_bjk0l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=568685036]
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -24,46 +78,50 @@ offset_left = -200.0
 offset_top = -200.0
 offset_right = 200.0
 offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2pf5d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1849020547]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=997433448]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Title" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1954791836]
+[node name="Title" type="TextureRect" parent="PanelContainer/VBoxContainer" unique_id=1084135417]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_7ida2")
-theme_override_font_sizes/font_size = 40
-text = "Paused"
-horizontal_alignment = 1
+texture = ExtResource("4_5twic")
 
-[node name="Spacer1" type="Control" parent="PanelContainer/VBoxContainer" unique_id=825969394]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="ResumeButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=926085746]
+[node name="ResumeButton" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=487422337]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_7ida2")
-theme_override_font_sizes/font_size = 20
-text = "Resume"
+texture_normal = ExtResource("6_y5d2p")
+texture_pressed = ExtResource("7_mq8pi")
+texture_hover = ExtResource("8_epfii")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="RestartButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1546008952]
+[node name="RestartButton" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=763656798]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_7ida2")
-theme_override_font_sizes/font_size = 20
-text = "Restart"
+texture_normal = ExtResource("9_0bs3u")
+texture_pressed = ExtResource("10_nh787")
+texture_hover = ExtResource("11_cblg5")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="SettingsButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=935263974]
+[node name="SettingsButton" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=1558995549]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_7ida2")
-theme_override_font_sizes/font_size = 20
-text = "Settings"
+texture_normal = ExtResource("12_k0lqy")
+texture_pressed = ExtResource("13_vx2t8")
+texture_hover = ExtResource("14_3hr5g")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="ExitButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=352126632]
+[node name="ExitButton" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=778741632]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_7ida2")
-theme_override_font_sizes/font_size = 20
-text = "Exit to Main Menu"
+texture_normal = ExtResource("15_e385v")
+texture_pressed = ExtResource("16_x3743")
+texture_hover = ExtResource("17_iaetu")
+ignore_texture_size = true
+stretch_mode = 5

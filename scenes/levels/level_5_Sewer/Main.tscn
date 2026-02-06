@@ -28,6 +28,8 @@ normal_enabled = true
 normal_texture = ExtResource("6_nxrbb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ogqkq"]
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("5_ec5yg")
 roughness_texture = ExtResource("7_78t1w")
 normal_enabled = true
@@ -214,10 +216,10 @@ MapPadding = 1.5
 BackgroundColor = Color(0, 0, 0, 0.12941177)
 BorderColor = Color(1, 1, 1, 1)
 WallColor = Color(0, 0, 0, 1)
-WallBorderColor = Color(1, 1, 1, 1)
 PlayerDotSize = 8.0
 ItemDotSize = 5.0
 WallThickness = 100.0
+WallBorderColor = Color(1, 1, 1, 1)
 
 [node name="InventoryUI" parent="UI" unique_id=1260366128 instance=ExtResource("3_invui")]
 
