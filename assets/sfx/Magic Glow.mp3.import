@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://fjd5ofuyd6n5"
+path="res://.godot/imported/Magic Glow.mp3-03e0af5fdb0a6f4eb77fb93f5258a2d9.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Magic Glow.mp3"
+dest_files=["res://.godot/imported/Magic Glow.mp3-03e0af5fdb0a6f4eb77fb93f5258a2d9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
