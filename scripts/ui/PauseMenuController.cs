@@ -33,10 +33,10 @@ public partial class PauseMenuController : CanvasLayer
 		_isPaused = false;
 	}
 
-	public override void _Process(double delta)
+	public override void _UnhandledInput(InputEvent @event)
 	{
-		// Hanya bisa pause jika di gameplay, bukan di menu
-		if (Input.IsActionJustPressed("ui_cancel"))
+		// Hanya handle ESC jika input belum dihandle oleh UI lain (seperti BookUI, InventoryUI, dll)
+		if (@event.IsActionPressed("ui_cancel"))
 		{
 			// Check apakah sedang di menu scene
 			string currentScenePath = GetTree().CurrentScene.SceneFilePath.ToLower();
@@ -53,11 +53,12 @@ public partial class PauseMenuController : CanvasLayer
 			if (PanelManager.Instance.HasActivePanels() && 
 				PanelManager.Instance.GetActivePanelTop() != this)
 			{
-				// Panel lain sedang active, close panel itu dulu
+				// Panel lain sedang active, jangan buka pause menu
 				return;
 			}
 
 			TogglePause();
+			GetViewport().SetInputAsHandled(); // Consume input
 		}
 	}
 

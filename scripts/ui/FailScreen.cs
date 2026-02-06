@@ -149,6 +149,10 @@ public partial class FailScreen : Control
 		GD.Print("📺 FailScreen.FadeIn() - Showing fail screen");
 		Visible = true;
 		
+		// CRITICAL: Move to front to ensure it appears above ALL other UI (including PuzzleUI)
+		MoveToFront();
+		GD.Print("🔝 FailScreen moved to front of UI stack");
+		
 		// Register to PanelManager to block pause menu
 		if (PanelManager.Instance != null)
 		{
@@ -263,6 +267,9 @@ public partial class FailScreen : Control
 			Visible = false;
 			GetTree().Paused = false;
 			
+			// CRITICAL: Close all open puzzle/UI panels before respawn
+			CloseAllOpenPanels();
+			
 			// Unregister from PanelManager
 			if (PanelManager.Instance != null)
 			{
@@ -341,14 +348,62 @@ public partial class FailScreen : Control
 		var gameOverScreen = GetParent().GetNodeOrNull<GameOverScreen>("GameOverScreen");
 		if (gameOverScreen != null)
 		{
+			// CRITICAL: Move to front before showing
+			gameOverScreen.MoveToFront();
 			gameOverScreen.Show();
 			gameOverScreen.FadeIn();
-			GD.Print("✅ Game Over screen shown directly");
+			GD.Print("✅ Game Over screen shown directly and moved to front");
 		}
 		else
 		{
 			GD.PrintErr("⚠️ GameOverScreen not found in UI!");
 			GetTree().Paused = false;
+		}
+	}
+	
+	private void CloseAllOpenPanels()
+	{
+		GD.Print("🔒 Closing all open puzzle/UI panels...");
+		
+		// Get UI parent node
+		var uiParent = GetParent();
+		if (uiParent == null)
+		{
+			GD.PrintErr("❌ Cannot find UI parent node!");
+			return;
+		}
+		
+		// List of panel names to close
+		string[] panelNames = new string[]
+		{
+			"PuzzleUI",         // Level 1 puzzle
+			"BridgePuzzleUI",   // Level 2 bridge puzzle
+			"MixingUI",         // Level 3 mixing puzzle
+			"FinalMixingUI",    // Final mixing UI
+			"BookUI",           // Book/Poster UI
+			"LibraryGridUI",    // Library grid UI
+			"QuantityPickerUI"  // Quantity picker
+		};
+		
+		int closedCount = 0;
+		foreach (string panelName in panelNames)
+		{
+			var panel = uiParent.GetNodeOrNull<Control>(panelName);
+			if (panel != null && panel.Visible)
+			{
+				panel.Visible = false;
+				closedCount++;
+				GD.Print($"  ✓ Closed {panelName}");
+			}
+		}
+		
+		if (closedCount > 0)
+		{
+			GD.Print($"✅ Closed {closedCount} panel(s)");
+		}
+		else
+		{
+			GD.Print("✓ No panels were open");
 		}
 	}
 	

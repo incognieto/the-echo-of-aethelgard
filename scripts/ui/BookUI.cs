@@ -259,6 +259,12 @@ public partial class BookUI : Control
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(false);
 		
+		// Register to PanelManager to prevent pause menu from opening
+		if (PanelManager.Instance != null)
+		{
+			PanelManager.Instance.RegisterPanel(this);
+		}
+		
 		if (isAncientBook)
 		{
 			// ===== Ancient Book Mode (Simple, No Animation) =====
@@ -366,6 +372,13 @@ public partial class BookUI : Control
 		InventoryUI.IsAnyPanelOpen = true; // Block player movement
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(false);
+		
+		// Register to PanelManager to prevent pause menu from opening
+		if (PanelManager.Instance != null)
+		{
+			PanelManager.Instance.RegisterPanel(this);
+		}
+		
 		GD.Print($"Opening poster: {title} | Image: {imagePath}");
 	}
 
@@ -380,6 +393,13 @@ public partial class BookUI : Control
 		InventoryUI.IsAnyPanelOpen = false; // Restore player movement
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		if (_inventoryUI != null) _inventoryUI.SetCrosshairVisible(true);
+		
+		// Unregister from PanelManager
+		if (PanelManager.Instance != null)
+		{
+			PanelManager.Instance.UnregisterPanel(this);
+		}
+		
 		GD.Print("Closing book");
 	}
 }

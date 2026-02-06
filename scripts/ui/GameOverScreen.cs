@@ -124,6 +124,10 @@ public partial class GameOverScreen : Control
 		
 		Show();
 		
+		// CRITICAL: Move to front to ensure it appears above ALL other UI (including PuzzleUI)
+		MoveToFront();
+		GD.Print("🔝 GameOverScreen moved to front of UI stack");
+		
 		// Register to PanelManager to block pause menu
 		if (PanelManager.Instance != null)
 		{
