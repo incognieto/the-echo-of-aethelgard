@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="1_ogqkq"]
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
-[ext_resource type="PackedScene" uid="uid://bits5qejynlh4" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://1r2y70ajbuu3" path="res://assets/textures/worn_mossy_plasterwall_diff_1k.png" id="5_ec5yg"]
 [ext_resource type="Script" uid="uid://bbfcukikgxpgo" path="res://scripts/items/WeightItem.cs" id="6_jlque"]
@@ -11,14 +11,16 @@
 [ext_resource type="Texture2D" uid="uid://df5170f7qosx3" path="res://assets/textures/worn_mossy_plasterwall_rough_1k.png" id="7_78t1w"]
 [ext_resource type="Script" uid="uid://se448mm5xj2s" path="res://scripts/puzzles/SewerGatePuzzle.cs" id="7_uvas7"]
 [ext_resource type="Shader" uid="uid://dnmduhckg5ggw" path="res://scripts/shaders/see_through.gdshader" id="8_78t1w"]
-[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="9_5tf44"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="9_5tf44"]
 [ext_resource type="Texture2D" uid="uid://i3nkcqysosys" path="res://assets/textures/rusty_metal_04_diff_1k.png" id="9_jlque"]
 [ext_resource type="Script" uid="uid://bps0ucv6d60ec" path="res://scripts/levels/WaterAnimator.cs" id="10_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://6k4xsg4j7rhk" path="res://assets/textures/dark_wooden_planks_diff_1k.png" id="12_vdc3e"]
 [ext_resource type="Texture2D" uid="uid://bq2u0rt5iu4ry" path="res://assets/textures/dark_wooden_planks_nor_dx_1k.png" id="13_eofdq"]
 [ext_resource type="Script" uid="uid://b60pbxnc27vlo" path="res://scenes/levels/level_5_Sewer/Main.cs" id="15_main"]
-[ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
-[ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
+[ext_resource type="FontFile" uid="uid://cxxjt4bfjc1wk" path="res://assets/fonts/GoudyMediaeval-Regular.ttf" id="19_ryue2"]
+[ext_resource type="Script" uid="uid://dwcl0p3n6eny8" path="res://scripts/levels/SewerExitArea.cs" id="21_filpp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlque"]
 albedo_texture = ExtResource("5_ec5yg")
@@ -63,6 +65,8 @@ material = SubResource("StandardMaterial3D_vdc3e")
 [sub_resource type="SphereMesh" id="SphereMesh_j0lb3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7wgpb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_filpp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpy2w"]
 albedo_texture = ExtResource("12_vdc3e")
@@ -190,6 +194,9 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_78t1w"]
 size = Vector3(1, 10.521423, 26.444344)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryue2"]
+size = Vector3(9.269043, 1, 35.932495)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5tf44"]
 
@@ -353,6 +360,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.316243, 3.024523, 5.78436
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
 ItemName = "Baby Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock" unique_id=644432485]
 mesh = SubResource("SphereMesh_j0lb3")
@@ -365,6 +373,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.486557, 3.024523, 5.51256
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
 ItemName = "Baby Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock2" unique_id=1524400635]
 mesh = SubResource("SphereMesh_j0lb3")
@@ -377,6 +386,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.623821, 3.024523, 22.9617
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
 ItemName = "Baby Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock3" unique_id=1717544450]
 mesh = SubResource("SphereMesh_j0lb3")
@@ -389,6 +399,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.155333, 2.811312, 12.5967
 script = ExtResource("6_jlque")
 ItemId = "stone_10"
 ItemName = "Baby Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Baby Rock4" unique_id=1518493952]
 mesh = SubResource("SphereMesh_j0lb3")
@@ -402,10 +413,14 @@ script = ExtResource("6_jlque")
 WeightValue = 15.0
 ItemId = "stone_15"
 ItemName = "Young Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Young Rock" unique_id=2029920545]
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items/Young Rock" unique_id=1029648477]
+shape = SubResource("SphereShape3D_filpp")
 
 [node name="Young Rock2" type="StaticBody3D" parent="Sewer/Items" unique_id=445608364 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0330658, 2.8132353, 7.5433292)
@@ -413,6 +428,7 @@ script = ExtResource("6_jlque")
 WeightValue = 15.0
 ItemId = "stone_15"
 ItemName = "Young Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Young Rock2" unique_id=2056836268]
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
@@ -424,14 +440,11 @@ script = ExtResource("6_jlque")
 WeightValue = 15.0
 ItemId = "stone_15"
 ItemName = "Young Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Young Rock3" unique_id=911444206]
 transform = Transform3D(1.285, 0, 0, 0, 1.285, 0, 0, 0, 1.285, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0lb3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/Items" unique_id=949168403]
-transform = Transform3D(1.285, 0, 7.450581e-09, 0, 1.285, 0, -7.450581e-09, 0, 1.285, 1.1706924, 2.8132353, 4.8384056)
-shape = SubResource("SphereShape3D_7wgpb")
 
 [node name="Guard Rock" type="StaticBody3D" parent="Sewer/Items" unique_id=2068813116 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03108, 3.2030432, 4.920082)
@@ -439,6 +452,7 @@ script = ExtResource("6_jlque")
 WeightValue = 20.0
 ItemId = "stone_20"
 ItemName = "Guard Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Guard Rock" unique_id=665142675]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
@@ -454,6 +468,7 @@ script = ExtResource("6_jlque")
 WeightValue = 20.0
 ItemId = "stone_20"
 ItemName = "Guard Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Guard Rock2" unique_id=822342919]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
@@ -469,6 +484,7 @@ script = ExtResource("6_jlque")
 WeightValue = 20.0
 ItemId = "stone_20"
 ItemName = "Guard Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Guard Rock3" unique_id=1665914278]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
@@ -484,6 +500,7 @@ script = ExtResource("6_jlque")
 WeightValue = 30.0
 ItemId = "stone_30"
 ItemName = "Huge Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Huge Rock" unique_id=418805660]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
@@ -499,6 +516,7 @@ script = ExtResource("6_jlque")
 WeightValue = 30.0
 ItemId = "stone_30"
 ItemName = "Huge Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Huge Rock2" unique_id=751884394]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
@@ -514,6 +532,7 @@ script = ExtResource("6_jlque")
 WeightValue = 40.0
 ItemId = "stone_40"
 ItemName = "Giant Rock"
+MaxStackSize = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sewer/Items/Giant Rock" unique_id=1390347307]
 transform = Transform3D(1.51, 0, 0, 0, 1.51, 0, 0, 0, 1.51, 0, 0, 0)
@@ -544,6 +563,7 @@ shape = SubResource("BoxShape3D_ad0wm")
 [node name="Label3D" type="Label3D" parent="Sewer/PulleySystem/ScaleArea" unique_id=2093335559]
 transform = Transform3D(-0.018604577, 3.5531595, 1.9414461e-08, 4.148233e-09, -7.92247e-07, 2.265593, 3.470018, 0.018169299, -6.661338e-16, -3.390496, -0.34090948, 0.8547354)
 text = "12"
+font = ExtResource("19_ryue2")
 font_size = 30
 
 [node name="water" type="MeshInstance3D" parent="Sewer" unique_id=1829388562]
@@ -572,7 +592,16 @@ omni_attenuation = -0.238
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Sewer" unique_id=129719373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.763638, 6.39334, 14.040586)
+use_collision = true
 size = Vector3(1, 13.634644, 24.825684)
+
+[node name="FinishArea" type="Area3D" parent="Sewer" unique_id=1148876163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.20834, 3.9172478, 9.489605)
+script = ExtResource("21_filpp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sewer/FinishArea" unique_id=246441012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3733044, -1.5538392, 10.405451)
+shape = SubResource("BoxShape3D_ryue2")
 
 [node name="AncientBooks" type="Node3D" parent="." unique_id=119103346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.459911, 0, 0)

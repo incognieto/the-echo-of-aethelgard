@@ -6,18 +6,21 @@
 [ext_resource type="Texture2D" uid="uid://d3n0le1q04vi2" path="res://assets/sprites/ui/green_moss_clicked.png" id="4_green_click"]
 [ext_resource type="Texture2D" uid="uid://ddhsbfbsvipl5" path="res://assets/sprites/ui/red_powder.png" id="5_red"]
 [ext_resource type="Texture2D" uid="uid://hjael1whsa8s" path="res://assets/sprites/ui/red_powder_clicked.png" id="6_red_click"]
+[ext_resource type="Texture2D" uid="uid://dkitdemaeb0or" path="res://assets/sprites/ui/green_moss._hover.png" id="6_x7eio"]
 [ext_resource type="Texture2D" uid="uid://cryfnf7mjhxpb" path="res://assets/sprites/ui/blue_extract.png" id="7_blue"]
 [ext_resource type="Texture2D" uid="uid://lsfp3bthr4ie" path="res://assets/sprites/ui/blue_extract_clicked.png" id="8_blue_click"]
+[ext_resource type="Texture2D" uid="uid://cdc8vg0teerbo" path="res://assets/sprites/ui/red_powder_hover.png" id="9_jmdul"]
 [ext_resource type="Texture2D" uid="uid://c3jets6oi55v3" path="res://assets/sprites/ui/button_mix_kuali_kecil.png" id="9_mix"]
 [ext_resource type="Texture2D" uid="uid://iouqu8gd17sw" path="res://assets/sprites/ui/button_mix_kuali_kecil_clicked.png" id="10_mix_click"]
 [ext_resource type="Texture2D" uid="uid://dyyu0om82iwea" path="res://assets/sprites/ui/button_clear_kuali_kecil.png" id="11_clear"]
 [ext_resource type="Texture2D" uid="uid://dbychy72iybdc" path="res://assets/sprites/ui/button_mix_kuali_kecil_hover.png" id="12_4cade"]
 [ext_resource type="Texture2D" uid="uid://dpt260aflxsb5" path="res://assets/sprites/ui/button_clear_kuali_kecil_clicked.png" id="12_clear_click"]
+[ext_resource type="Texture2D" uid="uid://h2i3bajtbsgf" path="res://assets/sprites/ui/blue_extract_hover.png" id="12_vac0d"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="13_font"]
 [ext_resource type="Texture2D" uid="uid://m1hlc06u6pcn" path="res://assets/sprites/ui/button_clear_kuali_kecil_hover.png" id="15_2r7iw"]
-[ext_resource type="Texture2D" uid="uid://jbctyv1xsw0o" path="res://assets/sprites/library/button_close.png" id="16_close"]
-[ext_resource type="Texture2D" uid="uid://cl5a8njkq3qh8" path="res://assets/sprites/library/button_close_clicked.png" id="17_close_click"]
-[ext_resource type="Texture2D" uid="uid://b1wg4unyo5ld8" path="res://assets/sprites/library/button_close_hover.png" id="18_close_hover"]
+[ext_resource type="Texture2D" uid="uid://dm7sdf2owidqr" path="res://assets/sprites/library/button_close.png" id="16_close"]
+[ext_resource type="Texture2D" uid="uid://bb3ap7xxsr28l" path="res://assets/sprites/library/button_close_clicked.png" id="17_close_click"]
+[ext_resource type="Texture2D" uid="uid://irdelk8bir7t" path="res://assets/sprites/library/button_close_hover.png" id="18_close_hover"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_26vy0"]
 
@@ -46,13 +49,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -54.0
-offset_bottom = -54.0
+offset_left = 369.0
+offset_top = 168.0
+offset_right = -327.88892
+offset_bottom = -224.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_bg_kuali_kecil")
-stretch_mode = 6
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MixingPanel" type="Panel" parent="." unique_id=1252033302]
 layout_mode = 1
@@ -167,6 +173,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_green")
 texture_pressed = ExtResource("4_green_click")
+texture_hover = ExtResource("6_x7eio")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -185,6 +192,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("5_red")
 texture_pressed = ExtResource("6_red_click")
+texture_hover = ExtResource("9_jmdul")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -203,6 +211,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("7_blue")
 texture_pressed = ExtResource("8_blue_click")
+texture_hover = ExtResource("12_vac0d")
 ignore_texture_size = true
 stretch_mode = 5
 

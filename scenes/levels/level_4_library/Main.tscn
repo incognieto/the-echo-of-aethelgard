@@ -128,7 +128,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_table")
 shape = SubResource("CylinderShape3D_table")
 
 [node name="StoneTablet" parent="StoneTable" unique_id=979953317 instance=ExtResource("6_055jf")]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, -1.6569366, 0)
+transform = Transform3D(0.9, 0, 0, 0, 0.7, 0, 0, 0, 0.9, 0, -1.5039943, 0)
 
 [node name="StoryBooks" type="Node3D" parent="." unique_id=1262697267]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.561114, 0, 0)
