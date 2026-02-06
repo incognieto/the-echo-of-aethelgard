@@ -3,8 +3,15 @@
 [ext_resource type="Script" uid="uid://0dytbisbla5u" path="res://scripts/ui/Settings.cs" id="1_settings"]
 [ext_resource type="Texture2D" uid="uid://dfxpp8bthew3f" path="res://assets/sprites/ui/BG_Blur2.png" id="2_3lbg7"]
 [ext_resource type="Texture2D" uid="uid://3r4hee37kbhf" path="res://assets/sprites/ui/OverlayPopUp.png" id="2_asmva"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="4_i3pfa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s4p7k"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_section"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_normal"]
 
 [node name="Settings" type="Control" unique_id=646716672]
 layout_mode = 3
@@ -46,7 +53,8 @@ alignment = 1
 
 [node name="Title" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1911257320]
 layout_mode = 2
-text = "SETTINGS"
+theme_override_fonts/font = ExtResource("4_i3pfa")
+text = "Settings"
 label_settings = SubResource("LabelSettings_s4p7k")
 horizontal_alignment = 1
 
@@ -59,7 +67,9 @@ layout_mode = 2
 
 [node name="AudioTitle" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543211]
 layout_mode = 2
-text = "AUDIO"
+theme_override_fonts/font = ExtResource("4_i3pfa")
+text = "Audio"
+label_settings = SubResource("LabelSettings_section")
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543212]
@@ -72,7 +82,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MasterVolumeContainer" unique_id=876543214]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "Master Volume:"
+label_settings = SubResource("LabelSettings_normal")
 
 [node name="Slider" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioSettings/MasterVolumeContainer" unique_id=876543215]
 custom_minimum_size = Vector2(400, 0)
@@ -85,7 +97,9 @@ ticks_on_borders = true
 [node name="ValueLabel" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MasterVolumeContainer" unique_id=876543216]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "100%"
+label_settings = SubResource("LabelSettings_normal")
 horizontal_alignment = 2
 
 [node name="MusicVolumeContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543217]
@@ -94,7 +108,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MusicVolumeContainer" unique_id=876543218]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "Music Volume:"
+label_settings = SubResource("LabelSettings_normal")
 
 [node name="Slider" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioSettings/MusicVolumeContainer" unique_id=876543219]
 custom_minimum_size = Vector2(400, 0)
@@ -107,7 +123,9 @@ ticks_on_borders = true
 [node name="ValueLabel" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/MusicVolumeContainer" unique_id=876543220]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "100%"
+label_settings = SubResource("LabelSettings_normal")
 horizontal_alignment = 2
 
 [node name="SFXVolumeContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AudioSettings" unique_id=876543221]
@@ -116,7 +134,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/SFXVolumeContainer" unique_id=876543222]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "SFX Volume:"
+theme_override_fonts/font = ExtResource("4_i3pfa")
+text = "Sfx Volume:"
+label_settings = SubResource("LabelSettings_normal")
 
 [node name="Slider" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioSettings/SFXVolumeContainer" unique_id=876543223]
 custom_minimum_size = Vector2(400, 0)
@@ -129,7 +149,9 @@ ticks_on_borders = true
 [node name="ValueLabel" type="Label" parent="ScrollContainer/VBoxContainer/AudioSettings/SFXVolumeContainer" unique_id=876543224]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "100%"
+label_settings = SubResource("LabelSettings_normal")
 horizontal_alignment = 2
 
 [node name="Spacer2" type="Control" parent="ScrollContainer/VBoxContainer" unique_id=2088212992]
@@ -141,7 +163,9 @@ layout_mode = 2
 
 [node name="DisplayTitle" type="Label" parent="ScrollContainer/VBoxContainer/DisplaySettings" unique_id=876543226]
 layout_mode = 2
-text = "DISPLAY"
+theme_override_fonts/font = ExtResource("4_i3pfa")
+text = "Display"
+label_settings = SubResource("LabelSettings_section")
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="ScrollContainer/VBoxContainer/DisplaySettings" unique_id=876543227]
@@ -154,12 +178,15 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/DisplaySettings/ResolutionContainer" unique_id=876543232]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "Resolution:"
+label_settings = SubResource("LabelSettings_normal")
 
 [node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/DisplaySettings/ResolutionContainer" unique_id=876543233]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_i3pfa")
 selected = 0
 item_count = 6
 popup/item_0/text = "1920x1080"
@@ -186,9 +213,11 @@ alignment = 1
 [node name="ApplyButton" type="Button" parent="ScrollContainer/VBoxContainer/ButtonContainer" unique_id=876543235]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "Apply"
 
 [node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/ButtonContainer" unique_id=1226444369]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_i3pfa")
 text = "Back"

@@ -40,22 +40,22 @@ public partial class LevelSelect : Control
 
 	private void OnLevel2Pressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/levels/level_2_bridge/Main.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/levels/level_3_lab/Main.tscn");
 	}
 
 	private void OnLevel3Pressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/levels/level_3_lab/Main.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/levels/level_4_library/Main.tscn");
 	}
 
 	private void OnLevel4Pressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/levels/level_4_library/Main.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/levels/level_5_Sewer/Main.tscn");
 	}
 
 	private void OnLevel5Pressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/levels/level_5_Sewer/Main.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/levels/level_2_bridge/Main.tscn");
 	}
 
 	private void OnBackPressed()
