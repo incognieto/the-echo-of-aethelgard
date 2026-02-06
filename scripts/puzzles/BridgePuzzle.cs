@@ -188,6 +188,19 @@ public partial class BridgePuzzle : Node3D
 		_isAnimating = true;
 		GD.Print("✓ Bridge puzzle SOLVED! Bridge2 bergerak mendekati Bridge1...");
 		
+		// Kita gunakan absolute path karena Penghalang ada di bawah Main
+		var penghalang = GetNodeOrNull<StaticBody3D>("/root/Main/Penghalang");
+		
+		if (penghalang != null)
+		{
+			penghalang.QueueFree(); // Menghapus node Penghalang secara permanen
+			GD.Print("✓ Penghalang removed! Path is now clear.");
+		}
+		else
+		{
+			GD.PrintErr("✗ Penghalang not found at /root/Main/Penghalang");
+		}
+		
 		if (_bridge2 != null)
 		{
 			// Start smooth movement animation

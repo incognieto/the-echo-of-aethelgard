@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://bliynajsyyj8r" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="17_qyj1f"]
 [ext_resource type="PackedScene" uid="uid://bbu13vyr56ipl" path="res://assets/environments/torch.tscn" id="18_qyj1f"]
-[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="23_a3r6l"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="23_a3r6l"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_poster"]
 size = Vector2(1.6, 2)
