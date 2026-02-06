@@ -114,13 +114,35 @@ public partial class GameOverScreen : Control
 		// So we don't need to do anything here unless called directly
 	}
 	
+	/// <summary>
+	/// Show Game Over screen with default message (lives depleted)
+	/// </summary>
 	public void FadeIn()
+	{
+		FadeIn("All lives depleted.\nThe Guards have captured you.");
+	}
+	
+	/// <summary>
+	/// Show Game Over screen with custom message
+	/// </summary>
+	/// <param name="customMessage">Custom message to display</param>
+	public void FadeIn(string customMessage)
 	{
 		GD.Print("");
 		GD.Print("═══════════════════════════════════════════");
-		GD.Print("💀 GAME OVER SCREEN - FadeIn() called");
+		GD.Print($"💀 GAME OVER SCREEN - FadeIn() called with message: {customMessage}");
 		GD.Print("═══════════════════════════════════════════");
 		GD.Print("");
+		
+		// Set custom message to SubLabel
+		if (_subLabel != null)
+		{
+			_subLabel.Text = customMessage;
+		}
+		else
+		{
+			GD.PrintErr("⚠️ SubLabel is null, cannot set custom message!");
+		}
 		
 		Show();
 		

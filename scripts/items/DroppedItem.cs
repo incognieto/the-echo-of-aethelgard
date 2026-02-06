@@ -34,6 +34,8 @@ public partial class DroppedItem : RigidBody3D
 	{
 		// Add to pickable_items group for distance checking
 		AddToGroup("pickable_items");
+		// Add to dropped_items group for respawn reset
+		AddToGroup("dropped_items");
 		
 		// Create mesh for visual - akan diupdate ukurannya di Initialize()
 		_mesh = new MeshInstance3D();

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://c8wqcqs6s0m3s"]
+
+[ext_resource type="PackedScene" uid="uid://w518kyakd667" path="res://assets/environments/Bookshelf.glb" id="1_ef1tx"]
+[ext_resource type="Texture2D" uid="uid://bixqfjbrexq82" path="res://assets/environments/Bookshelf_Bookshelf.png" id="2_jgdtu"]
+[ext_resource type="Texture2D" uid="uid://brddja2x6abhb" path="res://assets/environments/Bookshelf_Books.png" id="3_t0njj"]
+[ext_resource type="Texture2D" uid="uid://5yjoh7mn3osg" path="res://assets/environments/Bookshelf_Books_2.png" id="4_rp1a0"]
+[ext_resource type="Texture2D" uid="uid://diflj1qtnrr1n" path="res://assets/environments/Bookshelf_Books_3.png" id="5_j46qv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ff5q6"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_jgdtu")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r46dn"]
+size = Vector3(1.9553158, 7.6753097, 7.891802)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a1r1s"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_t0njj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwarr"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_rp1a0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d72s6"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("5_j46qv")
+
+[node name="Bookshelf2" unique_id=1771431326 instance=ExtResource("1_ef1tx")]
+
+[node name="Bookshelf" parent="." index="0" unique_id=1901862969]
+surface_material_override/0 = SubResource("StandardMaterial3D_ff5q6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bookshelf" index="0" unique_id=1201768322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7852036, 3.9199483, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bookshelf/StaticBody3D" index="0" unique_id=1044763884]
+visible = false
+shape = SubResource("BoxShape3D_r46dn")
+
+[node name="Books_Blue" parent="." index="1" unique_id=855858986]
+surface_material_override/0 = SubResource("StandardMaterial3D_a1r1s")
+
+[node name="Books_Red" parent="." index="2" unique_id=1056081881]
+surface_material_override/0 = SubResource("StandardMaterial3D_qwarr")
+
+[node name="Books_Green" parent="." index="3" unique_id=760793023]
+surface_material_override/0 = SubResource("StandardMaterial3D_d72s6")
