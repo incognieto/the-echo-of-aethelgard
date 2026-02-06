@@ -14,7 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://cpj1vkmfr8tn1" path="res://scenes/ui/QuantityPickerUI.tscn" id="9_qtyui"]
 [ext_resource type="PackedScene" uid="uid://cl25celniqxra" path="res://scenes/ui/FinalMixingUI.tscn" id="10_finalmix"]
 [ext_resource type="PackedScene" uid="uid://ct1xg4qibwsv0" path="res://assets/environments/moss.tscn" id="10_tqfxa"]
+[ext_resource type="PackedScene" uid="uid://c77kxnx4jp0p0" path="res://assets/environments/blue_extract.tscn" id="11_2hbj3"]
 [ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
+[ext_resource type="PackedScene" uid="uid://cenruus0sispb" path="res://assets/environments/red_powder.tscn" id="11_xdy5j"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="12_transition"]
 [ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="13_3bs35"]
 [ext_resource type="Script" uid="uid://bvnsdjc7nbgdd" path="res://scripts/common/AutoDoor.cs" id="13_autodoor"]
@@ -91,6 +93,29 @@ radius = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_red"]
 albedo_color = Color(0.9, 0.2, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xdy5j"]
+top_radius = 0.0
+bottom_radius = 0.2
+height = 0.16
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rcowa"]
+noise_type = 0
+frequency = 0.1476
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bj02c"]
+noise = SubResource("FastNoiseLite_rcowa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d861c"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.83137256, 0.21176471, 0, 0.46666667)
+albedo_texture = SubResource("NoiseTexture2D_bj02c")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_onhb4"]
+top_radius = 0.0
+bottom_radius = 0.1
+height = 0.08
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blue"]
 albedo_color = Color(0.2, 0.5, 1, 1)
@@ -324,11 +349,32 @@ MaxStackSize = 10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Items/RedPowder" unique_id=1694307705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10580659, 0)
+visible = false
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_red")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Items/RedPowder" unique_id=1541392130]
+visible = false
 shape = SubResource("SphereShape3D_item")
+
+[node name="RedPowder" parent="Items/RedPowder" unique_id=626275540 instance=ExtResource("11_xdy5j")]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, 0, -0.25818217, 0)
+
+[node name="RedPowder2" parent="Items/RedPowder" unique_id=1714893037 instance=ExtResource("11_xdy5j")]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, -0.16845322, -0.25818217, -0.34945202)
+
+[node name="RedPowder3" parent="Items/RedPowder" unique_id=478920815 instance=ExtResource("11_xdy5j")]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, -0.16845322, -0.25818217, 0.2556858)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Items/RedPowder" unique_id=1629791267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41547394, -0.30001414, 0.62723875)
+mesh = SubResource("CylinderMesh_xdy5j")
+surface_material_override/0 = SubResource("StandardMaterial3D_d861c")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Items/RedPowder" unique_id=388114354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060466766, -0.34307492, 0.5983753)
+mesh = SubResource("CylinderMesh_onhb4")
+surface_material_override/0 = SubResource("StandardMaterial3D_d861c")
 
 [node name="BlueExtract" type="StaticBody3D" parent="Items" unique_id=1156292908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.849406, 1.2360945, 3.0074177)
@@ -339,11 +385,21 @@ ItemName = "Blue Extract"
 MaxStackSize = 10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Items/BlueExtract" unique_id=1995237917]
+visible = false
 mesh = SubResource("SphereMesh_item")
 surface_material_override/0 = SubResource("StandardMaterial3D_blue")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Items/BlueExtract" unique_id=280504403]
 shape = SubResource("SphereShape3D_item")
+
+[node name="BlueExtract" parent="Items/BlueExtract" unique_id=1781219249 instance=ExtResource("11_2hbj3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.09181023, -0.09080601, -0.008454084)
+
+[node name="BlueExtract2" parent="Items/BlueExtract" unique_id=1142399262 instance=ExtResource("11_2hbj3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.3155136, -0.09080601, -0.5086291)
+
+[node name="BlueExtract3" parent="Items/BlueExtract" unique_id=923251526 instance=ExtResource("11_2hbj3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.3155136, -0.09080601, 0.3689425)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1931185845]
 
@@ -483,7 +539,7 @@ omni_range = 20.179
 omni_attenuation = 0.732
 
 [node name="OmniLight3D8" type="OmniLight3D" parent="Environment" unique_id=1612987695]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -5.3647175, 3.1309357, -0.6690302)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -5.41928, 3.1309357, -0.6690302)
 light_color = Color(0.57529545, 0.48722553, 0.41185352, 1)
 light_energy = 4.567
 shadow_enabled = true

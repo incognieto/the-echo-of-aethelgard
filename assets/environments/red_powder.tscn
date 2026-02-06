@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cenruus0sispb"]
+
+[ext_resource type="PackedScene" uid="uid://dl6vng8h0hkig" path="res://assets/environments/BlueExtract.glb" id="1_yksbb"]
+[ext_resource type="Texture2D" uid="uid://bnb3omyhk8263" path="res://assets/environments/BlueExtract_CapBottle.png" id="2_5vctw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwsgu"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.1254902)
+metallic = 0.3
+metallic_specular = 0.36
+roughness = 0.0
+rim_enabled = true
+refraction_enabled = true
+refraction_scale = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4t54y"]
+render_priority = 3
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_5vctw")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4t54y"]
+top_radius = 0.32
+bottom_radius = 0.32
+height = 0.68
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yksbb"]
+noise_type = 0
+frequency = 0.2998
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5vctw"]
+noise = SubResource("FastNoiseLite_yksbb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xndl"]
+render_priority = 1
+depth_draw_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.83009624, 0.2119103, 3.85046e-07, 0.46666667)
+albedo_texture = SubResource("NoiseTexture2D_5vctw")
+
+[node name="BlueExtract" unique_id=626275540 instance=ExtResource("1_yksbb")]
+
+[node name="Cylinder" parent="." index="0" unique_id=1082411067]
+surface_material_override/0 = SubResource("StandardMaterial3D_hwsgu")
+
+[node name="Cylinder_001" parent="." index="1" unique_id=991016020]
+surface_material_override/0 = SubResource("StandardMaterial3D_4t54y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2" unique_id=1275407260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005274743, 0)
+mesh = SubResource("CylinderMesh_4t54y")
+surface_material_override/0 = SubResource("StandardMaterial3D_6xndl")
