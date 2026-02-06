@@ -226,8 +226,34 @@ public partial class LibraryGridPuzzle : StaticBody3D
 		if (isCorrect)
 		{
 			GD.Print("✓ PUZZLE SOLVED! Opening secret passage...");
-			_isPuzzleSolved = true;
-			
+		_isPuzzleSolved = true;
+
+		// --- TEMBAK PATH LANGSUNG DI SINI ---
+
+		// 1. Ubah Stone Tablet menjadi Active (Berada di bawah StoneTable/this)
+		var tabletNormal = GetNodeOrNull<Node3D>("StoneTablet");
+		var tabletActive = GetNodeOrNull<Node3D>("StoneTableActive");
+		
+		if (tabletNormal != null) tabletNormal.Visible = false;
+		if (tabletActive != null) tabletActive.Visible = true;
+
+		// 2. Akses Map untuk Pintu (Berada sejajar dengan StoneTable di bawah Main2)
+		// Kita gunakan GetParent().GetNode() untuk naik satu level ke Main2 lalu ke Map
+		var lockedDoor = GetNodeOrNull<Node3D>("../Map/PuzzleDoorLocked");
+		var unlockedDoor = GetNodeOrNull<Node3D>("../Map/PuzzleDoorUnlocked");
+
+		if (lockedDoor != null)
+		{
+			lockedDoor.QueueFree(); // Hapus pintu terkunci
+			GD.Print("✓ Locked Door removed");
+		}
+
+		if (unlockedDoor != null)
+		{
+			unlockedDoor.Visible = true; // Munculkan pintu terbuka
+			GD.Print("✓ Unlocked Door revealed");
+		}
+			// hehe
 			// Start moving bookshelf
 			if (_bookshelf != null)
 			{

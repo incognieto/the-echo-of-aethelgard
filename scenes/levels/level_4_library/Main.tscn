@@ -9,10 +9,11 @@
 [ext_resource type="Script" uid="uid://dr6k8kgdr1tec" path="res://scripts/puzzles/LibraryGridPuzzle.cs" id="5_puzzle"]
 [ext_resource type="PackedScene" uid="uid://v5jpn4ey58pu" path="res://assets/environments/stone_tablet.tscn" id="6_055jf"]
 [ext_resource type="Script" uid="uid://blvo03ymhaol2" path="res://scripts/items/StoryBookItem.cs" id="6_bookitem"]
+[ext_resource type="PackedScene" uid="uid://cq5m34wvhu6ds" path="res://assets/environments/stone_table_active.tscn" id="7_0j4fo"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="7_ku6bs"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="8_transition"]
 [ext_resource type="Script" uid="uid://tkhyqpmyeelx" path="res://scenes/levels/level_4_library/Main.cs" id="9_main"]
-[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="12_3hlef"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="12_3hlef"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="14_3hlef"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="15_8pxuo"]
 [ext_resource type="PackedScene" uid="uid://bq3bhin1tc2fa" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
@@ -129,6 +130,10 @@ shape = SubResource("CylinderShape3D_table")
 
 [node name="StoneTablet" parent="StoneTable" unique_id=979953317 instance=ExtResource("6_055jf")]
 transform = Transform3D(0.9, 0, 0, 0, 0.7, 0, 0, 0, 0.9, 0, -1.5039943, 0)
+
+[node name="StoneTableActive" parent="StoneTable" unique_id=1315851904 instance=ExtResource("7_0j4fo")]
+transform = Transform3D(0.9, 0, 0, 0, 0.7, 0, 0, 0, 0.9, 0, -1.504, 0)
+visible = false
 
 [node name="StoryBooks" type="Node3D" parent="." unique_id=1262697267]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.561114, 0, 0)
