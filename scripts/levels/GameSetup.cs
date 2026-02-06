@@ -160,9 +160,9 @@ public partial class GameSetup : Node
 			rightContent = "Lightning Will Take You Out!. Lightning struck the peaks. Sudden lightning lit the valley, then a jagged whip of lightning hit the trees. Another flash of lightning blinded the path. Lightning danced across the clouds until the final glow of lightning vanished into the rain.";
 			break;
 		case 2:
-			levelTitle = "The Chamber of Weighted Sins";
+			levelTitle = "The Final Bridge";
 			levelImage = "res://assets/sprites/ancient_books/ancient_content_lvl-2.png";
-			rightContent = "I watched the previous captain fall. He stepped on the center (III) and the floor vanished. The stones only hold those who follow the Path of the Pentagram. Start from the End (V), leap to the Beginning (I), then follow the rhythm: Back to Two, Forward to Three, and Finish at Four. Step lightly, for the stones remember the weight of those who stumble.";
+			rightContent = "I saw the chasm before you, Traveller. The controller stands between life and the abyss, demanding numbers born from time itself. The key is not in sight, but whispered in letters: [b]F + U + T + U + R + E[/b]. Look around you, the scattered pieces hold the cipher. Each symbol bears a weight, a number waiting to be unveiled. As mercy for the desperate, know this: [b]R is 5[/b]. Let this guide your hand, for one wrong sequence, and the bridge beneath your feet becomes your grave.";
 			break;
 		case 3:
 			levelTitle = "The Synthesis of the Teal Soul";
