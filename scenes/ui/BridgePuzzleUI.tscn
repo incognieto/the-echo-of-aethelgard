@@ -165,8 +165,8 @@ text = "0"
 
 [node name="DisplayContainer" type="PanelContainer" parent="CalculatorPanel" unique_id=1976754770]
 layout_mode = 0
-offset_left = 313.0
-offset_top = 80.0
+offset_left = 52.0
+offset_top = 50.0
 offset_right = 353.0
 offset_bottom = 125.0
 

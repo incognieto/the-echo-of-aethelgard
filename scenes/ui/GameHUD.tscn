@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bhbq6dmsqo0xo" path="res://scripts/ui/GameHUD.cs" id="1_gamehud"]
 [ext_resource type="FontFile" uid="uid://cxxjt4bfjc1wk" path="res://assets/fonts/GoudyMediaeval-Regular.ttf" id="2_3b1cv"]
-[ext_resource type="Texture2D" uid="uid://bvd85d3663128" path="res://assets/sprites/ui/nyawa.png" id="3_heart"]
+[ext_resource type="Texture2D" uid="uid://imm6pdxlvvu2" path="res://assets/sprites/ui/Lope.png" id="3_h4ju2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h4ju2"]
 
@@ -97,20 +97,20 @@ alignment = 1
 [node name="Heart1" type="TextureRect" parent="LivesPanel/LivesVBox/HeartsContainer" unique_id=111222333]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("3_heart")
+texture = ExtResource("3_h4ju2")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Heart2" type="TextureRect" parent="LivesPanel/LivesVBox/HeartsContainer" unique_id=444555666]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("3_heart")
+texture = ExtResource("3_h4ju2")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Heart3" type="TextureRect" parent="LivesPanel/LivesVBox/HeartsContainer" unique_id=777888999]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("3_heart")
+texture = ExtResource("3_h4ju2")
 expand_mode = 1
 stretch_mode = 5
