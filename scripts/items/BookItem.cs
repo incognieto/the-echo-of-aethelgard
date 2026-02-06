@@ -238,7 +238,7 @@ public partial class BookItem : PickableItem
 				return (
 					"The First Vision: Ironfang's Sentence",
 					"res://assets/sprites/ancient_books/ancient_content_lvl-1.png",
-					"I saw you, Traveller. You stood before the gate, hands trembling as you turned the wheels. One wrong click, and the ceiling wept iron needles. To live, you must mirror the Glimpse. Look into the void, remember the order of the stars: The King, the Eye, the Star, the Sword, the Moon, the Eye, the Sun, and the King again. Do not let the sequence fade, or the spoiler of your death shall become your truth."
+					"Lightning Will Take You Out!. Lightning struck the peaks. Sudden lightning lit the valley, then a jagged whip of lightning hit the trees. Another flash of lightning blinded the path. Lightning danced across the clouds until the final glow of lightning vanished into the rain."
 				);
 			case 2:
 				return (
