@@ -70,12 +70,12 @@ public partial class Prologue : Node3D
 		
 		// === ANGLE 1: Layar Hitam + Reveal (0-5.53s) ===
 		await ToSignal(GetTree().CreateTimer(2.0f), "timeout"); // 2s
-		_ = ShowDialogueTyped("Narator: \"Masa depan di Ironfang sudah bocor sebelum kamu bangun.\""); // Start typing (fire and forget)
+		_ = ShowDialogueTyped("The Grimoire: \"Ironfang's fate was sealed before you awoke.\""); // Start typing (fire and forget)
 		
 		await ToSignal(GetTree().CreateTimer(3.53f), "timeout"); // Total: 5.53s - ANGLE 2 SWITCH
 		
 		// === ANGLE 2: Wide Shot Player (5.65-10.06s) ===
-		_ = ShowDialogueTyped("Narator: \"Raja Valerius mengunci tubuhmu... tapi lupa satu hal.\""); // LANGSUNG typing
+		_ = ShowDialogueTyped("The Grimoire: \"King Valerius bound your flesh... but forgot one thing.\""); // LANGSUNG typing
 		
 		// PlayerWakeUp setelah angle 2 settle (delay 0.6s) supaya tidak terlihat jelas rotasinya
 		await ToSignal(GetTree().CreateTimer(0.6f), "timeout"); // Total: 6.13s
@@ -84,20 +84,20 @@ public partial class Prologue : Node3D
 		await ToSignal(GetTree().CreateTimer(3.93f), "timeout"); // Total: 10.06s - ANGLE 3 SWITCH
 		
 		// === ANGLE 3: Grimoire Focus (10.06-14.76s) ===
-		_ = ShowDialogueTyped("Narator: \"Ksatria revolusi meninggalkan sesuatu untukmu.\""); // LANGSUNG typing
+		_ = ShowDialogueTyped("The Grimoire: \"The rebel knights left their final gift for you.\""); // LANGSUNG typing
 		
 		await ToSignal(GetTree().CreateTimer(4.7f), "timeout"); // Total: 14.76s - ANGLE 4 SWITCH
 		
 		// === ANGLE 4: Close-Up Grimoire (14.76-19.5s) ===
 		if (GrimoireMagicSFX != null) GrimoireMagicSFX.Play(); // Magic sound saat grimoire "bangun"
-		_ = ShowDialogueTyped("The Grimoire: \"Selamat datang, sang pengubah naskah.\""); // LANGSUNG typing
+		_ = ShowDialogueTyped("The Grimoire: \"Welcome, weaver of fates.\""); // LANGSUNG typing
 		ApplyScreenShake();
 		
 		await ToSignal(GetTree().CreateTimer(4.74f), "timeout"); // Total: 19.5s - ANGLE 5 SWITCH
 		
 		// === ANGLE 5: Final Shot - Spoiler (19.5-23.01s) ===
 		if (HeartbeatSFX != null) HeartbeatSFX.Play(); // Tension build
-		_ = ShowDialogueTyped("The Grimoire: \"Spoiler: Di balik pintu itu, panah menunggumu.\""); // LANGSUNG typing
+		_ = ShowDialogueTyped("The Grimoire: \"Spoiler: Beyond that door... six seals await your answer.\""); // LANGSUNG typing
 		
 		await ToSignal(GetTree().CreateTimer(3.1f), "timeout"); // Total: 22.6s - FADE OUT
 		
