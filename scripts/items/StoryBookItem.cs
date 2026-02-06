@@ -25,7 +25,7 @@ public partial class StoryBookItem : PickableItem
 	
 	// Light untuk efek menyala
 	private OmniLight3D _glowLight;
-	private MeshInstance3D _mesh;
+	private Node3D _mesh;
 	private float _time = 0.0f;
 
 	public override void _Ready()
@@ -57,7 +57,7 @@ public partial class StoryBookItem : PickableItem
 		AddChild(_glowLight);
 		
 		// Cari mesh untuk animasi
-		_mesh = GetNodeOrNull<MeshInstance3D>("Mesh");
+		_mesh = GetNodeOrNull<Node3D>("Books");
 	}
 	
 	private Color GetSymbolColor()

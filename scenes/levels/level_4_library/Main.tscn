@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cq5m34wvhu6ds" path="res://assets/environments/stone_table_active.tscn" id="7_0j4fo"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="7_ku6bs"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="8_transition"]
+[ext_resource type="PackedScene" uid="uid://d1blxrjqwvkw3" path="res://assets/environments/books.tscn" id="9_1p8om"]
 [ext_resource type="Script" uid="uid://tkhyqpmyeelx" path="res://scenes/levels/level_4_library/Main.cs" id="9_main"]
 [ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="12_3hlef"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="14_3hlef"]
@@ -146,12 +147,40 @@ ItemName = "Castle Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookCastle" unique_id=2131017745]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookCastle" unique_id=1494704645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookCastle" unique_id=1923972240 instance=ExtResource("9_1p8om")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.94321537)
+
+[node name="Buku_2" parent="StoryBooks/BookCastle/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookCastle/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookCastle/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookCastle/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookCastle/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookCastle/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookCastle/Books" index="7" unique_id=691475881]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookCastle/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="BookKnight" type="StaticBody3D" parent="StoryBooks" unique_id=824411275 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.5, -14)
@@ -162,12 +191,40 @@ ItemName = "Knight Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookKnight" unique_id=250301383]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202528, 0, -0.9205761)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookKnight" unique_id=1555701300]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202528, 0, -0.9205761)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookKnight" unique_id=140060441 instance=ExtResource("9_1p8om")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1634121, 0, -0.94321537)
+
+[node name="Buku_1" parent="StoryBooks/BookKnight/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookKnight/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookKnight/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookKnight/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookKnight/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookKnight/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookKnight/Books" index="7" unique_id=691475881]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookKnight/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="BookPrincess" type="StaticBody3D" parent="StoryBooks" unique_id=1347867757 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, -14)
@@ -178,12 +235,40 @@ ItemName = "Princess Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookPrincess" unique_id=1645808425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookPrincess" unique_id=1781080916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9205761)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookPrincess" unique_id=919778432 instance=ExtResource("9_1p8om")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.94321537)
+
+[node name="Buku_1" parent="StoryBooks/BookPrincess/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_2" parent="StoryBooks/BookPrincess/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookPrincess/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookPrincess/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookPrincess/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookPrincess/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookPrincess/Books" index="7" unique_id=691475881]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookPrincess/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="BookDragon" type="StaticBody3D" parent="StoryBooks" unique_id=1121508018 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, -14)
@@ -194,12 +279,40 @@ ItemName = "Dragon Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookDragon" unique_id=1021167917]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookDragon" unique_id=1955124084]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookDragon" unique_id=970229169 instance=ExtResource("9_1p8om")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.94321537)
+
+[node name="Buku_1" parent="StoryBooks/BookDragon/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_2" parent="StoryBooks/BookDragon/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookDragon/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookDragon/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookDragon/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookDragon/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookDragon/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookDragon/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="BookSword" type="StaticBody3D" parent="StoryBooks" unique_id=1692934462 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, -14)
@@ -210,12 +323,40 @@ ItemName = "Sword Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookSword" unique_id=1805331209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookSword" unique_id=302094798]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookSword" unique_id=2143823560 instance=ExtResource("9_1p8om")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.94321537)
+
+[node name="Buku_1" parent="StoryBooks/BookSword/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_2" parent="StoryBooks/BookSword/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookSword/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookSword/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookSword/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookSword/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookSword/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookSword/Books" index="7" unique_id=691475881]
+visible = false
 
 [node name="BookShield" type="StaticBody3D" parent="StoryBooks" unique_id=264018001 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.5, -14)
@@ -226,12 +367,40 @@ ItemName = "Shield Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookShield" unique_id=929972189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookShield" unique_id=423607776]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.851655)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookShield" unique_id=1335087205 instance=ExtResource("9_1p8om")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.94321537)
+
+[node name="Buku_1" parent="StoryBooks/BookShield/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_2" parent="StoryBooks/BookShield/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookShield/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookShield/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookShield/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookShield/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookShield/Books" index="7" unique_id=691475881]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookShield/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="BookHorse" type="StaticBody3D" parent="StoryBooks" unique_id=330920144 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.19181, 1.5, -11.116556)
@@ -242,12 +411,40 @@ ItemName = "Horse Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookHorse" unique_id=649501736]
 transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.46363068, 0, -0.78817844)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookHorse" unique_id=858998611]
 transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.46363068, 0, -0.78817844)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookHorse" unique_id=2133021065 instance=ExtResource("9_1p8om")]
+transform = Transform3D(-0.021657843, 0, 0.99976546, 0, 1, 0, -0.99976546, 0, -0.021657843, 0.37965393, 0, -0.94321537)
+
+[node name="Buku_1" parent="StoryBooks/BookHorse/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_2" parent="StoryBooks/BookHorse/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookHorse/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookHorse/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookHorse/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookHorse/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookHorse/Books" index="7" unique_id=691475881]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookHorse/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="BookSkulls" type="StaticBody3D" parent="StoryBooks" unique_id=1592994783 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1.5, -7.4185143)
@@ -258,12 +455,40 @@ ItemName = "Skulls Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookSkulls" unique_id=2103398918]
 transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.55648804, 0, 0.71548367)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookSkulls" unique_id=380832925]
 transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.55648804, 0, 0.71548367)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookSkulls" unique_id=1946289062 instance=ExtResource("9_1p8om")]
+transform = Transform3D(-0.018307421, 0, -0.9998324, 0, 1, 0, 0.9998324, 0, -0.018307421, 0.6215229, 0, 0.694366)
+
+[node name="Buku_1" parent="StoryBooks/BookSkulls/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_2" parent="StoryBooks/BookSkulls/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_9" parent="StoryBooks/BookSkulls/Books" index="2" unique_id=334185446]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookSkulls/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookSkulls/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookSkulls/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookSkulls/Books" index="7" unique_id=691475881]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookSkulls/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="BookPhoenix" type="StaticBody3D" parent="StoryBooks" unique_id=1099790408 groups=["minimap_item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.315948, 1.5, -1.3472795)
@@ -274,12 +499,40 @@ ItemName = "Phoenix Book"
 
 [node name="Mesh" type="MeshInstance3D" parent="StoryBooks/BookPhoenix" unique_id=789416023]
 transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.6954498, 0, 0.04636383)
+visible = false
 mesh = SubResource("BoxMesh_book")
 surface_material_override/0 = SubResource("StandardMaterial3D_book")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StoryBooks/BookPhoenix" unique_id=539176861]
 transform = Transform3D(0.030067516, 0, -0.9995479, 0, 1, 0, 0.9995479, 0, 0.030067516, 0.6954498, 0, 0.04636383)
 shape = SubResource("SphereShape3D_book")
+
+[node name="Books" parent="StoryBooks/BookPhoenix" unique_id=394504854 instance=ExtResource("9_1p8om")]
+transform = Transform3D(-0.046199843, 0, 0.99893224, 0, 1, 0, -0.99893224, 0, -0.046199843, 0.7255783, 0, 0.026089072)
+
+[node name="Buku_1" parent="StoryBooks/BookPhoenix/Books" index="0" unique_id=352850481]
+visible = false
+
+[node name="Buku_2" parent="StoryBooks/BookPhoenix/Books" index="1" unique_id=1631744537]
+visible = false
+
+[node name="Buku_8" parent="StoryBooks/BookPhoenix/Books" index="3" unique_id=1814396774]
+visible = false
+
+[node name="Buku_7" parent="StoryBooks/BookPhoenix/Books" index="4" unique_id=2107870247]
+visible = false
+
+[node name="Buku_6" parent="StoryBooks/BookPhoenix/Books" index="5" unique_id=971344157]
+visible = false
+
+[node name="Buku_3" parent="StoryBooks/BookPhoenix/Books" index="6" unique_id=1799314874]
+visible = false
+
+[node name="Buku_4" parent="StoryBooks/BookPhoenix/Books" index="7" unique_id=691475881]
+visible = false
+
+[node name="Buku_5" parent="StoryBooks/BookPhoenix/Books" index="8" unique_id=1305556112]
+visible = false
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=935304611]
 
@@ -317,6 +570,7 @@ NextLevel = 5
 AreaColor = Color(1, 0.8, 0.2, 0.6)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTransition" unique_id=68311356]
+visible = false
 mesh = SubResource("BoxMesh_transition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition" unique_id=68311357]
@@ -389,7 +643,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0800453, 1.5021944, -18.496
 shape = SubResource("BoxShape3D_3hlef")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/StaticBody3D2" unique_id=1567755120]
-transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, -0.3088684)
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, 0.3082657)
 mesh = SubResource("PlaneMesh_8pxuo")
 surface_material_override/0 = SubResource("StandardMaterial3D_055jf")
 
@@ -417,3 +671,13 @@ mesh = SubResource("BoxMesh_3hlef")
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="MiniMap" unique_id=103103940 groups=["minimap_obstacle"]]
 transform = Transform3D(40.7, 0, 0, 0, 1, 0, 0, 0, 0.1, -9.6, 6.523, -17.339)
 mesh = SubResource("BoxMesh_3hlef")
+
+[editable path="StoryBooks/BookCastle/Books"]
+[editable path="StoryBooks/BookKnight/Books"]
+[editable path="StoryBooks/BookPrincess/Books"]
+[editable path="StoryBooks/BookDragon/Books"]
+[editable path="StoryBooks/BookSword/Books"]
+[editable path="StoryBooks/BookShield/Books"]
+[editable path="StoryBooks/BookHorse/Books"]
+[editable path="StoryBooks/BookSkulls/Books"]
+[editable path="StoryBooks/BookPhoenix/Books"]
