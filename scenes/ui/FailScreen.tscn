@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bq3bhin1tc2fa"]
+
+[ext_resource type="Script" uid="uid://bqp7m3t2oadpg" path="res://scripts/ui/FailScreen.cs" id="1_failscreen"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="2_l3f2p"]
+
+[node name="FailScreen" type="Control" unique_id=2049729179]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_failscreen")
+
+[node name="BlackCover" type="ColorRect" parent="." unique_id=1585173471]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="MessagePanel" type="Panel" parent="." unique_id=1600584808]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MessagePanel" unique_id=950084950]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="TopSpacer" type="Control" parent="MessagePanel/VBoxContainer" unique_id=1307146730]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MessageLabel" type="Label" parent="MessagePanel/VBoxContainer" unique_id=648895399]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_fonts/font = ExtResource("2_l3f2p")
+theme_override_font_sizes/font_size = 32
+text = "You were caught
+by the Guards!"
+horizontal_alignment = 1
+
+[node name="MiddleSpacer" type="Control" parent="MessagePanel/VBoxContainer" unique_id=1368541237]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="RespawnButton" type="Button" parent="MessagePanel/VBoxContainer" unique_id=1527632986]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_l3f2p")
+theme_override_font_sizes/font_size = 24
+text = "Respawn"

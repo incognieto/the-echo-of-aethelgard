@@ -27,6 +27,8 @@ PauseMenu="*res://scenes/ui/PauseMenu.tscn"
 SettingsManager="*res://scripts/systems/SettingsManager.cs"
 MusicManager="*res://scripts/systems/MusicManager.cs"
 ButtonSoundManager="*res://scripts/systems/ButtonSoundManager.cs"
+TimerManager="*res://scripts/systems/TimerManager.cs"
+LivesManager="*res://scripts/systems/LivesManager.cs"
 
 [display]
 

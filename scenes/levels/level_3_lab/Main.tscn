@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b8pn1xqg35okm" path="res://scripts/items/MaterialItem.cs" id="2_material"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://bh7yuw6ath05" path="res://scripts/puzzles/MixingPuzzle.cs" id="6_mixpuzzle"]
@@ -12,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cl25celniqxra" path="res://scenes/ui/FinalMixingUI.tscn" id="10_finalmix"]
 [ext_resource type="Script" uid="uid://d1m5oeeek4xlm" path="res://scripts/puzzles/FinalMixingPuzzle.cs" id="11_finalpuzzle"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="12_transition"]
+[ext_resource type="Script" path="res://scenes/levels/level_3_lab/Main.cs" id="15_main"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="13_3bs35"]
 [ext_resource type="Script" uid="uid://bvnsdjc7nbgdd" path="res://scripts/common/AutoDoor.cs" id="13_autodoor"]
 [ext_resource type="Texture2D" uid="uid://cmh6yh2g2w3g6" path="res://assets/sprites/lab/poster_ingredients_1080x1350.png" id="15_poster"]
@@ -101,6 +105,7 @@ size = Vector3(3, 0.2, 3)
 size = Vector3(3, 0.5, 3)
 
 [node name="Main" type="Node3D" unique_id=1136436961]
+script = ExtResource("15_main")
 
 [node name="RecipeBook" type="StaticBody3D" parent="." unique_id=1146817893 groups=["minimap_interactable"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11, 2.5, -0.58407104)
@@ -365,6 +370,11 @@ WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=1954206059 instance=ExtResource("3_invui")]
 
+[node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
+
+[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+
+[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
 [node name="BookUI" type="Control" parent="UI" unique_id=1069748114]
 layout_mode = 3
 anchors_preset = 15

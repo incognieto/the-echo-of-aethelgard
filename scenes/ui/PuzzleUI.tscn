@@ -131,7 +131,7 @@ offset_bottom = 163.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_fonts/font = ExtResource("4_font")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "Click symbols to cycle through patterns"
 horizontal_alignment = 1
 

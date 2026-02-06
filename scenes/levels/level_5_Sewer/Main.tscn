@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="2_4xt4c"]
 [ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="3_eofdq"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
+[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
+[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="4_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://1r2y70ajbuu3" path="res://assets/textures/worn_mossy_plasterwall_diff_1k.png" id="5_ec5yg"]
 [ext_resource type="Script" uid="uid://bbfcukikgxpgo" path="res://scripts/items/WeightItem.cs" id="6_jlque"]
@@ -11,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://df5170f7qosx3" path="res://assets/textures/worn_mossy_plasterwall_rough_1k.png" id="7_78t1w"]
 [ext_resource type="Script" uid="uid://se448mm5xj2s" path="res://scripts/puzzles/SewerGatePuzzle.cs" id="7_uvas7"]
 [ext_resource type="Shader" uid="uid://dnmduhckg5ggw" path="res://scripts/shaders/see_through.gdshader" id="8_78t1w"]
+[ext_resource type="Script" path="res://scenes/levels/level_5_Sewer/Main.cs" id="15_main"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="Texture2D" uid="uid://i3nkcqysosys" path="res://assets/textures/rusty_metal_04_diff_1k.png" id="9_jlque"]
 [ext_resource type="Script" uid="uid://bps0ucv6d60ec" path="res://scripts/levels/WaterAnimator.cs" id="10_nxrbb"]
 [ext_resource type="Texture2D" uid="uid://6k4xsg4j7rhk" path="res://assets/textures/dark_wooden_planks_diff_1k.png" id="12_vdc3e"]
@@ -186,6 +191,7 @@ _data = {
 size = Vector3(1, 10.521423, 26.444344)
 
 [node name="Main" type="Node3D" unique_id=1411745492]
+script = ExtResource("15_main")
 
 [node name="GameSetup" type="Node" parent="." unique_id=641014099]
 script = ExtResource("1_ogqkq")
@@ -215,6 +221,11 @@ WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=1260366128 instance=ExtResource("3_invui")]
 
+[node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
+
+[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+
+[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
 [node name="BookUI" type="Control" parent="UI" unique_id=1515685859]
 layout_mode = 3
 anchors_preset = 15

@@ -7,6 +7,8 @@ However, Ironfang harbors a secret. Behind the damp cell walls lies a relic from
 
 In this first edition, your journey begins from the lowest point. With the help of this cursed yet blessed book, you must navigate the deadly prison corridors, pass through forbidden alchemy laboratories, to the warden's secret library. Every step you take has already been "spoiled" by the book as failure or death. Your task is to manipulate the variables around you—symbols, chemical liquids, even object weights—to transform these deadly spoilers into a path to freedom. The ultimate goal? To obtain the Palace Map that will determine whether the fires of revolution will burn again or be extinguished forever in the king's hands.
 
+---
+
 ## Tech Stack
 | Technology | Version |
 |------------|---------|
@@ -15,7 +17,11 @@ In this first edition, your journey begins from the lowest point. With the help 
 | Physics Engine | Jolt Physics |
 | Rendering | DirectX 12 (Forward+) |
 
+---
+
 ## Implemented Features
+
+### Core Gameplay
 | Feature | Description |
 |---------|-------------|
 | Dual Camera System | First-Person & Isometric 3D top-down view (toggle with C) |
@@ -23,143 +29,25 @@ In this first edition, your journey begins from the lowest point. With the help 
 | Item Interaction | Raycast pickup (FPP) & proximity detection (Isometric) |
 | Inventory System | 16 slots (4x4 grid + 1x4 hotbar) with drag-drop & auto-stacking |
 | Usable Items | Books with readable content, UI with BBCode support |
-| Door Puzzle (Level 1) | 6-digit password puzzle with control panel interaction |
-| Mixing Puzzle (Level 3) | Tri-color synthesis: Materials → Secondary Potions → Teal Potion |
-| Library Puzzle (Level 4) | 3x3 grid puzzle - arrange 9 story books in narrative order |
 | Physics System | Drop items with realistic throw physics |
-| UI Elements | Crosshair (FPP only), inventory panel, hotbar, item prompts |
-| Mini Map System | Real-time top-down map showing player (green), items (yellow), and walls (gray) |
 
-## Mini Map System
-Real-time mini map di top-right corner yang menampilkan:
-- **🟢 Player Position**: Titik hijau dengan indikator arah hadap
-- **🟡 Pickable Items**: Semua item yang dapat diambil (PickableItem & DroppedItem)
-- **⬜ Static Obstacles**: Dinding, lantai, dan objek statis lainnya
+### UI Systems
+| Feature | Description |
+|---------|-------------|
+| Mini Map | Real-time top-down map with player, items, and walls |
+| Timer & Lives | Countdown timer + 3 lives system with fail/game over screens |
+| Crosshair | FPP-only aiming reticle |
+| Inventory Panel | Visual drag-drop interface with hotbar |
+| Item Prompts | Context-sensitive interaction hints |
 
-### File Locations:
-- **Scene File**: `scenes/ui/MiniMap.tscn` - UI scene untuk mini map
-- **Script File**: `scripts/ui/MiniMapSystem.cs` - Logic untuk rendering & detection
+### Puzzles
+| Level | Puzzle Type | Description |
+|-------|-------------|-------------|
+| Level 1 - Cell | Door Password | 6-digit password entry with control panel |
+| Level 3 - Lab | Color Mixing | Tri-color synthesis: Materials → Secondary → Teal Potion |
+| Level 4 - Library | Grid Arrangement | 3x3 story book ordering puzzle |
 
-### Cara Mengintegrasikan ke Level:
-**Metode 1: Via Godot Editor (Recommended)**
-1. Buka level scene (e.g., `level_1_cell/Main.tscn`)
-2. Pilih node `UI` (CanvasLayer)
-3. Klik **Scene → Instantiate Child Scene** atau tekan `Ctrl+Shift+A`
-4. Pilih file `scenes/ui/MiniMap.tscn`
-5. Mini map akan otomatis muncul di top-right corner
-6. **Ctrl+S** untuk save scene
-
-**Metode 2: Manual Addition (Advanced)**
-Di file `.tscn`, tambahkan di dalam node `UI`:
-```gdscript
-[ext_resource type="PackedScene" uid="uid://bqw5x8nj7m8yc" path="res://scenes/ui/MiniMap.tscn" id="X_minimap"]
-
-# Di dalam [node name="UI" type="CanvasLayer"]
-[node name="MiniMap" parent="UI" instance=ExtResource("X_minimap")]
-```
-
-### Export Variables (Konfigurasi):
-| Variable | Description | Default |
-|----------|-------------|---------|
-| **MapSize** | Ukuran mini map (width x height) | `(200, 200)` |
-| **MapPosition** | Offset dari top-right corner | `(-220, 20)` |
-| **MapPadding** | Padding untuk auto-scale boundaries | `10.0` |
-| **AutoDetectBounds** | Auto-detect level boundaries | `true` |
-| **PlayerColor** | Warna titik player | `Green (#00FF00)` |
-| **ItemColor** | Warna titik item | `Yellow (#FFFF00)` |
-| **WallColor** | Warna obstacle/dinding | `Gray (#808080)` |
-| **PlayerDotSize** | Ukuran titik player | `6.0` |
-| **ItemDotSize** | Ukuran titik item | `4.0` |
-
-### Tips Kustomisasi:
-- **Perbesar map**: Ubah `MapSize = (250, 250)`
-- **Geser posisi**: Ubah `MapPosition.Y` untuk vertical adjustment
-- **Ubah warna**: Edit `PlayerColor`, `ItemColor`, atau `WallColor`
-- **Manual bounds**: Set `AutoDetectBounds = false` lalu atur `ManualBoundsMin/Max`
-
-### Cara Kerja:
-1. **Initialization**: Saat `_Ready()`, sistem mendeteksi:
-   - Player reference (`/root/Main/Player`)
-   - World boundaries (dari semua StaticBody3D)
-   - Static obstacles (dinding, objek statis)
-   
-2. **Real-time Update**: Setiap frame, sistem:
-   - Mengambil posisi player terkini
-   - Mendeteksi semua item di group `pickable_items`
-   - Mendeteksi semua `DroppedItem` di scene
-   - Render ke canvas dengan skala otomatis
-
-3. **Coordinate Mapping**: Konversi 3D world position (X, Z) ke 2D map position
-
-### Troubleshooting:
-- **Player tidak muncul**: Pastikan node Player ada di `/root/Main/Player`
-- **Items tidak muncul**: Pastikan PickableItem ada di group `pickable_items`
-- **Bounds terlalu besar/kecil**: Set `AutoDetectBounds = false` dan atur manual
-- **Map tidak update**: Check bahwa scene sudah di-instantiate dengan benar
-
-## Visual UI Editor (Level 3)
-InventoryUI sekarang menggunakan **scene terpisah (.tscn) dengan node-based UI** untuk kemudahan editing!
-
-### File Locations:
-- **Scene File**: `scenes/ui/InventoryUI.tscn` - UI layout dengan nodes
-- **Script File**: `scripts/ui/InventoryUI.cs` - Logic & dynamic behavior
-
-### Node Structure di InventoryUI.tscn:
-```
-InventoryUI (Control) - Root node dengan export variables
-└─ InventoryPanel (Panel) - Background panel
-   └─ VBoxContainer
-      ├─ TitleLabel (Label) - "Inventory (16 Slots)"
-      ├─ InventoryGrid (GridContainer) - Container untuk slots
-      ├─ SelectedItemLabel (Label) - Info item terpilih
-      └─ InstructionsLabel (Label) - Keyboard shortcuts
-```
-
-### Cara Edit Layout via Godot Editor:
-1. **Double-click** `scenes/ui/InventoryUI.tscn` di FileSystem Godot
-2. Pilih root node `InventoryUI`
-3. Di **Inspector** panel (kanan), ubah **Export Variables**:
-   - **Inventory Columns**: Jumlah kolom grid (Level 1: 3, Level 3: 4)
-   - **Inventory Rows**: Jumlah baris grid (Level 1: 2, Level 3: 4)
-   - **Hotbar Slots**: Jumlah slot hotbar (Level 1: 6, Level 3: 4)
-   - **Slot Size**: Ukuran slot dalam pixel (default: 80x80)
-   - **Slot Spacing**: Jarak antar slot (default: 5)
-   - **Inventory Panel Size**: Ukuran panel inventory
-   - **Hotbar Panel Size**: Ukuran panel hotbar
-   - **Hotbar Position**: Posisi hotbar (X, Y dari center-bottom)
-4. **Edit Node Properties** (Optional):
-   - Pilih node `InventoryPanel` → Ubah warna background
-   - Pilih node `TitleLabel` → Ubah font size, warna, alignment
-   - Pilih node `InventoryGrid` → Ubah spacing, columns
-5. **Ctrl+S** untuk save
-6. Run game untuk melihat perubahan
-
-### Per-Level Configuration:
-**PENTING**: Level 1 dan Level 3 sekarang gunakan **inventory yang sama** (16 slots, 4 hotbar)
-
-**Level 1** (`level_1_cell/Main.tscn`):
-- Node structure: `Main/UI/InventoryUI`
-- Inventory: 16 slots (4x4 grid)
-- Hotbar: 4 slots (1x4)
-
-**Level 3** (`level_3_lab/Main.tscn`):
-- Node structure: `Main/UI/InventoryUI`  
-- Inventory: 16 slots (4x4 grid)
-- Hotbar: 4 slots (1x4)
-
-**Level 4** (`level_4_library/Main.tscn`):
-- Node structure: `Main/UI/InventoryUI`  
-- Inventory: 16 slots (4x4 grid)
-- Hotbar: 4 slots (1x4)
-- Puzzle: 3x3 grid panel for story book arrangement
-
-### Tips Edit Visual:
-- **Geser hotbar horizontal**: Ubah `HotbarPosition.X` (-260 = kiri, -100 = kanan)
-- **Geser hotbar vertical**: Ubah `HotbarPosition.Y` (-150 = atas, -80 = bawah)
-- **Perbesar slot**: `SlotSize = (100, 100)`
-- **Grid lebih rapat**: `SlotSpacing = 2`
-- **Ubah warna panel**: Pilih `InventoryPanel` → Theme Overrides → Styles
-- **Ubah font title**: Pilih `TitleLabel` → Theme Overrides → Font Sizes
+---
 
 ## Game Controls
 | Key/Input | Action | Mode |
@@ -171,14 +59,273 @@ InventoryUI (Control) - Root node dengan export variables
 | Ctrl + Q | Drop entire stack | Both |
 | F | Use item (e.g., read book) | Both |
 | I / Tab | Toggle inventory panel | Both |
-| 1-6 | Select hotbar slot | Both |
-| 1-4 | Select hotbar slot (Level 3: 4 slots) | Level 3 |
-| Mouse Drag | Drag-drop items between inventory slots | Level 3 |
+| 1-4 | Select hotbar slot | Both |
+| Mouse Drag | Drag-drop items between slots | Both |
 | Space | Jump | First-Person |
 | C | Toggle camera mode (FPP ↔ Isometric) | Both |
 | ESC | Release/Capture mouse cursor | Both |
 
+---
+
+## System Documentation
+
+### 🗺️ Mini Map System
+
+Real-time mini map di top-right corner yang menampilkan:
+- **🟢 Player Position**: Titik hijau dengan indikator arah hadap
+- **🟡 Pickable Items**: Semua item yang dapat diambil
+- **⬜ Static Obstacles**: Dinding, lantai, dan objek statis
+
+**Files:**
+- Scene: `scenes/ui/MiniMap.tscn`
+- Script: `scripts/ui/MiniMapSystem.cs`
+
+**Setup ke Level:**
+1. Buka level scene (e.g., `level_1_cell/Main.tscn`)
+2. Pilih node `UI` (CanvasLayer)
+3. **Scene → Instantiate Child Scene** atau `Ctrl+Shift+A`
+4. Pilih `scenes/ui/MiniMap.tscn`
+5. Save (`Ctrl+S`)
+
+**Export Variables:**
+- `MapSize`: Ukuran mini map (default: 200x200)
+- `MapPosition`: Offset dari top-right (default: -220, 20)
+- `PlayerColor`, `ItemColor`, `WallColor`: Warna elemen
+- `PlayerDotSize`, `ItemDotSize`: Ukuran titik
+
+---
+
+### ⏱️ Timer & Lives System
+
+Sistem countdown timer dan nyawa dengan fail state dan game over screen.
+
+**Components:**
+- **TimerManager** (Autoload): Countdown timer per level
+- **LivesManager** (Autoload): 3 nyawa pemain
+- **GameHUD**: Display timer & lives di UI
+- **FailScreen**: "YOU WERE CAUGHT BY THE GUARDS" + respawn
+- **GameOverScreen**: "GAME OVER" + back to menu
+
+**Files:**
+- Systems: `scripts/systems/TimerManager.cs`, `LivesManager.cs`
+- UI: `scripts/ui/GameHUD.cs`, `FailScreen.cs`, `GameOverScreen.cs`
+- Scene: `scenes/ui/GameHUD.tscn`
+
+**Setup ke Level:**
+
+**Method 1: Via Scene (RECOMMENDED)**
+1. Buka level scene
+2. Pilih node `UI` (CanvasLayer)
+3. **Scene → Instantiate Child Scene**
+4. Pilih `scenes/ui/GameHUD.tscn`
+5. Save
+
+✅ **GameHUD sudah terinstall di semua level!** (Level 1-5)
+
+**Method 2: Edit Layout via GUI Godot**
+1. Buka `scenes/ui/GameHUD.tscn` di Godot Editor
+2. Pilih `TimerPanel` atau `LivesPanel` di Scene Tree
+3. Di Inspector, ubah:
+   - **Position**: offset_left, offset_top untuk geser panel
+   - **Size**: offset_right, offset_bottom untuk resize
+4. Pilih `TimerLabel` atau `LivesLabel`:
+   - Theme Overrides → Font Sizes → font_size
+   - Theme Overrides → Colors → font_color
+5. Save (Ctrl+S)
+
+**Dokumentasi Layout**: Lihat `GAMEHUD_LAYOUT.md` untuk panduan lengkap
+
+**API Usage:**
+```csharp
+// Timer
+TimerManager.Instance.StartTimer(300f, "Level 1");
+TimerManager.Instance.AddTime(30f); // Bonus time
+TimerManager.Instance.CompleteLevel();
+
+// Lives
+LivesManager.Instance.LoseLife();
+LivesManager.Instance.GainLife();
+bool hasLives = LivesManager.Instance.HasLivesRemaining();
+```
+
+**Customization:**
+- Time per level: Edit `LevelTimeLimit` in Inspector
+- Max lives: Edit `MaxLives` in `LivesManager.cs` (default: 3)
+- UI position: Edit `_timerPosition` and `_livesPosition` in `GameHUD.cs`
+
+---
+
+### 🎒 Inventory System
+
+16-slot inventory (4x4 grid) + 4-slot hotbar dengan drag-drop support.
+
+**Files:**
+- Scene: `scenes/ui/InventoryUI.tscn`
+- Script: `scripts/ui/InventoryUI.cs`
+
+**Node Structure:**
+```
+InventoryUI (Control)
+└─ InventoryPanel (Panel)
+   └─ VBoxContainer
+      ├─ TitleLabel
+      ├─ InventoryGrid (GridContainer)
+      ├─ SelectedItemLabel
+      └─ InstructionsLabel
+```
+
+**Visual Editing via Godot Editor:**
+1. Open `scenes/ui/InventoryUI.tscn`
+2. Select root node `InventoryUI`
+3. In Inspector, modify Export Variables:
+   - Inventory Columns/Rows: Grid size
+   - Hotbar Slots: Number of hotbar slots
+   - Slot Size: Slot dimensions (default: 80x80)
+   - Hotbar Position: Position from center-bottom
+
+**Per-Level Configuration:**
+- All levels use same inventory: 16 slots (4x4) + 4 hotbar
+- Automatically instantiated in `Main.tscn` under `UI` node
+
+---
+
+## Setup Guide for New Levels
+
+### Quick Integration Checklist
+
+When creating a new level, add these UI components:
+
+**1. Mini Map**
+```
+UI (CanvasLayer)
+└─ MiniMap [Instance: scenes/ui/MiniMap.tscn]
+```
+
+**2. Timer & Lives**
+```
+UI (CanvasLayer)
+└─ GameHUD [Instance: scenes/ui/GameHUD.tscn]
+```
+
+**3. Inventory**
+```
+UI (CanvasLayer)
+└─ InventoryUI [Instance: scenes/ui/InventoryUI.tscn]
+```
+
+**Steps:**
+1. Open level scene (e.g., `level_2_bridge/Main.tscn`)
+2. Select `UI` node
+3. For each component:
+   - Scene → Instantiate Child Scene
+   - Select `.tscn` file
+   - Save
+4. Test in-game to verify all UI elements appear
+
+---
+
+## File Structure
+
+```
+scenes/
+├── common/
+│   ├── Player.tscn
+│   └── DroppedItem.tscn
+├── levels/
+│   ├── level_1_cell/Main.tscn
+│   ├── level_2_bridge/Main.tscn
+│   ├── level_3_lab/Main.tscn
+│   ├── level_4_library/Main.tscn
+│   └── level_5_Sewer/Main.tscn
+└── ui/
+    ├── GameHUD.tscn           # Timer & Lives display
+    ├── MiniMap.tscn           # Mini map
+    ├── InventoryUI.tscn       # Inventory panel
+    ├── FailScreen.tscn        # Fail screen (auto-created)
+    ├── GameOverScreen.tscn    # Game over (auto-created)
+    └── [other UI scenes]
+
+scripts/
+├── common/               # Player, camera, movement
+├── items/               # Item system, pickups
+├── levels/              # Level-specific logic
+├── puzzles/             # Puzzle mechanics
+├── systems/             # Core managers (autoloaded)
+│   ├── TimerManager.cs
+│   ├── LivesManager.cs
+│   ├── InventorySystem.cs
+│   ├── MusicManager.cs
+│   └── CursorManager.cs
+└── ui/                  # UI controllers
+    ├── GameHUD.cs
+    ├── FailScreen.cs
+    ├── GameOverScreen.cs
+    ├── MiniMapSystem.cs
+    └── InventoryUI.cs
+```
+
+---
+
+## Troubleshooting
+
+### HUD tidak muncul
+- ✅ Verifikasi `TimerManager` dan `LivesManager` ada di autoload (Project → Settings → Autoload)
+- ✅ Pastikan `GameHUD.tscn` sudah di-instantiate di node `UI`
+- ✅ Check console untuk error messages
+- ✅ Verify nodes di GameHUD.tscn: `GameHUD → TimerPanel/LivesPanel → Labels`
+- ✅ Pastikan `visible = true` di semua nodes (buka GameHUD.tscn, check Inspector)
+
+### Timer tidak countdown
+- ✅ Timer perlu di-start manual. Tambahkan di level script:
+  ```csharp
+  // Di _Ready() level script
+  if (TimerManager.Instance != null)
+      TimerManager.Instance.StartTimer(300f, "Level 1");
+  ```
+- ✅ Atau attach `LevelTimerStarter.cs` ke root node level
+- ✅ Check console: "Timer started" message
+
+### Lives tidak update
+- ✅ Check console: `LivesManager not found` ?
+- ✅ Verify LivesManager di autoload
+- ✅ Pastikan script dapat access Instance
+
+### Edit Layout HUD
+- **Via GUI Godot**: Buka `scenes/ui/GameHUD.tscn`
+- Pilih `TimerPanel` atau `LivesPanel`
+- Edit di Inspector: offset_left, offset_top, offset_right, offset_bottom
+- Detailed guide: Lihat comments di `GameHUD.cs`
+
+---
+
+## Development Roadmap
+
+### Completed ✅
+- Dual camera system
+- Inventory with drag-drop
+- Mini map with real-time tracking
+- Timer & lives system with fail states
+- Multiple puzzles (door, mixing, grid)
+- Item interaction system
+
+### In Progress 🚧
+- Additional levels and puzzles
+- Save/load system
+- Audio/music integration
+- Story progression mechanics
+
+### Planned 📋
+- Achievement system
+- Difficulty modes
+- Time bonus pickups
+- Extra life collectibles
+- Enhanced visual effects
+- Localization support
+
+---
+
 ## Development Team
+
 **Politeknik Negeri Bandung**
 - Farras Ahmad Rasyid
 - Satria Permata Sejati
@@ -188,4 +335,35 @@ InventoryUI (Control) - Root node dengan export variables
 
 ---
 
+## License
+
 © 2026 Politeknik Negeri Bandung. All rights reserved.
+
+---
+
+## Quick Reference
+
+**Autoloaded Singletons:**
+- `CursorManager` - Cursor management
+- `PanelManager` - Panel state tracking
+- `SettingsManager` - Game settings
+- `MusicManager` - Background music
+- `ButtonSoundManager` - UI sounds
+- `TimerManager` - Level timers
+- `LivesManager` - Player lives
+
+**Key Scenes:**
+- `scenes/ui/GameHUD.tscn` - Timer & Lives UI
+- `scenes/ui/MiniMap.tscn` - Mini map
+- `scenes/ui/InventoryUI.tscn` - Inventory panel
+- `scenes/common/Player.tscn` - Player character
+
+**Essential Scripts:**
+- `scripts/systems/LevelGameManager.cs` - Level integration
+- `scripts/ui/GameHUD.cs` - HUD controller
+- `scripts/ui/MiniMapSystem.cs` - Mini map logic
+- `scripts/ui/InventoryUI.cs` - Inventory controller
+
+---
+
+**For detailed API documentation and advanced customization, refer to individual script comments.**

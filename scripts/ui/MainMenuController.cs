@@ -42,6 +42,12 @@ public partial class MainMenuController : Control
 
 	private void OnSettingsPressed()
 	{
+		// Set Settings source to MainMenu
+		Settings.CurrentSource = Settings.SettingsSource.MainMenu;
+		Settings.ReturnScenePath = "";
+		Settings.SetPauseMenuReference(null); // Clear any previous pause menu reference
+		GD.Print("⚙️ Opening Settings from MainMenu (cleared pause menu reference)");
+		
 		// Navigate to settings scene
 		GD.Print("Settings clicked");
 		GetTree().ChangeSceneToFile("res://scenes/ui/Settings.tscn");

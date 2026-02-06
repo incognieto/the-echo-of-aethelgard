@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://bits5qejynlh4"]
+
+[ext_resource type="Script" uid="uid://bhbq6dmsqo0xo" path="res://scripts/ui/GameHUD.cs" id="1_gamehud"]
+[ext_resource type="FontFile" uid="uid://cxxjt4bfjc1wk" path="res://assets/fonts/GoudyMediaeval-Regular.ttf" id="2_3b1cv"]
+[ext_resource type="Texture2D" uid="uid://bvd85d3663128" path="res://assets/sprites/ui/nyawa.png" id="3_heart"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h4ju2"]
+
+[node name="GameHUD" type="Control" unique_id=429618621]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_gamehud")
+
+[node name="TimerPanel" type="Panel" parent="." unique_id=812084339]
+z_index = 11
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -221.0
+offset_top = 20.0
+offset_right = -41.0
+offset_bottom = 80.0
+grow_horizontal = 0
+
+[node name="TimerVBox" type="VBoxContainer" parent="TimerPanel" unique_id=1942516890]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="TimerTitle" type="Label" parent="TimerPanel/TimerVBox" unique_id=2112537472]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3b1cv")
+theme_override_font_sizes/font_size = 20
+text = "You will be caught in"
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="TimerPanel/TimerVBox" unique_id=1427713549]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_fonts/font = ExtResource("2_3b1cv")
+theme_override_font_sizes/font_size = 24
+text = "05:00"
+horizontal_alignment = 1
+
+[node name="LivesPanel" type="Panel" parent="." unique_id=2010378255]
+z_index = 11
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -181.0
+offset_top = 87.0
+offset_right = -41.0
+offset_bottom = 130.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_h4ju2")
+
+[node name="LivesVBox" type="VBoxContainer" parent="LivesPanel" unique_id=122022796]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="LivesTitle" type="Label" parent="LivesPanel/LivesVBox" unique_id=903357464]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3b1cv")
+theme_override_font_sizes/font_size = 16
+text = "💖 LIVES"
+horizontal_alignment = 1
+
+[node name="LivesLabel" type="Label" parent="LivesPanel/LivesVBox" unique_id=777994850]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3b1cv")
+theme_override_font_sizes/font_size = 24
+text = "❤️❤️❤️"
+horizontal_alignment = 1
+
+[node name="HeartsContainer" type="HBoxContainer" parent="LivesPanel/LivesVBox" unique_id=555888999]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Heart1" type="TextureRect" parent="LivesPanel/LivesVBox/HeartsContainer" unique_id=111222333]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart2" type="TextureRect" parent="LivesPanel/LivesVBox/HeartsContainer" unique_id=444555666]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart3" type="TextureRect" parent="LivesPanel/LivesVBox/HeartsContainer" unique_id=777888999]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_heart")
+expand_mode = 1
+stretch_mode = 5

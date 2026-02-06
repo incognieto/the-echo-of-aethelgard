@@ -3,6 +3,22 @@ using System;
 
 public partial class Settings : Control
 {
+	// Track where Settings was opened from
+	public enum SettingsSource
+	{
+		MainMenu,
+		PauseMenu
+	}
+	
+	public static SettingsSource CurrentSource { get; set; } = SettingsSource.MainMenu;
+	public static string ReturnScenePath { get; set; } = "";
+	private static PauseMenuController _pauseMenuReference = null;
+	
+	public static void SetPauseMenuReference(PauseMenuController pauseMenu)
+	{
+		_pauseMenuReference = pauseMenu;
+	}
+	
 	// Audio controls
 	private HSlider _masterVolumeSlider;
 	private Label _masterVolumeLabel;
@@ -39,10 +55,30 @@ public partial class Settings : Control
 
 	public override void _Ready()
 	{
-		// Start music for Settings scene
-		if (MusicManager.Instance != null)
+		// IMPORTANT: Set full screen anchors if being used as overlay
+		if (CurrentSource == SettingsSource.PauseMenu)
 		{
-			MusicManager.Instance.InstantRestart();
+			SetAnchorsPreset(LayoutPreset.FullRect);
+			
+			// CRITICAL: Set ProcessMode to Always so UI can receive input while paused
+			ProcessMode = ProcessModeEnum.Always;
+			
+			// CRITICAL: Set MouseFilter to STOP so this can receive mouse events
+			MouseFilter = MouseFilterEnum.Stop;
+			
+			GD.Print("⚙️ Settings loaded as overlay (from PauseMenu) - ProcessMode.Always + MouseFilter.Stop enabled");
+			
+			// CRITICAL: Set ProcessMode.Always for ALL children (sliders, buttons, etc.)
+			CallDeferred(nameof(SetChildrenProcessMode));
+		}
+		else
+		{
+			// Start music for Settings scene (only if from MainMenu)
+			if (MusicManager.Instance != null)
+			{
+				MusicManager.Instance.InstantRestart();
+			}
+			GD.Print("⚙️ Settings loaded as scene (from MainMenu)");
 		}
 		
 		// Get audio bus indices
@@ -64,6 +100,21 @@ public partial class Settings : Control
 		// Get buttons
 		_applyButton = GetNode<Button>("ScrollContainer/VBoxContainer/ButtonContainer/ApplyButton");
 		_backButton = GetNode<Button>("ScrollContainer/VBoxContainer/ButtonContainer/BackButton");
+		
+		// Update Back button label based on source
+		if (CurrentSource == SettingsSource.PauseMenu)
+		{
+			// Get level name from TimerManager
+			string levelName = TimerManager.Instance?.CurrentLevelName ?? "Game";
+			_backButton.Text = $"Back to the Game ({levelName})";
+			GD.Print($"✏️ Back button label updated: 'Back to the Game ({levelName})'");
+		}
+		else
+		{
+			// Main Menu
+			_backButton.Text = "Back to Main Menu";
+			GD.Print("✏️ Back button label updated: 'Back to Main Menu'");
+		}
 		
 		// Connect signals
 		_masterVolumeSlider.ValueChanged += OnMasterVolumeChanged;
@@ -117,7 +168,28 @@ public partial class Settings : Control
 
 	private void OnBackPressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/ui/MainMenu.tscn");
+		GD.Print($"Settings back button pressed. Source: {CurrentSource}");
+		
+		if (CurrentSource == SettingsSource.PauseMenu)
+		{
+			// Close overlay and return to PauseMenu (DON'T reload scene)
+			GD.Print("Closing Settings overlay, returning to PauseMenu");
+			
+			// Show PauseMenu again (this will also clean up the overlay layer)
+			if (_pauseMenuReference != null)
+			{
+				_pauseMenuReference.ShowAfterSettings();
+			}
+			
+			// Don't QueueFree here - let PauseMenu clean up the CanvasLayer
+			// (Settings is child of CanvasLayer, will be freed automatically)
+		}
+		else
+		{
+			// Return to Main Menu
+			GD.Print("Returning to Main Menu");
+			GetTree().ChangeSceneToFile("res://scenes/ui/MainMenu.tscn");
+		}
 	}
 	
 	private void ApplySettings()
@@ -233,5 +305,24 @@ public partial class Settings : Control
 		// Convert 0-100 to 0-1, then to decibels
 		float normalizedVolume = volume / 100.0f;
 		return Mathf.LinearToDb(normalizedVolume);
+	}
+	
+	private void SetChildrenProcessMode()
+	{
+		// Recursively set ProcessMode.Always for all children
+		SetProcessModeRecursive(this);
+		GD.Print("✅ All Settings children set to ProcessMode.Always");
+	}
+	
+	private void SetProcessModeRecursive(Node node)
+	{
+		if (node == null) return;
+		
+		node.ProcessMode = ProcessModeEnum.Always;
+		
+		foreach (Node child in node.GetChildren())
+		{
+			SetProcessModeRecursive(child);
+		}
 	}
 }

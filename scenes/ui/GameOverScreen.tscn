@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://bliynajsyyj8r"]
+
+[ext_resource type="Script" uid="uid://ckxsaweo2e14m" path="res://scripts/ui/GameOverScreen.cs" id="1_gameover"]
+[ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="2_font"]
+
+[node name="GameOverScreen" type="Control" unique_id=964481795]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gameover")
+
+[node name="BlackCover" type="ColorRect" parent="." unique_id=177352210]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="MessagePanel" type="Panel" parent="." unique_id=242930292]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MessagePanel" unique_id=1827941782]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="TopSpacer" type="Control" parent="MessagePanel/VBoxContainer" unique_id=471100241]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="GameOverLabel" type="Label" parent="MessagePanel/VBoxContainer" unique_id=253210770]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 48
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="SubLabel" type="Label" parent="MessagePanel/VBoxContainer" unique_id=810741101]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "All lives depleted
+The guards have captured you"
+horizontal_alignment = 1
+
+[node name="MiddleSpacer" type="Control" parent="MessagePanel/VBoxContainer" unique_id=1176924766]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="MessagePanel/VBoxContainer" unique_id=1536510227]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+text = "Back to Main Menu"

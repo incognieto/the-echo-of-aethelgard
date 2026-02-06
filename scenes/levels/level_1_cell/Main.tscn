@@ -3,7 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_qg8n7"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
 [ext_resource type="Texture2D" uid="uid://dpsms4vv44dwx" path="res://assets/items/Book_Book.png" id="4_28jj2"]
+[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FailScreen.tscn" id="16_failscreen"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GameOverScreen.tscn" id="17_gameoverscreen"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
 [ext_resource type="Script" uid="uid://ul57620skni6" path="res://scripts/items/BookItem.cs" id="6_bookitem"]
 [ext_resource type="PackedScene" path="res://scenes/ui/MiniMap.tscn" id="6_rlifa"]
@@ -12,6 +15,7 @@
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="9_transition"]
 [ext_resource type="MeshLibrary" uid="uid://b173h3x1y4sm6" path="res://assets/map/tileset.tres" id="10_28jj2"]
 [ext_resource type="MeshLibrary" uid="uid://b84gde0li4arp" path="res://assets/map/tileset_transparent.tres" id="10_xuw2q"]
+[ext_resource type="Script" path="res://scenes/levels/level_1_cell/Main.cs" id="15_main"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ftsf"]
 resource_name = "Material"
@@ -93,6 +97,7 @@ size = Vector3(3, 0.2, 3)
 size = Vector3(3, 0.5, 3)
 
 [node name="Main" type="Node3D" unique_id=2043194446]
+script = ExtResource("15_main")
 
 [node name="GameSetup" type="Node" parent="." unique_id=1537644261]
 script = ExtResource("4_setup")
@@ -168,6 +173,12 @@ ItemDotSize = 5.0
 WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=3306095 instance=ExtResource("3_invui")]
+
+[node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
+
+[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+
+[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
 
 [node name="BookUI" type="Control" parent="UI" unique_id=1847499792]
 layout_mode = 3

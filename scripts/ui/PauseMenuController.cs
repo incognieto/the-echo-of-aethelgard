@@ -10,6 +10,8 @@ public partial class PauseMenuController : CanvasLayer
 	private bool _isPaused = false;
 	private string _currentScenePath = "";
 
+	private CanvasLayer _settingsOverlayLayer = null;
+	
 	public override void _Ready()
 	{
 		// Set process mode agar bisa terima input meskipun game paused
@@ -71,6 +73,13 @@ public partial class PauseMenuController : CanvasLayer
 			GetTree().Paused = true;
 			PanelManager.Instance.RegisterPanel(this);
 			
+			// PAUSE TIMER
+			if (TimerManager.Instance != null)
+			{
+				TimerManager.Instance.PauseTimer();
+				GD.Print("⏸️ Timer paused (PauseMenu opened)");
+			}
+			
 			// Show cursor dan unlock untuk UI interaction
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
@@ -78,6 +87,13 @@ public partial class PauseMenuController : CanvasLayer
 		{
 			GetTree().Paused = false;
 			PanelManager.Instance.UnregisterPanel(this);
+			
+			// RESUME TIMER
+			if (TimerManager.Instance != null)
+			{
+				TimerManager.Instance.ResumeTimer();
+				GD.Print("▶️ Timer resumed (PauseMenu closed)");
+			}
 			
 			// Hide cursor kembali saat resume game
 			Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -101,6 +117,20 @@ public partial class PauseMenuController : CanvasLayer
 		_isPaused = false;
 		Visible = false;
 		
+		// Stop timer before restart
+		if (TimerManager.Instance != null)
+		{
+			TimerManager.Instance.StopTimer();
+			GD.Print("⏹️ Timer stopped (Level restarting)");
+		}
+		
+		// Reset lives to 3
+		if (LivesManager.Instance != null)
+		{
+			LivesManager.Instance.ResetLives();
+			GD.Print("❤️ Lives reset to 3");
+		}
+		
 		// Capture cursor kembali saat restart
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		
@@ -117,15 +147,49 @@ public partial class PauseMenuController : CanvasLayer
 
 	private void OnSettingsPressed()
 	{
-		GetTree().Paused = false;
-		PanelManager.Instance.UnregisterPanel(this);
-		_isPaused = false;
+		// JANGAN unpause game, JANGAN pindah scene
+		// Instantiate Settings sebagai overlay dengan CanvasLayer
+		
+		// Set Settings source to PauseMenu
+		Settings.CurrentSource = Settings.SettingsSource.PauseMenu;
+		Settings.SetPauseMenuReference(this);
+		GD.Print("⚙️ Opening Settings as overlay from PauseMenu");
+		
+		// Create CanvasLayer untuk Settings (higher layer than PauseMenu)
+		_settingsOverlayLayer = new CanvasLayer();
+		_settingsOverlayLayer.Name = "SettingsOverlay";
+		_settingsOverlayLayer.Layer = 100; // Higher layer = on top
+		_settingsOverlayLayer.ProcessMode = ProcessModeEnum.Always; // Work when paused
+		
+		// Load and instantiate Settings scene
+		var settingsScene = GD.Load<PackedScene>("res://scenes/ui/Settings.tscn");
+		var settingsInstance = settingsScene.Instantiate<Settings>();
+		
+		// Add Settings to CanvasLayer
+		_settingsOverlayLayer.AddChild(settingsInstance);
+		
+		// Add CanvasLayer to root (so it appears on top of everything)
+		GetTree().Root.AddChild(_settingsOverlayLayer);
+		
+		// Hide PauseMenu (but keep it active, game still paused)
 		Visible = false;
+		GD.Print("✅ Settings overlay added to Layer 100, PauseMenu hidden");
+	}
+	
+	public void ShowAfterSettings()
+	{
+		// Called by Settings when back button is pressed
 		
-		// Keep cursor visible untuk Settings scene
-		Input.MouseMode = Input.MouseModeEnum.Visible;
+		// Clean up settings overlay layer
+		if (_settingsOverlayLayer != null)
+		{
+			_settingsOverlayLayer.QueueFree();
+			_settingsOverlayLayer = null;
+			GD.Print("✅ Settings overlay layer removed");
+		}
 		
-		GetTree().ChangeSceneToFile("res://scenes/ui/Settings.tscn");
+		Visible = true;
+		GD.Print("✅ PauseMenu shown again after Settings closed");
 	}
 
 	private void OnExitPressed()
@@ -134,6 +198,25 @@ public partial class PauseMenuController : CanvasLayer
 		PanelManager.Instance.UnregisterPanel(this);
 		_isPaused = false;
 		Visible = false;
+		
+		// Stop timer when exiting to main menu
+		if (TimerManager.Instance != null)
+		{
+			TimerManager.Instance.StopTimer();
+			GD.Print("⏹️ Timer stopped (Exiting to Main Menu)");
+		}
+		
+		// Reset lives to 3
+		if (LivesManager.Instance != null)
+		{
+			LivesManager.Instance.ResetLives();
+			GD.Print("❤️ Lives reset to 3");
+		}
+		
+		// Clear Settings references
+		Settings.CurrentSource = Settings.SettingsSource.MainMenu;
+		Settings.SetPauseMenuReference(null);
+		GD.Print("🧹 Settings references cleared (returning to MainMenu)");
 		
 		// Keep cursor visible untuk Main Menu
 		Input.MouseMode = Input.MouseModeEnum.Visible;
