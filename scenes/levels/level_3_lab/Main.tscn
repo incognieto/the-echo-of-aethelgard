@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bynkfykxpprpw" path="res://scenes/common/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b8pn1xqg35okm" path="res://scripts/items/MaterialItem.cs" id="2_material"]
 [ext_resource type="PackedScene" uid="uid://d4mweouara7f6" path="res://scenes/ui/InventoryUI.tscn" id="3_invui"]
-[ext_resource type="PackedScene" uid="uid://c8nj7m8yc5hud" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GameHUD.tscn" id="4_gamehud"]
 [ext_resource type="Script" uid="uid://dikrf38o7uy4a" path="res://scripts/levels/GameSetup.cs" id="4_setup"]
 [ext_resource type="PackedScene" uid="uid://bha2jou2pm3e3" path="res://assets/environments/kuali_kecil.tscn" id="5_117bl"]
 [ext_resource type="Script" uid="uid://ckddjniep801c" path="res://scripts/ui/BookUI.cs" id="5_bookui"]
@@ -416,11 +416,12 @@ WallThickness = 100.0
 
 [node name="InventoryUI" parent="UI" unique_id=1954206059 instance=ExtResource("3_invui")]
 
-[node name="GameHUD" parent="UI" instance=ExtResource("4_gamehud")]
+[node name="GameHUD" parent="UI" unique_id=1256507419 instance=ExtResource("4_gamehud")]
 
-[node name="FailScreen" parent="UI" instance=ExtResource("16_failscreen")]
+[node name="FailScreen" parent="UI" unique_id=1555957426 instance=ExtResource("16_failscreen")]
 
-[node name="GameOverScreen" parent="UI" instance=ExtResource("17_gameoverscreen")]
+[node name="GameOverScreen" parent="UI" unique_id=1994241409 instance=ExtResource("17_gameoverscreen")]
+
 [node name="BookUI" type="Control" parent="UI" unique_id=1069748114]
 layout_mode = 3
 anchors_preset = 15
