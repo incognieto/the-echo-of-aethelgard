@@ -7,7 +7,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h4ju2"]
 
 [node name="GameHUD" type="Control" unique_id=429618621]
-z_index = 10
+z_index = -10
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,6 @@ mouse_filter = 2
 script = ExtResource("1_gamehud")
 
 [node name="TimerPanel" type="Panel" parent="." unique_id=812084339]
-z_index = 11
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -54,7 +53,6 @@ text = "05:00"
 horizontal_alignment = 1
 
 [node name="LivesPanel" type="Panel" parent="." unique_id=2010378255]
-z_index = 11
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

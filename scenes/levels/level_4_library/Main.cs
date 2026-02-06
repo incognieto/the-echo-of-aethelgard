@@ -21,7 +21,7 @@ namespace Level4Library
 			
 			if (TimerManager.Instance != null)
 			{
-				TimerManager.Instance.StartTimer(300f, "Library");
+				TimerManager.Instance.StartTimer(10f, "Library");
 				GD.Print("⏱️ Level 4 timer started");
 			}
 		}

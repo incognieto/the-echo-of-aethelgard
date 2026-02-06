@@ -21,7 +21,7 @@ namespace Level2Bridge
 			
 			if (TimerManager.Instance != null)
 			{
-				TimerManager.Instance.StartTimer(300f, "Bridge");
+				TimerManager.Instance.StartTimer(10f, "Bridge");
 				GD.Print("⏱️ Level 2 timer started");
 			}
 		}
