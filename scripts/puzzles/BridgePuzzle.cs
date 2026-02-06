@@ -13,6 +13,9 @@ public partial class BridgePuzzle : Node3D
 	public NodePath Bridge2Path { get; set; }
 	
 	[Export]
+	public NodePath AngleCameraPath { get; set; } // Path ke Cams/Angle camera
+	
+	[Export]
 	public Vector3 Bridge2TargetOffset { get; set; } = new Vector3(10, 0, 0); // Offset untuk Bridge2 bergerak
 	
 	[Export]
@@ -20,6 +23,12 @@ public partial class BridgePuzzle : Node3D
 	
 	[Export]
 	public float Bridge1CollapseDelay { get; set; } = 1.0f; // Delay sebelum runtuh
+	
+	[Export]
+	public float CameraZoomDuration { get; set; } = 2.0f; // Durasi zoom kamera
+	
+	[Export]
+	public float CameraZoomAmount { get; set; } = 10.0f; // Amount to zoom in (FOV reduction)
 	
 	private Label3D _promptLabel;
 	private Area3D _interactionArea;
@@ -35,6 +44,12 @@ public partial class BridgePuzzle : Node3D
 	private Vector3 _bridge2TargetPos;
 	
 	private BridgePuzzleUI _puzzleUI;
+	
+	// Camera animation variables
+	private Camera3D _angleCamera;
+	private Camera3D _playerCamera;
+	private ColorRect _fadeRect;
+	private bool _isCameraSequencePlaying = false;
 
 	public override void _Ready()
 	{
@@ -61,6 +76,9 @@ public partial class BridgePuzzle : Node3D
 		{
 			GD.PrintErr("✗ Bridge2Path not set!");
 		}
+		
+		// Setup camera and fade effect
+		CallDeferred(nameof(SetupCameraAnimation));
 		
 		// Setup interaction area
 		CallDeferred(nameof(SetupInteractionArea));
@@ -185,8 +203,7 @@ public partial class BridgePuzzle : Node3D
 		if (_isPuzzleSolved || _isPuzzleFailed) return;
 		
 		_isPuzzleSolved = true;
-		_isAnimating = true;
-		GD.Print("✓ Bridge puzzle SOLVED! Bridge2 bergerak mendekati Bridge1...");
+		GD.Print("✓ Bridge puzzle SOLVED! Starting camera sequence...");
 		
 		// Kita gunakan absolute path karena Penghalang ada di bawah Main
 		var penghalang = GetNodeOrNull<StaticBody3D>("/root/Main/Penghalang");
@@ -201,15 +218,8 @@ public partial class BridgePuzzle : Node3D
 			GD.PrintErr("✗ Penghalang not found at /root/Main/Penghalang");
 		}
 		
-		if (_bridge2 != null)
-		{
-			// Start smooth movement animation
-			GD.Print($"Bridge2 moving from {_bridge2.GlobalPosition} to {_bridge2TargetPos}");
-		}
-		else
-		{
-			GD.PrintErr("✗ Bridge2 tidak ditemukan!");
-		}
+		// Start camera sequence animation
+		PlayCameraSequence(true);
 	}
 
 	// Method ini akan dipanggil dari PuzzleUI ketika puzzle GAGAL
@@ -218,17 +228,10 @@ public partial class BridgePuzzle : Node3D
 		if (_isPuzzleSolved || _isPuzzleFailed) return;
 		
 		_isPuzzleFailed = true;
-		GD.Print("✗ Bridge puzzle FAILED! Bridge1 akan runtuh...");
+		GD.Print("✗ Bridge puzzle FAILED! Starting camera sequence...");
 		
-		if (_bridge1 != null)
-		{
-			// Delay sebelum runtuh untuk efek dramatis
-			GetTree().CreateTimer(Bridge1CollapseDelay).Timeout += CollapseBridge1;
-		}
-		else
-		{
-			GD.PrintErr("✗ Bridge1 tidak ditemukan!");
-		}
+		// Start camera sequence animation
+		PlayCameraSequence(false);
 	}
 
 	private void CollapseBridge1()
@@ -298,5 +301,168 @@ public partial class BridgePuzzle : Node3D
 		{
 			OnPuzzleFailed();
 		}
+	}
+	
+	private void SetupCameraAnimation()
+	{
+		// Find angle camera
+		if (AngleCameraPath != null && !AngleCameraPath.IsEmpty)
+		{
+			_angleCamera = GetNode<Camera3D>(AngleCameraPath);
+			GD.Print($"✓ Angle camera found");
+		}
+		else
+		{
+			// Try to auto-find if not set
+			_angleCamera = GetTree().Root.GetNodeOrNull<Camera3D>("/root/Main/Cams/Angle");
+			if (_angleCamera != null)
+			{
+				GD.Print("✓ Angle camera auto-detected");
+			}
+			else
+			{
+				GD.PrintErr("✗ Angle camera not found!");
+			}
+		}
+		
+		// Find player camera
+		var player = GetTree().Root.GetNodeOrNull<Node>("/root/Main/Player");
+		if (player != null)
+		{
+			_playerCamera = player.GetNodeOrNull<Camera3D>("Head/Camera3D");
+			if (_playerCamera != null)
+			{
+				GD.Print("✓ Player camera found");
+			}
+		}
+		
+		// Create fade rect in UI layer
+		var uiLayer = GetTree().Root.GetNodeOrNull<CanvasLayer>("/root/Main/UI");
+		if (uiLayer != null)
+		{
+			_fadeRect = new ColorRect();
+			_fadeRect.Color = new Color(0, 0, 0, 0); // Start transparent
+			_fadeRect.MouseFilter = Control.MouseFilterEnum.Ignore;
+			_fadeRect.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+			_fadeRect.ZIndex = 100; // High z-index to be on top
+			uiLayer.AddChild(_fadeRect);
+			GD.Print("✓ Fade rect created");
+		}
+	}
+	
+	private async void PlayCameraSequence(bool success)
+	{
+		if (_isCameraSequencePlaying) return;
+		if (_angleCamera == null || _playerCamera == null || _fadeRect == null)
+		{
+			GD.PrintErr("✗ Camera sequence components not ready!");
+			// Still execute bridge logic even if camera fails
+			if (success)
+				StartBridgeConnection();
+			else
+				StartBridgeCollapse();
+			return;
+		}
+		
+		_isCameraSequencePlaying = true;
+		
+		// Find and disable player input - use direct node path to ensure we get the player
+		var playerNode = GetTree().Root.GetNodeOrNull<Player>("/root/Main/Player");
+		if (playerNode != null)
+		{
+			GetTree().Paused = false; // Make sure not paused
+			playerNode.ProcessMode = ProcessModeEnum.Disabled;
+			GD.Print("  Player input disabled");
+		}
+		
+		GD.Print($"🎬 Starting camera sequence - Success: {success}");
+		
+		// 1. Fade IN (0.5 seconds) - Transparent to Black
+		var fadeTween = CreateTween();
+		fadeTween.TweenProperty(_fadeRect, "color:a", 1.0f, 0.5f);
+		await ToSignal(fadeTween, Tween.SignalName.Finished);
+		
+		// 2. Switch to angle camera
+		_playerCamera.Current = false;
+		_angleCamera.Current = true;
+		float originalFov = _angleCamera.Fov;
+		GD.Print("  Switched to angle camera");
+		
+		// Small delay to ensure camera switch
+		await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
+		
+		// 3. Fade OUT (0.5 seconds) - Black to Transparent
+		fadeTween = CreateTween();
+		fadeTween.TweenProperty(_fadeRect, "color:a", 0.0f, 0.5f);
+		await ToSignal(fadeTween, Tween.SignalName.Finished);
+		
+		// 4. Zoom in camera while bridge moves (2 seconds)
+		var zoomTween = CreateTween();
+		zoomTween.TweenProperty(_angleCamera, "fov", originalFov - CameraZoomAmount, CameraZoomDuration);
+		
+		// Start bridge animation
+		if (success)
+		{
+			StartBridgeConnection();
+		}
+		else
+		{
+			StartBridgeCollapse();
+		}
+		
+		// Wait for zoom to finish
+		await ToSignal(zoomTween, Tween.SignalName.Finished);
+		GD.Print("  Zoom complete");
+		
+		// Small pause at the end
+		await ToSignal(GetTree().CreateTimer(0.5f), SceneTreeTimer.SignalName.Timeout);
+		
+		// 5. Fade IN again (0.5 seconds) - Transparent to Black
+		fadeTween = CreateTween();
+		fadeTween.TweenProperty(_fadeRect, "color:a", 1.0f, 0.5f);
+		await ToSignal(fadeTween, Tween.SignalName.Finished);
+		
+		// 6. Switch back to player camera
+		_angleCamera.Current = false;
+		_playerCamera.Current = true;
+		_angleCamera.Fov = originalFov; // Reset FOV
+		GD.Print("  Switched back to player camera");
+		
+		// Small delay
+		await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
+		
+		// 7. Fade OUT final (0.5 seconds) - Black to Transparent
+		fadeTween = CreateTween();
+		fadeTween.TweenProperty(_fadeRect, "color:a", 0.0f, 0.5f);
+		await ToSignal(fadeTween, Tween.SignalName.Finished);
+		
+		// Re-enable player input - use direct node path to ensure we get the player
+		playerNode = GetTree().Root.GetNodeOrNull<Player>("/root/Main/Player");
+		if (playerNode != null)
+		{
+			playerNode.ProcessMode = ProcessModeEnum.Inherit;
+			GD.Print("  Player input re-enabled");
+		}
+		else
+		{
+			GD.PrintErr("✗ Failed to re-enable player input - Player node not found!");
+		}
+		
+		_isCameraSequencePlaying = false;
+		GD.Print("🎬 Camera sequence complete!");
+	}
+	
+	private void StartBridgeConnection()
+	{
+		// Already set in OnPuzzleSolved
+		_isAnimating = true;
+		GD.Print("  Bridge2 connection animation started");
+	}
+	
+	private void StartBridgeCollapse()
+	{
+		// Trigger collapse after delay
+		GetTree().CreateTimer(Bridge1CollapseDelay).Timeout += CollapseBridge1;
+		GD.Print("  Bridge1 collapse scheduled");
 	}
 }

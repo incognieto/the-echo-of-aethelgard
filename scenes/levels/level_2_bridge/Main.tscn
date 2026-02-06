@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dvgukjrdr8632" path="res://assets/puzzles/level_2_bridge/puzzle1.png" id="5_ymv1o"]
 [ext_resource type="Texture2D" uid="uid://bq3bhin1tc2qa" path="res://assets/puzzles/level_2_bridge/puzzle2.png" id="6_umwk0"]
 [ext_resource type="Texture2D" uid="uid://bjgokyl347woe" path="res://assets/puzzles/level_2_bridge/puzzle3.png" id="7_26hwv"]
-[ext_resource type="PackedScene" path="res://scenes/ui/MinimapRenderer.tscn" id="7_ue13m"]
+[ext_resource type="PackedScene" uid="uid://c2xrgj8vlrqmh" path="res://scenes/ui/MinimapRenderer.tscn" id="7_ue13m"]
 [ext_resource type="Texture2D" uid="uid://c4nlggiffv2jd" path="res://assets/puzzles/level_2_bridge/puzzle5.png" id="9_7qf10"]
 [ext_resource type="Texture2D" uid="uid://dkpmtdrvlk8k1" path="res://assets/environments/StoneTablet_TempatBuku.png" id="10_d3r52"]
 [ext_resource type="Script" path="res://scripts/common/LevelTransitionArea.cs" id="10_transition"]
@@ -474,3 +474,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.30413, 0.78495276, -21.78
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Penghalang" unique_id=1528315280]
 shape = SubResource("BoxShape3D_3ky4h")
+
+[node name="Cams" type="Node3D" parent="." unique_id=345926514]
+
+[node name="Angle" type="Camera3D" parent="Cams" unique_id=2084942364]
+transform = Transform3D(1, 0, 0, 0, 0.9511428, 0.3087514, 0, -0.3087514, 0.9511428, -21.524256, 5.2610717, -10.3318815)
