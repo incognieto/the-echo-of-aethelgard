@@ -86,7 +86,7 @@ public partial class BookItem : PickableItem
 			AddChild(_promptLabel);
 			
 			// Get Sprite3D reference for poster visual (created in scene, not code)
-			if (HasNode(PosterContentPath))
+			if (PosterContentPath != null && !PosterContentPath.IsEmpty && HasNode(PosterContentPath))
 			{
 				_posterSprite = GetNode<Sprite3D>(PosterContentPath);
 				
@@ -118,7 +118,7 @@ public partial class BookItem : PickableItem
 					}
 				}
 			}
-			else
+			else if (PosterContentPath != null && !PosterContentPath.IsEmpty)
 			{
 				GD.PrintErr($"PosterContent Sprite3D not found at path: {PosterContentPath}");
 			}

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mq15mkkk6jpj"
-path="res://.godot/imported/ButtonMata.png-b717c1fcc257b58deb2a68cb64e8ebb6.ctex"
+uid="uid://boxc7alb1a4yq"
+path="res://.godot/imported/TitleGame.png-0bd1cd48bb5811a9df83af164244c73e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/ButtonMata.png"
-dest_files=["res://.godot/imported/ButtonMata.png-b717c1fcc257b58deb2a68cb64e8ebb6.ctex"]
+source_file="res://assets/sprites/mainmenuassets/TitleGame.png"
+dest_files=["res://.godot/imported/TitleGame.png-0bd1cd48bb5811a9df83af164244c73e.ctex"]
 
 [params]
 
