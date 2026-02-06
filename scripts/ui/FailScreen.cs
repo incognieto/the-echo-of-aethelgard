@@ -129,12 +129,46 @@ public partial class FailScreen : Control
 	{
 		GD.Print("⏰ FailScreen.OnTimeUp() - Timer expired!");
 		
+		// Set message untuk time up
+		if (_messageLabel != null)
+		{
+			_messageLabel.Text = "You were caught by the guards!";
+		}
+		
 		// Check if this is the last life (nyawa terakhir)
 		if (LivesManager.Instance != null && LivesManager.Instance.CurrentLives == 1)
 		{
 			// Last life - langsung ke Game Over tanpa tampilkan FailScreen
 			GD.Print("💀 Last life detected (nyawa = 1) - going directly to Game Over");
 			ShowGameOverDirectly();
+		}
+		else
+		{
+			// Masih ada nyawa untuk di-respawn - tampilkan fail screen
+			GD.Print($"💚 Lives remaining: {LivesManager.Instance?.CurrentLives ?? 0} - showing fail screen");
+			FadeIn();
+		}
+	}
+	
+	/// <summary>
+	/// Public method to trigger fail screen when pulley overloads
+	/// </summary>
+	public void OnPulleyOverload()
+	{
+		GD.Print("⚙️ FailScreen.OnPulleyOverload() - Pulley system overloaded!");
+		
+		// Set message untuk pulley overload
+		if (_messageLabel != null)
+		{
+			_messageLabel.Text = "The pulley system overloaded!\nThe mechanism has been destroyed.";
+		}
+		
+		// Check if this is the last life (nyawa terakhir)
+		if (LivesManager.Instance != null && LivesManager.Instance.CurrentLives == 1)
+		{
+			// Last life - langsung ke Game Over tanpa tampilkan FailScreen
+			GD.Print("💀 Last life detected (nyawa = 1) - going directly to Game Over");
+			ShowGameOverDirectly("The pulley system overloaded!\nThe ancient mechanism has been destroyed.");
 		}
 		else
 		{
@@ -327,7 +361,7 @@ public partial class FailScreen : Control
 		}));
 	}
 	
-	private void ShowGameOverDirectly()
+	private void ShowGameOverDirectly(string customMessage = null)
 	{
 		GD.Print("💀 ShowGameOverDirectly - skipping fail screen, going to game over");
 		
@@ -351,7 +385,15 @@ public partial class FailScreen : Control
 			// CRITICAL: Move to front before showing
 			gameOverScreen.MoveToFront();
 			gameOverScreen.Show();
-			gameOverScreen.FadeIn();
+			
+			if (!string.IsNullOrEmpty(customMessage))
+			{
+				gameOverScreen.FadeIn(customMessage);
+			}
+			else
+			{
+				gameOverScreen.FadeIn();
+			}
 			GD.Print("✅ Game Over screen shown directly and moved to front");
 		}
 		else
