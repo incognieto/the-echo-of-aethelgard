@@ -11,19 +11,15 @@ public partial class PanelManager : Node
 	private static PanelManager _instance;
 	private Stack<Node> _activePanels = new Stack<Node>();
 
-	public override void _Notification(int what)
+	public override void _EnterTree()
 	{
-		if (what == NotificationSceneInstantiated)
+		if (_instance == null)
 		{
-			if (_instance == null)
-			{
-				_instance = this;
-				GetTree().Root.AddChild(this);
-			}
-			else if (_instance != this)
-			{
-				QueueFree();
-			}
+			_instance = this;
+		}
+		else if (_instance != this)
+		{
+			QueueFree();
 		}
 	}
 

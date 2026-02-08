@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d1wmgotlwkdp3" path="res://assets/sprites/mainmenuassets/Ngalangan.png" id="5_lt7co"]
 [ext_resource type="Texture2D" uid="uid://q58sowd47crg" path="res://assets/credits/logo/figma logo.svg" id="5_pvb4y"]
 [ext_resource type="Script" uid="uid://crseauwcl6raa" path="res://scripts/ui/MainMenu/BoxBlur1.cs" id="6_lovxg"]
-[ext_resource type="Texture2D" uid="uid://culqls4rwabf4" path="res://assets/credits/logo/canva logo.jpeg" id="6_vyvtx"]
+[ext_resource type="Texture2D" uid="uid://culqls4rwabf4" path="res://assets/credits/logo/canva logo.png" id="6_vyvtx"]
 [ext_resource type="Texture2D" uid="uid://ciuboty50gs21" path="res://assets/sprites/mainmenuassets/Ngalangan2.png" id="7_hxsos"]
 [ext_resource type="Texture2D" uid="uid://cymmpf2iypv3q" path="res://assets/credits/logo/GitHub-Logo.wine.svg" id="7_lua3l"]
 [ext_resource type="Texture2D" uid="uid://cq17ud78bc00u" path="res://assets/credits/logo/Photoshop-logo.png" id="8_owbts"]

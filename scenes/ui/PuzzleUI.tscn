@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cw2hj8u1lbjxj" path="res://scripts/ui/PuzzleUI.cs" id="1_puzzle"]
 [ext_resource type="Texture2D" uid="uid://b6vtjmrwtvckm" path="res://assets/puzzles/level_1/lock.png" id="2_mbnp7"]
-[ext_resource type="Texture2D" uid="uid://cwpnmnfskhc1g" path="res://assets/sprites/ui/ButtonBunga.png" id="3_bunga"]
+[ext_resource type="Texture2D" uid="uid://cwpnmnfskhc1g" path="res://assets/sprites/ui/Bungalope.png" id="3_bunga"]
 [ext_resource type="FontFile" uid="uid://d21ktv5akag2d" path="res://assets/fonts/BLKCHCRY.TTF" id="4_font"]
 [ext_resource type="Texture2D" uid="uid://b85vvifjrf06d" path="res://assets/puzzles/level_1/keys.png" id="5_gc05c"]
 [ext_resource type="Script" uid="uid://2e2jysnmvfj6" path="res://scripts/puzzles/KeyLock.cs" id="6_du4i4"]

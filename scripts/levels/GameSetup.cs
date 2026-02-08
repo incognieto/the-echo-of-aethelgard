@@ -157,7 +157,7 @@ public partial class GameSetup : Node
 		case 1:
 			levelTitle = "The First Vision: Ironfang's Sentence";
 			levelImage = "res://assets/sprites/ancient_books/ancient_content_lvl-1.png";
-			rightContent = "Lightning Will Take You Out!. Lightning struck the peaks. Sudden lightning lit the valley, then a jagged whip of lightning hit the trees. Another flash of lightning blinded the path. Lightning danced across the clouds until the final glow of lightning vanished into the rain.";
+			rightContent = "The guards believe this door is unbreakable, but I have seen the truth. The heavens will strike the same place six times. In the vision, the iron didn't melt by heat, but by the flash. Do not look for keys or gears. Just call the storm. One strike for your fear, one for your anger, and four more for the freedom you seek. Six flashes of lightning are the only language this lock understands.";
 			break;
 		case 2:
 			levelTitle = "The Final Bridge";

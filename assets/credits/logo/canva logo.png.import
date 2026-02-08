@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://culqls4rwabf4"
-path="res://.godot/imported/canva logo.jpeg-ca758a73c32f5249e232c9690ecd9eea.ctex"
+uid="uid://boyck3cl6tl7i"
+path="res://.godot/imported/canva logo.png-ef20894205c532e5bc8521dcff6dd5d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/credits/logo/canva logo.jpeg"
-dest_files=["res://.godot/imported/canva logo.jpeg-ca758a73c32f5249e232c9690ecd9eea.ctex"]
+source_file="res://assets/credits/logo/canva logo.png"
+dest_files=["res://.godot/imported/canva logo.png-ef20894205c532e5bc8521dcff6dd5d6.ctex"]
 
 [params]
 
