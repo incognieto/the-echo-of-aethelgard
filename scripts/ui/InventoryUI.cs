@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 /// <summary>
 /// InventoryUI dengan support [Tool] mode untuk visual editing di Godot Editor.
@@ -44,6 +45,8 @@ public partial class InventoryUI : Control
 	private bool _isVisible = false;
 	private Control _crosshairContainer;
 	private FontFile _customFont; // Custom font for all labels
+	private Label _wasdNotification; // Notification for WASD movement (always visible)
+	private Label _inventoryNotification; // Notification for opening inventory (visible when items exist)
 	private Label _ancientBookNotification; // Notification for ancient book
 	private Label _rockNotification; // Notification for rock items
 	
@@ -212,6 +215,12 @@ public partial class InventoryUI : Control
 		// Add crosshair (always visible)
 		//CreateCrosshair();
 	
+	// Create WASD notification (always visible)
+	CreateWasdNotification();
+	
+	// Create inventory notification (visible when items exist)
+	CreateInventoryNotification();
+	
 	// Create ancient book notification (top-left)
 	CreateAncientBookNotification();
 	
@@ -253,22 +262,88 @@ private void CreateCrosshair()
 	_crosshairContainer.AddChild(dot);
 }
 
+private void CreateWasdNotification()
+{
+	_wasdNotification = new Label();
+	_wasdNotification.Name = "WasdNotification";
+	_wasdNotification.Text = "<!> Use WASD keys to move.";
+	
+	// ===== LAYOUT CONFIGURATION =====
+	// Position: Top-left corner of screen
+	_wasdNotification.Position = new Vector2(20, 20);
+	
+	// Font size: Adjust this to make text bigger/smaller
+	_wasdNotification.AddThemeFontSizeOverride("font_size", 20);
+	
+	// Color: White/light notification
+	_wasdNotification.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 1.0f));
+	
+	// Font: GoudyMediaeval-Regular
+	var goudyFont = GD.Load<FontFile>("res://assets/fonts/GoudyMediaeval-Regular.ttf");
+	if (goudyFont != null)
+	{
+		_wasdNotification.AddThemeFontOverride("font", goudyFont);
+	}
+	else
+	{
+		// Fallback to custom font if GoudyMediaeval not found
+		if (_customFont != null) _wasdNotification.AddThemeFontOverride("font", _customFont);
+	}
+	// ================================
+	
+	_wasdNotification.Visible = true; // Always visible
+	AddChild(_wasdNotification);
+}
+
+private void CreateInventoryNotification()
+{
+	_inventoryNotification = new Label();
+	_inventoryNotification.Name = "InventoryNotification";
+	_inventoryNotification.Text = "<!> Press the I key to open inventory.";
+	
+	// ===== LAYOUT CONFIGURATION =====
+	// Position: Below WASD notification
+	_inventoryNotification.Position = new Vector2(20, 45); // 40px below WASD (20 + 40)
+	
+	// Font size: Same as WASD notification
+	_inventoryNotification.AddThemeFontSizeOverride("font_size", 20);
+
+	// Color: White/light notification
+	_inventoryNotification.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 1.0f));
+	
+	// Font: GoudyMediaeval-Regular
+	var goudyFont = GD.Load<FontFile>("res://assets/fonts/GoudyMediaeval-Regular.ttf");
+	if (goudyFont != null)
+	{
+		_inventoryNotification.AddThemeFontOverride("font", goudyFont);
+	}
+	else
+	{
+		// Fallback to custom font if GoudyMediaeval not found
+		if (_customFont != null) _inventoryNotification.AddThemeFontOverride("font", _customFont);
+	}
+	// ================================
+	
+	_inventoryNotification.Visible = false; // Hidden by default, visible when items exist
+	AddChild(_inventoryNotification);
+}
+
 private void CreateAncientBookNotification()
 {
 	_ancientBookNotification = new Label();
 	_ancientBookNotification.Name = "AncientBookNotification";
-	_ancientBookNotification.Text = "Press the F key to activate the ancient book.";
+	_ancientBookNotification.Text = "<!> Press the F key to activate the ancient book.";
 	
 	// ===== LAYOUT CONFIGURATION =====
-	// Position: Top-left corner of screen
-	_ancientBookNotification.Position = new Vector2(20, 20);
+	// Position: Third in sequence (after WASD and Inventory labels)
+	_ancientBookNotification.Position = new Vector2(20, 70); // 80px down from top (after WASD and Inventory)
 	
 	// Font size: Adjust this to make text bigger/smaller
-	_ancientBookNotification.AddThemeFontSizeOverride("font_size", 24); // Changed from 16 to 24
+	_ancientBookNotification.AddThemeFontSizeOverride("font_size", 20); // Changed from 16 to 24
 	
-	// Color: Yellow/gold notification
-	_ancientBookNotification.AddThemeColorOverride("font_color", new Color(1.0f, 0.9f, 0.3f, 1.0f));
-	
+	// Color: White/light notification
+	_ancientBookNotification.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 1.0f));	
+
 	// Font: GoudyMediaeval-Regular
 	var goudyFont = GD.Load<FontFile>("res://assets/fonts/GoudyMediaeval-Regular.ttf");
 	if (goudyFont != null)
@@ -290,18 +365,18 @@ private void CreateRockNotification()
 {
 	_rockNotification = new Label();
 	_rockNotification.Name = "RockNotification";
-	_rockNotification.Text = "Press the Q key to drop the rock.";
+	_rockNotification.Text = "<!> Press the Q key to drop the rock.";
 	
 	// ===== LAYOUT CONFIGURATION =====
-	// Position: Below ancient book notification
-	_rockNotification.Position = new Vector2(20, 60); // 40px below ancient book (20 + 40)
+	// Position: Fourth in sequence (after WASD, Inventory, and Ancient Book labels)
+	_rockNotification.Position = new Vector2(20, 95); // 120px down from top (after WASD, Inventory, and Ancient Book)
 	
 	// Font size: Same as ancient book notification
-	_rockNotification.AddThemeFontSizeOverride("font_size", 24);
+	_rockNotification.AddThemeFontSizeOverride("font_size", 20);
 	
-	// Color: Orange/red notification
-	_rockNotification.AddThemeColorOverride("font_color", new Color(1.0f, 0.6f, 0.2f, 1.0f));
-	
+	// Color: White/light notification
+	_rockNotification.AddThemeColorOverride("font_color", new Color(1.0f, 1.0f, 1.0f, 1.0f));
+
 	// Font: GoudyMediaeval-Regular
 	var goudyFont = GD.Load<FontFile>("res://assets/fonts/GoudyMediaeval-Regular.ttf");
 	if (goudyFont != null)
@@ -616,11 +691,35 @@ private void CreateHotbar()
 		// Update hotbar
 		UpdateHotbar();
 	
+	// Update WASD notification (always visible)
+	UpdateWasdNotification();
+	
+	// Update inventory notification (visible when items exist)
+	UpdateInventoryNotification();
+	
 	// Update ancient book notification
 	UpdateAncientBookNotification();
 	
 	// Update rock notification
 	UpdateRockNotification();
+}
+
+private void UpdateWasdNotification()
+{
+	if (_wasdNotification == null) return;
+	
+	// WASD notification is always visible
+	_wasdNotification.Visible = true;
+}
+
+private void UpdateInventoryNotification()
+{
+	if (_inventoryNotification == null || _inventory == null) return;
+	
+	// Check if player has any items in inventory
+	var items = _inventory.GetAllItems();
+	bool hasItems = items != null && items.Count > 0 && items.Any(item => item != null);
+	_inventoryNotification.Visible = hasItems;
 }
 
 private void UpdateAncientBookNotification()

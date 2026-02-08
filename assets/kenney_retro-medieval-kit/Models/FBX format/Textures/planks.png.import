@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cn46yo64qvgga"
 path.s3tc="res://.godot/imported/planks.png-70d8bacbb88dc5f95f6c1cefe944c843.s3tc.ctex"
+path.etc2="res://.godot/imported/planks.png-70d8bacbb88dc5f95f6c1cefe944c843.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/kenney_retro-medieval-kit/Models/FBX format/Textures/planks.png"
-dest_files=["res://.godot/imported/planks.png-70d8bacbb88dc5f95f6c1cefe944c843.s3tc.ctex"]
+dest_files=["res://.godot/imported/planks.png-70d8bacbb88dc5f95f6c1cefe944c843.s3tc.ctex", "res://.godot/imported/planks.png-70d8bacbb88dc5f95f6c1cefe944c843.etc2.ctex"]
 
 [params]
 

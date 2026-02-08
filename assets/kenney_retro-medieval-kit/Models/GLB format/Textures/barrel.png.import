@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmiraj3po6khs"
 path.s3tc="res://.godot/imported/barrel.png-97583db94a7e1dff1e8446da1e28ed25.s3tc.ctex"
+path.etc2="res://.godot/imported/barrel.png-97583db94a7e1dff1e8446da1e28ed25.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/kenney_retro-medieval-kit/Models/GLB format/Textures/barrel.png"
-dest_files=["res://.godot/imported/barrel.png-97583db94a7e1dff1e8446da1e28ed25.s3tc.ctex"]
+dest_files=["res://.godot/imported/barrel.png-97583db94a7e1dff1e8446da1e28ed25.s3tc.ctex", "res://.godot/imported/barrel.png-97583db94a7e1dff1e8446da1e28ed25.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://w7kcowxp7d38"
 path.s3tc="res://.godot/imported/water.png-28ea128cde893ad02c2fd6b54b164c3e.s3tc.ctex"
+path.etc2="res://.godot/imported/water.png-28ea128cde893ad02c2fd6b54b164c3e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/kenney_retro-medieval-kit/Models/FBX format/Textures/water.png"
-dest_files=["res://.godot/imported/water.png-28ea128cde893ad02c2fd6b54b164c3e.s3tc.ctex"]
+dest_files=["res://.godot/imported/water.png-28ea128cde893ad02c2fd6b54b164c3e.s3tc.ctex", "res://.godot/imported/water.png-28ea128cde893ad02c2fd6b54b164c3e.etc2.ctex"]
 
 [params]
 

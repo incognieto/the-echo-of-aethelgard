@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7vhvdt603viv"
 path.s3tc="res://.godot/imported/details.png-1200e38d41d040fec1c58e43c432a1e9.s3tc.ctex"
+path.etc2="res://.godot/imported/details.png-1200e38d41d040fec1c58e43c432a1e9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/kenney_retro-medieval-kit/Models/OBJ format/Textures/details.png"
-dest_files=["res://.godot/imported/details.png-1200e38d41d040fec1c58e43c432a1e9.s3tc.ctex"]
+dest_files=["res://.godot/imported/details.png-1200e38d41d040fec1c58e43c432a1e9.s3tc.ctex", "res://.godot/imported/details.png-1200e38d41d040fec1c58e43c432a1e9.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8ij8qvjdqcif"
 path.s3tc="res://.godot/imported/dry_riverbed_rock_diff_1k.png-db63b7a7f53a5a768426694ec2dd6f9d.s3tc.ctex"
+path.etc2="res://.godot/imported/dry_riverbed_rock_diff_1k.png-db63b7a7f53a5a768426694ec2dd6f9d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/dry_riverbed_rock_diff_1k.png"
-dest_files=["res://.godot/imported/dry_riverbed_rock_diff_1k.png-db63b7a7f53a5a768426694ec2dd6f9d.s3tc.ctex"]
+dest_files=["res://.godot/imported/dry_riverbed_rock_diff_1k.png-db63b7a7f53a5a768426694ec2dd6f9d.s3tc.ctex", "res://.godot/imported/dry_riverbed_rock_diff_1k.png-db63b7a7f53a5a768426694ec2dd6f9d.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://xgbyu58pdig2"
 path.s3tc="res://.godot/imported/TileMap_Lantai_5.png-e6eb43c6097fded09f3c06e89d150379.s3tc.ctex"
+path.etc2="res://.godot/imported/TileMap_Lantai_5.png-e6eb43c6097fded09f3c06e89d150379.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/map/TileMap_Lantai_5.png"
-dest_files=["res://.godot/imported/TileMap_Lantai_5.png-e6eb43c6097fded09f3c06e89d150379.s3tc.ctex"]
+dest_files=["res://.godot/imported/TileMap_Lantai_5.png-e6eb43c6097fded09f3c06e89d150379.s3tc.ctex", "res://.godot/imported/TileMap_Lantai_5.png-e6eb43c6097fded09f3c06e89d150379.etc2.ctex"]
 
 [params]
 

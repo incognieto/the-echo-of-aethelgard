@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8mlstc1xickp"
 path.s3tc="res://.godot/imported/KualiKecil_KualiKecil.png-72fd0b236a537fc165e9a01e698ee73a.s3tc.ctex"
+path.etc2="res://.godot/imported/KualiKecil_KualiKecil.png-72fd0b236a537fc165e9a01e698ee73a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/environments/KualiKecil_KualiKecil.png"
-dest_files=["res://.godot/imported/KualiKecil_KualiKecil.png-72fd0b236a537fc165e9a01e698ee73a.s3tc.ctex"]
+dest_files=["res://.godot/imported/KualiKecil_KualiKecil.png-72fd0b236a537fc165e9a01e698ee73a.s3tc.ctex", "res://.godot/imported/KualiKecil_KualiKecil.png-72fd0b236a537fc165e9a01e698ee73a.etc2.ctex"]
 
 [params]
 

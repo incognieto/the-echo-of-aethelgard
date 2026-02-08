@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1f1pg3yrbqbv"
 path.s3tc="res://.godot/imported/fence.png-91d0ae577d34ac667c9b5a0c6efe1998.s3tc.ctex"
+path.etc2="res://.godot/imported/fence.png-91d0ae577d34ac667c9b5a0c6efe1998.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/kenney_retro-medieval-kit/Models/FBX format/Textures/fence.png"
-dest_files=["res://.godot/imported/fence.png-91d0ae577d34ac667c9b5a0c6efe1998.s3tc.ctex"]
+dest_files=["res://.godot/imported/fence.png-91d0ae577d34ac667c9b5a0c6efe1998.s3tc.ctex", "res://.godot/imported/fence.png-91d0ae577d34ac667c9b5a0c6efe1998.etc2.ctex"]
 
 [params]
 

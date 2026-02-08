@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnb3omyhk8263"
 path.s3tc="res://.godot/imported/BlueExtract_CapBottle.png-55263efde5a512c53ce6aa95b08fed45.s3tc.ctex"
+path.etc2="res://.godot/imported/BlueExtract_CapBottle.png-55263efde5a512c53ce6aa95b08fed45.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/environments/BlueExtract_CapBottle.png"
-dest_files=["res://.godot/imported/BlueExtract_CapBottle.png-55263efde5a512c53ce6aa95b08fed45.s3tc.ctex"]
+dest_files=["res://.godot/imported/BlueExtract_CapBottle.png-55263efde5a512c53ce6aa95b08fed45.s3tc.ctex", "res://.godot/imported/BlueExtract_CapBottle.png-55263efde5a512c53ce6aa95b08fed45.etc2.ctex"]
 
 [params]
 

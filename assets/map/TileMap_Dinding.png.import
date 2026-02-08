@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1j25bsm7qb55"
 path.s3tc="res://.godot/imported/TileMap_Dinding.png-44ed253660c59d91b8dfc5e3ace26c4e.s3tc.ctex"
+path.etc2="res://.godot/imported/TileMap_Dinding.png-44ed253660c59d91b8dfc5e3ace26c4e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/map/TileMap_Dinding.png"
-dest_files=["res://.godot/imported/TileMap_Dinding.png-44ed253660c59d91b8dfc5e3ace26c4e.s3tc.ctex"]
+dest_files=["res://.godot/imported/TileMap_Dinding.png-44ed253660c59d91b8dfc5e3ace26c4e.s3tc.ctex", "res://.godot/imported/TileMap_Dinding.png-44ed253660c59d91b8dfc5e3ace26c4e.etc2.ctex"]
 
 [params]
 

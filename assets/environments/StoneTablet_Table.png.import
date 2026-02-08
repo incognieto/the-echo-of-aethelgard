@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpynrvflwejhx"
 path.s3tc="res://.godot/imported/StoneTablet_Table.png-212cef65eb59d5b804f6fd1888bbc17b.s3tc.ctex"
+path.etc2="res://.godot/imported/StoneTablet_Table.png-212cef65eb59d5b804f6fd1888bbc17b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/environments/StoneTablet_Table.png"
-dest_files=["res://.godot/imported/StoneTablet_Table.png-212cef65eb59d5b804f6fd1888bbc17b.s3tc.ctex"]
+dest_files=["res://.godot/imported/StoneTablet_Table.png-212cef65eb59d5b804f6fd1888bbc17b.s3tc.ctex", "res://.godot/imported/StoneTablet_Table.png-212cef65eb59d5b804f6fd1888bbc17b.etc2.ctex"]
 
 [params]
 

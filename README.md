@@ -1,466 +1,127 @@
-# The Echo of Aethelgard: Fate's Spoiler
+# 📖 The Echo of Aethelgard
 
-## Story
-Under the tyrannical rule of King Valerius III, the Kingdom of Aethelgard fell into darkness. The law only favored those of noble blood, while commoners who dared to speak out were immediately thrown into Ironfang Oubliette—an underground prison said to be impossible to escape. You are one of them, a prisoner incarcerated without trial simply for refusing to surrender your family's farmland.
+<p align="center">
+  <img src="link_to_your_banner_image" width="100%" alt="Header Banner" />
+</p>
 
-However, Ironfang harbors a secret. Behind the damp cell walls lies a relic from the failed Red Revolution 50 years ago: "The Glimpse Grimoire." This is no ordinary spellbook; it connects to the already-written flow of time. Anyone who touches it is forced to see "spoilers" of their own fate exactly 60 seconds before it happens.
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Final_Build-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Engine-Godot_4.6-blue?style=for-the-badge&logo=godot-engine&logoColor=white" />
+  <img src="https://img.shields.io/badge/Language-C%23-green?style=for-the-badge&logo=c-sharp" />
+</p>
 
-In this first edition, your journey begins from the lowest point. With the help of this cursed yet blessed book, you must navigate the deadly prison corridors, pass through forbidden alchemy laboratories, to the warden's secret library. Every step you take has already been "spoiled" by the book as failure or death. Your task is to manipulate the variables around you—symbols, chemical liquids, even object weights—to transform these deadly spoilers into a path to freedom. The ultimate goal? To obtain the Palace Map that will determine whether the fires of revolution will burn again or be extinguished forever in the king's hands.
-
----
-
-## 🚀 Setup Development Environment
-
-### Prerequisites
-Sebelum memulai development, pastikan Anda sudah menginstal:
-
-1. **Git** - Untuk clone repository
-   - Download: https://git-scm.com/download/win
-   - Verifikasi: `git --version` di terminal
-
-2. **Godot 4.6 (Mono)** - Game engine
-   - Download: https://godotengine.org/download/archive/4.6-mono
-   - Pilih versi .NET/Mono (`Godot_v4.6_mono_win64.zip`)
-
-3. **.NET 8.0 SDK** - C# runtime & tools
-   - Download: https://dotnet.microsoft.com/download/dotnet/8.0
-   - Verifikasi: `dotnet --version` di terminal
-
-### Installation Steps
-
-#### 1. Clone Repository
-```bash
-git clone <repository-url>
-cd the-echo-of-aethelgard
-```
-
-#### 2. Install Godot 4.6 (Mono)
-- Download dari https://godotengine.org/download/archive/4.6-mono
-- Extract ke folder pilihan Anda
-- Catat lokasi `godot.exe` (misal: `C:\Path\To\Godot\godot.exe`)
-
-#### 3. Install .NET 8.0 SDK
-```bash
-# Verifikasi instalasi
-dotnet --version
-# Output harus v8.x.x atau lebih tinggi
-```
-
-#### 4. Import Project di Godot
-1. Buka **Godot Project Manager**
-2. Klik **Import**
-3. Pilih folder project (`the-echo-of-aethelgard`)
-4. Klik **Select Current Folder**
-5. Selesai! Project akan muncul di list
-
-#### 5. Build C# Project di Godot
-1. Di Godot, buka **File → Tools → C# → Build Project**
-   - Atau tekan `Ctrl + Shift + B`
-2. Tunggu proses build selesai (biasanya 5-15 detik)
-3. Pastikan tidak ada error di Output Console
-
-#### 6. Run Project
-- Tekan **F5** atau klik tombol **Play** di Godot Editor
-- Project akan launch dan menjalankan main scene
-
-### Troubleshooting
-
-**Error: "C# project not found"**
-- Build project manual: `dotnet build` di folder project
-- Restart Godot Editor
-
-**Error: "Cannot find .NET SDK"**
-- Pastikan .NET 8.0 SDK sudah terinstall: `dotnet --version`
-- Restart terminal/IDE setelah instalasi
-
-**Error: "Failed to instantiate autoload scripts"**
-- Build ulang: `dotnet build`
-- Verifikasi script inheritance (semua manager harus inherit dari `Node`)
-
-**Error: "Mono compilation failed"**
-- Delete folder `.godot/mono/temp/`
-- Rebuild: `dotnet build`
-
-### Quick Development Workflow
-```bash
-# Clone & setup
-git clone <repository-url>
-cd the-echo-of-aethelgard
-
-# Build C# project
-dotnet build
-
-# Open in Godot
-# (Then F5 to run)
-```
+<p align="center">
+  <b><i>"Your death is already written. Will you read the spoiler, or dare to rewrite the end?"</i></b>
+</p>
 
 ---
 
-## Tech Stack
-| Technology | Version |
-|------------|---------|
-| Godot Engine | 4.6 (Mono) |
-| Language | C# (.NET) |
-| Physics Engine | Jolt Physics |
-| Rendering | DirectX 12 (Forward+) |
+## 📍 Quick Navigation
+* [📖 The Lore](#-the-forbidden-archives)
+* [🎮 Download & Play](#-download--play)
+* [✨ Key Features](#-key-features)
+* [⌨️ Controls](#-controls)
+* [👥 The Architects](#-the-architects-credits)
 
 ---
 
-## Implemented Features
+## 📜 The Forbidden Archives
+> [!IMPORTANT]
+> **MESSAGE FROM THE GRIMOIRE:** > *"I have seen you reading this. Spoiler: You are already considering clicking that download link. Your curiosity is your greatest weapon... or your downfall."*
 
-### Core Gameplay
-| Feature | Description |
-|---------|-------------|
-| Dual Camera System | First-Person & Isometric 3D top-down view (toggle with C) |
-| Player Movement | WASD movement with camera-relative direction |
-| Item Interaction | Raycast pickup (FPP) & proximity detection (Isometric) |
-| Inventory System | 16 slots (4x4 grid + 1x4 hotbar) with drag-drop & auto-stacking |
-| Usable Items | Books with readable content, UI with BBCode support |
-| Physics System | Drop items with realistic throw physics |
-
-### UI Systems
-| Feature | Description |
-|---------|-------------|
-| Timer & Lives | Countdown timer + 3 lives system with fail/game over screens |
-| Crosshair | FPP-only aiming reticle |
-| Inventory Panel | Visual drag-drop interface with hotbar |
-| Item Prompts | Context-sensitive interaction hints |
-| Static Minimap | Bottom-right minimap with group-based color-coded objects |
-
-### Puzzles
-| Level | Puzzle Type | Description |
-|-------|-------------|-------------|
-| Level 1 - Cell | Door Password | 6-digit password entry with control panel |
-| Level 3 - Lab | Color Mixing | Tri-color synthesis: Materials → Secondary → Teal Potion |
-| Level 4 - Library | Grid Arrangement | 3x3 story book ordering puzzle |
-
----
-
-## Game Controls
-| Key/Input | Action | Mode |
-|-----------|--------|------|
-| W, A, S, D | Move character | Both |
-| Mouse Move | Camera control | Both |
-| E | Pickup/Interact with items | Both |
-| Q | Drop 1 item from active slot | Both |
-| Ctrl + Q | Drop entire stack | Both |
-| F | Use item (e.g., read book) | Both |
-| I / Tab | Toggle inventory panel | Both |
-| 1-4 | Select hotbar slot | Both |
-| Mouse Drag | Drag-drop items between slots | Both |
-| Space | Jump | First-Person |
-| C | Toggle camera mode (FPP ↔ Isometric) | Both |
-| ESC | Release/Capture mouse cursor | Both |
-
----
-
-## System Documentation
-
-### ⏱️ Timer & Lives System
-
-Sistem countdown timer dan nyawa dengan fail state dan game over screen.
-
-**Components:**
-- **TimerManager** (Autoload): Countdown timer per level
-- **LivesManager** (Autoload): 3 nyawa pemain
-- **GameHUD**: Display timer & lives di UI
-- **FailScreen**: "YOU WERE CAUGHT BY THE GUARDS" + respawn
-- **GameOverScreen**: "GAME OVER" + back to menu
-
-**Files:**
-- Systems: `scripts/systems/TimerManager.cs`, `LivesManager.cs`
-- UI: `scripts/ui/GameHUD.cs`, `FailScreen.cs`, `GameOverScreen.cs`
-- Scene: `scenes/ui/GameHUD.tscn`
-
-**Setup ke Level:**
-
-**Method 1: Via Scene (RECOMMENDED)**
-1. Buka level scene
-2. Pilih node `UI` (CanvasLayer)
-3. **Scene → Instantiate Child Scene**
-4. Pilih `scenes/ui/GameHUD.tscn`
-5. Save
-
-✅ **GameHUD sudah terinstall di semua level!** (Level 1-5)
-
-**Method 2: Edit Layout via GUI Godot**
-1. Buka `scenes/ui/GameHUD.tscn` di Godot Editor
-2. Pilih `TimerPanel` atau `LivesPanel` di Scene Tree
-3. Di Inspector, ubah:
-   - **Position**: offset_left, offset_top untuk geser panel
-   - **Size**: offset_right, offset_bottom untuk resize
-4. Pilih `TimerLabel` atau `LivesLabel`:
-   - Theme Overrides → Font Sizes → font_size
-   - Theme Overrides → Colors → font_color
-5. Save (Ctrl+S)
-
-**Dokumentasi Layout**: Lihat `GAMEHUD_LAYOUT.md` untuk panduan lengkap
-
-**API Usage:**
-```csharp
-// Timer
-TimerManager.Instance.StartTimer(300f, "Level 1");
-TimerManager.Instance.AddTime(30f); // Bonus time
-TimerManager.Instance.CompleteLevel();
-
-// Lives
-LivesManager.Instance.LoseLife();
-LivesManager.Instance.GainLife();
-bool hasLives = LivesManager.Instance.HasLivesRemaining();
-```
-
-**Customization:**
-- Time per level: Edit `LevelTimeLimit` in Inspector
-- Max lives: Edit `MaxLives` in `LivesManager.cs` (default: 3)
-- UI position: Edit `_timerPosition` and `_livesPosition` in `GameHUD.cs`
-
----
-
-### 🎒 Inventory System
-
-16-slot inventory (4x4 grid) + 4-slot hotbar dengan drag-drop support.
-
-**Files:**
-- Scene: `scenes/ui/InventoryUI.tscn`
-- Script: `scripts/ui/InventoryUI.cs`
-
-**Node Structure:**
-```
-InventoryUI (Control)
-└─ InventoryPanel (Panel)
-   └─ VBoxContainer
-      ├─ TitleLabel
-      ├─ InventoryGrid (GridContainer)
-      ├─ SelectedItemLabel
-      └─ InstructionsLabel
-```
-
-**Visual Editing via Godot Editor:**
-1. Open `scenes/ui/InventoryUI.tscn`
-2. Select root node `InventoryUI`
-3. In Inspector, modify Export Variables:
-   - Inventory Columns/Rows: Grid size
-   - Hotbar Slots: Number of hotbar slots
-   - Slot Size: Slot dimensions (default: 80x80)
-   - Hotbar Position: Position from center-bottom
-
-**Per-Level Configuration:**
-- All levels use same inventory: 16 slots (4x4) + 4 hotbar
-- Automatically instantiated in `Main.tscn` under `UI` node
-
----
-
-### 🗺️ Static Minimap System
-
-Lightweight static minimap yang menampilkan seluruh area level dengan notasi warna berbeda untuk setiap tipe object. Menggunakan sistem **grup Godot** untuk fleksibilitas.
-
-**Files:**
-- Scene: `scenes/ui/MinimapRenderer.tscn`
-- Script: `scripts/ui/MinimapRenderer.cs`
-
-**Color Codes:**
-- 🟢 **Hijau** = Player (`minimap_player`)
-- 🟡 **Kuning** = Items (`minimap_item`)
-- 🟣 **Ungu** = Interactable Objects/Puzzles (`minimap_interactable`)
-- ⚫ **Hitam/Abu** = Obstacles/Walls (`minimap_obstacle`)
-
-**Setup per Level:**
-
-**Method 1: Instantiate via Godot Editor (RECOMMENDED)**
-1. Buka scene level (e.g., `level_1_cell/Main.tscn`)
-2. Pilih node `UI` (CanvasLayer)
-3. **Scene → Instantiate Child Scene**
-4. Pilih `scenes/ui/MinimapRenderer.tscn`
-5. Save
-
-**Method 2: Add Nodes to Groups**
-1. Pilih node yang ingin ditampilkan di minimap (Player, Items, Doors, Walls, etc.)
-2. Di Inspector, tab **Node** → **Groups** → ketik nama grup:
-   - `minimap_player` untuk Player
-   - `minimap_item` untuk items yang bisa dipick
-   - `minimap_interactable` untuk puzzle objects, doors, control panels
-   - `minimap_obstacle` untuk walls, barriers, obstacles
-3. Klik **Add**
-4. Ulangi untuk semua objects yang ingin ditampilkan
-
-**Customization via Inspector:**
-```
-Minimap Settings:
-  - Minimap Size: Ukuran minimap (default: 200x200)
-  - Margin: Jarak dari edge layar (default: 20)
+<details>
+  <summary><b>Click to reveal the Story of Ironfang Prison...</b></summary>
+  <br />
+  You awake in the cold, damp cells of Ironfang, a prisoner of King Valerius. The air is thick with the scent of old stone and the whispers of those who failed before you. 
   
-Visual Settings:
-  - Background Color: Warna background (default: hitam semi-transparent)
-  - Border Color: Warna border (default: putih)
-  
-Object Colors:
-  - Player Color, Item Color, Interactable Color, Obstacle Color
-  
-Dot Sizes:
-  - Player Dot Size, Item Dot Size, dll.
-  
-Level Bounds:
-  - Auto Detect Bounds: true (otomatis detect dari semua objects)
-  - Manual Bounds Min/Max: jika Auto Detect = false
-```
-
-**Contoh Penambahan Grup via Script (Optional):**
-```csharp
-// Di _Ready() Player
-AddToGroup("minimap_player");
-
-// Di _Ready() PickableItem
-AddToGroup("minimap_item");
-
-// Di _Ready() Puzzle/Door
-AddToGroup("minimap_interactable");
-```
-
-**Tips:**
-- **Auto-detect bounds** akan menghitung area level otomatis dari semua object
-- Minimap refresh setiap frame untuk tracking player movement
-- Semua objects di-render sebagai **titik bulat (circles)**
-- Posisi minimap: **bottom-right corner** (bisa diubah di script/Inspector)
+  But you are not alone. By your side lies the <b>Glimpse Grimoire</b>—an ancient, sentient book that knows exactly how you are going to die. To escape, you must embrace the spoilers of your own fate.
+</details>
 
 ---
 
-## File Structure
+## 🎮 Download & Play
+The pre-compiled `.exe` version for Windows is available for download via the links below:
 
-```
-scenes/
-├── common/
-│   ├── Player.tscn
-│   └── DroppedItem.tscn
-├── levels/
-│   ├── level_1_cell/Main.tscn
-│   ├── level_2_bridge/Main.tscn
-│   ├── level_3_lab/Main.tscn
-│   ├── level_4_library/Main.tscn
-│   └── level_5_Sewer/Main.tscn
-└── ui/
-    ├── GameHUD.tscn           # Timer & Lives display
-    ├── InventoryUI.tscn       # Inventory panel
-    ├── MinimapRenderer.tscn   # Static minimap (NEW)
-    ├── FailScreen.tscn        # Fail screen (auto-created)
-    ├── GameOverScreen.tscn    # Game over (auto-created)
-    └── [other UI scenes]
+<p align="left">
+  <a href="https://drive.google.com/drive/folders/1h9X5UylYJY7QUxNV77gM9wPW3s9zvlNa?usp=drive_link">
+    <img src="https://img.shields.io/badge/Download_From-Google_Drive-blue?style=for-the-badge&logo=googledrive&logoColor=white" />
+  </a>
+  <a href="https://werkloze.itch.io/the-echo-of-aethelgard">
+    <img src="https://img.shields.io/badge/Download_From-Itch.io-fa5c5c?style=for-the-badge&logo=itch.io&logoColor=white" />
+  </a>
+</p>
 
-scripts/
-├── common/               # Player, camera, movement
-├── items/               # Item system, pickups
-├── levels/              # Level-specific logic
-├── puzzles/             # Puzzle mechanics
-├── systems/             # Core managers (autoloaded)
-│   ├── TimerManager.cs
-│   ├── LivesManager.cs
-│   ├── InventorySystem.cs
-│   ├── MusicManager.cs
-│   └── CursorManager.cs
-└── ui/                  # UI controllers
-    ├── GameHUD.cs
-    ├── FailScreen.cs
-    ├── GameOverScreen.cs
-    ├── InventoryUI.cs
-    └── MinimapRenderer.cs   # Minimap renderer (NEW)
-```
+> [!NOTE]
+> **System Requirements:** Windows 10/11, .NET 8.0 Runtime, and a GPU compatible with Vulkan/Forward+.
 
 ---
 
-## Troubleshooting
-
-### HUD tidak muncul
-- ✅ Verifikasi `TimerManager` dan `LivesManager` ada di autoload (Project → Settings → Autoload)
-- ✅ Pastikan `GameHUD.tscn` sudah di-instantiate di node `UI`
-- ✅ Check console untuk error messages
-- ✅ Verify nodes di GameHUD.tscn: `GameHUD → TimerPanel/LivesPanel → Labels`
-- ✅ Pastikan `visible = true` di semua nodes (buka GameHUD.tscn, check Inspector)
-
-### Timer tidak countdown
-- ✅ Timer perlu di-start manual. Tambahkan di level script:
-  ```csharp
-  // Di _Ready() level script
-  if (TimerManager.Instance != null)
-      TimerManager.Instance.StartTimer(300f, "Level 1");
-  ```
-- ✅ Atau attach `LevelTimerStarter.cs` ke root node level
-- ✅ Check console: "Timer started" message
-
-### Lives tidak update
-- ✅ Check console: `LivesManager not found` ?
-- ✅ Verify LivesManager di autoload
-- ✅ Pastikan script dapat access Instance
-
-### Edit Layout HUD
-- **Via GUI Godot**: Buka `scenes/ui/GameHUD.tscn`
-- Pilih `TimerPanel` atau `LivesPanel`
-- Edit di Inspector: offset_left, offset_top, offset_right, offset_bottom
-- Detailed guide: Lihat comments di `GameHUD.cs`
+## ✨ Key Features
+* 👁️ **The Glimpse Mechanic:** Peer into the future to reveal hidden solutions and deadly spoilers.
+* 🏰 **Atmospheric 3D Low-Poly:** Haunting medieval aesthetics crafted for deep immersion.
+* 🧩 **Logic-Driven Puzzles:** 5 hand-crafted levels that test your memory and deductive reasoning.
+* 📖 **Sentient Narrative:** Experience a story that talks back to you through the Glimpse Grimoire.
 
 ---
 
-## Development Roadmap
-
-### Completed ✅
-- Dual camera system
-- Inventory with drag-drop
-- Timer & lives system with fail states
-- Multiple puzzles (door, mixing, grid)
-- Item interaction system
-
-### In Progress 🚧
-- Additional levels and puzzles
-- Save/load system
-- Audio/music integration
-- Story progression mechanics
-
-### Planned 📋
-- Achievement system
-- Difficulty modes
-- Time bonus pickups
-- Extra life collectibles
-- Enhanced visual effects
-- Localization support
+## 🛠 Current Development Status
+- [x] Core Movement & Camera Systems (Top-down)
+- [x] Glimpse (Spoiler) Mechanic Logic
+- [x] Level 1 - 4 Puzzle Implementation
+- [x] Level 5 Final Escape & Polishing
+- [x] Main Menu & Dynamic Credits
+- [x] Sound Mastering (Final Pass)
 
 ---
 
-## Development Team
-
-**Politeknik Negeri Bandung**
-- Farras Ahmad Rasyid
-- Satria Permata Sejati
-- Nieto Salim Maula
-- Umar Faruq Robbany
-- Muhammad Ichsan Rahmat Ramadhan
+## 📸 Screenshots
+<p align="center">
+  <img src="link_to_screenshot_1" width="48%" alt="Dungeon Gameplay" />
+  <img src="link_to_screenshot_2" width="48%" alt="The Glimpse Vision" />
+</p>
 
 ---
 
-## License
-
-© 2026 Politeknik Negeri Bandung. All rights reserved.
-
----
-
-## Quick Reference
-
-**Autoloaded Singletons:**
-- `CursorManager` - Cursor management
-- `PanelManager` - Panel state tracking
-- `SettingsManager` - Game settings
-- `MusicManager` - Background music
-- `ButtonSoundManager` - UI sounds
-- `TimerManager` - Level timers
-- `LivesManager` - Player lives
-
-**Key Scenes:**
-- `scenes/ui/GameHUD.tscn` - Timer & Lives UI
-- `scenes/ui/InventoryUI.tscn` - Inventory panel
-- `scenes/common/Player.tscn` - Player character
-
-**Essential Scripts:**
-- `scripts/systems/LevelGameManager.cs` - Level integration
-- `scripts/ui/GameHUD.cs` - HUD controller
-- `scripts/ui/InventoryUI.cs` - Inventory controller
+## ⌨️ Controls
+| Action | Key Binding |
+| :--- | :--- |
+| **Movement** | `W` `A` `S` `D` |
+| **Interact** | `E` `F` `Q` |
+| **The Glimpse (Spoiler)** | `SPACE` or `Right Click` |
+| **Inventory** | `I` |
+| **Pause Menu** | `ESC` |
 
 ---
 
-**For detailed API documentation and advanced customization, refer to individual script comments.**
+## 🛠 Built With
+<p align="left">
+  <img src="https://img.shields.io/badge/Godot_4.6-%23478cbf.svg?style=flat-square&logo=godot-engine&logoColor=white" />
+  <img src="https://img.shields.io/badge/c%23-%23239120.svg?style=flat-square&logo=c-sharp&logoColor=white" />
+  <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=flat-square&logo=blender&logoColor=white" />
+  <img src="https://img.shields.io/badge/Figma-%23F24E1E.svg?style=flat-square&logo=figma&logoColor=white" />
+  <img src="https://img.shields.io/badge/Canva-%2300C4CC.svg?style=flat-square&logo=canva&logoColor=white" />
+  <img src="https://img.shields.io/badge/Adobe_Photoshop-31A8FF?style=flat-square&logo=adobephotoshop&logoColor=white" />
+</p>
+
+---
+
+## 👥 The Architects (Credits)
+Developed by **Team "h-2 jam masih mikirin nama tim"** **Politeknik Negeri Bandung (POLBAN)**
+
+| Role | Architect | Badge |
+| :--- | :--- | :--- |
+| **Project Manager** | Nieto Salim Maula | ![PM](https://img.shields.io/badge/Lead-Narrative-orange) |
+| **Systems Lead** | Muhammad Ichsan R.R. | ![Dev](https://img.shields.io/badge/Systems-Programmer-blue) |
+| **Gameplay Logic** | Satria Permata Sejati | ![Dev](https://img.shields.io/badge/Logic-Programmer-green) |
+| **Visual Lead** | Umar Faruq Robbany | ![Art](https://img.shields.io/badge/3D-Artist-red) |
+| **UI/UX Designer** | Farras Ahmad Rasyid | ![Design](https://img.shields.io/badge/UI%2FUX-Artist-purple) |
+
+---
+
+## 📜 License
+This project is licensed under the MIT License.
+
+<p align="center">
+  ━━━━━━━ ⚡ ━━━━━━━<br>
+  <i>"The Echo of Aethelgard will return."</i>
+</p>

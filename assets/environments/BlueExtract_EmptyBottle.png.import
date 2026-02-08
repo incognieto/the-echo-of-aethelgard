@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dsfejbu4kcgxr"
 path.s3tc="res://.godot/imported/BlueExtract_EmptyBottle.png-7074a661b302a6e90832981529abfd20.s3tc.ctex"
+path.etc2="res://.godot/imported/BlueExtract_EmptyBottle.png-7074a661b302a6e90832981529abfd20.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/environments/BlueExtract_EmptyBottle.png"
-dest_files=["res://.godot/imported/BlueExtract_EmptyBottle.png-7074a661b302a6e90832981529abfd20.s3tc.ctex"]
+dest_files=["res://.godot/imported/BlueExtract_EmptyBottle.png-7074a661b302a6e90832981529abfd20.s3tc.ctex", "res://.godot/imported/BlueExtract_EmptyBottle.png-7074a661b302a6e90832981529abfd20.etc2.ctex"]
 
 [params]
 

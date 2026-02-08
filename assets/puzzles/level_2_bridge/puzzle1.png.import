@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvgukjrdr8632"
 path.s3tc="res://.godot/imported/puzzle1.png-460acb806a7be69f191224fe6b46a22c.s3tc.ctex"
+path.etc2="res://.godot/imported/puzzle1.png-460acb806a7be69f191224fe6b46a22c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/puzzles/level_2_bridge/puzzle1.png"
-dest_files=["res://.godot/imported/puzzle1.png-460acb806a7be69f191224fe6b46a22c.s3tc.ctex"]
+dest_files=["res://.godot/imported/puzzle1.png-460acb806a7be69f191224fe6b46a22c.s3tc.ctex", "res://.godot/imported/puzzle1.png-460acb806a7be69f191224fe6b46a22c.etc2.ctex"]
 
 [params]
 

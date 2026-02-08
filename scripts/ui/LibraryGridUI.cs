@@ -455,7 +455,13 @@ public partial class LibraryGridUI : Control
 		_gridSlots[slotIndex].SetSelected(true);
 		
 		var romanNumeral = _gridSlots[slotIndex].GetRomanNumeral();
-		_feedbackLabel.Text = $"Slot {romanNumeral} selected. Now click a book from the list.";
+		
+		// Update feedback selected slot with romann numeral
+		//_feedbackLabel.Text = $"Slot {romanNumeral} selected. Now click a book from the list.";
+		
+		// Update feedback select slot without roman numeral
+		_feedbackLabel.Text = $"Slot selected. Now click a book from the list.";
+		
 		_feedbackLabel.Modulate = new Color(0.5f, 0.8f, 1f);
 	}
 	

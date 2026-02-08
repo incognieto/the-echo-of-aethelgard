@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bq2u0rt5iu4ry"
 path.s3tc="res://.godot/imported/dark_wooden_planks_nor_dx_1k.png-73924db5eb6f7321e866ca67cd52c837.s3tc.ctex"
+path.etc2="res://.godot/imported/dark_wooden_planks_nor_dx_1k.png-73924db5eb6f7321e866ca67cd52c837.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/dark_wooden_planks_nor_dx_1k.png"
-dest_files=["res://.godot/imported/dark_wooden_planks_nor_dx_1k.png-73924db5eb6f7321e866ca67cd52c837.s3tc.ctex"]
+dest_files=["res://.godot/imported/dark_wooden_planks_nor_dx_1k.png-73924db5eb6f7321e866ca67cd52c837.s3tc.ctex", "res://.godot/imported/dark_wooden_planks_nor_dx_1k.png-73924db5eb6f7321e866ca67cd52c837.etc2.ctex"]
 
 [params]
 
