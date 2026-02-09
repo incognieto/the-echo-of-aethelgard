@@ -143,7 +143,8 @@ public partial class BridgePuzzleUI : Control
 				EmitSignal(SignalName.PuzzleCompleted, false);
 				Hide();
 				InventoryUI.IsAnyPanelOpen = false; // Clear global flag
-				Input.MouseMode = Input.MouseModeEnum.Captured;
+				// Don't set mouse mode to Captured here - let FailScreen handle it
+				// Input.MouseMode = Input.MouseModeEnum.Captured;
 				_displayLabel.AddThemeColorOverride("font_color", Colors.Black);
 			};
 		}

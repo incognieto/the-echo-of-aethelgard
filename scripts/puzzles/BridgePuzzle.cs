@@ -40,6 +40,8 @@ public partial class BridgePuzzle : Node3D
 	
 	private Node3D _bridge1;
 	private Node3D _bridge2;
+	private Vector3 _bridge1StartPos; // Store initial Bridge1 position
+	private Vector3 _bridge1StartRot; // Store initial Bridge1 rotation
 	private Vector3 _bridge2StartPos;
 	private Vector3 _bridge2TargetPos;
 	
@@ -50,6 +52,7 @@ public partial class BridgePuzzle : Node3D
 	private Camera3D _playerCamera;
 	private ColorRect _fadeRect;
 	private bool _isCameraSequencePlaying = false;
+	private Tween _bridge1CollapseTween; // Track tween for killing on reset
 
 	public override void _Ready()
 	{
@@ -57,7 +60,9 @@ public partial class BridgePuzzle : Node3D
 		if (Bridge1Path != null && !Bridge1Path.IsEmpty)
 		{
 			_bridge1 = GetNode<Node3D>(Bridge1Path);
-			GD.Print($"✓ Bridge1 found at {_bridge1.GlobalPosition}");
+			_bridge1StartPos = _bridge1.GlobalPosition; // Save initial position
+			_bridge1StartRot = _bridge1.Rotation; // Save initial rotation
+			GD.Print($"✓ Bridge1 found at {_bridge1.GlobalPosition}, rotation: {_bridge1.Rotation}");
 		}
 		else
 		{
@@ -230,8 +235,12 @@ public partial class BridgePuzzle : Node3D
 		_isPuzzleFailed = true;
 		GD.Print("✗ Bridge puzzle FAILED! Starting camera sequence...");
 		
-		// Start camera sequence animation
-		PlayCameraSequence(false);
+		// Handle wrong answer - reduce lives and show fail screen
+		OnWrongAnswer();
+		
+		// Reset puzzle flags untuk bisa coba lagi
+		_isPuzzleFailed = false;
+		_isAnimating = false;
 	}
 
 	private void CollapseBridge1()
@@ -239,6 +248,12 @@ public partial class BridgePuzzle : Node3D
 		if (_bridge1 == null) return;
 		
 		GD.Print("💥 Bridge1 RUNTUH!");
+		
+		// Kill previous tween if exists
+		if (_bridge1CollapseTween != null && _bridge1CollapseTween.IsRunning())
+		{
+			_bridge1CollapseTween.Kill();
+		}
 		
 		// Hapus CollisionShape dari Bridge1 agar player jatuh
 		foreach (Node child in _bridge1.GetChildren())
@@ -252,16 +267,16 @@ public partial class BridgePuzzle : Node3D
 		
 		// Optional: Tambahkan efek visual runtuh (rotasi/jatuh)
 		// Convert Bridge1 ke RigidBody3D atau tambahkan animasi
-		var tween = CreateTween();
-		tween.SetParallel(true);
+		_bridge1CollapseTween = CreateTween();
+		_bridge1CollapseTween.SetParallel(true);
 		
 		// Jatuh ke bawah sambil berputar
-		tween.TweenProperty(_bridge1, "global_position:y", _bridge1.GlobalPosition.Y - 50, 3.0);
-		tween.TweenProperty(_bridge1, "rotation:x", Mathf.DegToRad(90), 2.0); // Miring ke depan
-		tween.TweenProperty(_bridge1, "rotation:z", Mathf.DegToRad(15), 1.5); // Sedikit berputar
+		_bridge1CollapseTween.TweenProperty(_bridge1, "global_position:y", _bridge1.GlobalPosition.Y - 50, 3.0);
+		_bridge1CollapseTween.TweenProperty(_bridge1, "rotation:x", Mathf.DegToRad(90), 2.0); // Miring ke depan
+		_bridge1CollapseTween.TweenProperty(_bridge1, "rotation:z", Mathf.DegToRad(15), 1.5); // Sedikit berputar
 		
 		// Setelah jatuh, sembunyikan atau hapus
-		tween.Chain().TweenCallback(Callable.From(() => 
+		_bridge1CollapseTween.Chain().TweenCallback(Callable.From(() => 
 		{
 			if (_bridge1 != null)
 			{
@@ -464,5 +479,129 @@ public partial class BridgePuzzle : Node3D
 		// Trigger collapse after delay
 		GetTree().CreateTimer(Bridge1CollapseDelay).Timeout += CollapseBridge1;
 		GD.Print("  Bridge1 collapse scheduled");
+	}
+
+	/// <summary>
+	/// Reset puzzle state untuk respawn - allow player untuk mengisi puzzle lagi
+	/// </summary>
+	public void ResetPuzzle()
+	{
+		GD.Print("🔄 BridgePuzzle: Resetting puzzle state...");
+		
+		// Reset puzzle state flags
+		_isPuzzleSolved = false;
+		_isPuzzleFailed = false;
+		_isAnimating = false;
+		_isCameraSequencePlaying = false;
+		
+		// Reset Bridge1 if it was collapsed
+		if (_bridge1 != null)
+		{
+			// CRITICAL: Kill any running tweens on Bridge1 first
+			if (_bridge1CollapseTween != null && _bridge1CollapseTween.IsRunning())
+			{
+				_bridge1CollapseTween.Kill();
+				GD.Print("  Killed running Bridge1 collapse tween");
+			}
+			
+			_bridge1.Visible = true;
+			_bridge1.Rotation = _bridge1StartRot; // Restore to initial rotation
+			_bridge1.GlobalPosition = _bridge1StartPos; // Restore to initial position
+			
+			// Re-enable collision shapes
+			foreach (Node child in _bridge1.GetChildren())
+			{
+				if (child is CollisionShape3D collisionShape)
+				{
+					collisionShape.Disabled = false;
+				}
+			}
+			
+			GD.Print($"  Bridge1 restored to initial position: {_bridge1StartPos}, rotation: {_bridge1StartRot}");
+		}
+		
+		// Reset Bridge2 to start position
+		if (_bridge2 != null)
+		{
+			_bridge2.GlobalPosition = _bridge2StartPos;
+			GD.Print("  Bridge2 reset to start position");
+		}
+		
+		// Hide puzzle UI
+		if (_puzzleUI != null)
+		{
+			_puzzleUI.Hide();
+			GD.Print("  Puzzle UI hidden");
+		}
+		
+		GD.Print("✅ BridgePuzzle reset complete!");
+	}
+
+	/// <summary>
+	/// Handle wrong answer - lose life dan show fail screen atau reset puzzle
+	/// </summary>
+	public void OnWrongAnswer()
+	{
+		GD.Print("❌ BridgePuzzle: Wrong answer! Reducing lives...");
+		
+		// CRITICAL: Hide puzzle UI first before showing fail screen
+		if (_puzzleUI != null)
+		{
+			_puzzleUI.Hide();
+			GD.Print("🚫 Puzzle UI hidden before fail screen");
+		}
+		
+		// Use CallDeferred to ensure mouse mode is set AFTER all UI operations complete
+		CallDeferred(MethodName.ShowFailScreenForWrongAnswer);
+	}
+
+	private void ShowFailScreenForWrongAnswer()
+	{
+		// Ensure mouse is visible for fail screen interaction
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		GD.Print($"👁️ Mouse mode set to: {Input.MouseMode}");
+		
+		// DON'T reduce lives here - FailScreen will handle it when Respawn button is clicked
+		// This prevents double life loss (once here, once in FailScreen.OnRespawnPressed)
+		
+		if (LivesManager.Instance != null)
+		{
+			// Check if this will be the last life AFTER losing it
+			if (LivesManager.Instance.CurrentLives == 1)
+			{
+				// This will be last life - show game over after losing life
+				GD.Print("💀 This is the last life - will show Game Over after losing it");
+				var failScreen = GetTree().Root.GetNodeOrNull<FailScreen>("/root/Main/UI/FailScreen");
+				if (failScreen != null)
+				{
+					// FailScreen will handle LoseLife() and show Game Over
+					if (failScreen.GetNode<Label>("MessagePanel/VBoxContainer/MessageLabel") is Label msgLabel)
+					{
+						msgLabel.Text = "Wrong answer!\nYou lost a life!";
+					}
+					failScreen.FadeIn();
+					GD.Print("🎬 Fail screen shown - will handle life loss");
+				}
+			}
+			else if (LivesManager.Instance.CurrentLives > 1)
+			{
+				// Still have multiple lives
+				GD.Print($"💚 Currently have {LivesManager.Instance.CurrentLives} lives - showing fail screen");
+				var failScreen = GetTree().Root.GetNodeOrNull<FailScreen>("/root/Main/UI/FailScreen");
+				if (failScreen != null)
+				{
+					if (failScreen.GetNode<Label>("MessagePanel/VBoxContainer/MessageLabel") is Label msgLabel)
+					{
+						msgLabel.Text = "Wrong answer!\nYou lost a life!";
+					}
+					failScreen.FadeIn();
+					GD.Print("🎬 Fail screen shown with cursor visible");
+				}
+			}
+		}
+		else
+		{
+			GD.PrintErr("❌ LivesManager not found!");
+		}
 	}
 }

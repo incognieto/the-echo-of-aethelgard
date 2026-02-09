@@ -177,8 +177,36 @@ public partial class FailScreen : Control
 			FadeIn();
 		}
 	}
+
+	/// <summary>
+	/// Public method to trigger fail screen when player falls into void
+	/// </summary>
+	public void OnPlayerFellInVoid()
+	{
+		GD.Print("⚠️ FailScreen.OnPlayerFellInVoid() - Player fell into the void!");
+		
+		// Set message untuk void fall
+		if (_messageLabel != null)
+		{
+			_messageLabel.Text = "You fell into the void...";
+		}
+		
+		// Check if this is the last life (nyawa terakhir)
+		if (LivesManager.Instance != null && LivesManager.Instance.CurrentLives == 1)
+		{
+			// Last life - langsung ke Game Over tanpa tampilkan FailScreen
+			GD.Print("💀 Last life detected (nyawa = 1) - going directly to Game Over");
+			ShowGameOverDirectly("You fell into the void...");
+		}
+		else
+		{
+			// Masih ada nyawa untuk di-respawn - tampilkan fail screen
+			GD.Print($"💚 Lives remaining: {LivesManager.Instance?.CurrentLives ?? 0} - showing fail screen");
+			FadeIn();
+		}
+	}
 	
-	private void FadeIn()
+	public void FadeIn()
 	{
 		GD.Print("📺 FailScreen.FadeIn() - Showing fail screen");
 		Visible = true;
@@ -198,8 +226,12 @@ public partial class FailScreen : Control
 		InventoryUI.IsAnyPanelOpen = true;
 		GD.Print("✅ Inventory blocked (IsAnyPanelOpen = true)");
 		
-		// Show cursor for button interaction
+		// Show cursor for button interaction - force set multiple times to ensure it sticks
 		Input.MouseMode = Input.MouseModeEnum.Visible;
+		GD.Print($"👁️ Mouse mode set to Visible: {Input.MouseMode}");
+		
+		// Double-check mouse mode with CallDeferred
+		CallDeferred(MethodName.EnsureMouseVisible);
 		
 		// Reset alpha for animation
 		if (_blackCover != null)
@@ -230,6 +262,12 @@ public partial class FailScreen : Control
 		
 		// Pause the game
 		GetTree().Paused = true;
+	}
+	
+	private void EnsureMouseVisible()
+	{
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		GD.Print($"🔒 EnsureMouseVisible called - Mouse mode: {Input.MouseMode}");
 	}
 	
 	private void OnRespawnPressed()
@@ -361,7 +399,7 @@ public partial class FailScreen : Control
 		}));
 	}
 	
-	private void ShowGameOverDirectly(string customMessage = null)
+	public void ShowGameOverDirectly(string customMessage = null)
 	{
 		GD.Print("💀 ShowGameOverDirectly - skipping fail screen, going to game over");
 		

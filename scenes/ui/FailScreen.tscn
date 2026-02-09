@@ -5,6 +5,7 @@
 
 [node name="FailScreen" type="Control" unique_id=2049729179]
 visible = false
+z_index = 1000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +14,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_failscreen")
-z_index = 1000
 
 [node name="BlackCover" type="ColorRect" parent="." unique_id=1585173471]
 layout_mode = 1
