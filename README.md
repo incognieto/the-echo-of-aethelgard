@@ -58,6 +58,10 @@ The pre-compiled `.exe` version for Windows is available for download via the li
 
 ## ✨ Key Features
 * 👁️ **The Glimpse Mechanic:** Peer into the future to reveal hidden solutions and deadly spoilers.
+<p align="center">
+  <img src="assets/readme/glimpse-mechanic.gif" width="80%" alt="Glimpse Mechanic Preview" />
+</p>
+
 * 🏰 **Atmospheric 3D Low-Poly:** Haunting medieval aesthetics crafted for deep immersion.
 * 🧩 **Logic-Driven Puzzles:** 5 hand-crafted levels that test your memory and deductive reasoning.
 * 📖 **Sentient Narrative:** Experience a story that talks back to you through the Glimpse Grimoire.
@@ -76,8 +80,8 @@ The pre-compiled `.exe` version for Windows is available for download via the li
 
 ## 📸 Screenshots
 <p align="center">
-  <img src="link_to_screenshot_1" width="48%" alt="Dungeon Gameplay" />
-  <img src="link_to_screenshot_2" width="48%" alt="The Glimpse Vision" />
+  <img src="/assets/readme/screenshot-1.png" width="48%" alt="Dungeon Gameplay" />
+  <img src="/assets/readme/screenshot-2.png" width="48%" alt="The Glimpse Vision" />
 </p>
 
 ---
