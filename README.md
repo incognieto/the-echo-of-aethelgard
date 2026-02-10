@@ -1,7 +1,7 @@
 # 📖 The Echo of Aethelgard
 
 <p align="center">
-  <img src="link_to_your_banner_image" width="100%" alt="Header Banner" />
+  <img src="assets/readme/banner-header.png" width="100%" alt="Header Banner" />
 </p>
 
 <p align="center">
@@ -14,7 +14,9 @@
   <b><i>"Your death is already written. Will you read the spoiler, or dare to rewrite the end?"</i></b>
 </p>
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 📍 Quick Navigation
 * [📖 The Lore](#-the-forbidden-archives)
@@ -23,7 +25,9 @@
 * [⌨️ Controls](#-controls)
 * [👥 The Architects](#-the-architects-credits)
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 📜 The Forbidden Archives
 > [!IMPORTANT]
@@ -37,7 +41,9 @@
   But you are not alone. By your side lies the <b>Glimpse Grimoire</b>—an ancient, sentient book that knows exactly how you are going to die. To escape, you must embrace the spoilers of your own fate.
 </details>
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 🎮 Download & Play
 The pre-compiled `.exe` version for Windows is available for download via the links below:
@@ -54,7 +60,9 @@ The pre-compiled `.exe` version for Windows is available for download via the li
 > [!NOTE]
 > **System Requirements:** Windows 10/11, .NET 8.0 Runtime, and a GPU compatible with Vulkan/Forward+.
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## ✨ Key Features
 * 👁️ **The Glimpse Mechanic:** Peer into the future to reveal hidden solutions and deadly spoilers.
@@ -66,7 +74,9 @@ The pre-compiled `.exe` version for Windows is available for download via the li
 * 🧩 **Logic-Driven Puzzles:** 5 hand-crafted levels that test your memory and deductive reasoning.
 * 📖 **Sentient Narrative:** Experience a story that talks back to you through the Glimpse Grimoire.
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 🛠 Current Development Status
 - [x] Core Movement & Camera Systems (Top-down)
@@ -76,15 +86,19 @@ The pre-compiled `.exe` version for Windows is available for download via the li
 - [x] Main Menu & Dynamic Credits
 - [x] Sound Mastering (Final Pass)
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 📸 Screenshots
 <p align="center">
-  <img src="/assets/readme/screenshot-1.png" width="48%" alt="Dungeon Gameplay" />
-  <img src="/assets/readme/screenshot-2.png" width="48%" alt="The Glimpse Vision" />
+  <img src="assets/readme/screenshot-1.png" width="48%" alt="Dungeon Gameplay" />
+  <img src="assets/readme/screenshot-2.png" width="48%" alt="The Glimpse Vision" />
 </p>
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## ⌨️ Controls
 | Action | Key Binding |
@@ -95,7 +109,9 @@ The pre-compiled `.exe` version for Windows is available for download via the li
 | **Inventory** | `I` |
 | **Pause Menu** | `ESC` |
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 🛠 Built With
 <p align="left">
@@ -107,7 +123,9 @@ The pre-compiled `.exe` version for Windows is available for download via the li
   <img src="https://img.shields.io/badge/Adobe_Photoshop-31A8FF?style=flat-square&logo=adobephotoshop&logoColor=white" />
 </p>
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 👥 The Architects (Credits)
 Developed by **Team "h-2 jam masih mikirin nama tim"** **Politeknik Negeri Bandung (POLBAN)**
@@ -120,7 +138,9 @@ Developed by **Team "h-2 jam masih mikirin nama tim"** **Politeknik Negeri Bandu
 | **Visual Lead** | Umar Faruq Robbany | ![Art](https://img.shields.io/badge/3D-Artist-red) |
 | **UI/UX Designer** | Farras Ahmad Rasyid | ![Design](https://img.shields.io/badge/UI%2FUX-Artist-purple) |
 
----
+<p align="center">
+  <img src="assets/readme/medieval-divider.png" width="100%" />
+</p>
 
 ## 📜 License
 This project is licensed under the MIT License.
